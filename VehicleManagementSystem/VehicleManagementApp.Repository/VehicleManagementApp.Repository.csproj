@@ -156,9 +156,21 @@
     <Compile Include="Migrations\201809101717276_ManagerTableStatusFieldAdded.Designer.cs">
       <DependentUpon>201809101717276_ManagerTableStatusFieldAdded.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201809140309241_CommentId_Nullable_tblComment.cs" />
-    <Compile Include="Migrations\201809140309241_CommentId_Nullable_tblComment.Designer.cs">
-      <DependentUpon>201809140309241_CommentId_Nullable_tblComment.cs</DependentUpon>
+    <Compile Include="Migrations\201809120347311_CommentModelChanges.cs" />
+    <Compile Include="Migrations\201809120347311_CommentModelChanges.Designer.cs">
+      <DependentUpon>201809120347311_CommentModelChanges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809120613305_EmployeeTableStatusFieldAdded.cs" />
+    <Compile Include="Migrations\201809120613305_EmployeeTableStatusFieldAdded.Designer.cs">
+      <DependentUpon>201809120613305_EmployeeTableStatusFieldAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809150905556_RequsitionStatusAndRoleTableRemoveFromProject.cs" />
+    <Compile Include="Migrations\201809150905556_RequsitionStatusAndRoleTableRemoveFromProject.Designer.cs">
+      <DependentUpon>201809150905556_RequsitionStatusAndRoleTableRemoveFromProject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809170852286_EmployeeTableAndRequsitiontableChange.cs" />
+    <Compile Include="Migrations\201809170852286_EmployeeTableAndRequsitiontableChange.Designer.cs">
+      <DependentUpon>201809170852286_EmployeeTableAndRequsitiontableChange.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OrganaizationRepository.cs" />
@@ -267,8 +279,17 @@
     <EmbeddedResource Include="Migrations\201809101717276_ManagerTableStatusFieldAdded.resx">
       <DependentUpon>201809101717276_ManagerTableStatusFieldAdded.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201809140309241_CommentId_Nullable_tblComment.resx">
-      <DependentUpon>201809140309241_CommentId_Nullable_tblComment.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201809120347311_CommentModelChanges.resx">
+      <DependentUpon>201809120347311_CommentModelChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809120613305_EmployeeTableStatusFieldAdded.resx">
+      <DependentUpon>201809120613305_EmployeeTableStatusFieldAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809150905556_RequsitionStatusAndRoleTableRemoveFromProject.resx">
+      <DependentUpon>201809150905556_RequsitionStatusAndRoleTableRemoveFromProject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809170852286_EmployeeTableAndRequsitiontableChange.resx">
+      <DependentUpon>201809170852286_EmployeeTableAndRequsitiontableChange.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

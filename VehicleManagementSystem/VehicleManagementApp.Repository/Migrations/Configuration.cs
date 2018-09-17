@@ -10,6 +10,7 @@ namespace VehicleManagementApp.Repository.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            //AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(VehicleManagementApp.Repository.DatabaseContext.VehicleDatabaseContext context)

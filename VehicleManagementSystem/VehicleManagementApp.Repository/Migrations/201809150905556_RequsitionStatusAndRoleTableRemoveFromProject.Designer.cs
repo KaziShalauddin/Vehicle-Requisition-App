@@ -7,13 +7,13 @@ namespace VehicleManagementApp.Repository.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class CommentId_Nullable_tblComment : IMigrationMetadata
+    public sealed partial class RequsitionStatusAndRoleTableRemoveFromProject : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CommentId_Nullable_tblComment));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(RequsitionStatusAndRoleTableRemoveFromProject));
         
         string IMigrationMetadata.Id
         {
-            get { return "201809140309241_CommentId_Nullable_tblComment"; }
+            get { return "201809150905556_RequsitionStatusAndRoleTableRemoveFromProject"; }
         }
         
         string IMigrationMetadata.Source
