@@ -1,0 +1,384 @@
+﻿@using System.Collections
+@using System.Web.Services.Description
+@using VehicleManagementApp.BLL
+@using VehicleManagementApp.BLL.Contracts
+@{
+    IRequsitionManager managers = new RequsitionManager();
+    IVehicleManager vehicle = new VehicleManager();
+    var totalVehicle = vehicle.GetAll().Count();
+    var assignVehicle = vehicle.Get(c => c.Status == "Assigned");
+    var freeVehicle = vehicle.Get(c => c.Status == null);
+
+    var managerNew = managers.Get(c => c.Status == null && c.IsDeleted == false);
+    var managerOnprogess = managers.Get(c => c.Status == "Seen" && c.IsDeleted == false);
+    var managerAssign = managers.Get(c => c.Status == "Assign" && c.IsDeleted == false);
+    var managerComplete = managers.Get(c => c.Status == "Complete" && c.IsDeleted == false);
+    var countNew = managerNew.Count;
+    var countSeed = managerOnprogess.Count;
+    var countAssign = managerAssign.Count;
+    var countComplete = managerComplete.Count;
+    var totalAssignedCar = assignVehicle.Count;
+    var totalFreeCar = freeVehicle.Count;
+}
+<!DOCTYPE html>
+<html lang="zxx" class="no-js">
+<head>
+    <!-- Mobile Specific Meta -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="~/thirdPartyCss/img/bcc_logo.png">
+    <!-- Author Meta -->
+    <meta name="author" content="codepixer">
+    <!-- Meta Description -->
+    <meta name="description" content="">
+    <!-- Meta Keyword -->
+    <meta name="keywords" content="">
+    <!-- meta character set -->
+    <meta charset="UTF-8">
+    <!-- Site Title -->
+    <title>BCC Vehicle Requisition</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
+    <!--
+    CSS
+    ============================================= -->
+    <link rel="stylesheet" href="~/thirdPartyCss/css/linearicons.css">
+    <link rel="stylesheet" href="~/thirdPartyCss/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/thirdPartyCss/css/bootstrap.css">
+    <link rel="stylesheet" href="~/thirdPartyCss/css/magnific-popup.css">
+    <link rel="stylesheet" href="~/thirdPartyCss/css/nice-select.css">
+    <link rel="stylesheet" href="~/thirdPartyCss/css/hexagons.min.css">
+    <link rel="stylesheet" href="~/thirdPartyCss/css/animate.min.css">
+    <link rel="stylesheet" href="~/thirdPartyCss/css/owl.carousel.css">
+    <link rel="stylesheet" href="~/thirdPartyCss/css/main.css">
+    <link href="~/thirdPartyCss/css/material-dashboard.css" rel="stylesheet" />
+    <link href="~/thirdPartyCss/css/demo.css" rel="stylesheet" />
+
+    @*=======================================================*@
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/normalize.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link href="~/css/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/Content/DataTables/css/dataTables.jqueryui.min.css" rel="stylesheet" />
+    <link href="~/css/jquery.datetimepicker.min.css" rel="stylesheet" />
+    <script src="~/js/vendor/modernizr-3.5.0.min.js"></script>
+</head>
+<body>
+    @*<div class="container">*@
+        <div class="row">
+            <header id="header">
+                <div class="container main-menu">
+                    <div class="row align-items-center justify-content-between d-flex">
+                        <div id="logo">
+                            <img src="~/thirdPartyCss/img/Untitled-1 copy.png" alt="" title="" />
+                        </div>
+                        <nav id="nav-menu-container">
+                            <ul class="nav-menu">
+                                <li class="menu-active">@Html.ActionLink("Home", "Index", "Home")</li>
+                                <li class="menu-has-children">
+                                    <a href="#">Setup</a>
+                                    <ul>
+                                        <li class="menu-has-children">
+                                            @Html.ActionLink("Organaization", "Index", "Organaization")
+                                            <ul>
+                                                <li>@Html.ActionLink("Department", "Index", "Department")</li>
+                                                <li>@Html.ActionLink("Designation", "Index", "Designation")</li>
+                                            </ul>
+                                        </li>
+                                        <li class="menu-has-children">
+                                            @Html.ActionLink("Division", "Index", "Division")
+                                            <ul>
+                                                <li>@Html.ActionLink("District", "Index", "District")</li>
+                                                <li>@Html.ActionLink("Upzilla", "Index", "Thana")</li>
+                                            </ul>
+                                        </li>
+
+                                        <li class="menu-has-children">
+                                            <a href="#">Employee</a>
+                                            <ul>
+                                                <li>@Html.ActionLink("Employee", "Index", "Employee")</li>
+                                                <li>@Html.ActionLink("Driver", "Driver", "Employee")</li>
+                                            </ul>
+                                        </li>
+                                        <li class="menu-has-children">
+                                            <a href="#">Vehicle</a>
+                                            <ul>
+                                                <li>@Html.ActionLink("Vehicle Type", "Index", "VehicleType")</li>
+                                                <li>@Html.ActionLink("Vehicle", "Index", "Vehicle")</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="menu-has-children">
+                                    <a href="#">Requisition</a>
+                                    <ul>
+                                        <li>@Html.ActionLink("Requisition", "RequisitionIndex", "Requsition")</li>
+                                        <li>@Html.ActionLink("Requisition Queue", "Index", "Manager")</li>
+                                    </ul>
+                                </li>
+                                <li class="menu-has-children">
+                                    <a href="#">Gate Pass</a>
+                                    <ul>
+                                        <li>@Html.ActionLink("Check Out", "CheckOut", "Manager")</li>
+                                        <li>@Html.ActionLink("Check In", "CheckIn", "Manager")</li>
+
+                                    </ul>
+                                </li>
+                                <li><a href="#">About</a></li>
+                                <li><a href="#">Contact</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <!-- #header -->
+        @*<div class="section-gap">*@
+        <div class="row">
+        <div class="col-md-2">
+
+            @*Sidebar Start*@
+            <div>
+                <div class="sidebar" style="padding-top: 70px">
+
+                    <div class="sidebar-wrapper">
+                        <ul class="nav">
+                            @*<li class="nav-item  ">
+                                    <a class="nav-link" href="">
+
+                                        <p>Dashboard</p>
+                                    </a>
+                                </li>*@
+                            <li class="nav-item ">
+                                <a class="nav-link" href="@Url.Action("New", "Manager")">
+                                    @*@Html.ActionLink("New Requisition(" + countNew + ")", "New", "Manager")*@
+                                    <p>New Requisitions ( @countNew )</p>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="@Url.Action("OnProgress", "Manager")">
+
+                                    <p>On Progress Requisitions ( @countSeed )</p>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="@Url.Action("AssignIndex", "Manager")">
+
+                                    <p>Assigned Requisitions ( @countAssign )</p>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="@Url.Action("Complete", "Manager")">
+
+                                    <p>Completed Requisitions( @countComplete )</p>
+                                </a>
+                            </li>
+                            @*<li class="nav-item ">
+                                <a class="nav-link" href="@Url.Action("Index", "Manager")">
+
+                                    <p>Cancle</p>
+                                </a>
+                            </li>*@
+                            <li class="nav-item ">
+                                <a class="nav-link" href="@Url.Action("DriverList", "Employee")">
+
+                                    <p>Driver</p>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="@Url.Action( "Car", "Manager")">
+
+                                    <p>Total Vehicle( @totalVehicle )</p>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="@Url.Action("AssignCar", "Manager")">
+
+                                    <p>Assigned Car( @totalAssignedCar )</p>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="@Url.Action("NonAssignCar", "Manager")">
+
+                                    <p>Free Vehicle( @totalFreeCar )</p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item ">
+                                <a class="nav-link" href="">
+
+                                    <p>Notifications</p>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+                <div class="visible-on-sidebar-mini">
+                    @*<nav id="nav-menu-container">*@
+                    <ul class="nav-menu">
+                        <li class="menu-active">@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li class="menu-has-children">
+                            <a href="#">Setup</a>
+                            <ul>
+                                <li class="menu-has-children">
+                                    @Html.ActionLink("Organaization", "Index", "Organaization")
+                                    <ul>
+                                        <li>@Html.ActionLink("Department", "Index", "Department")</li>
+                                        <li>@Html.ActionLink("Designation", "Index", "Designation")</li>
+                                    </ul>
+                                </li>
+                                <li class="menu-has-children">
+                                    @Html.ActionLink("Division", "Index", "Division")
+                                    <ul>
+                                        <li>@Html.ActionLink("District", "Index", "District")</li>
+                                        <li>@Html.ActionLink("Upzilla", "Index", "Thana")</li>
+                                    </ul>
+                                </li>
+
+                                <li class="menu-has-children">
+                                    <a href="#">Employee</a>
+                                    <ul>
+                                        <li>@Html.ActionLink("Employee", "Index", "Employee")</li>
+                                        <li>@Html.ActionLink("Driver", "Driver", "Employee")</li>
+                                    </ul>
+                                </li>
+                                <li class="menu-has-children">
+                                    <a href="#">Vehicle</a>
+                                    <ul>
+                                        <li>@Html.ActionLink("Vehicle Type", "Index", "VehicleType")</li>
+                                        <li>@Html.ActionLink("Vehicle", "Index", "Vehicle")</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="menu-has-children">
+                            <a href="#">Requisition</a>
+                            <ul>
+                                <li>@Html.ActionLink("Requisition", "RequisitionIndex", "Requsition")</li>
+                                <li>@Html.ActionLink("Requisition Queue", "Index", "Manager")</li>
+                            </ul>
+                        </li>
+                        <li class="menu-has-children">
+                            <a href="#">Gate Pass</a>
+                            <ul>
+                                <li>@Html.ActionLink("Check Out", "CheckOut", "Manager")</li>
+                                <li>@Html.ActionLink("Check In", "CheckIn", "Manager")</li>
+
+                            </ul>
+                        </li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                    @*</nav>*@
+                </div>
+            </div>
+            @*Sidebar End*@
+
+        </div>
+        <div class="col-md-10">
+
+            <div class="" style="padding-top: 120px; padding-left: 120px; padding-right: 100px;">
+                @RenderBody()
+            </div>
+
+        </div>
+    </div>
+    @*</div>*@
+    @*</div>*@
+    <!-- start footer Area -->
+    <div>
+        @*<footer class="footer-area">
+                <div class="footer">
+                    <div class="row">
+                        <div class="col-lg-5 col-md-6 col-sm-6">
+                            <div class="single-footer-widget">
+                                <h6>About Us</h6>
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore dolore magna aliqua.
+                                </p>
+                                <p class="footer-text">
+                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                    Copyright &copy;
+                                    <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-lg-5  col-md-6 col-sm-6">
+
+                        </div>
+                        <div class="col-lg-2 col-md-6 col-sm-6 social-widget">
+                            <div class="single-footer-widget">
+                                <h6>Follow Us</h6>
+                                <p>Let us be social</p>
+                                <div class="footer-social d-flex align-items-center">
+                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                    <a href="#"><i class="fa fa-twitter"></i></a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>*@
+    </div>
+    <!-- End footer Area -->
+
+    <script src="~/thirdPartyCss/js/vendor/jquery-2.2.4.min.js"></script>
+
+    <script src="~/scripts/jquery.validate.js"></script>
+    <script src="~/scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script src="~/scripts/jquery.datetimepicker.full.min.js"></script>
+    <script src="~/js/plugins.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/jquery.slicknav.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="~/thirdPartyCss/js/vendor/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
+    <script src="~/thirdPartyCss/js/easing.min.js"></script>
+    <script src="~/thirdPartyCss/js/hoverIntent.js"></script>
+    <script src="~/thirdPartyCss/js/superfish.min.js"></script>
+    <script src="~/thirdPartyCss/js/jquery.ajaxchimp.min.js"></script>
+    <script src="~/thirdPartyCss/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/thirdPartyCss/js/owl.carousel.min.js"></script>
+    <script src="~/thirdPartyCss/js/hexagons.min.js"></script>
+    <script src="~/thirdPartyCss/js/jquery.nice-select.min.js"></script>
+    <script src="~/thirdPartyCss/js/jquery.counterup.min.js"></script>
+    <script src="~/thirdPartyCss/js/waypoints.min.js"></script>
+    <script src="~/thirdPartyCss/js/mail-script.js"></script>
+    <script src="~/thirdPartyCss/js/main.js"></script>
+    @*=========================================================*@
+    <script src="~/thirdPartyCss/js/core/popper.min.js" type="text/javascript"></script>
+    <script src="~/thirdPartyCss/js/core/bootstrap-material-design.min.js" type="text/javascript"></script>
+    <script src="~/thirdPartyCss/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+
+    <script src="~/thirdPartyCss/js/plugins/chartist.min.js"></script>
+
+    <script src="~/thirdPartyCss/js/material-dashboard.min.js?v=2.1.0" type="text/javascript"></script>
+    <script src="~/thirdPartyCss/js/demo.js"></script>
+
+
+
+    @*<script src="~/js/owl.carousel.min.js"></script>
+        <script src="~/js/wow.min.js"></script>
+        <script src="~/js/jquery.fitvids.js"></script>
+        <script src="~/js/main.js"></script>*@
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            // Javascript method's body can be found in assets/js/demos.js
+            md.initDashboardPageCharts();
+
+        });
+    </script>
+    @RenderSection("scripts", required: false)
+</body>

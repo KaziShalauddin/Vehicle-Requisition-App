@@ -1,0 +1,71 @@
+﻿@model VehicleManagementApp.ViewModels.RequsitionViewModel
+
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_LayoutManager.cshtml";
+}
+<link rel="stylesheet" href="~/css/style.css">
+<link href="~/css/ssss.css" rel="stylesheet" />
+<h2>Requsition Details</h2>
+<hr />
+<div class="jumbotron">
+    <table class="details_view">
+        <tr>
+            <td class="title_name">@Html.DisplayNameFor(model => model.Id)</td>
+            <td>@Html.DisplayFor(model => model.Id)</td>
+        </tr>
+        <tr>
+            <td class="title_name">@Html.DisplayNameFor(model => model.EmployeeId)</td>
+            <td>@Html.DisplayFor(model => model.Employee.Name)</td>
+        </tr>
+        <tr>
+            <td class="title_name">@Html.DisplayNameFor(model => model.Form)</td>
+            <td>@Html.DisplayFor(model => model.Form)</td>
+        </tr>
+        <tr>
+            <td class="title_name">@Html.DisplayNameFor(model => model.To)</td>
+            <td>@Html.DisplayFor(model => model.To)</td>
+        </tr>
+        <tr>
+            <td class="title_name">@Html.DisplayNameFor(model => model.Description)</td>
+            <td>@Html.DisplayFor(model => model.Description)</td>
+        </tr>
+        <tr>
+            <td class="title_name">@Html.DisplayNameFor(model => model.JourneyStart)</td>
+            <td>@Html.DisplayFor(model => model.JourneyStart)</td>
+        </tr>
+        <tr>
+            <td class="title_name">@Html.DisplayNameFor(model => model.JouneyEnd)</td>
+            <td>@Html.DisplayFor(model => model.JouneyEnd)</td>
+        </tr>
+
+        <tr>
+
+            <td style="padding-top: 20px"></td>
+            @*<td>@Html.ActionLink("Assign", "id=assign_Confirm", new {id = "Id"}, new {@class = "btn btn-info btn-lg"})</td>*@
+            <td style="padding-top: 20px"></td>
+        </tr>
+
+    </table>
+    <ul>
+        <li>
+            @Html.ActionLink("Back to List", "New", null, new { @class = "btn btn-default", @style = "float: left" })
+        </li>
+        <li>
+            @Html.ActionLink("Assign", "Assign", new { id = Model.Id }, new { @class = "btn btn-info", @style = "float: right;" })
+        </li>
+    </ul>
+
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("#assign_Confirm").click(function () {
+                $("#assign_Confirm").show();
+                $("#assign_Confirm").hide();
+
+            });
+        });
+    </script>
+}

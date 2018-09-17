@@ -1,0 +1,47 @@
+﻿@model VehicleManagementApp.ViewModels.CommentViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Requsition Description</h1>
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>Form</td>
+                    <td>@Html.DisplayFor(model => model.RequsitionViewModel.Form)</td>
+                </tr>
+                <tr>
+                    <td>To</td>
+                    <td>@Html.DisplayFor(model => model.RequsitionViewModel.To)</td>
+                </tr>
+                <tr>
+                    <td>Description</td>
+                    <td>@Html.DisplayFor(model => model.RequsitionViewModel.Description)</td>
+                </tr>
+                <tr>
+                    <td>Start Time</td>
+                    <td>@Html.DisplayFor(model => model.RequsitionViewModel.JourneyStart)</td>
+                </tr>
+                <tr>
+                    <td>End Time</td>
+                    <td>@Html.DisplayFor(model => model.RequsitionViewModel.JouneyEnd)</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new {id = Model.Id}) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<VehicleManagementApp.ViewModels.RequsitionViewModel>
+
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_LayoutManager.cshtml";
+    int sl = 1;
+}
+
+<h2 style="padding-bottom: 30px; text-align: center">New Requisition</h2>
+
+<table class="table table-bordered table-striped" id="myTable">
+    <thead>
+    <tr>
+        <th>@Html.Raw("SL")</th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmployeeId)
+        </th>
+        <th>
+            @Html.DisplayName("From")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.To)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@(sl++)</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employee.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Form)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.To)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.ActionLink("View", "View", new {id = item.Id})
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

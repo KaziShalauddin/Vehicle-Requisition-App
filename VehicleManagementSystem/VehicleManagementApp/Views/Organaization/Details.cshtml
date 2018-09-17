@@ -1,0 +1,32 @@
+﻿@model VehicleManagementApp.Models.Models.Organaization
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/css/ssss.css" rel="stylesheet" />
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Organaization Description</h1>
+            <div class="jumbotron">
+                <table class="details_view">
+                    <tr>
+                        <td class="title_name">Organaization Name :</td>
+                        <td>@Html.DisplayFor(model => model.Name)</td>
+                    </tr>
+
+                    <tr>
+                        <td class="title_name"><b>Description :</b></td>
+                        <td>@Html.DisplayFor(model => model.Description)</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

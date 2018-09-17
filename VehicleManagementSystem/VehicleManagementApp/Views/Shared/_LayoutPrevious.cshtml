@@ -1,0 +1,168 @@
+﻿@using System.Web.UI.WebControls
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>VehicleManagement</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="apple-touch-icon" href="icon.png">
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/slicknav.css">
+    <link rel="stylesheet" href="~/css/animate.css">
+    <link rel="stylesheet" href="~/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/css/normalize.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link href="~/css/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/Content/DataTables/css/dataTables.jqueryui.min.css" rel="stylesheet" />
+    <link href="~/css/jquery.datetimepicker.min.css" rel="stylesheet" />
+    <script src="~/js/vendor/modernizr-3.5.0.min.js"></script>
+
+</head>
+<body>
+
+    <!-- header top start -->
+    <section class="header_top">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="header_top_left pull-left">
+                        <span>@DateTime.Now.ToString("D")</span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="header_top_right pull-right">
+                        <a href="#">LogIn</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- header top end -->
+    <section class="logo">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="logo_images pull-left">
+                        <a href="#"><img src="~/img/logo.png" class="img-responsive" alt="logo"></a>
+                    </div>
+                </div>
+                <div class="col-md-6 pull-right"></div>
+            </div>
+        </div>
+    </section>
+    <!-- header start here -->
+    <section>
+        <nav class="vagigation navbar navbar-inverse">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul>
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li class="dropdown">
+                            <a href="#">Setup</a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Employee", "Index", "Employee")</li>
+                                <li>@Html.ActionLink("Role", "Index", "Role")</li>
+                                <li>
+                                    @Html.ActionLink("Division", "Index", "Division")
+                                    <ul>
+                                        <li>@Html.ActionLink("District", "Index", "District")</li>
+                                        <li>@Html.ActionLink("Upzilla", "Index", "Thana")</li>
+                                    </ul>
+                                </li>
+                                <li>@Html.ActionLink("Vehicle", "Index", "Vehicle")
+                                    <ul>
+                                        <li>@Html.ActionLink("Vehicle Type", "Index", "VehicleType")</li>
+                                        <li>@Html.ActionLink("Vehicle", "Index", "Vehicle")</li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    @Html.ActionLink("Organaization", "Index", "Organaization")
+                                    <ul>
+                                        <li>@Html.ActionLink("Department", "Index", "Department")</li>
+                                        <li>@Html.ActionLink("Designation", "Index", "Designation")</li>
+                                    </ul>
+                                </li>
+                                <li>@Html.ActionLink("Driver", "Driver", "Employee")</li>
+                            </ul>
+                        </li>
+                        <li>@Html.ActionLink("Requsition", "Index", "Requsition")</li>
+                        <li>@Html.ActionLink("Requsition Queue", "Index", "Manager")</li>
+                        <li class="dropdown">
+                            <a href="#">Gate Pass</a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Check In", "CheckIn", "Manager")</li>
+                                <li>@Html.ActionLink("Check Out", "CheckOut", "Manager")</li>
+                            </ul>
+                        </li>
+                        <li><a href="aboutus">About Us</a></li>
+                        <li><a href="contactUs">Contact Us</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+    </section>
+    <!-- header end here -->
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="slider_section">
+                        @RenderBody()
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="footer-menu">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="theme text-centre">
+                            <p class="text-centre"> All right Reserved @DateTime.Now.Year</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="~/scripts/jquery-2.2.4.min.js"></script>
+    <script src="~/scripts/jquery.validate.js"></script>
+    <script src="~/scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script src="~/scripts/jquery.datetimepicker.full.min.js"></script>
+    <script src="~/js/plugins.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/jquery.slicknav.min.js"></script>
+    <script src="~/js/owl.carousel.min.js"></script>
+    <script src="~/js/wow.min.js"></script>
+    <script src="~/js/jquery.fitvids.js"></script>    
+    <script src="~/js/main.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#myTable').DataTable();
+        });
+    </script>
+
+    @RenderSection("scripts", required: false)
+
+
+</body>
+</html>
+            
+
+

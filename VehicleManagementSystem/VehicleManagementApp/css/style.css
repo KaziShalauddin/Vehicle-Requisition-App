@@ -1,0 +1,602 @@
+/*! HTML5 Boilerplate v6.0.1 | MIT License | https://html5boilerplate.com/ */
+
+/*
+ * What follows is the result of much research on cross-browser styling.
+ * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
+ * Kroc Camen, and the H5BP dev community and team.
+ */
+
+/* ==========================================================================
+   Base styles: opinionated defaults
+   ========================================================================== */
+
+html {
+    color: #222;
+    font-size: 1em;
+    line-height: 1.4;
+}
+
+/*
+ * Remove text-shadow in selection highlight:
+ * https://twitter.com/miketaylr/status/12228805301
+ *
+ * Vendor-prefixed and regular ::selection selectors cannot be combined:
+ * https://stackoverflow.com/a/16982510/7133471
+ *
+ * Customize the background color to match your design.
+ */
+
+::-moz-selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+::selection {
+    background: #b3d4fc;
+    text-shadow: none;
+}
+
+/*
+ * A better looking default horizontal rule
+ */
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}
+
+/*
+ * Remove the gap between audio, canvas, iframes,
+ * images, videos and the bottom of their containers:
+ * https://github.com/h5bp/html5-boilerplate/issues/440
+ */
+
+audio,
+canvas,
+iframe,
+img,
+svg,
+video {
+    vertical-align: middle;
+}
+
+/*
+ * Remove default fieldset styles.
+ */
+
+fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+/*
+ * Allow only vertical resizing of textareas.
+ */
+
+textarea {
+    resize: vertical;
+}
+
+/* ==========================================================================
+   Browser Upgrade Prompt
+   ========================================================================== */
+
+.browserupgrade {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+}
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+.slicknav_menu{display:none}
+body{
+    
+}
+
+/*backgroudn Image*/
+/*body{
+    background-image: url("img/backgroud.jpg");
+}*/
+
+/*asp.net create page css*/
+.input_Details{ width: 100%;min-height: 600px;border: 1px solid #dddddd;}
+
+.details_view{}
+.title_name{ width: 180px;font-size: 20px;font-family: lato;font-weight: bold;}
+.details_view tr td{}
+
+.slider_section{ min-height: 680px;}
+/*asp.net create page css*/
+
+.bg-img{   
+    background-image: url("img/maxresdefault.jpg");
+    width: 100%; 
+    background-repeat: no-repeat; 
+    background-size: 100%; 
+    height: 700px;
+    background-position: center;
+    
+    
+}
+/*backgroudn Image*/
+
+.slider_section{
+    width:100%;
+    height:680px;
+}
+.header_top {
+    background-color: #95A5A6;
+    min-height: 35px;
+}
+.header_top_left {
+    margin-top: 4px;
+}
+.header_top_left span {
+    color: #000;
+    font-size: 18px;
+    font-family: lato;
+}
+.header_top_right {
+    margin-top: 3px;
+}
+.header_top_right a {
+    text-decoration: none;
+    color: #000;
+    font-size: 18px;
+    font-family: lato;
+}
+.header_top_right a:hover{
+    color: #34495E;
+}
+/*logo*/
+.logo {
+    background: #cacdd1;
+}
+.logo_images {
+    height: 120px;
+    width: 350px;
+}
+.logo_images img{width: 100%; height: 100%;}
+/*logo*/
+/*navbar start*/
+.navbar-inverse {
+    background-color: #222;
+    border: none;
+}
+.vagigation {
+    width: 100%;
+    height: 60px;
+    background-color: #27ae60;
+}
+.vagigation ul {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+.vagigation ul li {
+    float: left;
+    border-left: 1px solid #1a7a43;
+    border-right: 1px solid #4be58d;
+    position: relative;
+    z-index: 1;
+}
+.vagigation ul li:first-child{border-left: 0px solid;}
+.vagigation ul li:last-child{border-right: 0px solid;}
+.vagigation ul li a {
+    padding: 15px;
+    color: #000;
+    display: block;
+    text-decoration: none;
+    font-size: 21px;
+    font-family: lato;
+}
+.vagigation ul li a:hover{
+    color: #fff;
+    background-color: #1e7041;
+}
+.vagigation ul li ul{position: absolute; left: -999999px;}
+.vagigation ul li:hover ul{left: 0px;}
+.vagigation ul li ul{background-color: #fff;}
+.vagigation ul li ul li{float: none; width: 200px;}
+.vagigation ul li ul li a{
+    background-color: #70cc96;
+    margin: 1px 0px;
+    padding: 15px;
+}
+
+.vagigation ul ul {display: none;}
+.vagigation ul li:hover > ul{display: block;}
+.vagigation ul ul ul {margin-left: 201px; top: 0px; position: absolute;}
+
+.toggle{
+    width: 100%;
+    padding: 10px 20px;
+    background: #001f44;
+    text-align: right;
+    box-sizing: border-box;
+    color: #fff;
+    font-size: 30px;
+    display: none;
+}
+
+/*navbar end*/
+
+
+/*about us start*/
+.about{}
+.about h3 {
+    /* margin: 0px; */
+    font-size: 45px;
+    font-family: lato;
+}
+.about p {
+    font-size: 25px;
+    font-family: lato;
+    text-align: justify;
+}
+.ourTeam{}
+.ourTeam h1 {
+    font-size: 55px;
+    font-family: lato;
+    font-weight: bold;
+}
+.img-box {
+    width: 255px;
+    height: 330px;
+}
+.img-box img {
+    width: 100%;
+    height: 100%;
+}
+
+.img-content {
+    border: 1px solid #ddd;
+    background: #9d9d9d;
+}
+.img-content h3 {
+    border-bottom: 1px solid;
+    text-align: center;
+    font-size: 25px;
+    font-family: lato;
+}
+.img-content h4 {
+    text-align: center;
+    font-size: 20px;
+    font-family: lato;
+}
+/*about us end*/
+
+/*contact section*/
+.contast_Section{}
+.contast_Section h1 {
+    text-align: center;
+    font-family: lato;
+    font-size: 60px;
+    font-weight: bold;
+}
+
+.contactSec{}
+.contactSec ul{}
+.contactSec ul li {
+    list-style: none;
+    padding: 7px;
+}
+.contactSec ul li a {
+    text-decoration: none;
+    color: #34495E;
+    font-size: 31px;
+    font-family: lato;
+    font-weight: bold;
+}
+.contactSec ul li p {
+    font-size: 17px;
+    margin-left: 19px;
+    font-family: lato;
+}
+#map{width: 100%; min-height: 300px;}
+/*contact section*/
+
+/*footermenu*/
+
+.footer-menu {
+    width: 100%;
+    background-color: #000;
+    height: 60px;
+    margin-top: 30px;
+}
+.theme{}
+.theme p {
+    color: #fff;
+    padding: 16px;
+    text-align: center;
+    font-size: 20px;
+    font-family: lato;
+}
+
+/*footer*/
+
+/*requstion status start*/
+.reqStatus{}
+.reqStatus ul{}
+.reqStatus ul li{}
+.reqStatus ul li a{}
+
+.requsition_menu {
+	min-height: 850px;
+	background-color: #BDC3C7;
+}
+.requsition_menu ul{ margin: 0px;padding: 0px;}
+.requsition_menu ul li{ list-style: none;padding: 5px;}
+.requsition_menu ul li a {
+	text-decoration: none;
+	font-size: 22px;
+	font-family: lato;
+	padding: 0px;
+	display: block;
+	background-color: #ddd;
+	margin-left: 0px;
+	color: #000;
+	text-align: center;
+}
+.requsition_menu ul li a:hover{ color: red;}
+.welcome {
+	background-color: #f6f7f8;
+	min-height: 850px;
+	padding: 10px;
+}
+.welcome h1{}
+/**/
+/*requsition view style*/
+.requsitionView{}
+.requsitionView tr{}
+.requsitionView tr td{}
+/**/
+
+
+/* ==========================================================================
+   Helper classes
+   ========================================================================== */
+
+/*
+ * Hide visually and from screen readers
+ */
+
+.hidden {
+    display: none !important;
+}
+
+/*
+ * Hide only visually, but have it available for screen readers:
+ * https://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+ *
+ * 1. For long content, line feeds are not interpreted as spaces and small width
+ *    causes content to wrap 1 word per line:
+ *    https://medium.com/@jessebeach/beware-smushed-off-screen-accessible-text-5952a4c2cbfe
+ */
+
+.visuallyhidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    -webkit-clip-path: inset(50%);
+    clip-path: inset(50%);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+    white-space: nowrap; /* 1 */
+}
+
+/*
+ * Extends the .visuallyhidden class to allow the element
+ * to be focusable when navigated to via the keyboard:
+ * https://www.drupal.org/node/897638
+ */
+
+.visuallyhidden.focusable:active,
+.visuallyhidden.focusable:focus {
+    clip: auto;
+    -webkit-clip-path: none;
+    clip-path: none;
+    height: auto;
+    margin: 0;
+    overflow: visible;
+    position: static;
+    width: auto;
+    white-space: inherit;
+}
+
+/*
+ * Hide visually and from screen readers, but maintain layout
+ */
+
+.invisible {
+    visibility: hidden;
+}
+
+/*
+ * Clearfix: contain floats
+ *
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    `contenteditable` attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that receive the `clearfix` class.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+
+.clearfix:before,
+.clearfix:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+/* ==========================================================================
+   EXAMPLE Media Queries for Responsive Design.
+   These examples override the primary ('mobile first') styles.
+   Modify as content requires.
+   ========================================================================== */
+
+@media only screen and (min-width: 35em) {
+    /* Style adjustments for viewports that meet the condition */
+}
+
+@media print,
+       (-webkit-min-device-pixel-ratio: 1.25),
+       (min-resolution: 1.25dppx),
+       (min-resolution: 120dpi) {
+    /* Style adjustments for high resolution devices */
+}
+
+/* ==========================================================================
+   Print styles.
+   Inlined to avoid the additional HTTP request:
+   http://www.phpied.com/delay-loading-your-print-css/
+   ========================================================================== */
+
+@media print {
+    *,
+    *:before,
+    *:after {
+        background: transparent !important;
+        color: #000 !important; /* Black prints faster:
+                                   http://www.sanbeiji.com/archives/953 */
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    a,
+    a:visited {
+        text-decoration: underline;
+    }
+
+    a[href]:after {
+        content: " (" attr(href) ")";
+    }
+
+    abbr[title]:after {
+        content: " (" attr(title) ")";
+    }
+
+    /*
+     * Don't show links that are fragment identifiers,
+     * or use the `javascript:` pseudo protocol
+     */
+
+    a[href^="#"]:after,
+    a[href^="javascript:"]:after {
+        content: "";
+    }
+
+    pre {
+        white-space: pre-wrap !important;
+    }
+    pre,
+    blockquote {
+        border: 1px solid #999;
+        page-break-inside: avoid;
+    }
+
+    /*
+     * Printing Tables:
+     * http://css-discuss.incutio.com/wiki/Printing_Tables
+     */
+
+    thead {
+        display: table-header-group;
+    }
+
+    tr,
+    img {
+        page-break-inside: avoid;
+    }
+
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+}
+
+
+@media screen and (min-width: 320px) and (max-width:480px) {
+    body{
+        width: 320px;
+    }
+    .logo_images {
+        height: 120px;
+        width: 294px;
+    }
+    .vagigation ul {
+        margin-top: 8px;
+        padding: 0px;
+        list-style: none;
+    }
+    .vagigation ul li {
+        float: none;
+        position: relative;
+        z-index: 1;
+        background: #0cb691;
+        border: none;
+    }
+    .vagigation ul li a {
+        padding: 9px;
+        color: #000;
+        display: block;
+        text-decoration: none;
+        font-size: 18px;
+        font-family: lato;
+        border-bottom: 1px solid #ddd;
+    }
+    .navbar {
+        position: relative;
+        min-height: 50px;
+        margin-bottom: 20px;
+        border: none;
+    }
+    .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+        border-color: #000;
+    }
+    .theme p {
+        color: #fff;
+        padding: 17px;
+        text-align: center;
+        font-size: 17px;
+        font-family: lato;
+    }
+    .vagigation ul ul {display: none;}
+    .vagigation ul li:hover > ul{display: block;}
+    .vagigation ul ul ul {margin-left: 201px; top: 0px; position: absolute;}
+}
+
+
+@media screen and (min-width: 485px) and (max-width:768px) {
+/* ADD YOUR CSS ADJUSTMENTS BELOW HERE */
+. . .
+}
+
+@media screen and (min-width: 770px) and (max-width: 1080px) {
+/* ADD YOUR CSS ADJUSTMENTS BELOW HERE */
+. . .
+}

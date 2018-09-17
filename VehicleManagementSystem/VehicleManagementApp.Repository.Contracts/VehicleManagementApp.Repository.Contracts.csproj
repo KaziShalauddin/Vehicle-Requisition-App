@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D648BDE6-9853-484E-8C4F-87479271DC35}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>VehicleManagementApp.Repository.Contracts</RootNamespace>
+    <AssemblyName>VehicleManagementApp.Repository.Contracts</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ICommentRepository.cs" />
+    <Compile Include="IDepartment.cs" />
+    <Compile Include="IDesignationRepository.cs" />
+    <Compile Include="IDivisionRepository.cs" />
+    <Compile Include="IDristictRepository.cs" />
+    <Compile Include="IEmployeeRepository.cs" />
+    <Compile Include="IManagerRepository.cs" />
+    <Compile Include="IRepository.cs" />
+    <Compile Include="IOrganaizationRepository.cs" />
+    <Compile Include="IRequsitionRepository.cs" />
+    <Compile Include="IRequsitionStatusRepoisitory.cs" />
+    <Compile Include="IRoleRepository.cs" />
+    <Compile Include="IThana.cs" />
+    <Compile Include="IUserRepository.cs" />
+    <Compile Include="IVehicleRepository.cs" />
+    <Compile Include="IVehicleTypeRepository.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\VehicleManagementApp.Models.Contracts\VehicleManagementApp.Models.Contracts.csproj">
+      <Project>{5654B23D-92D2-4B12-BFD6-1CAF8DD4102D}</Project>
+      <Name>VehicleManagementApp.Models.Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VehicleManagementApp.Models\VehicleManagementApp.Models.csproj">
+      <Project>{02579FC1-75D9-4A72-83F9-E5CCA0109C20}</Project>
+      <Name>VehicleManagementApp.Models</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
