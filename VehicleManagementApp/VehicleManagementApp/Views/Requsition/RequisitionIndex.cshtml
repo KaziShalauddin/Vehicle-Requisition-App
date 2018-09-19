@@ -158,6 +158,9 @@
         $(document).ready(function () {
             $("#EmployeeDiv").hide();
 
+            $(".datetimepicker").datepicker({
+                minDate: 0
+            });
             //$(".form-group").css({ "padding-bottom": "35px" });
             $("#RequestForOther").change(function () {
 
@@ -187,6 +190,8 @@
             $("#MyModal").modal();
 
         }
+       
+
         //$(function () {
         //    $(".datetimepicker").datetimepicker();
         //});

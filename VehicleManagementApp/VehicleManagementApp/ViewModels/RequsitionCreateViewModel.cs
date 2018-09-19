@@ -24,7 +24,7 @@ namespace VehicleManagementApp.ViewModels
 
         [Required]
         [Display(Name = "Journey Start Date")]
-        [DataType(DataType.Date)]
+        //[DataType(DataType.Date)]
         public DateTime JourneyStartDate { get; set; }
 
         [Required]
@@ -34,7 +34,7 @@ namespace VehicleManagementApp.ViewModels
 
         [Required]
         [Display(Name = "Journey End Date")]
-        [DataType(DataType.Date)]
+        //[DataType(DataType.Date)]
         public DateTime JouneyEndDate { get; set; }
 
 
