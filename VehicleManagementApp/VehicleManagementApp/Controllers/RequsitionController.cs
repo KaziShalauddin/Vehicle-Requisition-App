@@ -19,7 +19,7 @@ namespace VehicleManagementApp.Controllers
         private IManagerManager _managerManager;
         private IVehicleManager vehicleManager;
         //IRequsitionStatusManager requsitionStatus,
-        public RequsitionController(IRequsitionManager requisition, IEmployeeManager employee,  IManagerManager manager, IVehicleManager vehicle)
+        public RequsitionController(IRequsitionManager requisition, IEmployeeManager employee, IManagerManager manager, IVehicleManager vehicle)
         {
             this._requisitionManager = requisition;
             this._employeeManager = employee;
@@ -53,41 +53,50 @@ namespace VehicleManagementApp.Controllers
             return View(requisitionViewList);
         }
 
-        private TempDataDictionary data;
+
         public ActionResult RequisitionIndex()
         {
             RequsitionCreateViewModel allRequsitions = new RequsitionCreateViewModel();
             var employees = _employeeManager.Get(c => c.IsDriver == false && c.IsDeleted == false);
 
             ViewBag.Employees = employees.ToList();
-            ViewBag.TempData = data;
+
             var requsitionViewList = RequisitionListView();
             allRequsitions.RequsitionViewModels = requsitionViewList;
             return View(allRequsitions);
         }
 
-        public JsonResult JsonCreate(RequisitionViewModel requisitionVm)
+        public JsonResult JsonCreate(RequsitionCreateViewModel requisitionVm)
         {
-
-            Requsition requisition = new Requsition();
-            requisition.Form = requisitionVm.Form;
-            requisition.To = requisitionVm.To;
-            requisition.Description = requisitionVm.Description;
-            requisition.JourneyStart = requisitionVm.JourneyStart;
-            requisition.JouneyEnd = requisitionVm.JouneyEnd;
-            requisition.EmployeeId = requisitionVm.EmployeeId;
-
-            bool isSaved = _requisitionManager.Add(requisition);
-            if (isSaved)
+            //newDateTime = date.Date + time.TimeOfDay;
+            if (ModelState.IsValid)
             {
-                TempData["msg"] = "Requisition Send Successfully";
+                var journeyStart = requisitionVm.JourneyStartDate.Date + requisitionVm.JourneyStartTime.TimeOfDay;
+                var jouneyEnd = requisitionVm.JouneyEndDate.Date + requisitionVm.JouneyEndTime.TimeOfDay;
+
+                Requsition requisition = new Requsition();
+                requisition.Form = requisitionVm.Form;
+                requisition.To = requisitionVm.To;
+                requisition.Description = requisitionVm.Description;
+                requisition.JourneyStart = journeyStart;
+                requisition.JouneyEnd = jouneyEnd;
+                requisition.EmployeeId = requisitionVm.EmployeeId;
+
+                bool isSaved = _requisitionManager.Add(requisition);
+                if (isSaved)
+                {
+                    TempData["msg"] = "Requisition Send Successfully";
+                }
+                else
+                {
+                    TempData["msg"] = "Requisition not Send !";
+                }
             }
             else
             {
-                TempData["msg"] = "Requisition Send Successfully";
+                TempData["msg"] = "Requisition not Send !";
             }
-
-            return Json(JsonRequestBehavior.AllowGet);
+            return Json(TempData["msg"], JsonRequestBehavior.AllowGet);
 
         }
 
@@ -193,7 +202,7 @@ namespace VehicleManagementApp.Controllers
                 if (isSaved)
                 {
                     TempData["msg"] = "Requisition Send Successfully";
-                    data = TempData;
+
                     return RedirectToAction("RequisitionIndex", TempData["msg"]);
                 }
                 return RedirectToAction("Create");
@@ -220,7 +229,7 @@ namespace VehicleManagementApp.Controllers
             requisitionView.Description = requisition.Description;
             requisitionView.JourneyStart = requisition.JourneyStart;
             requisitionView.JouneyEnd = requisition.JouneyEnd;
-            requisitionView.EmployeeId = (int) requisition.EmployeeId;
+            requisitionView.EmployeeId = (int)requisition.EmployeeId;
 
             ViewBag.EmployeeId = new SelectList(_employeeManager.GetAll(), "Id", "Name", requisition.EmployeeId);
 

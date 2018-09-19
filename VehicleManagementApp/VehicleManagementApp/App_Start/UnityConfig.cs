@@ -109,20 +109,25 @@ namespace VehicleManagementApp
             //container.RegisterType<ApplicationUserManager>(new HierarchicalLifetimeManager());
             //container.RegisterType<IdentityDbContext>(new HierarchicalLifetimeManager());
 
-            container.RegisterType<AccountController>();
-            container.RegisterType<ApplicationUserManager>();
-            container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>();
-            container.RegisterType<UserManager<ApplicationUser>>();
-            container.RegisterType<DbContext, ApplicationDbContext>();
-           
+
+
 
             //container.RegisterType<AccountController>(
             //    new InjectionConstructor(
             //     container.Resolve<IEmployeeManager>())
             //     );
 
-           
+
             //container.RegisterInstance(new EmployeeRegisterViewModel());
+
+
+            //container.RegisterType<AccountController>();
+            //container.RegisterType<ApplicationUserManager>();
+            //container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>();
+            //container.RegisterType<UserManager<ApplicationUser>>();
+            //container.RegisterType<DbContext, ApplicationDbContext>();
+
+            container.RegisterType<DbContext, ApplicationDbContext>(new HierarchicalLifetimeManager());
         }
     }
 }

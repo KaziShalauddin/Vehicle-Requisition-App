@@ -69,7 +69,7 @@
             <div class="container main-menu">
                 <div class="row align-items-center justify-content-between d-flex">
                     <div id="logo">
-                        <img src="~/img/Untitled-1 copy.png" alt="" title="" />
+                        <img src="~/thirdPartyCss/img/Untitled-1 copy.png" alt="" title="" />
                     </div>
                     <nav id="nav-menu-container">
                         <ul class="nav-menu">
@@ -123,10 +123,13 @@
 
                                 </ul>
                             </li>
-                            <li><a href="#">About</a></li>
-                            <li><a href="#">Contact</a></li>
+                            <li class="menu-has-children">
+                                <a href="#">My Profile</a>
+                                <ul>@Html.Partial("_LoginPartial")</ul>
+
+                            </li>
                         </ul>
-                        @Html.Partial("_LoginPartial")
+                       
                     </nav>
                 </div>
             </div>
@@ -188,19 +191,19 @@
                             <li class="nav-item ">
                                 <a class="nav-link" href="@Url.Action("Car", "Manager")">
 
-                                    <p>Total Vehicle( @totalVehicle )</p>
+                                    <p>Total Vehicles( @totalVehicle )</p>
                                 </a>
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link" href="@Url.Action("AssignCar", "Manager")">
 
-                                    <p>Assigned Car( @totalAssignedCar )</p>
+                                    <p>Assigned Vehicles( @totalAssignedCar )</p>
                                 </a>
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link" href="@Url.Action("NonAssignCar", "Manager")">
 
-                                    <p>Free Vehicle( @totalFreeCar )</p>
+                                    <p>Available Vehicles( @totalFreeCar )</p>
                                 </a>
                             </li>
 

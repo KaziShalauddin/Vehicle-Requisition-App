@@ -12,24 +12,39 @@ namespace VehicleManagementApp.ViewModels
         public int Id { get; set; }
 
         [Required]
+        [Display(Name = "Starting Place")]
         public string Form { get; set; }
 
         [Required]
+        [Display(Name = "Departure Place")]
         public string To { get; set; }
 
         [Required]
         public string Description { get; set; }
 
         [Required]
-        [Display(Name = "Journey Start")]
-        public DateTime JourneyStart { get; set; }
+        [Display(Name = "Journey Start Date")]
+        [DataType(DataType.Date)]
+        public DateTime JourneyStartDate { get; set; }
 
         [Required]
-        [Display(Name = "Journey End")]
-        public DateTime JouneyEnd { get; set; }
-
+        [Display(Name = "Journey Start Time")]
         [DataType(DataType.Time)]
-        public DateTime Time { get; set; }
+        public DateTime JourneyStartTime { get; set; }
+
+        [Required]
+        [Display(Name = "Journey End Date")]
+        [DataType(DataType.Date)]
+        public DateTime JouneyEndDate { get; set; }
+
+
+        [Required]
+        [Display(Name = "Journey End Time")]
+        [DataType(DataType.Time)]
+        public DateTime JouneyEndTime { get; set; }
+
+        //[DataType(DataType.Time)]
+        //public DateTime Time { get; set; }
 
         [Display(Name = "Request For Other")]
         public bool RequestForOther  { get; set; }
