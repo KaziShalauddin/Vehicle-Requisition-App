@@ -1,0 +1,66 @@
+﻿@model IEnumerable<VehicleManagementApp.ViewModels.ManagerViewModel>
+
+@{
+    ViewBag.Title = "AssignIndex";
+    Layout = "~/Views/Shared/_LayoutManager.cshtml";
+    int sl = 1;
+}
+
+<h2 style="padding-bottom: 30px; text-align: center">Assign Index</h2>
+
+<table class="table table-bordered table-striped" id="myTable">
+    <thead>
+    <tr>
+        <th>
+            @Html.Raw("SL")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmployeeId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DriverNo)
+        </th>
+        <th>
+            @Html.Raw("Requsition From")
+        </th>
+        <th>
+            @Html.Raw("Requsition To")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VehicleId)
+        </th>
+
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @(sl++)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employee.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employee.ContactNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Requsition.Form)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Requsition.To)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Vehicle.VehicleName)
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are You Sure? You Want To Delete Permanently!')" })
+                    @Html.ActionLink("Details", "AssignIndexDetails", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })
+                    @*@Html.ActionLink("Re Assign", "Assign", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

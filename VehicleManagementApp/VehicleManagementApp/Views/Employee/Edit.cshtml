@@ -1,0 +1,317 @@
+﻿@using System.Web.UI.WebControls
+@model VehicleManagementApp.ViewModels.EmployeeViewModel
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-horizontal">
+
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Id)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DepartmentId, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownList("DepartmentId", null, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.DepartmentId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.DesignationId, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.DropDownList("DesignationId", null, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.DesignationId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.ContactNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.ContactNo, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.ContactNo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <h3><strong>Permanent Address</strong></h3>
+                    <div class="jumbotron">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DivisionId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownList("DivisionId", null, new { @class = "form-control", id = "DivisionDD1" })
+                                @Html.ValidationMessageFor(model => model.DivisionId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DistrictId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @*@Html.DropDownListFor(model => model.DistrictId, new SelectList(Model.Districts, "Id", "Name"), "Select Designation", new { @class = "form-control", id = "DistrictDD1" })*@
+                                @Html.DropDownList("DistrictId", null, new { @class = "form-control", id = "DistrictDD1" })
+                                @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ThanaId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @*@Html.DropDownListFor(model => model.ThanaId, new SelectList(Model.Thanas, "Id", "Name"), "Select Designation", new { @class = "form-control", id="thanaDD1" })*@
+                                @Html.DropDownList("ThanaId", null, new { @class = "form-control", id = "thanaDD1" })
+                                @Html.ValidationMessageFor(model => model.ThanaId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Address Line 1</label>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Address1, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Address1, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Address Line 2</label>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Address2, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Address2, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3><strong>Present Address</strong></h3>
+                    <div class="jumbotron">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DivisionId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownList("DivisionId", null, new { @class = "form-control", id = "DivisionDD2" })
+                                @Html.ValidationMessageFor(model => model.DivisionId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.DistrictId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownList("DistrictId", null, new { @class = "form-control", id = "DistrictDD2" })
+                                @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ThanaId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.DropDownList("ThanaId", null, new { @class = "form-control", id = "thanaDD2" })
+                                @Html.ValidationMessageFor(model => model.ThanaId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Address Line 1</label>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Address1, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Address1, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-2">Address Line 2</label>
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Address2, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Address2, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <div class="checkbox">
+                                @Html.CheckBoxFor(m => m.IsDriver, new { })
+                                @Html.LabelFor(m => m.IsDriver)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.LicenceNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @if ("IsDriver".IsBool() == false)
+                            {
+                                @Html.EditorFor(model => model.LicenceNo, new { htmlAttributes = new { @class = "form-control", required = true } })
+                            }
+                            else
+                            {
+                                @Html.EditorFor(model => model.LicenceNo, new { htmlAttributes = new { @class = "form-control" } })
+                            }
+
+
+                            @Html.ValidationMessageFor(model => model.LicenceNo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Update" class="btn btn-default" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function() {
+            // permanent address
+            $("#DivisionDD1").change(function () {
+                var permanentDivisionId = $("#DivisionDD1").val();
+                var permanentTargetId = "#DistrictDD1";
+                GetPermanentDistrictAndBind(permanentDivisionId, permanentTargetId);
+            });
+
+            //permanent thana
+            $("#DistrictDD1").change(function () {
+                var permanentDistrictId = $("#DistrictDD1").val();
+                var permanentTargetId = "#thanaDD1";
+                GetPermanentThanaAndBind(permanentDistrictId, permanentTargetId);
+            });
+
+            // present address
+            $("#DivisionDD2").change(function () {
+                var selectedDivisionId = $("#DivisionDD2").val();
+                var targetid = "#DistrictDD2";
+                GetDistrictAndBind(selectedDivisionId, targetid);
+
+            });
+
+
+            // thana present
+            $("#DistrictDD2").change(function() {
+                var selectedthanaId = $("#DistrictDD2").val();
+                var targetid = "#thanaDD2";
+                GetThanaAndBind(selectedthanaId, targetid);
+            });
+
+        });
+
+        //permanent
+        function GetPermanentDistrictAndBind(permanentDivisionId, permanentTargetId) {
+
+            var jsonData = { divisionId: permanentDivisionId };
+            $.ajax({
+                url: "/district/GetByDivision",
+                data: jsonData,
+                type: "POST",
+                success: function (response) {
+                    $(permanentTargetId).empty();
+
+                    var options = "<option>Select.....</option>";
+                    $.each(response,
+                        function (key, district) {
+                            options += "<option value='" + district.Id + "'>" + district.Name + "</option>";
+                        });
+                    $(permanentTargetId).append(options);
+                },
+                error: function (response) {
+
+                }
+            });
+        }
+
+        function GetPermanentThanaAndBind(permanentDistrictId, permanentTargetId) {
+
+            var jsonData = { districtId: permanentDistrictId };
+            $.ajax({
+                url: "/Thana/GetByDistrict",
+                data: jsonData,
+                type: "POST",
+                success: function (response) {
+                    $(permanentTargetId).empty();
+                    var options = "<option>Select.....</option>";
+                    $.each(response,
+                        function (key, thana) {
+                            options += "<option value='" + thana.Id + "'>" + thana.Name + "</option>";
+                        });
+                    $(permanentTargetId).append(options);
+                },
+                error: function (response) {
+
+                }
+            });
+        }
+
+        function GetDistrictAndBind(selectedDivisionId, targetid) {
+
+            var jsonData = { divisionId: selectedDivisionId };
+            $.ajax({
+                url: "/district/GetByDivision",
+                data: jsonData,
+                type: "POST",
+                success: function(response) {
+                    $(targetid).empty();
+
+                    var options = "<option>Select.....</option>";
+                    $.each(response,
+                        function(key, district) {
+                            options += "<option value='" + district.Id + "'>" + district.Name + "</option>";
+                        });
+                    $(targetid).append(options);
+                },
+                error: function(response) {
+
+                }
+            });
+        }
+
+        function GetThanaAndBind(selectedDivisionId, targetid) {
+
+            var jsonData = { districtId: selectedDivisionId };
+            $.ajax({
+                url: "/Thana/GetByDistrict",
+                data: jsonData,
+                type: "POST",
+                success: function (response) {
+                    $(targetid).empty();
+
+                    var options = "<option>Select.....</option>";
+                    $.each(response,
+                        function (key, district) {
+                            options += "<option value='" + district.Id + "'>" + district.Name + "</option>";
+                        });
+                    $(targetid).append(options);
+                },
+                error: function (response) {
+
+                }
+            });
+        }
+
+    </script>
+}

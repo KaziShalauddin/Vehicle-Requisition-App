@@ -1,0 +1,84 @@
+﻿@model IEnumerable<VehicleManagementApp.ViewModels.VehicleViewModel>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int sl = 1;
+}
+
+<p>
+    @Html.ActionLink("Create New Vehicle", "Create")
+</p>
+<table class="table table-bordered table-striped" id="myTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.Raw("SL")
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VehicleTypeId)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.VehicleName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VModel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VRegistrationNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VChesisNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VCapacity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @(sl++)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.VehicleType.TypeName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.VehicleName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VModel)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VRegistrationNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VChesisNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VCapacity)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id, }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are You Sure? You Want To Delete!')" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,53 @@
+﻿@model VehicleManagementApp.ViewModels.VehicleViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/css/ssss.css" rel="stylesheet" />
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Department Description</h1>
+            <div class="jumbotron">
+                <table class="details_view">
+                    <tr>
+                        <td class="title_name">Vehicle Type Name :</td>
+                        <td>@Html.DisplayFor(model => model.VehicleType.TypeName)</td>
+                    </tr>
+                    <tr>
+                        <td class="title_name">Vehicle Name :</td>
+                        <td>@Html.DisplayFor(model => model.VehicleName)</td>
+                    </tr>
+                    <tr>
+                        <td class="title_name">Vehicle Model :</td>
+                        <td>@Html.DisplayFor(model => model.VModel)</td>
+                    </tr>
+                    <tr>
+                        <td class="title_name">Vehicle Registration No :</td>
+                        <td>@Html.DisplayFor(model => model.VRegistrationNo)</td>
+                    </tr>
+                    <tr>
+                        <td class="title_name">Vehicle Chesis No :</td>
+                        <td>@Html.DisplayFor(model => model.VChesisNo)</td>
+                    </tr>
+                    <tr>
+                        <td class="title_name">Vehicle Capacity :</td>
+                        <td>@Html.DisplayFor(model => model.VCapacity)</td>
+                    </tr>
+                    <tr>
+                        <td class="title_name">Description :</td>
+                        <td>@Html.DisplayFor(model => model.Description)</td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

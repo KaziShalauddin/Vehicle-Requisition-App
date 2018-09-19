@@ -1,0 +1,51 @@
+﻿@model VehicleManagementApp.ViewModels.ManagerViewModel
+
+@{
+    ViewBag.Title = "DriverAndCar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>DriverAndCar</h2>
+
+<div>
+    <h4>ManagerViewModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DriverNo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DriverNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RequsitionId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Employee.ContactNo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.VehicleId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Vehicle.VehicleName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmployeeId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Employee.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

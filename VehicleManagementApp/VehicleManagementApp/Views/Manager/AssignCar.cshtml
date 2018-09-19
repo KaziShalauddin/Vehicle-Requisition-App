@@ -1,0 +1,47 @@
+﻿@model IEnumerable<VehicleManagementApp.ViewModels.VehicleViewModel>
+
+@{
+    ViewBag.Title = "AssignCar";
+    Layout = "~/Views/Shared/_LayoutManager.cshtml";
+    int sl = 1;
+}
+
+<h2 style="padding-bottom: 30px; text-align: center">AssignCar</h2>
+
+<table class="table table-bordered table-striped" id="myTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.Raw("SL")
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VehicleName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VModel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VRegistrationNo)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @(sl++)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VehicleName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VModel)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VRegistrationNo)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
