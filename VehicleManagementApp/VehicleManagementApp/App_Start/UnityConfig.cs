@@ -69,17 +69,9 @@ namespace VehicleManagementApp
             container.RegisterType<IDepartmentManager, DepartmentManager>();
             container.RegisterType<IDepartmentRepository, DepartmentRepository>();
 
-            //container.RegisterType<IRoleManager, RoleManager<>>();
-            //container.RegisterType<IRoleRepository, RoleRepository>();
-
-            //container.RegisterType<IUserManager, UserManager>();
-            //container.RegisterType<IUserRepository, UserRepository>();
 
             container.RegisterType<IEmployeeManager, EmployeeManager>();
             container.RegisterType<IEmployeeRepository, EmployeeRepository>();
-
-            //container.RegisterType<IRequsitionStatusManager, RequsitionStatusManager>();
-            //container.RegisterType<IRequsitionStatusRepoisitory, RequsitionStatusRepository>();
 
             container.RegisterType<ICommentManager, CommentManager>();
             container.RegisterType<ICommentRepository, CommentRepository>();
@@ -98,36 +90,6 @@ namespace VehicleManagementApp
 
             container.RegisterType<IManagerManager, ManagerManager>();
             container.RegisterType<IManagerRepository, ManagerRepository>();
-
-
-
-            //container.RegisterType<DbContext, VehicleDatabaseContext>();
-            //container.RegisterType<IdentityDbContext< ApplicationUser >,ApplicationDbContext >();
-
-            // container.RegisterType<ApplicationUserManager, ApplicationUserManager>(new HierarchicalLifetimeManager());
-            //container.RegisterType<IdentityDbContext, IdentityDbContext>(new HierarchicalLifetimeManager());
-            //container.RegisterType<ApplicationUserManager>(new HierarchicalLifetimeManager());
-            //container.RegisterType<IdentityDbContext>(new HierarchicalLifetimeManager());
-
-
-
-
-            //container.RegisterType<AccountController>(
-            //    new InjectionConstructor(
-            //     container.Resolve<IEmployeeManager>())
-            //     );
-
-
-            //container.RegisterInstance(new EmployeeRegisterViewModel());
-
-
-            //container.RegisterType<AccountController>();
-            //container.RegisterType<ApplicationUserManager>();
-            //container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>();
-            //container.RegisterType<UserManager<ApplicationUser>>();
-            //container.RegisterType<DbContext, ApplicationDbContext>();
-
-            container.RegisterType<DbContext, ApplicationDbContext>(new HierarchicalLifetimeManager());
         }
     }
 }

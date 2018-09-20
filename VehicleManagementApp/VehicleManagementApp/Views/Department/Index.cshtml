@@ -9,7 +9,7 @@
 <p>
     @Html.ActionLink("Create New Department", "Create")
 </p>
-<table class="table table-bordered table-striped" id="myTable">
+<table class="table table-bordered table-striped" style="color: black" id="myTable">
     <thead>
         <tr>
             <th>
@@ -27,7 +27,7 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
+            <tr style="font-size: 20px">
                 <td>
                     @(sl++)
                 </td>
