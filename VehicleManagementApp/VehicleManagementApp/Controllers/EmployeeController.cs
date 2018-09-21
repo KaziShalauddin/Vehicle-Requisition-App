@@ -110,10 +110,10 @@ namespace VehicleManagementApp.Controllers
 
             if (ModelState.IsValid)
             {
-                ApplicationUser user =
-                    System.Web.HttpContext.Current.GetOwinContext()
-                        .GetUserManager<ApplicationUserManager>()
-                        .FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+                //ApplicationUser user =
+                //    System.Web.HttpContext.Current.GetOwinContext()
+                //        .GetUserManager<ApplicationUserManager>()
+                //        .FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
                 
 
                 //var newUser = new ApplicationUser { UserName = employeeVM.Email, Email = employeeVM.Email };

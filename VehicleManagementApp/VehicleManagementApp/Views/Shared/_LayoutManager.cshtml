@@ -37,10 +37,14 @@
     <meta charset="UTF-8">
     <!-- Site Title -->
     <title>BCC Vehicle Requisition</title>
-    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
-    <!--
-     CSS
-     ============================================= -->
+   <!--
+    CSS
+
+    ============================================= -->
+    <link href="~/css/jquery-ui.min.css" rel="stylesheet" />
+    <link href="~/Content/DataTables/css/dataTables.jqueryui.min.css" rel="stylesheet" />
+    <link href="~/css/jquery.datetimepicker.min.css" rel="stylesheet" />
+    <!--  ============================================= -->
     <link rel="stylesheet" href="~/thirdPartyCss/css/linearicons.css">
     <link rel="stylesheet" href="~/thirdPartyCss/css/font-awesome.min.css">
     <link rel="stylesheet" href="~/thirdPartyCss/css/bootstrap.css">
@@ -57,9 +61,7 @@
     <link rel="stylesheet" href="~/css/owl.carousel.min.css">
     <link rel="stylesheet" href="~/css/normalize.css">
     <link rel="stylesheet" href="~/css/style.css">
-    <link href="~/css/jquery-ui.min.css" rel="stylesheet" />
-    <link href="~/Content/DataTables/css/dataTables.jqueryui.min.css" rel="stylesheet" />
-    <link href="~/css/jquery.datetimepicker.min.css" rel="stylesheet" />
+    
     <script src="~/js/vendor/modernizr-3.5.0.min.js"></script>
 </head>
 <body>
@@ -69,7 +71,7 @@
             <div class="container main-menu">
                 <div class="row align-items-center justify-content-between d-flex">
                     <div id="logo">
-                        <img src="~/img/Untitled-1 copy.png" alt="" title="" />
+                        <img src="~/thirdPartyCss/img/Untitled-1 copy.png" alt="" title="" />
                     </div>
                     <nav id="nav-menu-container">
                         <ul class="nav-menu">
@@ -123,9 +125,16 @@
 
                                 </ul>
                             </li>
-                            <li><a href="#">About</a></li>
-                            <li><a href="#">Contact</a></li>
+                            <li class="menu-has-children">
+                                <a href="#">My Profile</a>
+                                <ul>@Html.Partial("_LoginPartial")</ul>
+
+                            </li>
                         </ul>
+<<<<<<< HEAD
+=======
+                       
+>>>>>>> 2bfd9651d41b8038e8066d6e7d238a37c1ae3479
                     </nav>
                 </div>
             </div>
@@ -187,19 +196,19 @@
                             <li class="nav-item ">
                                 <a class="nav-link" href="@Url.Action("Car", "Manager")">
 
-                                    <p>Total Vehicle( @totalVehicle )</p>
+                                    <p>Total Vehicles( @totalVehicle )</p>
                                 </a>
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link" href="@Url.Action("AssignCar", "Manager")">
 
-                                    <p>Assigned Car( @totalAssignedCar )</p>
+                                    <p>Assigned Vehicles( @totalAssignedCar )</p>
                                 </a>
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link" href="@Url.Action("NonAssignCar", "Manager")">
 
-                                    <p>Free Vehicle( @totalFreeCar )</p>
+                                    <p>Available Vehicles( @totalFreeCar )</p>
                                 </a>
                             </li>
 

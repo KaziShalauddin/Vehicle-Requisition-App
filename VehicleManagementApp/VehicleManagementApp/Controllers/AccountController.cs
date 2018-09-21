@@ -13,6 +13,7 @@ using VehicleManagementApp.BLL;
 using VehicleManagementApp.BLL.Contracts;
 using VehicleManagementApp.Models;
 using VehicleManagementApp.Models.Models;
+using VehicleManagementApp.ViewModels;
 
 namespace VehicleManagementApp.Controllers
 {
@@ -22,15 +23,15 @@ namespace VehicleManagementApp.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-        public AccountController()
-        {
-        }
+        //public AccountController()
+        //{
+        //}
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
-        {
-            UserManager = userManager;
-            SignInManager = signInManager;
-        }
+        //public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        //{
+        //    UserManager = userManager;
+        //    SignInManager = signInManager;
+        //}
 
         public ApplicationSignInManager SignInManager
         {
@@ -191,10 +192,52 @@ namespace VehicleManagementApp.Controllers
         }
         //
         // GET: /Account/Register
+
+        private IEmployeeManager _employeeManager;
+        private IDepartmentManager _departmentManager;
+        private IDesignationManager _designationManager;
+        private IDivisionManager _divisionManager;
+        private IDistrictManager _districtManager;
+        private IThanaManager _thanaManager;
+        public  AccountController(IEmployeeManager employee, IDepartmentManager department,
+           IDesignationManager designation,
+           IDivisionManager division, IDistrictManager district, IThanaManager thana)
+        {
+            this._employeeManager = employee;
+            this._departmentManager = department;
+            this._designationManager = designation;
+            this._divisionManager = division;
+            this._districtManager = district;
+            this._thanaManager = thana;
+        }
+
+
         [AllowAnonymous]
         public ActionResult EmployeeRegister()
         {
-            return View();
+
+            var department = _departmentManager.GetAll();
+            var designation = _designationManager.GetAll();
+            var division = _divisionManager.GetAll();
+            var district = _districtManager.GetAll();
+            var thana = _thanaManager.GetAll();
+
+            EmployeeRegisterViewModel employeeVM = new EmployeeRegisterViewModel
+            {
+                Departments = department,
+                Designations = designation,
+                Divisions = division,
+                Districts = district,
+                Thanas = thana
+            };
+
+
+            ViewBag.districtDropDown = new SelectListItem[] { new SelectListItem() { Value = "", Text = "Select..." } };
+            ViewBag.DistrictId = new SelectListItem[] { new SelectListItem() { Value = "", Text = "Select..." } };
+            ViewBag.ThanaId = new SelectListItem[] { new SelectListItem() { Value = "", Text = "Select..." } };
+
+
+            return View(employeeVM);
         }
 
         //
@@ -242,7 +285,7 @@ namespace VehicleManagementApp.Controllers
             //return View(model);
         }
 
-        private static void CreateEmployee(EmployeeRegisterViewModel model)
+        private void CreateEmployee(EmployeeRegisterViewModel model)
         {
             Employee employee = new Employee
             {
@@ -259,8 +302,8 @@ namespace VehicleManagementApp.Controllers
                 LicenceNo = model.LicenceNo,
                 IsDriver = model.IsDriver
             };
-            IEmployeeManager employeeManager = new EmployeeManager();
-            employeeManager.Add(employee);
+            //IEmployeeManager employeeManager=new EmployeeManager();
+            _employeeManager.Add(employee);
         }
 
         //

@@ -69,17 +69,9 @@ namespace VehicleManagementApp
             container.RegisterType<IDepartmentManager, DepartmentManager>();
             container.RegisterType<IDepartmentRepository, DepartmentRepository>();
 
-            //container.RegisterType<IRoleManager, RoleManager<>>();
-            //container.RegisterType<IRoleRepository, RoleRepository>();
-
-            //container.RegisterType<IUserManager, UserManager>();
-            //container.RegisterType<IUserRepository, UserRepository>();
 
             container.RegisterType<IEmployeeManager, EmployeeManager>();
             container.RegisterType<IEmployeeRepository, EmployeeRepository>();
-
-            //container.RegisterType<IRequsitionStatusManager, RequsitionStatusManager>();
-            //container.RegisterType<IRequsitionStatusRepoisitory, RequsitionStatusRepository>();
 
             container.RegisterType<ICommentManager, CommentManager>();
             container.RegisterType<ICommentRepository, CommentRepository>();

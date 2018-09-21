@@ -95,20 +95,20 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-2">Address Line 1</label>
+                            <label class="control-label col-md-2">Address Details</label>
                             <div class="col-md-10">
                                 @Html.EditorFor(model => model.Address1, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Address1, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        @*<div class="form-group">
                             <label class="control-label col-md-2">Address Line 2</label>
                             <div class="col-md-10">
                                 @Html.EditorFor(model => model.Address2, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Address2, "", new { @class = "text-danger" })
                             </div>
-                        </div>
+                        </div>*@
                     </div>
 
                     <h3><strong>Present Address</strong></h3>
@@ -140,7 +140,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-2">Address Line 1</label>
+                            <label class="control-label col-md-2">Address Details</label>
                             @*@Html.LabelFor(model => model.Address, htmlAttributes: new {@class = "control-label col-md-2"})*@
                             <div class="col-md-10">
                                 @Html.EditorFor(model => model.Address1, new { htmlAttributes = new { @class = "form-control" } })
@@ -148,14 +148,14 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label class="control-label col-md-2">Address Line 2</label>
+                        @*<div class="form-group">
+                            <label class="control-label col-md-2">Address Line 2</label>*@
                             @*@Html.LabelFor(model => model.Address, htmlAttributes: new {@class = "control-label col-md-2"})*@
-                            <div class="col-md-10">
+                            @*<div class="col-md-10">
                                 @Html.EditorFor(model => model.Address2, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Address2, "", new { @class = "text-danger" })
                             </div>
-                        </div>
+                        </div>*@
                     </div>
 
                     <div class="jumbotron">
@@ -170,14 +170,15 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.LicenceNo, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @if ("IsDriver".IsBool() == false)
-                                {
-                                    @Html.EditorFor(model => model.LicenceNo, new { htmlAttributes = new { @class = "form-control", required = true } })
-                                }
-                                else
-                                {
+                                @*@if ("IsDriver".IsBool() == false)
+                                {*@ 
+                                    @*@Html.EditorFor(model => model.LicenceNo, new { htmlAttributes = new { @class = "form-control", required = true } })*@
+                                    @*//}
+
+                                    //else
+                                    //{*@ 
                                     @Html.EditorFor(model => model.LicenceNo, new { htmlAttributes = new { @class = "form-control" } })
-                                }
+                                @*}*@
 
 
                                 @Html.ValidationMessageFor(model => model.LicenceNo, "", new { @class = "text-danger" })
@@ -202,7 +203,11 @@
 
 @section scripts{
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
+
+
+
+
             // permanent address
             $("#DivisionDD1").change(function () {
                 var permanentDivisionId = $("#DivisionDD1").val();
@@ -234,7 +239,25 @@
             });
 
         });
+        debugger;
+        $("#IsDriver").change(function () {
+            $("#LicenceNo").removeClass("required");
+            var checked = $("#IsDriver").is(":checked");
+            if (checked === true) {
+                $("#LicenceNo").addClass("required");
 
+                if ($("#LicenceNo").val().length === 0) {
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            }
+            //else {
+            //    $("#LicenceNo").removeClass("required");
+            //}
+
+        });
         //permanent
         function GetPermanentDistrictAndBind(permanentDivisionId, permanentTargetId) {
 

@@ -438,6 +438,7 @@
     <Content Include="img\slider\6.jpg" />
     <Content Include="img\slider\7.jpg" />
     <Content Include="js\bootstrap.min.js" />
+    <Content Include="js\jquery-ui.min.js" />
     <Content Include="js\jquery.fitvids.js" />
     <Content Include="js\jquery.slicknav.min.js" />
     <Content Include="js\main.js" />
