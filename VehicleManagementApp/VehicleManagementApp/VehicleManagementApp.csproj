@@ -49,6 +49,22 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.ReportViewer.Common, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.ProcessingObjectModel.DLL</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=11.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Report.Viewer.11.0.0.0\lib\net\Microsoft.ReportViewer.WebForms.DLL</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ReportViewerForMvc, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ReportViewerForMvc.1.1.1\lib\net45\ReportViewerForMvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -217,6 +233,7 @@
     <Compile Include="ViewModels\EmployeeViewModel.cs" />
     <Compile Include="ViewModels\ManagerViewModel.cs" />
     <Compile Include="ViewModels\OrganaizationViewModels.cs" />
+    <Compile Include="ViewModels\ReplayCommentViewModel.cs" />
     <Compile Include="ViewModels\RequsitionCreateViewModel.cs" />
     <Compile Include="ViewModels\RequsitionStatusViewModel.cs" />
     <Compile Include="ViewModels\RequsitionViewModel.cs" />
@@ -429,6 +446,7 @@
     <Content Include="js\vendor\jquery-3.2.1.min.js" />
     <Content Include="js\vendor\modernizr-3.5.0.min.js" />
     <Content Include="js\wow.min.js" />
+    <Content Include="ReportViewerWebForm.aspx" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
     <Content Include="scripts\bootstrap.js" />
@@ -665,7 +683,6 @@
     <Content Include="Views\Manager\Car.cshtml" />
     <Content Include="Views\Manager\CheckIn.cshtml" />
     <Content Include="Views\Manager\CheckOut.cshtml" />
-    <Content Include="Views\Manager\Complete.cshtml" />
     <Content Include="Views\Manager\Details.cshtml" />
     <Content Include="Views\Manager\Index.cshtml" />
     <Content Include="Views\Manager\New.cshtml" />
@@ -684,7 +701,6 @@
     <Content Include="Views\Requsition\Edit.cshtml" />
     <Content Include="Views\Requsition\Index.cshtml" />
     <Content Include="Views\Requsition\RequisitionIndex.cshtml" />
-    <Content Include="Views\Requsition\_CommentPartial.cshtml" />
     <Content Include="Views\Requsition\_RequisitionCreatePartial.cshtml" />
     <Content Include="Views\Requsition\_RequisitionListPartial.cshtml" />
     <Content Include="Views\Thana\Create.cshtml" />
@@ -704,6 +720,15 @@
     <Content Include="Views\VehicleType\Edit.cshtml" />
     <Content Include="Views\VehicleType\Index.cshtml" />
     <Content Include="Views\Account\EmployeeRegister.cshtml" />
+    <Content Include="Views\Employee\Details.cshtml" />
+    <Content Include="Views\Requsition\_CommentList.cshtml" />
+    <Content Include="Views\Requsition\_CommentPartial.cshtml" />
+    <Content Include="Views\Manager\CheckInConfirm.cshtml" />
+    <Content Include="Views\Manager\CompleteRequsition.cshtml" />
+    <Content Include="Views\Manager\AssignIndexDetails.cshtml" />
+    <Content Include="Views\Shared\_loadReport.cshtml" />
+    <Content Include="Views\Manager\AssignReport.cshtml" />
+    <Content Include="Views\Requsition\_ReplayCommentPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -9,5 +9,6 @@ namespace VehicleManagementApp.BLL.Contracts
 {
     public interface ICommentManager:IManager<Comment>
     {
+        IEnumerable<Comment> GetCommentsByRequisition(int requisitionId);
     }
 }

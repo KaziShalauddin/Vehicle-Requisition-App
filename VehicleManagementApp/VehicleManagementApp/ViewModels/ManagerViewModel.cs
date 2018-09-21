@@ -14,6 +14,7 @@ namespace VehicleManagementApp.ViewModels
         public string DriverNo { get; set; }
         //public string EmployeeName { get; set; }
         public string EmployeNumber { get; set; }
+        public string Status { get; set; }
 
         [Display(Name = "Requsition")]
         public int RequsitionId { get; set; }

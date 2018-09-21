@@ -14,8 +14,10 @@ namespace VehicleManagementApp.BLL
 {
     public class VehicleTypeManager:Manager<VehicleType>,IVehicleTypeManager
     {
-        public VehicleTypeManager() : base(new VehicleTypeRepository())
+        private IVehicleTypeRepository vehicleTypeRepository;
+        public VehicleTypeManager(IVehicleTypeRepository Repository) : base(Repository)
         {
+            this.vehicleTypeRepository = Repository;
         }
     }
 }

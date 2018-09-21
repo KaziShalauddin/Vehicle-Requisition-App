@@ -1,5 +1,5 @@
-﻿@model VehicleManagementApp.ViewModels.CommentViewModel
-
+﻿@using VehicleManagementApp.ViewModels
+@model VehicleManagementApp.ViewModels.RequsitionViewModel
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -10,38 +10,83 @@
         <div class="col-md-12">
             <h1>Requsition Description</h1>
             <table class="table table-bordered table-striped">
+
                 <tr>
-                    <th>Title</th>
-                    <th>Description</th>
+                    <td>Employee Name</td>
+                    <td>@Html.DisplayFor(model => model.Employee.Name)</td>
+                </tr>
+                <tr>
+                    <td>Employee Name</td>
+                    <td>@Html.DisplayFor(model => model.Employee.ContactNo)</td>
+                </tr>
+                <tr>
+                    <td>Employee Department</td>
+                    <td>@Html.DisplayFor(model => model.Employee.Department.Name)</td>
+                </tr>
+                <tr>
+                    <td>Employee Designation</td>
+                    <td>@Html.DisplayFor(model => model.Employee.Designation.Name)</td>
                 </tr>
                 <tr>
                     <td>Form</td>
-                    <td>@Html.DisplayFor(model => model.RequisitionViewModel.Form)</td>
+                    <td>@Html.DisplayFor(model => model.Form)</td>
                 </tr>
                 <tr>
                     <td>To</td>
-                    <td>@Html.DisplayFor(model => model.RequisitionViewModel.To)</td>
+                    <td>@Html.DisplayFor(model => model.To)</td>
                 </tr>
                 <tr>
                     <td>Description</td>
-                    <td>@Html.DisplayFor(model => model.RequisitionViewModel.Description)</td>
+                    <td>@Html.DisplayFor(model => model.Description)</td>
                 </tr>
                 <tr>
                     <td>Start Time</td>
-                    <td>@Html.DisplayFor(model => model.RequisitionViewModel.JourneyStart)</td>
+                    <td>@Html.DisplayFor(model => model.JourneyStart)</td>
                 </tr>
                 <tr>
                     <td>End Time</td>
-                    <td>@Html.DisplayFor(model => model.RequisitionViewModel.JouneyEnd)</td>
+                    <td>@Html.DisplayFor(model => model.JouneyEnd)</td>
                 </tr>
             </table>
         </div>
     </div>
 </div>
 
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                @Html.ActionLink("Edit", "Edit", new {id = Model.Id}, new {@class = "btn btn-primary"})
+                @Html.ActionLink("Assign", "Assign", "Manager", new {id = Model.Id}, new {@class = "btn btn-info"})
+                @Html.ActionLink("Delete", "Delete", new {id = Model.Id}, new {@class = "btn btn-danger", onclick = "return confirm('Are You Sure? You Want To Cancle!')"})
+                @Html.ActionLink("Print", "Print", new {id = Model.Id}, new {@class = "btn btn-success"})
+                @Html.ActionLink("Back to List", "Index", new {id = "",}, new {@class = "btn btn-default"})
+            </p>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="jumbotron">
+                <div id="commentListReplace">
+                    @Html.Partial("_CommentList", Model.CommentViewModels)
+                </div>
+                <div>
+                    @*@Html.Partial("_ReplayCommentPartial", Model.CommentViewModel)*@
+                </div>
+                <div >
+                    @Html.Partial("_CommentPartial", Model.CommentViewModel)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-
-<p>
-    @Html.ActionLink("Edit", "Edit", new {id = Model.Id}) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+@section scripts{
+    <script>
+        function handeCommentAddedComplete() {
+            $("#Comments").val("");
+        }
+    </script>
+}

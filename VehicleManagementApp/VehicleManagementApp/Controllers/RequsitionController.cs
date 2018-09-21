@@ -15,15 +15,16 @@ namespace VehicleManagementApp.Controllers
         // GET: Requsition
         private IRequsitionManager _requisitionManager;
         private IEmployeeManager _employeeManager;
+        private ICommentManager commentManager;
         //private IRequsitionStatusManager _requsitionStatusManager;
         private IManagerManager _managerManager;
         private IVehicleManager vehicleManager;
         //IRequsitionStatusManager requsitionStatus,
-        public RequsitionController(IRequsitionManager requisition, IEmployeeManager employee,  IManagerManager manager, IVehicleManager vehicle)
+        public RequsitionController(IRequsitionManager requisition, IEmployeeManager employee,  IManagerManager manager, IVehicleManager vehicle, ICommentManager comment)
         {
             this._requisitionManager = requisition;
             this._employeeManager = employee;
-            //this._requsitionStatusManager = requsitionStatus;
+            this.commentManager = comment;
             this._managerManager = manager;
             this.vehicleManager = vehicle;
         }
@@ -36,10 +37,10 @@ namespace VehicleManagementApp.Controllers
             var employee = _employeeManager.GetAll();
             //var requstionStatus = _requsitionStatusManager.GetAll();
 
-            List<RequisitionViewModel> requisitionViewList = new List<RequisitionViewModel>();
+            List<RequsitionViewModel> requisitionViewList = new List<RequsitionViewModel>();
             foreach (var requisition in allRequisitions)
             {
-                var requisitionVM = new RequisitionViewModel();
+                var requisitionVM = new RequsitionViewModel();
                 requisitionVM.Id = requisition.Id;
                 requisitionVM.Form = requisition.Form;
                 requisitionVM.To = requisition.To;
@@ -51,6 +52,81 @@ namespace VehicleManagementApp.Controllers
                 requisitionViewList.Add(requisitionVM);
             }
             return View(requisitionViewList);
+        }
+
+
+        // GET: Requsition/Details/5
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            int requsitionId = (int)id;
+            Requsition requsition = _requisitionManager.GetById(requsitionId);
+            if (requsition == null)
+            {
+                return HttpNotFound();
+            }
+            var employee = _employeeManager.Get(c => c.IsDriver == true && c.IsDeleted == false);
+            var manager = _managerManager.GetAll();
+            RequsitionViewModel requsitionViewModel = new RequsitionViewModel();
+            requsitionViewModel.Id = requsition.Id;
+            requsitionViewModel.Form = requsition.Form;
+            requsitionViewModel.To = requsition.To;
+            requsitionViewModel.Description = requsition.Description;
+            requsitionViewModel.Employee = requsition.Employee;
+            requsitionViewModel.Manager = manager.FirstOrDefault(c => c.RequsitionId == requsition.Id);
+
+            int? emplId = requsition.EmployeeId;
+            requsitionViewModel.CommentViewModel = new CommentViewModel
+            {
+                EmployeeId = (int)emplId,
+                RequsitionId = requsitionId
+            };
+
+            //Collect the list of comment to display the list under comment
+            List<CommentViewModel> commentListViewModel = new List<CommentViewModel>();
+            var commentListView = commentManager.GetCommentsByRequisition(requsitionId);
+            foreach (var item in commentListView.ToList())
+            {
+                commentListViewModel.Add
+                (
+                    new CommentViewModel { RequsitionId = requsitionId, Comments = item.Comments, Employee = item.Employee}
+                );
+            }
+            requsitionViewModel.CommentViewModels = commentListViewModel;
+
+            return View(requsitionViewModel);
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateComment(CommentViewModel commentViewModel)
+        {
+            Comment comment = new Comment();
+            comment.RequsitionId = commentViewModel.RequsitionId;
+            comment.Comments = commentViewModel.Comments;
+            comment.EmployeeId = commentViewModel.EmployeeId;
+            bool isSaved = commentManager.Add(comment);
+
+            List<CommentViewModel> commentListViewModel = new List<CommentViewModel>();
+
+            if (isSaved)
+            {
+                //Collect the list of comment to display the list under comment
+                var commentListView = commentManager.GetCommentsByRequisition(commentViewModel.RequsitionId);
+                foreach (var item in commentListView.ToList())
+                {
+                    commentListViewModel.Add
+                    (
+                        new CommentViewModel { RequsitionId = commentViewModel.RequsitionId, Comments = item.Comments, Employee = item.Employee}
+                    );
+                }
+                return PartialView("_CommentList", commentListViewModel);
+            }
+            return PartialView("_CommentList", commentListViewModel);
         }
 
         private TempDataDictionary data;
@@ -66,7 +142,7 @@ namespace VehicleManagementApp.Controllers
             return View(allRequsitions);
         }
 
-        public JsonResult JsonCreate(RequisitionViewModel requisitionVm)
+        public JsonResult JsonCreate(RequsitionViewModel requisitionVm)
         {
 
             Requsition requisition = new Requsition();
@@ -91,7 +167,7 @@ namespace VehicleManagementApp.Controllers
 
         }
 
-        private List<RequisitionViewModel> RequisitionListView()
+        private List<RequsitionViewModel> RequisitionListView()
         {
             GetRequisitionComplete();
 
@@ -99,10 +175,10 @@ namespace VehicleManagementApp.Controllers
             var employee = _employeeManager.GetAll();
             //var requstionStatus = _requsitionStatusManager.GetAll();
 
-            List<RequisitionViewModel> requisitionViewList = new List<RequisitionViewModel>();
+            List<RequsitionViewModel> requisitionViewList = new List<RequsitionViewModel>();
             foreach (var requisition in allRequisitions)
             {
-                var requisitionVM = new RequisitionViewModel();
+                var requisitionVM = new RequsitionViewModel();
                 requisitionVM.Id = requisition.Id;
                 requisitionVM.Form = requisition.Form;
                 requisitionVM.To = requisition.To;
@@ -129,39 +205,7 @@ namespace VehicleManagementApp.Controllers
                 }
             }
         }
-
-        // GET: Requsition/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            Requsition requisition = _requisitionManager.GetById((int)id);
-            var employee = _employeeManager.Get(c => c.IsDriver == true && c.IsDeleted == false);
-
-
-            CommentViewModel commentViewModel = new CommentViewModel();
-
-            commentViewModel.RequsitionViewModelId = requisition.Id;
-            commentViewModel.RequisitionViewModel.Form = requisition.Form;
-            commentViewModel.RequisitionViewModel.To = requisition.To;
-            commentViewModel.RequisitionViewModel.Description = requisition.Description;
-            commentViewModel.RequisitionViewModel.JourneyStart = requisition.JourneyStart;
-            commentViewModel.RequisitionViewModel.JouneyEnd = requisition.JouneyEnd;
-
-            //commentViewModel.RequsitionViewModel.EmployeeId = requsition.EmployeeId;
-
-            //RequsitionViewModel requsitionViewModel = new RequsitionViewModel();
-            //requsitionViewModel.Id = requsition.Id;
-            //requsitionViewModel.Employee = employee.Where(c => c.Id == requsition.EmployeeId).FirstOrDefault();
-
-
-            return View(commentViewModel);
-        }
-
-
+        
         // GET: Requsition/Create
         public ActionResult Create()
         {
@@ -169,7 +213,7 @@ namespace VehicleManagementApp.Controllers
             var empl = employee.Where(c => c.IsDriver == false);
             var employees = _employeeManager.Get(c => c.IsDriver == false && c.IsDeleted == false);
 
-            RequisitionViewModel requisitionVM = new RequisitionViewModel();
+            RequsitionViewModel requisitionVM = new RequsitionViewModel();
 
             requisitionVM.Employees = empl;
             return View(requisitionVM);
@@ -177,7 +221,7 @@ namespace VehicleManagementApp.Controllers
 
         // POST: Requsition/Create
         [HttpPost]
-        public ActionResult Create(RequisitionViewModel requisitionVm)
+        public ActionResult Create(RequsitionViewModel requisitionVm)
         {
             try
             {
@@ -212,7 +256,7 @@ namespace VehicleManagementApp.Controllers
                 return HttpNotFound();
             }
             Requsition requisition = _requisitionManager.GetById((int)id);
-            RequisitionViewModel requisitionView = new RequisitionViewModel();
+            RequsitionViewModel requisitionView = new RequsitionViewModel();
 
             requisitionView.Id = requisition.Id;
             requisitionView.Form = requisition.Form;
@@ -229,7 +273,7 @@ namespace VehicleManagementApp.Controllers
 
         // POST: Requsition/Edit/5
         [HttpPost]
-        public ActionResult Edit(RequisitionViewModel requisitionVm)
+        public ActionResult Edit(RequsitionViewModel requisitionVm)
         {
             try
             {

@@ -13,8 +13,12 @@ namespace VehicleManagementApp.Repository.Repository
 {
     public abstract class Repository<T>:IRepository<T> where T:class 
     {
-        VehicleDatabaseContext db = new VehicleDatabaseContext();
 
+        VehicleDatabaseContext db = new VehicleDatabaseContext();
+        public VehicleDatabaseContext Context
+        {
+            get { return db; }
+        }
         public virtual bool Add(T entity)
         {
             db.Set<T>().Add(entity);
@@ -68,10 +72,11 @@ namespace VehicleManagementApp.Repository.Repository
     public abstract class DeletableRepository<T>:Repository<T> where T:class,IDeletable
     {
         VehicleDatabaseContext db = new VehicleDatabaseContext();
+
+
         public override ICollection<T> GetAll(bool withDeleted = false)
         {
             return db.Set<T>().Where(x => x.IsDeleted == false || x.IsDeleted == withDeleted).AsNoTracking().ToList();
         }
-        
     }
 }

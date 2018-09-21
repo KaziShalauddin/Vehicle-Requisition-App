@@ -15,9 +15,11 @@ namespace VehicleManagementApp.Models.Models
         public string Comments { get; set; }
         public int? CommntId { get; set; }
         public Comment Commnt { get; set; }
+
         [ForeignKey("Employee")]
         public int EmployeeId { get; set; }
-        public Employee Employee { get; set; }
+        public virtual Employee Employee { get; set; }
+
         [ForeignKey("Requsition")]
         public int RequsitionId { get; set; }
         public Requsition Requsition { get; set; }

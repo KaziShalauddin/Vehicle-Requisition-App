@@ -38,7 +38,7 @@ namespace VehicleManagementApp.ViewModels
         public int EmployeeId { get; set; }
         public virtual Employee Employee { get; set; }
 
-        public IEnumerable<RequisitionViewModel> RequsitionViewModels { get; set; }
+        public IEnumerable<RequsitionViewModel> RequsitionViewModels { get; set; }
 
         //[Display(Name = "Employee")]
         //public int EmployeeId { get; set; }

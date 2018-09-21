@@ -99,6 +99,9 @@ namespace VehicleManagementApp
             container.RegisterType<IManagerManager, ManagerManager>();
             container.RegisterType<IManagerRepository, ManagerRepository>();
 
+            container.RegisterType<DbContext, VehicleDatabaseContext>();
+
+
 
 
             //container.RegisterType<DbContext, VehicleDatabaseContext>();

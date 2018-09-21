@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VehicleManagementApp.Models.Models;
+using VehicleManagementApp.Models.ReportViewModel;
 
 namespace VehicleManagementApp.Repository.DatabaseContext
 {
@@ -30,8 +31,6 @@ namespace VehicleManagementApp.Repository.DatabaseContext
         public DbSet<District> Districts { get; set; }
         public DbSet<Thana> Thanas { get; set; }
         public DbSet<Manager> Managers { get; set; }
-
-
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -82,6 +81,11 @@ namespace VehicleManagementApp.Repository.DatabaseContext
             return new VehicleDatabaseContext();
         }
 
+        public IQueryable<RequsitionAssignReportViewModel> GetRequsitionAssignSummary()
+        {
+            var result = Database.SqlQuery<RequsitionAssignReportViewModel>("select * from VW_AssignReporting");
+            return result.AsQueryable();
+        }
 
     }
   

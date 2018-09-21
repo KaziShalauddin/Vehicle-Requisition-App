@@ -1,0 +1,73 @@
+﻿@model ICollection<VehicleManagementApp.Models.ReportViewModel.RequsitionAssignViewModel>
+@{
+    ViewBag.Title = "AssignReport";
+    Layout = "~/Views/Shared/_LayoutManager.cshtml";
+}
+
+<table class="table table-bordered table-striped" id="myTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.Raw("From")
+            </th>
+            <th>
+                @Html.Raw("To")
+            </th>
+            <th>
+                @Html.Raw("Start Time")
+            </th>
+            <th>
+                @Html.Raw("End Time")
+            </th>
+
+            <th>
+                @Html.Raw("Name")
+            </th>
+            <th>
+                @Html.Raw("Contact No")
+            </th>
+            <th>
+                @Html.Raw("Vehicle Name")
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Form)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.JourneyStart)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.JouneyEnd)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VehicleName)
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-horizontal">
+                <div class="form-group">
+                    @if (ViewBag.ReportViewer != null)
+                    {
+                        Html.RenderPartial("_LoadReport");
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

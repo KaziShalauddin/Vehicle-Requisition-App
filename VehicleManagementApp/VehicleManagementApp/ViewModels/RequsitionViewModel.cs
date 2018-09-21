@@ -7,8 +7,14 @@ using VehicleManagementApp.Models.Models;
 
 namespace VehicleManagementApp.ViewModels
 {
-    public class RequisitionViewModel
+    public class RequsitionViewModel
     {
+        public RequsitionViewModel()
+        {
+            CommentViewModels = new HashSet<CommentViewModel>();
+            Vehicles = new HashSet<Vehicle>();
+        }
+
         public int Id { get; set; }
 
         [Required]
@@ -22,21 +28,19 @@ namespace VehicleManagementApp.ViewModels
 
         [Required]
         [Display(Name = "Journey Start")]
+        [DataType(DataType.DateTime)]
         public DateTime JourneyStart { get; set; }
 
         [Required]
         [Display(Name = "Journey End")]
+        [DataType(DataType.DateTime)]
         public DateTime JouneyEnd { get; set; }
 
         public string Status { get; set; }
 
-        [DataType(DataType.Time)]
-        public DateTime Time { get; set; }
-
 
         [Display(Name = "Employee")]
         public int EmployeeId { get; set; }
-
         public virtual Employee Employee { get; set; }
         public IEnumerable<Employee> Employees { get; set; }
 
@@ -45,18 +49,23 @@ namespace VehicleManagementApp.ViewModels
         public int VehicleId { get; set; }
 
         public Vehicle Vehicle { get; set; }
+
         public IEnumerable<Vehicle> Vehicles { get; set; }
 
         [Display(Name = "Vehicle Name")]
         public int ManagerId { get; set; }
-
         public Manager Manager { get; set; }
         public IEnumerable<Manager> Managers { get; set; }
 
-        public int EmployeeViewModdelId { get; set; }
-        public EmployeeViewModel EmployeeViewMoel { get; set; }
+        public int EmployeeViewModelId { get; set; }
+        public EmployeeViewModel EmployeeViewModel { get; set; }
 
+        public int CommentViewModelId { get; set; }
+        public CommentViewModel CommentViewModel { get; set; }
+        public virtual IEnumerable<CommentViewModel> CommentViewModels { get; set; }
 
-        //public List<Requsition> RequsitionCreate { get; set; }
+        public IEnumerable<RequsitionViewModel> RequsitionViewModels { get; set; }
+        public ReplayCommentViewModel ReplayCommentViewModel { get; set; }
+        public virtual IEnumerable<ReplayCommentViewModel> ReplayCommentViewModels { get; set; }
     }
 }

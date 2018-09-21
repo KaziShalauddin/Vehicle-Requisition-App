@@ -15,10 +15,6 @@ namespace VehicleManagementApp.BLL
     {
         private IOrganaizationRepository _repository;
 
-        public OrganaizationManager() : base(new OrganaizationRepository())
-        {
-            _repository = (OrganaizationRepository)base.BaseRepository;
-        }
 
         public OrganaizationManager(IOrganaizationRepository baseRepository) : base(baseRepository)
         {

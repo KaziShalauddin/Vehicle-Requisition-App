@@ -1,0 +1,98 @@
+﻿@model VehicleManagementApp.ViewModels.ManagerViewModel
+
+@{
+    ViewBag.Title = "CheckOutEdit";
+    Layout = "~/Views/Shared/_Requsition.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <h3 style="margin: 13px;padding: 8px;text-align: center;font-size: 30px;font-family: Lat">Check In Details, Please Read And Confirm Checkout</h3>
+    <div>
+        <table class="table table-bordered table-striped table-hover">
+            <tr>
+                <th>Employee Name</th>
+                <td>@Html.DisplayFor(model => model.Requsition.Employee.Name)</td>
+            </tr>
+            <tr>
+                <th>Employee Number</th>
+                <td>@Html.DisplayFor(model => model.Requsition.Employee.ContactNo)</td>
+            </tr>
+            <tr>
+                <th>Requsition Form</th>
+                <td>@Html.DisplayFor(model => model.Requsition.Form)</td>
+            </tr>
+            <tr>
+                <th>Requsition To</th>
+                <td>@Html.DisplayFor(model => model.Requsition.To)</td>
+            </tr>
+            <tr>
+                <th>Vehicle Name</th>
+                <td>@Html.DisplayFor(model => model.Vehicle.VehicleName)</td>
+            </tr>
+            <tr>
+                <th>Vehicle Model</th>
+                <td>@Html.DisplayFor(model => model.Vehicle.VModel)</td>
+            </tr>
+            <tr>
+                <th>Vehicle Registration</th>
+                <td>@Html.DisplayFor(model => model.Vehicle.VRegistrationNo)</td>
+            </tr>
+            <tr>
+                <th>Driver Name</th>
+                <td>@Html.DisplayFor(model => model.Employee.Name)</td>
+            </tr>
+            <tr>
+                <th>Driver Name</th>
+                <td>@Html.DisplayFor(model => model.Employee.ContactNo)</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group" style="display: none">
+            @Html.HiddenFor(model => model.EmployeeId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("EmployeeId", null, new { @class = "form-control", id = "hide1" })
+                @Html.ValidationMessageFor(model => model.DriverName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" style="display: none">
+            @Html.HiddenFor(model => model.RequsitionId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.HiddenFor(model => model.RequsitionId, new { htmlAttributes = new { @class = "form-control", id = "hide1" } })
+                @Html.ValidationMessageFor(model => model.RequsitionId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" style="display: none">
+            @Html.HiddenFor(model => model.VehicleId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("VehicleId", null, new { @class = "form-control", id = "hide1" })
+                @Html.ValidationMessageFor(model => model.VehicleId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" style="margin-left: 150px;" value="Confirm CheckIn" class="btn btn-default btn-lg" onclick="return confirm('Are You Sure? You Want CheckOut This')" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "CheckIn")
+</div>
+
+
+
+
+

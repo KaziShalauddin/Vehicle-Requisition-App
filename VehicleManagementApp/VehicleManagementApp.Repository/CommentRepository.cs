@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,5 +12,9 @@ namespace VehicleManagementApp.Repository
 {
     public class CommentRepository:DeletableRepository<Comment>,ICommentRepository
     {
+        public IEnumerable<Comment> GetCommentsByRequisition(int requisitionId)
+        {
+            return base.Context.Comments.Where(x => x.RequsitionId == requisitionId).ToList();
+        }
     }
 }

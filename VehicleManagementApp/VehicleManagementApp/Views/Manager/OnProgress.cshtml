@@ -1,4 +1,4 @@
-﻿@model IEnumerable<VehicleManagementApp.ViewModels.RequisitionViewModel>
+﻿@model IEnumerable<VehicleManagementApp.ViewModels.RequsitionViewModel>
 
 @{
     ViewBag.Title = "OnProgress";
@@ -20,7 +20,7 @@
                 @Html.DisplayNameFor(model => model.Form)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.To)
+                @Html.Raw("To")
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Description)

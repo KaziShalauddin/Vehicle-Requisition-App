@@ -37,10 +37,10 @@ namespace VehicleManagementApp.Models.Models
         public bool IsDriver { get; set; }
         [ForeignKey("Department")]
         public int? DepartmentId { get; set; }
-        public Department Department { get; set; }
+        public virtual Department Department { get; set; }
         [ForeignKey("Designation")]
         public int? DesignationId { get; set; }
-        public Designation Designation { get; set; }
+        public virtual Designation Designation { get; set; }
         [ForeignKey("Division")]
         public int? DivisionId { get; set; }
         public Division Division { get; set; }

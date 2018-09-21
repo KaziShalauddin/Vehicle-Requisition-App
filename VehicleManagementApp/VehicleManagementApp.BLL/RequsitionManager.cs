@@ -16,10 +16,6 @@ namespace VehicleManagementApp.BLL
     public class RequsitionManager:Manager<Requsition>,IRequsitionManager
     {
         private IRequsitionRepository _requsition;
-        public RequsitionManager() : base(new RequsistionRepository())
-        {
-            _requsition = (IRequsitionRepository)base.BaseRepository;
-        }
 
         public RequsitionManager(IRequsitionRepository requsition):base(requsition)
         {

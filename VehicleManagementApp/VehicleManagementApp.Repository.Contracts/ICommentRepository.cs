@@ -9,5 +9,6 @@ namespace VehicleManagementApp.Repository.Contracts
 {
     public interface ICommentRepository:IRepository<Comment>
     {
+        IEnumerable<Comment> GetCommentsByRequisition(int requisitionId);
     }
 }

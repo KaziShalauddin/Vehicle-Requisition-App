@@ -1,0 +1,55 @@
+﻿@model IEnumerable<VehicleManagementApp.ViewModels.ManagerViewModel>
+
+@{
+    ViewBag.Title = "CheckOut";
+    Layout = "~/Views/Shared/_Requsition.cshtml";
+    int sl = 1;
+}
+
+<table class="table table-bordered table-striped" id="myTable">
+    <thead>
+        <tr>
+            <th>@Html.Raw("SL")</th>
+            <th>
+                @Html.Raw("Requsition From")
+            </th>
+            <th>
+                @Html.Raw("Requsition To")
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VehicleId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@(sl++)</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Requsition.Form)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Requsition.To)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Vehicle.VehicleName)
+                </td>
+                <td>
+                    @if (item.Status == "ComplereRequsition")
+                    {
+                        @Html.Raw("Requsition Complete")
+                    }
+
+                </td>
+                <td>
+                    @Html.ActionLink("Priview", "Priview", new { id = item.Id }, new { @class = "btn btn-info" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

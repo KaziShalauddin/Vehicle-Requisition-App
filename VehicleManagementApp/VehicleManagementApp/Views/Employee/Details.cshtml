@@ -1,0 +1,78 @@
+﻿@model VehicleManagementApp.ViewModels.EmployeeViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/css/ssss.css" rel="stylesheet" />
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Employee Details</h1>
+            <div class="jumbotron">
+                <table class="details_view">
+                    <tr>
+                        <td class="title_name">Employee Name :</td>
+                        <td>@Html.DisplayFor(model => model.Name)</td>
+                    </tr>
+
+                    <tr>
+                        <td class="title_name">Employee Contact No :</td>
+                        <td>@Html.DisplayFor(model => model.ContactNo)</td>
+                    </tr>
+
+                    <tr>
+                        <td class="title_name">Employee Email :</td>
+                        <td>@Html.DisplayFor(model => model.Email)</td>
+                    </tr>
+
+                    <tr>
+                        <td class="title_name">Employee Address-1 :</td>
+                        <td>@Html.DisplayFor(model => model.Address1)</td>
+                    </tr>
+
+                    <tr>
+                        <td class="title_name">Employee Address-2 :</td>
+                        <td>@Html.DisplayFor(model => model.Address2)</td>
+                    </tr>
+
+                    <tr>
+                        <td class="title_name">Employee Licence No :</td>
+                        <td>@Html.DisplayFor(model => model.LicenceNo)</td>
+                    </tr>
+
+                    <tr>
+                        <td class="title_name">Department Name :</td>
+                        <td>@Html.DisplayFor(model => model.Department.Name)</td>
+                    </tr>
+
+                    <tr>
+                        <td class="title_name">Employee Designation :</td>
+                        <td>@Html.DisplayFor(model => model.Designation.Name)</td>
+                    </tr>
+
+                    <tr>
+                        <td class="title_name">Employee Division :</td>
+                        <td>@Html.DisplayFor(model => model.Division.Name)</td>
+                    </tr>
+
+                    <tr>
+                        <td class="title_name">Employee District :</td>
+                        <td>@Html.DisplayFor(model => model.District.Name)</td>
+                    </tr>
+
+                    <tr>
+                        <td class="title_name">Employee Thana :</td>
+                        <td>@Html.DisplayFor(model => model.Thana.Name)</td>
+                    </tr>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -16,14 +16,15 @@ namespace VehicleManagementApp.BLL
     {
         private IEmployeeRepository _employeeRepository;
 
-        public EmployeeManager() : base(new EmployeeRepository())
+        public EmployeeManager():base(new EmployeeRepository())
         {
             _employeeRepository = (EmployeeRepository)base.BaseRepository;
         }
 
-        public EmployeeManager(IEmployeeRepository basEmployeeManager):base(basEmployeeManager)
+        public EmployeeManager(IEmployeeRepository repository):base(repository)
         {
-            _employeeRepository = basEmployeeManager;
+            this._employeeRepository = repository;
         }
+
     }
 }

@@ -7,14 +7,23 @@ using VehicleManagementApp.BLL.Base;
 using VehicleManagementApp.BLL.Contracts;
 using VehicleManagementApp.Models.Models;
 using VehicleManagementApp.Repository;
+using VehicleManagementApp.Repository.Contracts;
 using VehicleManagementApp.Repository.Repository;
 
 namespace VehicleManagementApp.BLL
 {
     public class CommentManager:Manager<Comment>,ICommentManager
     {
-        public CommentManager() : base(new CommentRepository())
+        private ICommentRepository commentRepository;
+
+
+        public CommentManager(ICommentRepository commentRepository) : base(commentRepository)
         {
+            this.commentRepository = commentRepository;
+        }
+        public IEnumerable<Comment> GetCommentsByRequisition(int requisitionId)
+        {
+            return commentRepository.GetCommentsByRequisition(requisitionId);
         }
     }
 }

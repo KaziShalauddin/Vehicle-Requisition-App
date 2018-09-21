@@ -1786,6 +1786,18 @@ h1, h2, h3, h4, h5, h6 {
   padding: 10px 0 10px 0px;
 }
 
+/*custom css for comment start*/
+.alert-info {
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+    margin-left: 40px;
+    margin-top: 5px;
+}
+/*custom css for comment End*/
+
+
+
 .default-select .nice-select .list .option {
   font-weight: 300;
   -webkit-transition: all 0.3s ease 0s;
@@ -2071,11 +2083,12 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0 8px 0px 8px;
   text-decoration: none;
   display: inline-block;
-  color: #222;
+  color: #000;
   font-weight: 400;
-  font-size: 16px;
+  font-size: 18px;
   text-transform: uppercase;
   outline: none;
+    font-family: lat;
 }
 
 .nav-menu > li {
@@ -2095,11 +2108,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .nav-menu ul li a {
   padding: 10px;
-  color: #333;
+  color: #000;
   transition: 0.3s;
   display: block;
-  font-size: 16px;
+  font-size: 20px;
   text-transform: none;
+    font-family: lat;
 }
 
 .nav-menu ul li:hover > a {
@@ -2334,8 +2348,9 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 .banner-area {
   background: url(../img/header-bg.jpg) center;
-  /*background: url(../img/slider/5.jpg) center;*/
-  background-size: auto;
+    background-position: center;
+    background-repeat: no-repeat; 
+  background-size: cover;
 }
 
 @media (max-width: 767.98px) {
