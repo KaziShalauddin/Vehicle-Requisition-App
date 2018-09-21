@@ -9,5 +9,6 @@ namespace VehicleManagementApp.BLL.Contracts
 {
     public interface IVehicleTypeManager:IManager<VehicleType>
     {
+        bool IsTypeAlreadyExist(string typeName);
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using VehicleManagementApp.Models.Models;
 
 namespace VehicleManagementApp.ViewModels
@@ -10,6 +11,9 @@ namespace VehicleManagementApp.ViewModels
     public class ThanaViewModel
     {
         public int Id { get; set; }
+
+        [Required]
+        [Remote("IsNameExist", "Thana", HttpMethod = "POST", ErrorMessage = "Thana Already Exist, Try Another")]
         public string Name { get; set; }
 
         [Display(Name = "District Name")]

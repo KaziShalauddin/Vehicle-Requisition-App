@@ -99,7 +99,7 @@ namespace VehicleManagementApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Thana thana = _thanaManager.GetById((int) id);
-            ThanaViewModel thanaVM = new ThanaViewModel()
+            EditThanaViewModel thanaVM = new EditThanaViewModel()
             {
                 Id = thana.Id,
                 Name = thana.Name,
@@ -111,7 +111,7 @@ namespace VehicleManagementApp.Controllers
 
         // POST: Thana/Edit/5
         [HttpPost]
-        public ActionResult Edit(ThanaViewModel thanaViewModel)
+        public ActionResult Edit(EditThanaViewModel thanaViewModel)
         {
             try
             {
@@ -176,6 +176,12 @@ namespace VehicleManagementApp.Controllers
             var divisionCat = thana.Where(x => x.DistrictId == districtId).ToList();
 
             return Json(divisionCat, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult IsNameExist(string Name)
+        {
+            var name = _thanaManager.IsThanaAlreadyExist(Name);
+            return Json(name, JsonRequestBehavior.AllowGet);
         }
     }
 }

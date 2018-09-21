@@ -226,20 +226,26 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CommentViewModel.cs" />
+    <Compile Include="ViewModels\EditDivisionViewModel.cs" />
+    <Compile Include="ViewModels\EditDistrictViewModel.cs" />
+    <Compile Include="ViewModels\EditDesignationViewModel.cs" />
+    <Compile Include="ViewModels\EditDepartmentViewModel.cs" />
     <Compile Include="ViewModels\DepartmentViewModel.cs" />
     <Compile Include="ViewModels\DesignationViewModel.cs" />
     <Compile Include="ViewModels\DistrictViewModel.cs" />
     <Compile Include="ViewModels\DivisionViewModel.cs" />
+    <Compile Include="ViewModels\EditEmployeeViewModel.cs" />
     <Compile Include="ViewModels\EmployeeViewModel.cs" />
     <Compile Include="ViewModels\ManagerViewModel.cs" />
     <Compile Include="ViewModels\OrganaizationViewModels.cs" />
     <Compile Include="ViewModels\ReplayCommentViewModel.cs" />
     <Compile Include="ViewModels\RequsitionCreateViewModel.cs" />
-    <Compile Include="ViewModels\RequsitionStatusViewModel.cs" />
     <Compile Include="ViewModels\RequsitionViewModel.cs" />
-    <Compile Include="ViewModels\RoleViewModel.cs" />
+    <Compile Include="ViewModels\EditThanaViewModel.cs" />
     <Compile Include="ViewModels\ThanaViewModel.cs" />
+    <Compile Include="ViewModels\EditVehicleTypeViewModel.cs" />
     <Compile Include="ViewModels\VehicleTypeViewModel.cs" />
+    <Compile Include="ViewModels\EditVehicleViewModel.cs" />
     <Compile Include="ViewModels\VehicleViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

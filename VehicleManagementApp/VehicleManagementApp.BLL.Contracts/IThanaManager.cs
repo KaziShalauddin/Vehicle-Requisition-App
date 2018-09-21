@@ -9,5 +9,6 @@ namespace VehicleManagementApp.BLL.Contracts
 {
     public interface IThanaManager:IManager<Thana>
     {
+        bool IsThanaAlreadyExist(string name);
     }
 }

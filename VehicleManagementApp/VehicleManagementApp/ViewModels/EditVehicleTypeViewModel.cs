@@ -4,16 +4,18 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using VehicleManagementApp.Models.Models;
 
 namespace VehicleManagementApp.ViewModels
 {
-    public class DivisionViewModel
+    public class EditVehicleTypeViewModel
     {
         public int Id { get; set; }
 
         [Required]
-        [Remote("IsNameExist", "Division", HttpMethod = "POST", ErrorMessage = "Division Already Exist, Try Another")]
-        [Display(Name = "Division Name")]
-        public string Name { get; set; }
+        [Display(Name = "Vehicle Type")]
+        public string TypeName { get; set; }
+
+        public IEnumerable<VehicleType> VehicleTypes { get; set; } 
     }
 }

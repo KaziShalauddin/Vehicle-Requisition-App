@@ -21,6 +21,7 @@ namespace VehicleManagementApp.Controllers
             this._departmentManager = manager;
             this._organaizationManager = organaization;
         }
+
         public ActionResult Index()
         {
             var organaization = _organaizationManager.GetAll();
@@ -33,7 +34,8 @@ namespace VehicleManagementApp.Controllers
 
                 departmentViewModel.Id = department.Id;
                 departmentViewModel.Name = department.Name;
-                departmentViewModel.Organaization = organaization.Where(x => x.Id == department.OrganaizationId).FirstOrDefault();
+                departmentViewModel.Organaization =
+                    organaization.Where(x => x.Id == department.OrganaizationId).FirstOrDefault();
 
                 departmentVM.Add(departmentViewModel);
             }
@@ -47,15 +49,15 @@ namespace VehicleManagementApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            
+
             var organaization = _organaizationManager.GetAll();
 
-            Department department = _departmentManager.GetById((int)id);
-            
+            Department department = _departmentManager.GetById((int) id);
+
             DepartmentViewModel departmentVM = new DepartmentViewModel()
             {
                 Name = department.Name,
-                Organaization = organaization.Where(x=>x.Id == department.OrganaizationId).FirstOrDefault()
+                Organaization = organaization.Where(x => x.Id == department.OrganaizationId).FirstOrDefault()
             };
             return View(departmentVM);
         }
@@ -79,7 +81,7 @@ namespace VehicleManagementApp.Controllers
                 Department department = new Department();
                 department.Name = departmentVM.Name;
                 department.OrganaizationId = departmentVM.OrganaizationId;
-                bool isSaved =  _departmentManager.Add(department);
+                bool isSaved = _departmentManager.Add(department);
                 if (isSaved)
                 {
                     TempData["msg"] = "Department Save Successfully";
@@ -99,20 +101,21 @@ namespace VehicleManagementApp.Controllers
             {
                 return HttpNotFound();
             }
-            Department department = _departmentManager.GetById((int)id);
-            DepartmentViewModel departmentVM = new DepartmentViewModel()
+            Department department = _departmentManager.GetById((int) id);
+            EditDepartmentViewModel departmentVM = new EditDepartmentViewModel()
             {
                 Id = department.Id,
                 Name = department.Name,
                 OrganaizationId = department.OrganaizationId
             };
-            ViewBag.OrganaizationId = new SelectList(_organaizationManager.GetAll(),"Id","Name", department.OrganaizationId);
+            ViewBag.OrganaizationId = new SelectList(_organaizationManager.GetAll(), "Id", "Name",
+                department.OrganaizationId);
             return View(departmentVM);
         }
 
         // POST: Department/Edit/5
         [HttpPost]
-        public ActionResult Edit(DepartmentViewModel departmentVM)
+        public ActionResult Edit(EditDepartmentViewModel departmentVM)
         {
             try
             {
@@ -136,7 +139,7 @@ namespace VehicleManagementApp.Controllers
             {
                 return HttpNotFound();
             }
-            Department department = _departmentManager.GetById((int)id);
+            Department department = _departmentManager.GetById((int) id);
             bool isDeleted = _departmentManager.Remove(department);
             if (isDeleted)
             {
@@ -159,6 +162,12 @@ namespace VehicleManagementApp.Controllers
             {
                 return View();
             }
+        }
+
+        public JsonResult IsNameExist(string Name)
+        {
+            var name = _departmentManager.IsNameAlreadyExist(Name);
+            return Json(name, JsonRequestBehavior.AllowGet);
         }
     }
 }

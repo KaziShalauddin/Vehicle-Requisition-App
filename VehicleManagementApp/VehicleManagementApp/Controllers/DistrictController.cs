@@ -98,7 +98,7 @@ namespace VehicleManagementApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             District district = _districtManager.GetById((int)id);
-            DistrictViewModel districtVM = new DistrictViewModel();
+            EditDistrictViewModel districtVM = new EditDistrictViewModel();
             districtVM.Id = district.Id;
             districtVM.Name = district.Name;
             districtVM.DivisionId = district.DivisionId;
@@ -110,7 +110,7 @@ namespace VehicleManagementApp.Controllers
 
         // POST: District/Edit/5
         [HttpPost]
-        public ActionResult Edit(DistrictViewModel districtVM)
+        public ActionResult Edit(EditDistrictViewModel districtVM)
         {
             try
             {
@@ -174,6 +174,12 @@ namespace VehicleManagementApp.Controllers
             var divisionCat = district.Where(x => x.DivisionId == divisionId).ToList();
 
             return Json(divisionCat, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult IsNameExist(string Name)
+        {
+            var name = _districtManager.IsNameAlreadyExist(Name);
+            return Json(name, JsonRequestBehavior.AllowGet);
         }
     }
 }

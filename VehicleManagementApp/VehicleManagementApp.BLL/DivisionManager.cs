@@ -17,5 +17,18 @@ namespace VehicleManagementApp.BLL
         {
             this._iDivisionRepository = divisionRepository;
         }
+
+        public bool IsNameAlreadyExist(string name)
+        {
+            var division = _iDivisionRepository.Get(c => c.Name.ToLower().Equals(name.ToLower()));
+            if (division.Count > 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }

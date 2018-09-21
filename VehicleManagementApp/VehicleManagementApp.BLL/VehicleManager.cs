@@ -19,5 +19,31 @@ namespace VehicleManagementApp.BLL
         {
             this.vehicleRepository = Repository;
         }
+
+        public bool IsNameAlreadyExist(string vModel)
+        {
+            var vehicle = vehicleRepository.Get(c => c.VModel == vModel);
+            if (vehicle.Count > 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public bool IsRegistrationAlreadyExist(string vRegistrationNo)
+        {
+            var registration = vehicleRepository.Get(c => c.VRegistrationNo == vRegistrationNo);
+            if (registration.Count > 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }

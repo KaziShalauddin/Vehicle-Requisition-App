@@ -9,5 +9,6 @@ namespace VehicleManagementApp.BLL.Contracts
 {
     public interface IDivisionManager:IManager<Division>
     {
+        bool IsNameAlreadyExist(string name);
     }
 }

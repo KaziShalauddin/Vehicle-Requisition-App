@@ -19,5 +19,18 @@ namespace VehicleManagementApp.BLL
         {
             this.vehicleTypeRepository = Repository;
         }
+
+        public bool IsTypeAlreadyExist(string typeName)
+        {
+            var type = vehicleTypeRepository.Get(c => c.TypeName.ToLower().Equals(typeName.ToLower()));
+            if (type.Count > 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }

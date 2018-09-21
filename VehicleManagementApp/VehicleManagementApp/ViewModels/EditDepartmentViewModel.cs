@@ -8,12 +8,11 @@ using VehicleManagementApp.Models.Models;
 
 namespace VehicleManagementApp.ViewModels
 {
-    public class DepartmentViewModel
+    public class EditDepartmentViewModel
     {
         public int Id { get; set; }
 
         [Required]
-        [Remote("IsNameExist", "Department", HttpMethod = "POST", ErrorMessage = "Organaization Already Exist, Try Another")]
         public string Name { get; set; }
 
         [Required]

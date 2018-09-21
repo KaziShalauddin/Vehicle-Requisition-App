@@ -75,12 +75,16 @@ namespace VehicleManagementApp.Controllers
             {
                 return HttpNotFound();
             }
-            return View(division);
+
+            EditDivisionViewModel editDivisionViewModel = new EditDivisionViewModel();
+            editDivisionViewModel.Id = division.Id;
+            editDivisionViewModel.Name = division.Name;
+            return View(editDivisionViewModel);
         }
 
         // POST: Division/Edit/5
         [HttpPost]
-        public ActionResult Edit(DivisionViewModel divisionVM)
+        public ActionResult Edit(EditDivisionViewModel divisionVM)
         {
             try
             {
@@ -126,6 +130,12 @@ namespace VehicleManagementApp.Controllers
             {
                 return View();
             }
+        }
+
+        public JsonResult IsNameExist(string Name)
+        {
+            var name = _divisionManager.IsNameAlreadyExist(Name);
+            return Json(name, JsonRequestBehavior.AllowGet);
         }
     }
 }

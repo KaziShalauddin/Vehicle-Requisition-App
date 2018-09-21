@@ -65,7 +65,7 @@ namespace VehicleManagementApp.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            OrganaizationViewModels organaizationVM = new OrganaizationViewModels();
+            DesignationViewModel organaizationVM = new DesignationViewModel();
             var organaizations = _organaizationManager.GetAll();
             organaizationVM.Organaizations = organaizations;
 
@@ -98,7 +98,7 @@ namespace VehicleManagementApp.Controllers
                 return HttpNotFound();
             }
             Designation designation = _designationManager.GetById((int) id);
-            DesignationViewModel designationVM = new DesignationViewModel();
+            EditDepartmentViewModel designationVM = new EditDepartmentViewModel();
             designationVM.Id = designation.Id;
             designationVM.Name = designation.Name;
             designationVM.OrganaizationId = designation.OrganaizationId;
@@ -108,7 +108,7 @@ namespace VehicleManagementApp.Controllers
 
         // POST: Designation/Edit/5
         [HttpPost]
-        public ActionResult Edit(DesignationViewModel designationVM)
+        public ActionResult Edit(EditDepartmentViewModel designationVM)
         {
             try
             {
@@ -155,6 +155,12 @@ namespace VehicleManagementApp.Controllers
             {
                 return View();
             }
+        }
+
+        public JsonResult IsNameExist(string Name)
+        {
+            var name = _designationManager.IsNameAlreadyExist(Name);
+            return Json(name, JsonRequestBehavior.AllowGet);
         }
     }
 }

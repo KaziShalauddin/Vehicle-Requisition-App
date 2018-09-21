@@ -26,5 +26,43 @@ namespace VehicleManagementApp.BLL
             this._employeeRepository = repository;
         }
 
+        public bool IsContactAlreadyExist(string contactNo)
+        {
+            var contact = _employeeRepository.Get(c => c.ContactNo == contactNo);
+            if (contact.Count > 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public bool IsEmailAlreadyExist(string email)
+        {
+            var emails = _employeeRepository.Get(c => c.Email == email);
+            if (emails.Count > 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+
+        public bool IsLicenceAlreadyExist(string licenceNo)
+        {
+            var licence = _employeeRepository.Get(c => c.LicenceNo == licenceNo);
+            if (licence.Count > 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }

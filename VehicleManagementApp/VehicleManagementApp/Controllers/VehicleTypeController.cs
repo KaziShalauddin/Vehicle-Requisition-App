@@ -76,7 +76,7 @@ namespace VehicleManagementApp.Controllers
             }
             VehicleType vehicleType = _typeManager.GetById((int)id);
 
-            VehicleTypeViewModel vehicleTypeVM = new VehicleTypeViewModel()
+            EditVehicleTypeViewModel vehicleTypeVM = new EditVehicleTypeViewModel()
             {
                 Id = vehicleType.Id,
                 TypeName = vehicleType.TypeName
@@ -86,7 +86,7 @@ namespace VehicleManagementApp.Controllers
 
         // POST: VehicleType/Edit/5
         [HttpPost]
-        public ActionResult Edit(VehicleTypeViewModel vehicleTypeVM)
+        public ActionResult Edit(EditVehicleTypeViewModel vehicleTypeVM)
         {
             try
             {
@@ -134,6 +134,12 @@ namespace VehicleManagementApp.Controllers
             {
                 return View();
             }
+        }
+
+        public JsonResult IsNameExist(string TypeName)
+        {
+            var types = _typeManager.IsTypeAlreadyExist(TypeName);
+            return Json(types, JsonRequestBehavior.AllowGet);
         }
     }
 }

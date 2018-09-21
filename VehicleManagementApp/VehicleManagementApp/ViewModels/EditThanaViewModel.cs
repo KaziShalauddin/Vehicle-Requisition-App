@@ -4,16 +4,19 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using VehicleManagementApp.Models.Models;
 
 namespace VehicleManagementApp.ViewModels
 {
-    public class DivisionViewModel
+    public class EditThanaViewModel
     {
         public int Id { get; set; }
 
         [Required]
-        [Remote("IsNameExist", "Division", HttpMethod = "POST", ErrorMessage = "Division Already Exist, Try Another")]
-        [Display(Name = "Division Name")]
         public string Name { get; set; }
+        [Display(Name = "District Name")]
+        public int DistrictId { get; set; }
+        public District District { get; set; }
+        public IEnumerable<District> Districts { get; set; }
     }
 }

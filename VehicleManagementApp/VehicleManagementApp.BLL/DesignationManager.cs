@@ -18,5 +18,17 @@ namespace VehicleManagementApp.BLL
         {
             this.designationRepository = Repository;
         }
+
+        public bool IsNameAlreadyExist(string name)
+        {
+            var designation = designationRepository.Get(c => c.Name.ToLower().Equals(name.ToLower()));
+            if (designation.Count > 0)
+            {
+                return false;
+            }else
+            {
+                return true;
+            }
+        }
     }
 }

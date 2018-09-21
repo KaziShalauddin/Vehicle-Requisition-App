@@ -167,7 +167,7 @@ namespace VehicleManagementApp.Controllers
             }
             Employee employee = _employeeManager.GetById((int)id);
 
-            EmployeeViewModel employeeVM = new EmployeeViewModel();
+            EditEmployeeViewModel employeeVM = new EditEmployeeViewModel();
             employeeVM.Id = employee.Id;
             employeeVM.Name = employee.Name;
             employeeVM.ContactNo = employee.ContactNo;
@@ -193,7 +193,7 @@ namespace VehicleManagementApp.Controllers
 
         // POST: Employee/Edit/5
         [HttpPost]
-        public ActionResult Edit(EmployeeViewModel employeeVM)
+        public ActionResult Edit(EditEmployeeViewModel employeeVM)
         {
             try
             {
@@ -349,5 +349,22 @@ namespace VehicleManagementApp.Controllers
             return View(AllDriverList);
         }
 
+        public JsonResult IsNameExist(string ContactNo)
+        {
+            var contact = _employeeManager.IsContactAlreadyExist(ContactNo);
+            return Json(contact, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult IsEmailExist(string Email)
+        {
+            var email = _employeeManager.IsEmailAlreadyExist(Email);
+            return Json(email, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult IsLicenceExist(string LicenceNo)
+        {
+            var licence = _employeeManager.IsLicenceAlreadyExist(LicenceNo);
+            return Json(licence, JsonRequestBehavior.AllowGet);
+        }
     }
 }

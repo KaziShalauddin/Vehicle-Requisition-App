@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace VehicleManagementApp.ViewModels
 {
-    public class RequsitionStatusViewModel
+    public class EditDivisionViewModel
     {
         public int Id { get; set; }
 
         [Required]
-        public string StatusName { get; set; }
+        [Display(Name = "Division Name")]
+        public string Name { get; set; }
     }
 }

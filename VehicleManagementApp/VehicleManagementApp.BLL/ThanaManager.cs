@@ -17,5 +17,18 @@ namespace VehicleManagementApp.BLL
         {
             this._thanaRepository = thana;
         }
+
+        public bool IsThanaAlreadyExist(string name)
+        {
+            var thana = _thanaRepository.Get(c => c.Name.ToLower().Equals(name.ToLower()));
+            if (thana.Count > 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }

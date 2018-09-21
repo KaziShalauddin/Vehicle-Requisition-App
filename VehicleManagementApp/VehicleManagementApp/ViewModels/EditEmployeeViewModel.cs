@@ -8,7 +8,7 @@ using VehicleManagementApp.Models.Models;
 
 namespace VehicleManagementApp.ViewModels
 {
-    public class EmployeeViewModel
+    public class EditEmployeeViewModel
     {
         public int Id { get; set; }
 
@@ -16,17 +16,15 @@ namespace VehicleManagementApp.ViewModels
         public string Name { get; set; }
 
         [Required]
-        [Remote("IsNameExist", "Employee", HttpMethod = "POST", ErrorMessage = "Contact No Already Exist, Try Another")]
         public string ContactNo { get; set; }
         [Required]
-        [Remote("IsEmailExist", "Employee", HttpMethod = "POST", ErrorMessage = "Email Already Exist, Try Another")]
         public string Email { get; set; }
         
         [Required]
         public string Address1 { get; set; }
         public string Address2 { get; set; }
 
-        [Remote("IsLicenceExist", "Employee", HttpMethod = "POST", ErrorMessage = "Licence No Already Exist, Try Another")]
+        
         public string LicenceNo { get; set; }
         public bool IsDriver { get; set; }
         

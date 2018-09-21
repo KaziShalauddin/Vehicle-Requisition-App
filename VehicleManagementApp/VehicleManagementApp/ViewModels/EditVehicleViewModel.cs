@@ -8,7 +8,7 @@ using VehicleManagementApp.Models.Models;
 
 namespace VehicleManagementApp.ViewModels
 {
-    public class VehicleViewModel
+    public class EditVehicleViewModel
     {
         public int Id { get; set; }
 
@@ -17,11 +17,9 @@ namespace VehicleManagementApp.ViewModels
         public string VehicleName { get; set; }
         [Required]
         [Display(Name = "Model")]
-        [Remote("IsNameExist", "Vehicle", HttpMethod = "POST", ErrorMessage = "Vehicle Model Already Exist, Try Another")]
         public string VModel { get; set; }
         [Required]
         [Display(Name = "Registration No")]
-        [Remote("IsRegistrationExist", "Vehicle", HttpMethod = "POST", ErrorMessage = "Vehicle Registration No Already Exist, Try Another")]
         public string VRegistrationNo { get; set; }
         [Required]
         [Display(Name = "Chesis No")]

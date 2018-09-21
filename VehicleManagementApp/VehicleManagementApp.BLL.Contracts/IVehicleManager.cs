@@ -9,5 +9,7 @@ namespace VehicleManagementApp.BLL.Contracts
 {
     public interface IVehicleManager:IManager<Vehicle>
     {
+        bool IsNameAlreadyExist(string vehicleName);
+        bool IsRegistrationAlreadyExist(string vRegistrationNo);
     }
 }

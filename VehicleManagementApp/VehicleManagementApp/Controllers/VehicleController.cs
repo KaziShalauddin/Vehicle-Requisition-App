@@ -136,7 +136,7 @@ namespace VehicleManagementApp.Controllers
                 return HttpNotFound();
             }
             Vehicle vehicle = _vehicleManager.GetById((int)id);
-            VehicleViewModel vehicleVM = new VehicleViewModel()
+            EditVehicleViewModel vehicleVM = new EditVehicleViewModel()
             {
                 Id = vehicle.Id,
                 VehicleName = vehicle.VehicleName,
@@ -153,7 +153,7 @@ namespace VehicleManagementApp.Controllers
 
         // POST: Vehicle/Edit/5
         [HttpPost]
-        public ActionResult Edit(VehicleViewModel vehicleVM)
+        public ActionResult Edit(EditVehicleViewModel vehicleVM)
         {
             try
             {
@@ -207,6 +207,18 @@ namespace VehicleManagementApp.Controllers
             {
                 return View();
             }
+        }
+
+        public JsonResult IsNameExist(string VModel)
+        {
+            var name = _vehicleManager.IsNameAlreadyExist(VModel);
+            return Json(name, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult IsRegistrationExist(string VRegistrationNo)
+        {
+            var registration = _vehicleManager.IsRegistrationAlreadyExist(VRegistrationNo);
+            return Json(registration, JsonRequestBehavior.AllowGet);
         }
     }
 }

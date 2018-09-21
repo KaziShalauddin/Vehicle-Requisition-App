@@ -19,5 +19,18 @@ namespace VehicleManagementApp.BLL
         {
             this.departmentRepository = Repository;
         }
+
+        public bool IsNameAlreadyExist(string name)
+        {
+            var department = departmentRepository.Get(c => c.Name.ToLower().Equals(name.ToLower()));
+            if (department.Count > 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }

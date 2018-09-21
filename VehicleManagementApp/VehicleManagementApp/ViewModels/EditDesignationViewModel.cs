@@ -8,18 +8,18 @@ using VehicleManagementApp.Models.Models;
 
 namespace VehicleManagementApp.ViewModels
 {
-    public class DepartmentViewModel
+    public class EditDesignationViewModel
     {
+        [Key]
         public int Id { get; set; }
 
+        [StringLength(255)]
         [Required]
-        [Remote("IsNameExist", "Department", HttpMethod = "POST", ErrorMessage = "Organaization Already Exist, Try Another")]
         public string Name { get; set; }
 
-        [Required]
-        [Display(Name = "Organaization Name")]
+        [Display(Name = "Organaization")]
         public int OrganaizationId { get; set; }
         public Organaization Organaization { get; set; }
-        public IEnumerable<Organaization> Organaizations { get; set; }
+        public IEnumerable<Organaization> Organaizations { get; set; } 
     }
 }
