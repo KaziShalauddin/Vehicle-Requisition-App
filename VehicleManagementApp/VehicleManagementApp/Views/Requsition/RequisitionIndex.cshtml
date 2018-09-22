@@ -162,21 +162,21 @@
                 minDate: 0
             });
             //$(".form-group").css({ "padding-bottom": "35px" });
-            $("#RequestForOther").change(function () {
+        });
 
-                if ($("#RequestForOther").is(":checked")) {
-                    $("#EmployeeDiv").show();
-                    $("#EmployeeId").addClass(required = true);
+        $("#RequestForOther").change(function () {
 
-
-                } else {
-                    $("#EmployeeDiv").hide();
-                    $("#EmployeeId").addClass(required = false);
+            if ($("#RequestForOther").is(":checked")) {
+                $("#EmployeeDiv").show();
+                $("#EmployeeId").addClass(required = true);
 
 
-                }
-            });
+            } else {
+                $("#EmployeeDiv").hide();
+                $("#EmployeeId").addClass(required = false);
 
+
+            }
         });
     </script>
     <script>

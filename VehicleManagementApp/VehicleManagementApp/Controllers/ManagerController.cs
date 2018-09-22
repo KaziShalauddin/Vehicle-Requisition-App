@@ -124,7 +124,7 @@ namespace VehicleManagementApp.Controllers
             Requsition requsition = _requisitionManager.GetById((int) id);
             Manager manager = new Manager();
             var employees = _employeeManager.Get(c => c.IsDriver == true && c.IsDeleted == false);
-            var assignVehicle = vehicleManager.Get(c => c.Status == null);
+            var assignVehicle = vehicleManager.Get(c => c.Status == "NULL");
 
             ManagerViewModel managerVM = new ManagerViewModel();
             managerVM.Id = manager.Id;
@@ -179,8 +179,15 @@ namespace VehicleManagementApp.Controllers
                 return;
             }
             var vehicles = vehicleManager.GetById((int)vehicleId);
-           // Vehicle vehicle = new Vehicle();
-            vehicles.Status = "Assigned";
+            if (vehicles.Status == "NULL")
+            {
+                vehicles.Status = "Assigned";
+            }
+            else
+            {
+                vehicles.Status = "NULL";
+            }
+            
             vehicleManager.Update(vehicles);
             
         }
@@ -189,7 +196,7 @@ namespace VehicleManagementApp.Controllers
             Manager manager = new Manager();
             var employee = _employeeManager.GetAll();
             var vehicle = vehicleManager.GetAll();
-            var managers = managerManager.GetAll();
+            var managers = managerManager.Get(c => c.Status == null);
             var requsition = _requisitionManager.GetAll();
 
             List<ManagerViewModel> managerViewModels = new List<ManagerViewModel>();
@@ -347,7 +354,7 @@ namespace VehicleManagementApp.Controllers
         }
         public ActionResult NonAssignCar()
         {
-            var assignVehicle = vehicleManager.Get(c => c.Status == null);
+            var assignVehicle = vehicleManager.Get(c => c.Status == "Null");
 
             List<VehicleViewModel> vehicleViewModels = new List<VehicleViewModel>();
             foreach (var vehicle in assignVehicle)
@@ -432,27 +439,24 @@ namespace VehicleManagementApp.Controllers
             return View();
         }
 
-        public ActionResult CheckIn()
+        public ActionResult CheckIn(int? id)
         {
-            Manager manager = new Manager();
-            var employee = _employeeManager.GetAll();
-            var vehicle = vehicleManager.GetAll();
-            var managers = managerManager.Get(c => c.Status == "Execute");
-            var requsition = _requisitionManager.GetAll();
-
-            List<ManagerViewModel> managerViewModels = new List<ManagerViewModel>();
-            foreach (var allData in managers)
+            if (id == null)
             {
-                var managerVM = new ManagerViewModel();
-                managerVM.Id = allData.Id;
-                managerVM.Employee = employee.Where(c => c.Id == allData.EmployeeId).FirstOrDefault();
-                managerVM.Vehicle = vehicle.Where(c => c.Id == allData.VehicleId).FirstOrDefault();
-                managerVM.Employee = employee.Where(c => c.Id == allData.EmployeeId).FirstOrDefault();
-                managerVM.Requsition = requsition.Where(c => c.Id == allData.RequsitionId).FirstOrDefault();
-                managerViewModels.Add(managerVM);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var AssignManager = managerManager.GetById((int)id);
+            AssignManager.Status = "RequsitionComplete";
+            bool isUpdate = managerManager.Update(AssignManager);
+            VehicleStatusChange(AssignManager.VehicleId);
+
+            if (isUpdate)
+            {
+                return RedirectToAction("AssignIndex");
             }
 
-            return View(managerViewModels);
+
+            return View();
         }
         
         public ActionResult CheckInUpdate(int? id)
@@ -529,7 +533,7 @@ namespace VehicleManagementApp.Controllers
         }
         public ActionResult CompleteRequsition()
         {
-            var Manager = managerManager.Get(c => c.Status == "ComplereRequsition" && c.IsDeleted == false);
+            var Manager = managerManager.Get(c => c.Status == "RequsitionComplete" && c.IsDeleted == false);
 
             var employee = _employeeManager.Get(c => c.IsDriver == true && c.IsDeleted == false);
             var vehicle = vehicleManager.GetAll();

@@ -155,13 +155,13 @@ namespace VehicleManagementApp.Controllers
             return yearMonth;
         }
 
-        public JsonResult JsonCreate(RequsitionViewModel requisitionVm)
+        public JsonResult JsonCreate(RequsitionCreateViewModel requisitionVm)
         {
             //newDateTime = date.Date + time.TimeOfDay;
             if (ModelState.IsValid)
             {
-                var journeyStart = requisitionVm.JourneyStart.Date + requisitionVm.JourneyStart.TimeOfDay;
-                var jouneyEnd = requisitionVm.JouneyEnd.Date + requisitionVm.JouneyEnd.TimeOfDay;
+                var journeyStart = requisitionVm.JourneyStartDate.Date + requisitionVm.JourneyStartTime.TimeOfDay;
+                var jouneyEnd = requisitionVm.JouneyEndDate.Date + requisitionVm.JouneyEndTime.TimeOfDay;
 
                 Requsition requisition = new Requsition();
                 requisition.Form = requisitionVm.Form;
