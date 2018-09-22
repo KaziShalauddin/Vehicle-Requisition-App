@@ -11,12 +11,20 @@
 <div class="jumbotron">
     <table class="details_view">
         <tr>
-            <td class="title_name">@Html.DisplayNameFor(model => model.Id)</td>
-            <td>@Html.DisplayFor(model => model.Id)</td>
-        </tr>
-        <tr>
             <td class="title_name">@Html.DisplayNameFor(model => model.EmployeeId)</td>
             <td>@Html.DisplayFor(model => model.Employee.Name)</td>
+        </tr>
+        <tr>
+            <td class="title_name">@Html.DisplayNameFor(model => model.Employee.ContactNo)</td>
+            <td>@Html.DisplayFor(model => model.Employee.ContactNo)</td>
+        </tr>
+        <tr>
+            <td class="title_name">@Html.Raw("Department")</td>
+            <td>@Html.DisplayFor(model => model.Employee.Department.Name)</td>
+        </tr>
+        <tr>
+            <td class="title_name">@Html.Raw("Designation")</td>
+            <td>@Html.DisplayFor(model => model.Employee.Designation.Name)</td>
         </tr>
         <tr>
             <td class="title_name">@Html.DisplayNameFor(model => model.Form)</td>
@@ -52,7 +60,10 @@
             @Html.ActionLink("Back to List", "New", null, new { @class = "btn btn-default", @style = "float: left" })
         </li>
         <li>
-            @Html.ActionLink("Assign", "Assign", new { id = Model.Id }, new { @class = "btn btn-info", @style = "float: right;" })
+            @Html.ActionLink("Assign", "Assign", new {id = Model.Id}, new {@class = "btn btn-info", @style = "float: right;"})
+        </li>
+        <li>
+            @Html.ActionLink("Hold", "Assign", new { id = Model.Id }, new { @class = "btn btn-primary", onclick="return confirm('Are You Sure? You Want To Hold This')", @style = "float: right;" })
         </li>
     </ul>
 

@@ -13,6 +13,8 @@
     var managerOnprogess = managers.Get(c => c.Status == "Seen" && c.IsDeleted == false);
     var managerAssign = managers.Get(c => c.Status == "Assign" && c.IsDeleted == false);
     var managerComplete = managers.Get(c => c.Status == "Complete" && c.IsDeleted == false);
+    var managerHold = managers.Get(c => c.Status == "Hole" && c.IsDeleted == false);
+    var hold = managerHold.Count;
     var countNew = managerNew.Count;
     var countSeed = managerOnprogess.Count;
     var countAssign = managerAssign.Count;
@@ -177,12 +179,12 @@
                                     <p>Completed Requisitions( @countComplete )</p>
                                 </a>
                             </li>
-                            @*<li class="nav-item ">
-                                    <a class="nav-link" href="@Url.Action("Index", "Manager")">
+                            <li class="nav-item ">
+                                    <a class="nav-link" href="@Url.Action("HoldIndex", "Manager")">
 
-                                        <p>Cancle</p>
+                                        <p>Hold(@hold)</p>
                                     </a>
-                                </li>*@
+                            </li>
                             <li class="nav-item ">
                                 <a class="nav-link" href="@Url.Action("DriverList", "Employee")">
 

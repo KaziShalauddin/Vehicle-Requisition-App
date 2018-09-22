@@ -56,9 +56,9 @@
                     @Html.DisplayFor(modelItem => item.Vehicle.VehicleName)
                 </td>
                 <td>
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are You Sure? You Want To Delete Permanently!')" })
-                    @Html.ActionLink("Details", "AssignIndexDetails", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })
-                    @*@Html.ActionLink("Re Assign", "Assign", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })*@
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are You Sure? You Want To Delete Permanently!')" })
+                    @Html.ActionLink("Details", "AssignIndexDetails", new { id = item.Id }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Check In", "CheckIn", new { id = item.Id }, new { @class = "btn btn-info", onclick = "return confirm('Are You Sure? You Want To Check In')" })
                 </td>
             </tr>
         }

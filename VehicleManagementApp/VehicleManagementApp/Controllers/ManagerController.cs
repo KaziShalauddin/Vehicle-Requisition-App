@@ -50,6 +50,7 @@ namespace VehicleManagementApp.Controllers
                     Id = data.Id,
                     Form = data.Form,
                     To = data.To,
+                    RequsitionNumber = data.RequsitionNumber,
                     Description = data.Description,
                     JourneyStart = data.JourneyStart,
                     JouneyEnd = data.JouneyEnd,
@@ -73,13 +74,14 @@ namespace VehicleManagementApp.Controllers
                 Id = requsition.Id,
                 Form = requsition.Form,
                 To = requsition.To,
+                RequsitionNumber = requsition.RequsitionNumber,
                 Description = requsition.Description,
                 JourneyStart = requsition.JourneyStart,
                 JouneyEnd = requsition.JouneyEnd,
                 Employee = employee.Where(x => x.Id == requsition.EmployeeId).FirstOrDefault()
             };
-            requsition.Status = "Seen";
-            _requisitionManager.Update(requsition);
+            //requsition.Status = "Seen";
+            //_requisitionManager.Update(requsition);
             return View(requisitionVm);
         }
         public ActionResult RequsitionAssign(int? id)
@@ -577,6 +579,60 @@ namespace VehicleManagementApp.Controllers
         {
             var reportData = managerManager.RequsitionAssignReportViewModels(requsitionAssignViewModel);
             return View();
+        }
+
+        public ActionResult Hole(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var employee = _employeeManager.GetAll();
+            var requsition = _requisitionManager.GetById((int)id);
+
+            RequsitionViewModel requisitionVm = new RequsitionViewModel()
+            {
+                Id = requsition.Id,
+                Form = requsition.Form,
+                To = requsition.To,
+                RequsitionNumber = requsition.RequsitionNumber,
+                Description = requsition.Description,
+                JourneyStart = requsition.JourneyStart,
+                JouneyEnd = requsition.JouneyEnd,
+                Employee = employee.Where(x => x.Id == requsition.EmployeeId).FirstOrDefault()
+            };
+            requsition.Status = "Hold";
+            bool isUpdate = _requisitionManager.Update(requsition);
+            if (isUpdate)
+            {
+                return RedirectToAction("New");
+            }
+            return View();
+        }
+
+        public ActionResult HoldIndex()
+        {
+            Requsition requsitions = new Requsition();
+            var employee = _employeeManager.GetAll();
+            var requsition = _requisitionManager.GetAllByNull(requsitions.Status = "Hold");
+
+            List<RequsitionViewModel> requsitionViewModels = new List<RequsitionViewModel>();
+            foreach (var data in requsition)
+            {
+                var requsitionVM = new RequsitionViewModel()
+                {
+                    Id = data.Id,
+                    Form = data.Form,
+                    To = data.To,
+                    RequsitionNumber = data.RequsitionNumber,
+                    Description = data.Description,
+                    JourneyStart = data.JourneyStart,
+                    JouneyEnd = data.JouneyEnd,
+                    Employee = employee.Where(x => x.Id == data.EmployeeId).FirstOrDefault()
+                };
+                requsitionViewModels.Add(requsitionVM);
+            }
+            return View(requsitionViewModels);
         }
     }
 }
