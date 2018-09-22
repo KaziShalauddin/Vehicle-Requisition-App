@@ -170,7 +170,19 @@ namespace VehicleManagementApp.Controllers
                 return;
             }
             var driver = _employeeManager.GetById((int)employeeId);
-            
+            EmployeeViewModel employeeViewModel = new EmployeeViewModel()
+            {
+                Id = driver.Id,
+                Name = driver.Name,
+                ContactNo = driver.ContactNo,
+                Email = driver.Email,
+                Address1 = driver.Address1,
+                Address2 = driver.Address2,
+                DepartmentId = (int) driver.DepartmentId,
+                DesignationId = (int) driver.DesignationId
+            };
+            driver.Status = "Assigned";
+            _employeeManager.Update(driver);
         }
         private void VehicleStatusChange(int? vehicleId)
         {
@@ -637,6 +649,27 @@ namespace VehicleManagementApp.Controllers
                 requsitionViewModels.Add(requsitionVM);
             }
             return View(requsitionViewModels);
+        }
+
+        public ActionResult AssignDriver()
+        {
+            var employee = _employeeManager.Get(c => c.Status == "Assigned");
+            List<EmployeeViewModel> employeeViewList = new List<EmployeeViewModel>();
+            foreach (var data in employee)
+            {
+                var employeeVM = new EmployeeViewModel();
+                employeeVM.Id = data.Id;
+                employeeVM.Name = data.Name;
+                employeeVM.ContactNo = data.ContactNo;
+                employeeVM.Email = data.Email;
+                employeeVM.Address1 = data.Address1;
+                employeeVM.Address2 = data.Address2;
+                employeeVM.LicenceNo = data.LicenceNo;
+                employeeVM.Department = data.Department;
+                employeeVM.Designation = data.Designation;
+                employeeViewList.Add(employeeVM);
+            }
+            return View(employeeViewList);
         }
     }
 }

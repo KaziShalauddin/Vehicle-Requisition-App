@@ -28,6 +28,8 @@ namespace VehicleManagementApp.ViewModels
 
         [Remote("IsLicenceExist", "Employee", HttpMethod = "POST", ErrorMessage = "Licence No Already Exist, Try Another")]
         public string LicenceNo { get; set; }
+
+        public string Status { get; set; }
         public bool IsDriver { get; set; }
         
         [Display(Name = "Department")]

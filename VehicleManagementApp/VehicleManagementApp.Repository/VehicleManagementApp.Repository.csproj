@@ -64,6 +64,10 @@
     <Compile Include="Migrations\201809220810008_RequsitionTableRequsitionNumberFieldAdded.Designer.cs">
       <DependentUpon>201809220810008_RequsitionTableRequsitionNumberFieldAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809221907506_EmployeeTableStatusFieldAdded.cs" />
+    <Compile Include="Migrations\201809221907506_EmployeeTableStatusFieldAdded.Designer.cs">
+      <DependentUpon>201809221907506_EmployeeTableStatusFieldAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OrganaizationRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -98,6 +102,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809220810008_RequsitionTableRequsitionNumberFieldAdded.resx">
       <DependentUpon>201809220810008_RequsitionTableRequsitionNumberFieldAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809221907506_EmployeeTableStatusFieldAdded.resx">
+      <DependentUpon>201809221907506_EmployeeTableStatusFieldAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -30,10 +30,9 @@ namespace VehicleManagementApp.Models.Models
         [StringLength(255)]
         public string Address1 { get; set; }
         public string Address2 { get; set; }
-
         [StringLength(255)]
         public string LicenceNo { get; set; }
-
+        public string Status { get; set; }
         public bool IsDriver { get; set; }
         [ForeignKey("Department")]
         public int? DepartmentId { get; set; }
