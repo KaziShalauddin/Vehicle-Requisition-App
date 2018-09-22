@@ -22,6 +22,11 @@ namespace VehicleManagementApp.BLL
             _requsition = requsition;
         }
 
+        public RequsitionManager() : base(new RequsistionRepository())
+        {
+            _requsition = (RequsistionRepository)base.BaseRepository;
+        }
+
         public ICollection<Requsition> GetAllBySeen(string Status)
         {
             var requsition = _requsition.Get(c=>c.Status == Status);

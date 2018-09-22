@@ -142,6 +142,19 @@ namespace VehicleManagementApp.Controllers
             return View(allRequsitions);
         }
 
+        public string AutoNumber()
+        {
+            string year = DateTime.Now.Year.ToString();
+            string month = DateTime.Now.Month.ToString();
+            int day = DateTime.Now.Day;
+            string time = DateTime.Now.Hour.ToString();
+            string minute = DateTime.Now.Minute.ToString();
+            string second = DateTime.Now.Second.ToString();
+
+            string yearMonth = second + minute + time + day + month + year;
+            return yearMonth;
+        }
+
         public JsonResult JsonCreate(RequsitionViewModel requisitionVm)
         {
             //newDateTime = date.Date + time.TimeOfDay;
@@ -153,6 +166,7 @@ namespace VehicleManagementApp.Controllers
                 Requsition requisition = new Requsition();
                 requisition.Form = requisitionVm.Form;
                 requisition.To = requisitionVm.To;
+                requisition.RequsitionNumber = AutoNumber();
                 requisition.Description = requisitionVm.Description;
                 requisition.JourneyStart = journeyStart;
                 requisition.JouneyEnd = jouneyEnd;

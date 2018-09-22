@@ -60,6 +60,10 @@
     <Compile Include="Migrations\201809220747430_test.Designer.cs">
       <DependentUpon>201809220747430_test.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809220810008_RequsitionTableRequsitionNumberFieldAdded.cs" />
+    <Compile Include="Migrations\201809220810008_RequsitionTableRequsitionNumberFieldAdded.Designer.cs">
+      <DependentUpon>201809220810008_RequsitionTableRequsitionNumberFieldAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OrganaizationRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -91,6 +95,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201809220747430_test.resx">
       <DependentUpon>201809220747430_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809220810008_RequsitionTableRequsitionNumberFieldAdded.resx">
+      <DependentUpon>201809220810008_RequsitionTableRequsitionNumberFieldAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

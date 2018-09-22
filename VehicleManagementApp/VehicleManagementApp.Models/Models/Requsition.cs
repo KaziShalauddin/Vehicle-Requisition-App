@@ -19,7 +19,7 @@ namespace VehicleManagementApp.Models.Models
         public DateTime JourneyStart { get; set; }
         public DateTime JouneyEnd { get; set; }
         public string Status { get; set; }
-
+        public string RequsitionNumber { get; set; }
         public int? EmployeeId { get; set; }
         public virtual Employee Employee { get; set; }
         
