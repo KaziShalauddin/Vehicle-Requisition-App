@@ -2,3 +2,8 @@
                         <li>@Html.ActionLink("View Event", "Index", "Event")</li>
                         <li>@Html.ActionLink("Create Event", "Create", "Event")</li>
                     }
+
+@if (User.IsInRole(AppEnum.RoleEnum.Administrator.ToString())) { 
+                        <li>@Html.ActionLink("View Event", "Index", "Event")</li>
+                        <li>@Html.ActionLink("Create Event", "Create", "Event")</li>
+                    }
