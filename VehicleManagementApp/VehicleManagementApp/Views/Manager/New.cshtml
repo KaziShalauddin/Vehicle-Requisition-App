@@ -45,8 +45,9 @@
                     @Html.DisplayFor(modelItem => item.RequsitionNumber)
                 </td>
                 <td>
-                    @Html.ActionLink("View", "View", new {id = item.Id}, new {@class="btn btn-info"})
+                    @Html.ActionLink("View", "Details","Requsition", new {id = item.Id}, new {@class="btn btn-info"})
                     @Html.ActionLink("Hole", "Hole", new {id = item.Id}, new {@class="btn btn-primary", onclick = "return confirm('Are You Sure? You Want To Hold This')" })
+                    @Html.ActionLink("Cancle", "Cancle", new { id = item.Id }, new { @class = "btn btn-info", onclick = "return confirm('Are You Sure? You Want To Cancle This !!')" })
                 </td>
             </tr>
         }

@@ -739,6 +739,8 @@
     <Content Include="Views\Manager\HoldIndex.cshtml" />
     <Content Include="Views\Manager\AssignDriver.cshtml" />
     <Content Include="Views\Manager\AvailableDriver.cshtml" />
+    <Content Include="Views\Manager\ReAssign.cshtml" />
+    <Content Include="Views\Manager\CancleIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

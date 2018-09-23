@@ -173,9 +173,15 @@
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" href="@Url.Action("OnProgress", "Manager")">
+                                <a class="nav-link" href="@Url.Action("HoldIndex", "Manager")">
 
-                                    <p>On Progress Requisitions ( @countSeed )</p>
+                                    <p>Hold(@hold)</p>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="@Url.Action("CancleIndex", "Manager")">
+
+                                    <p>Cancle</p>
                                 </a>
                             </li>
                             <li class="nav-item ">
@@ -190,12 +196,7 @@
                                     <p>Completed Requisitions( @countComplete )</p>
                                 </a>
                             </li>
-                            <li class="nav-item ">
-                                    <a class="nav-link" href="@Url.Action("HoldIndex", "Manager")">
 
-                                        <p>Hold(@hold)</p>
-                                    </a>
-                            </li>
                             <li class="nav-item ">
                                 <a class="nav-link" href="@Url.Action("DriverList", "Employee")">
 

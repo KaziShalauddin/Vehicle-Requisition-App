@@ -140,6 +140,68 @@ namespace VehicleManagementApp.Controllers
             return View(managerVM);
         }
 
+        [HttpGet]
+        public ActionResult ReAssign(int? id)
+
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Manager managerById = managerManager.GetById((int) id); 
+            //Requsition requsition = _requisitionManager.GetById((int)id);
+            Manager manager = new Manager();
+            var employees = _employeeManager.Get(c => c.IsDriver == true && c.Status == "Available" && c.IsDeleted == false);
+            var assignVehicle = vehicleManager.Get(c => c.Status == "NULL");
+
+            ManagerViewModel managerVM = new ManagerViewModel();
+            managerVM.Id = manager.Id;
+            managerVM.RequsitionId = managerById.RequsitionId;
+
+            managerVM.Employees = employees;
+            managerVM.Vehicles = assignVehicle;
+
+            //ViewBag.EmployeeId = new SelectList(employees,"Id","Name", managerById.EmployeeId);
+            //ViewBag.VehicleId = new SelectList(assignVehicle,"Id","VehicleName", managerById.VehicleId);
+
+
+            return View(managerVM);
+        }
+
+        [HttpPost]
+        public ActionResult ReAssign(ManagerViewModel managerViewModel)
+        {
+            Requsition requsition = new Requsition();
+            Manager manager = new Manager();
+            manager.Id = managerViewModel.Id;
+            manager.DriverNo = managerViewModel.DriverNo;
+            manager.RequsitionId = managerViewModel.RequsitionId;
+            manager.EmployeeId = managerViewModel.EmployeeId;
+            manager.VehicleId = managerViewModel.VehicleId;
+
+            //Email Sending Methon start
+            //SendingEmailDriver(managerViewModel.EmployeeId, managerViewModel.RequsitionId);
+            //SendingEmailEmployee(managerViewModel.EmployeeId, managerViewModel.RequsitionId);
+            //Email Sending Methon end
+
+            bool isSaved = managerManager.Add(manager);
+            RequsitionAssign(managerViewModel.Id);
+            VehicleStatusChange(managerViewModel.VehicleId);
+            DriverAssigned(managerViewModel.EmployeeId);
+
+            if (isSaved)
+            {
+                TempData["msg"] = "Requisition Assign Successfully";
+                return RedirectToAction("New");
+            }
+
+            return View();
+
+
+            return View();
+        }
+
+
         public void SendingEmailDriver(int? EmployeeId, int? requsitionId)
         {
             if (EmployeeId == null && requsitionId == null)
@@ -759,6 +821,60 @@ namespace VehicleManagementApp.Controllers
                 employeeViewList.Add(employeeVM);
             }
             return View(employeeViewList);
+        }
+
+        public ActionResult Cancle(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var employee = _employeeManager.GetAll();
+            var requsition = _requisitionManager.GetById((int)id);
+
+            RequsitionViewModel requisitionVm = new RequsitionViewModel()
+            {
+                Id = requsition.Id,
+                Form = requsition.Form,
+                To = requsition.To,
+                RequsitionNumber = requsition.RequsitionNumber,
+                Description = requsition.Description,
+                JourneyStart = requsition.JourneyStart,
+                JouneyEnd = requsition.JouneyEnd,
+                Employee = employee.Where(x => x.Id == requsition.EmployeeId).FirstOrDefault()
+            };
+            requsition.Status = "Cancle";
+            bool isUpdate = _requisitionManager.Update(requsition);
+            if (isUpdate)
+            {
+                return RedirectToAction("New");
+            }
+            return View();
+        }
+
+        public ActionResult CancleIndex()
+        {
+            Requsition requsitions = new Requsition();
+            var employee = _employeeManager.GetAll();
+            var requsition = _requisitionManager.GetAllByNull(requsitions.Status = "Cancle");
+
+            List<RequsitionViewModel> requsitionViewModels = new List<RequsitionViewModel>();
+            foreach (var data in requsition)
+            {
+                var requsitionVM = new RequsitionViewModel()
+                {
+                    Id = data.Id,
+                    Form = data.Form,
+                    To = data.To,
+                    RequsitionNumber = data.RequsitionNumber,
+                    Description = data.Description,
+                    JourneyStart = data.JourneyStart,
+                    JouneyEnd = data.JouneyEnd,
+                    Employee = employee.Where(x => x.Id == data.EmployeeId).FirstOrDefault()
+                };
+                requsitionViewModels.Add(requsitionVM);
+            }
+            return View(requsitionViewModels);
         }
     }
 }

@@ -23,23 +23,23 @@ namespace VehicleManagementApp.ViewModels
         public string Description { get; set; }
 
         [Required]
-        [Display(Name = "Journey Start Date")]
+        [Display(Name = "Start Date")]
         //[DataType(DataType.Date)]
         public DateTime JourneyStartDate { get; set; }
 
         [Required]
-        [Display(Name = "Journey Start Time")]
+        [Display(Name = "Start Time")]
         [DataType(DataType.Time)]
         public DateTime JourneyStartTime { get; set; }
 
         [Required]
-        [Display(Name = "Journey End Date")]
+        [Display(Name = " End Date")]
         //[DataType(DataType.Date)]
         public DateTime JouneyEndDate { get; set; }
 
 
         [Required]
-        [Display(Name = "Journey End Time")]
+        [Display(Name = " End Time")]
         [DataType(DataType.Time)]
         public DateTime JouneyEndTime { get; set; }
 
