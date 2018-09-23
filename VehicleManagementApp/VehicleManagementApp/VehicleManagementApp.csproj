@@ -738,6 +738,7 @@
     <Content Include="Views\Requsition\_ReplayCommentPartial.cshtml" />
     <Content Include="Views\Manager\HoldIndex.cshtml" />
     <Content Include="Views\Manager\AssignDriver.cshtml" />
+    <Content Include="Views\Manager\AvailableDriver.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

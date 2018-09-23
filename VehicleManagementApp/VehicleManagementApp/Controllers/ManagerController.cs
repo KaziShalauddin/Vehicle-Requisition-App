@@ -181,7 +181,15 @@ namespace VehicleManagementApp.Controllers
                 DepartmentId = (int) driver.DepartmentId,
                 DesignationId = (int) driver.DesignationId
             };
-            driver.Status = "Assigned";
+            if (driver.Status == "Available")
+            {
+                driver.Status = "Assigned";
+            }
+            else
+            {
+                driver.Status = "Available";
+            }
+            
             _employeeManager.Update(driver);
         }
         private void VehicleStatusChange(int? vehicleId)
@@ -224,27 +232,6 @@ namespace VehicleManagementApp.Controllers
             }
 
             return View(managerViewModels);
-        }
-        public ActionResult OnProgress()
-        {
-            Requsition requsition = new Requsition();
-            var data = _requisitionManager.GetAllBySeen(requsition.Status = "Seen");
-            var employee = _employeeManager.GetAll();
-            List<RequsitionViewModel> requsitionViewModels = new List<RequsitionViewModel>();
-            foreach (var allRequsition in data)
-            {
-                var requsitionVM = new RequsitionViewModel();
-                requsitionVM.Id = allRequsition.Id;
-                requsitionVM.Form = allRequsition.Form;
-                requsitionVM.To = allRequsition.To;
-                requsitionVM.Description = allRequsition.Description;
-                requsitionVM.JourneyStart = allRequsition.JourneyStart;
-                requsitionVM.JouneyEnd = allRequsition.JouneyEnd;
-                requsitionVM.Employee = employee.Where(x => x.Id == allRequsition.EmployeeId).FirstOrDefault();
-
-                requsitionViewModels.Add(requsitionVM);
-            }
-            return View(requsitionViewModels);
         }
         public ActionResult DriverAndCar(int? id)
         {
@@ -461,6 +448,7 @@ namespace VehicleManagementApp.Controllers
             AssignManager.Status = "RequsitionComplete";
             bool isUpdate = managerManager.Update(AssignManager);
             VehicleStatusChange(AssignManager.VehicleId);
+            DriverAssigned(AssignManager.EmployeeId);
 
             if (isUpdate)
             {
@@ -654,6 +642,27 @@ namespace VehicleManagementApp.Controllers
         public ActionResult AssignDriver()
         {
             var employee = _employeeManager.Get(c => c.Status == "Assigned");
+            List<EmployeeViewModel> employeeViewList = new List<EmployeeViewModel>();
+            foreach (var data in employee)
+            {
+                var employeeVM = new EmployeeViewModel();
+                employeeVM.Id = data.Id;
+                employeeVM.Name = data.Name;
+                employeeVM.ContactNo = data.ContactNo;
+                employeeVM.Email = data.Email;
+                employeeVM.Address1 = data.Address1;
+                employeeVM.Address2 = data.Address2;
+                employeeVM.LicenceNo = data.LicenceNo;
+                employeeVM.Department = data.Department;
+                employeeVM.Designation = data.Designation;
+                employeeViewList.Add(employeeVM);
+            }
+            return View(employeeViewList);
+        }
+
+        public ActionResult AvailableDriver()
+        {
+            var employee = _employeeManager.Get(c => c.Status == "Available");
             List<EmployeeViewModel> employeeViewList = new List<EmployeeViewModel>();
             foreach (var data in employee)
             {

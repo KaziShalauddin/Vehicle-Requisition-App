@@ -5,6 +5,12 @@
 @{
     IRequsitionManager managers = new RequsitionManager();
     IVehicleManager vehicle = new VehicleManager();
+    IEmployeeManager employee = new EmployeeManager();
+
+    var totalDriver = employee.Get(c => c.IsDriver == true);
+    var availableDriver = employee.Get(c => c.Status == "Available");
+    var assignDriver = employee.Get(c => c.Status == "Assigned");
+
     var totalVehicle = vehicle.GetAll().Count();
     var assignVehicle = vehicle.Get(c => c.Status == "Assigned");
     var freeVehicle = vehicle.Get(c => c.Status == null);
@@ -21,6 +27,11 @@
     var countComplete = managerComplete.Count;
     var totalAssignedCar = assignVehicle.Count;
     var totalFreeCar = freeVehicle.Count;
+
+    var totaldrivercount = totalDriver.Count;
+    var assigndrivercount = assignDriver.Count;
+    var freedrivercount = availableDriver.Count;
+
 }
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
@@ -188,20 +199,20 @@
                             <li class="nav-item ">
                                 <a class="nav-link" href="@Url.Action("DriverList", "Employee")">
 
-                                    <p>Total Driver</p>
+                                    <p>Total Driver (@totaldrivercount)</p>
                                 </a>
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link" href="@Url.Action("AvailableDriver", "Manager")">
 
-                                    <p>Available Driver</p>
+                                    <p>Available Driver (@freedrivercount)</p>
                                 </a>
                             </li>
 
                             <li class="nav-item ">
                                 <a class="nav-link" href="@Url.Action("AssignDriver", "Manager")">
 
-                                    <p>Assign Driver</p>
+                                    <p>Assign Driver (@assigndrivercount)</p>
                                 </a>
                             </li>
 
