@@ -123,7 +123,7 @@ namespace VehicleManagementApp.Controllers
 
             Requsition requsition = _requisitionManager.GetById((int) id);
             Manager manager = new Manager();
-            var employees = _employeeManager.Get(c => c.IsDriver == true && c.IsDeleted == false);
+            var employees = _employeeManager.Get(c => c.IsDriver == true && c.Status== "Available" && c.IsDeleted == false);
             var assignVehicle = vehicleManager.Get(c => c.Status == "NULL");
 
             ManagerViewModel managerVM = new ManagerViewModel();
@@ -138,6 +138,15 @@ namespace VehicleManagementApp.Controllers
             
             return View(managerVM);
         }
+
+        public void SendingEmail(int? EmployeeId)
+        {
+            if (EmployeeId == null)
+            {
+                
+            }
+        }
+
         [HttpPost]
         public ActionResult Assign(ManagerViewModel managerViewModel)
         {
@@ -149,11 +158,12 @@ namespace VehicleManagementApp.Controllers
             manager.EmployeeId = managerViewModel.EmployeeId;
             manager.VehicleId = managerViewModel.VehicleId;
 
+            SendingEmail(managerViewModel.EmployeeId);
+
             bool isSaved = managerManager.Add(manager);
             RequsitionAssign(managerViewModel.Id);
             VehicleStatusChange(managerViewModel.VehicleId);
             DriverAssigned(managerViewModel.EmployeeId);
-
 
             if (isSaved)
             {
