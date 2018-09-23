@@ -5,6 +5,12 @@
 @{
     IRequsitionManager managers = new RequsitionManager();
     IVehicleManager vehicle = new VehicleManager();
+    IEmployeeManager employee = new EmployeeManager();
+
+    var totalDriver = employee.Get(c => c.IsDriver == true);
+    var availableDriver = employee.Get(c => c.Status == "Available");
+    var assignDriver = employee.Get(c => c.Status == "Assigned");
+
     var totalVehicle = vehicle.GetAll().Count();
     var assignVehicle = vehicle.Get(c => c.Status == "Assigned");
     var freeVehicle = vehicle.Get(c => c.Status == null);
@@ -13,12 +19,19 @@
     var managerOnprogess = managers.Get(c => c.Status == "Seen" && c.IsDeleted == false);
     var managerAssign = managers.Get(c => c.Status == "Assign" && c.IsDeleted == false);
     var managerComplete = managers.Get(c => c.Status == "Complete" && c.IsDeleted == false);
+    var managerHold = managers.Get(c => c.Status == "Hole" && c.IsDeleted == false);
+    var hold = managerHold.Count;
     var countNew = managerNew.Count;
     var countSeed = managerOnprogess.Count;
     var countAssign = managerAssign.Count;
     var countComplete = managerComplete.Count;
     var totalAssignedCar = assignVehicle.Count;
     var totalFreeCar = freeVehicle.Count;
+
+    var totaldrivercount = totalDriver.Count;
+    var assigndrivercount = assignDriver.Count;
+    var freedrivercount = availableDriver.Count;
+
 }
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
@@ -131,10 +144,6 @@
 
                             </li>
                         </ul>
-<<<<<<< HEAD
-=======
-                       
->>>>>>> 2bfd9651d41b8038e8066d6e7d238a37c1ae3479
                     </nav>
                 </div>
             </div>
@@ -164,9 +173,15 @@
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" href="@Url.Action("OnProgress", "Manager")">
+                                <a class="nav-link" href="@Url.Action("HoldIndex", "Manager")">
 
-                                    <p>On Progress Requisitions ( @countSeed )</p>
+                                    <p>Hold(@hold)</p>
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="@Url.Action("CancleIndex", "Manager")">
+
+                                    <p>Cancle</p>
                                 </a>
                             </li>
                             <li class="nav-item ">
@@ -176,23 +191,32 @@
                                 </a>
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link" href="@Url.Action("Complete", "Manager")">
+                                <a class="nav-link" href="@Url.Action("CompleteRequsition", "Manager")">
 
                                     <p>Completed Requisitions( @countComplete )</p>
                                 </a>
                             </li>
-                            @*<li class="nav-item ">
-                                    <a class="nav-link" href="@Url.Action("Index", "Manager")">
 
-                                        <p>Cancle</p>
-                                    </a>
-                                </li>*@
                             <li class="nav-item ">
                                 <a class="nav-link" href="@Url.Action("DriverList", "Employee")">
 
-                                    <p>Driver</p>
+                                    <p>Total Driver (@totaldrivercount)</p>
                                 </a>
                             </li>
+                            <li class="nav-item ">
+                                <a class="nav-link" href="@Url.Action("AvailableDriver", "Manager")">
+
+                                    <p>Available Driver (@freedrivercount)</p>
+                                </a>
+                            </li>
+
+                            <li class="nav-item ">
+                                <a class="nav-link" href="@Url.Action("AssignDriver", "Manager")">
+
+                                    <p>Assign Driver (@assigndrivercount)</p>
+                                </a>
+                            </li>
+
                             <li class="nav-item ">
                                 <a class="nav-link" href="@Url.Action("Car", "Manager")">
 

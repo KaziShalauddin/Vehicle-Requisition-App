@@ -23,23 +23,24 @@ namespace VehicleManagementApp.ViewModels
         public string Description { get; set; }
 
         [Required]
-        [Display(Name = "Journey Start Date")]
-        [DataType(DataType.Date)]
+        [Display(Name = "Start Date")]
+        //[DataType(DataType.Date)]
         public DateTime JourneyStartDate { get; set; }
 
         [Required]
-        [Display(Name = "Journey Start Time")]
+        [Display(Name = "Start Time")]
         [DataType(DataType.Time)]
         public DateTime JourneyStartTime { get; set; }
 
         [Required]
-        [Display(Name = "Journey End Date")]
-        [DataType(DataType.Date)]
+        [Display(Name = " End Date")]
+        //[DataType(DataType.Date)]
+
         public DateTime JouneyEndDate { get; set; }
 
 
         [Required]
-        [Display(Name = "Journey End Time")]
+        [Display(Name = " End Time")]
         [DataType(DataType.Time)]
         public DateTime JouneyEndTime { get; set; }
 
@@ -47,7 +48,7 @@ namespace VehicleManagementApp.ViewModels
         //public DateTime Time { get; set; }
 
         [Display(Name = "Request For Other")]
-        public bool RequestForOther  { get; set; }
+        public bool RequestForOther { get; set; }
 
         [Display(Name = "Employee Name")]
         public int EmployeeId { get; set; }

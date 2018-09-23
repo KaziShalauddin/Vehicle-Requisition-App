@@ -1,4 +1,4 @@
-﻿@model VehicleManagementApp.ViewModels.RequsitionViewModel
+﻿@model VehicleManagementApp.ViewModels.ManagerViewModel
 
 @{
     ViewBag.Title = "View";
@@ -6,39 +6,63 @@
 }
 <link rel="stylesheet" href="~/css/style.css">
 <link href="~/css/ssss.css" rel="stylesheet" />
-<h2>Requisition Details</h2>
+<h2>Complete Requisition Details</h2>
 <hr />
 <div class="jumbotron">
     <table class="details_view">
         <tr>
-            <td class="title_name">@Html.DisplayNameFor(model => model.Id)</td>
-            <td>@Html.DisplayFor(model => model.Id)</td>
+            <td class="title_name">@Html.Raw("Employee Name")</td>
+            <td>@Html.DisplayFor(model => model.Requsition.Employee.Name)</td>
         </tr>
         <tr>
-            <td class="title_name">@Html.DisplayNameFor(model => model.EmployeeId)</td>
+            <td class="title_name">@Html.Raw("Employee Contact")</td>
+            <td>@Html.DisplayFor(model => model.Requsition.Employee.ContactNo)</td>
+        </tr>
+        <tr>
+            <td class="title_name">@Html.Raw("Department")</td>
+            <td>@Html.DisplayFor(model => model.Requsition.Employee.Department.Name)</td>
+        </tr>
+        <tr>
+            <td class="title_name">@Html.Raw("Designation")</td>
+            <td>@Html.DisplayFor(model => model.Requsition.Employee.Designation.Name)</td>
+        </tr>
+
+        <tr>
+            <td class="title_name">@Html.DisplayNameFor(model => model.Requsition.Form)</td>
+            <td>@Html.DisplayFor(model => model.Requsition.Form)</td>
+        </tr>
+        <tr>
+            <td class="title_name">@Html.DisplayNameFor(model => model.Requsition.To)</td>
+            <td>@Html.DisplayFor(model => model.Requsition.To)</td>
+        </tr>
+        <tr>
+            <td class="title_name">@Html.DisplayNameFor(model => model.Requsition.Description)</td>
+            <td>@Html.DisplayFor(model => model.Requsition.Description)</td>
+        </tr>
+        <tr>
+            <td class="title_name">@Html.DisplayNameFor(model => model.Requsition.RequsitionNumber)</td>
+            <td>@Html.DisplayFor(model => model.Requsition.RequsitionNumber)</td>
+        </tr>
+        <tr>
+            <td class="title_name">@Html.DisplayNameFor(model => model.Requsition.JourneyStart)</td>
+            <td>@Html.DisplayFor(model => model.Requsition.JourneyStart)</td>
+        </tr>
+        <tr>
+            <td class="title_name">@Html.DisplayNameFor(model => model.Requsition.JouneyEnd)</td>
+            <td>@Html.DisplayFor(model => model.Requsition.JouneyEnd)</td>
+        </tr>
+        <tr>
+            <td class="title_name">@Html.Raw("Driver Name")</td>
             <td>@Html.DisplayFor(model => model.Employee.Name)</td>
         </tr>
         <tr>
-            <td class="title_name">@Html.DisplayNameFor(model => model.Form)</td>
-            <td>@Html.DisplayFor(model => model.Form)</td>
+            <td class="title_name">@Html.Raw("Driver Contact")</td>
+            <td>@Html.DisplayFor(model => model.Employee.ContactNo)</td>
         </tr>
         <tr>
-            <td class="title_name">@Html.DisplayNameFor(model => model.To)</td>
-            <td>@Html.DisplayFor(model => model.To)</td>
+            <td class="title_name">@Html.DisplayNameFor(model => model.Vehicle.VehicleName)</td>
+            <td>@Html.DisplayFor(model => model.Vehicle.VehicleName)</td>
         </tr>
-        <tr>
-            <td class="title_name">@Html.DisplayNameFor(model => model.Description)</td>
-            <td>@Html.DisplayFor(model => model.Description)</td>
-        </tr>
-        <tr>
-            <td class="title_name">@Html.DisplayNameFor(model => model.JourneyStart)</td>
-            <td>@Html.DisplayFor(model => model.JourneyStart)</td>
-        </tr>
-        <tr>
-            <td class="title_name">@Html.DisplayNameFor(model => model.JouneyEnd)</td>
-            <td>@Html.DisplayFor(model => model.JouneyEnd)</td>
-        </tr>
-
         <tr>
 
             <td style="padding-top: 20px"></td>
@@ -49,10 +73,7 @@
     </table>
     <ul>
         <li>
-            @Html.ActionLink("Back to List", "New", null, new { @class = "btn btn-default", @style = "float: left" })
-        </li>
-        <li>
-            @Html.ActionLink("Assign", "Assign", new { id = Model.Id }, new { @class = "btn btn-info", @style = "float: right;" })
+            @Html.ActionLink("Back to List", "CompleteRequsition", null, new { @class = "btn btn-default", @style = "float: left" })
         </li>
     </ul>
 

@@ -56,6 +56,19 @@
     <Compile Include="DivisionRepository.cs" />
     <Compile Include="EmployeeRepository.cs" />
     <Compile Include="ManagerRepository.cs" />
+    <Compile Include="Migrations\201809220747430_test.cs" />
+    <Compile Include="Migrations\201809220747430_test.Designer.cs">
+      <DependentUpon>201809220747430_test.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809220810008_RequsitionTableRequsitionNumberFieldAdded.cs" />
+    <Compile Include="Migrations\201809220810008_RequsitionTableRequsitionNumberFieldAdded.Designer.cs">
+      <DependentUpon>201809220810008_RequsitionTableRequsitionNumberFieldAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809221907506_EmployeeTableStatusFieldAdded.cs" />
+    <Compile Include="Migrations\201809221907506_EmployeeTableStatusFieldAdded.Designer.cs">
+      <DependentUpon>201809221907506_EmployeeTableStatusFieldAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OrganaizationRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Base\Repository.cs" />
@@ -82,6 +95,17 @@
       <Project>{D648BDE6-9853-484E-8C4F-87479271DC35}</Project>
       <Name>VehicleManagementApp.Repository.Contracts</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201809220747430_test.resx">
+      <DependentUpon>201809220747430_test.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809220810008_RequsitionTableRequsitionNumberFieldAdded.resx">
+      <DependentUpon>201809220810008_RequsitionTableRequsitionNumberFieldAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809221907506_EmployeeTableStatusFieldAdded.resx">
+      <DependentUpon>201809221907506_EmployeeTableStatusFieldAdded.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -142,19 +142,33 @@ namespace VehicleManagementApp.Controllers
             return View(allRequsitions);
         }
 
+        public string AutoNumber()
+        {
+            string year = DateTime.Now.Year.ToString();
+            string month = DateTime.Now.Month.ToString();
+            int day = DateTime.Now.Day;
+            string time = DateTime.Now.Hour.ToString();
+            string minute = DateTime.Now.Minute.ToString();
+            string second = DateTime.Now.Second.ToString();
+
+            string yearMonth = second + minute + time + day + month + year;
+            return yearMonth;
+        }
+
+
         public JsonResult JsonCreate(RequsitionCreateViewModel requisitionVm)
         {
             //newDateTime = date.Date + time.TimeOfDay;
-            var journeyStart = requisitionVm.JourneyStartDate.Date + requisitionVm.JourneyStartTime.TimeOfDay;
-            var jouneyEnd = requisitionVm.JouneyEndDate.Date + requisitionVm.JouneyEndTime.TimeOfDay;
-
 
             if (ModelState.IsValid)
             {
-               
+                var journeyStart = requisitionVm.JourneyStartDate.Date + requisitionVm.JourneyStartTime.TimeOfDay;
+                var jouneyEnd = requisitionVm.JouneyEndDate.Date + requisitionVm.JouneyEndTime.TimeOfDay;
+
                 Requsition requisition = new Requsition();
                 requisition.Form = requisitionVm.Form;
                 requisition.To = requisitionVm.To;
+                requisition.RequsitionNumber = AutoNumber();
                 requisition.Description = requisitionVm.Description;
                 requisition.JourneyStart = journeyStart;
                 requisition.JouneyEnd = jouneyEnd;

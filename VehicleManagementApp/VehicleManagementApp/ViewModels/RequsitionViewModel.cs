@@ -37,7 +37,7 @@ namespace VehicleManagementApp.ViewModels
         public DateTime JouneyEnd { get; set; }
 
         public string Status { get; set; }
-
+        public string RequsitionNumber { get; set; }
 
         [Display(Name = "Employee")]
         public int EmployeeId { get; set; }

@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "CheckOut";
-    Layout = "~/Views/Shared/_Requsition.cshtml";
+    Layout = "~/Views/Shared/_LayoutManager.cshtml";
     int sl = 1;
 }
 
@@ -11,10 +11,10 @@
         <tr>
             <th>@Html.Raw("SL")</th>
             <th>
-                @Html.Raw("Requsition From")
+                @Html.Raw("Employee Name")
             </th>
             <th>
-                @Html.Raw("Requsition To")
+                @Html.Raw("Employee Contact")
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.VehicleId)
@@ -31,23 +31,24 @@
             <tr>
                 <td>@(sl++)</td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Requsition.Form)
+                    @Html.DisplayFor(modelItem => item.Requsition.Employee.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Requsition.To)
+                    @Html.DisplayFor(modelItem => item.Requsition.Employee.ContactNo)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Vehicle.VehicleName)
                 </td>
                 <td>
-                    @if (item.Status == "ComplereRequsition")
+                    @if (item.Status == "RequsitionComplete")
                     {
                         @Html.Raw("Requsition Complete")
                     }
 
                 </td>
                 <td>
-                    @Html.ActionLink("Priview", "Priview", new { id = item.Id }, new { @class = "btn btn-info" })
+                    @Html.ActionLink("Details", "Details", new {id = item.Id}, new {@class = "btn btn-info"})
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are You Sure? You Want Delete !!')" })
                 </td>
             </tr>
         }

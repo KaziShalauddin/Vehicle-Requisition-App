@@ -22,7 +22,7 @@
             @Html.DisplayNameFor(model => model.To)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.RequsitionNumber)
         </th>
         <th></th>
     </tr>
@@ -42,10 +42,12 @@
                     @Html.DisplayFor(modelItem => item.To)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Description)
+                    @Html.DisplayFor(modelItem => item.RequsitionNumber)
                 </td>
                 <td>
-                    @Html.ActionLink("View", "View", new {id = item.Id})
+                    @Html.ActionLink("View", "Details","Requsition", new {id = item.Id}, new {@class="btn btn-default"})
+                    @Html.ActionLink("Hole", "Hole", new {id = item.Id}, new {@class="btn btn-primary", onclick = "return confirm('Are You Sure? You Want To Hold This')" })
+                    @Html.ActionLink("Cancle", "Cancle", new { id = item.Id }, new { @class = "btn btn-info", onclick = "return confirm('Are You Sure? You Want To Cancle This !!')" })
                 </td>
             </tr>
         }

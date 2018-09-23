@@ -20,6 +20,11 @@ namespace VehicleManagementApp.BLL
             this.vehicleRepository = Repository;
         }
 
+        public VehicleManager() : base(new VehicleRepository())
+        {
+            vehicleRepository = (VehicleRepository)base.BaseRepository;
+        }
+
         public bool IsNameAlreadyExist(string vModel)
         {
             var vehicle = vehicleRepository.Get(c => c.VModel == vModel);

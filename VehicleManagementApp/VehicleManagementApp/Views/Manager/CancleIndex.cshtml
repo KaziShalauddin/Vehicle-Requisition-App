@@ -1,0 +1,52 @@
+﻿@model IEnumerable<VehicleManagementApp.ViewModels.RequsitionViewModel>
+
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_LayoutManager.cshtml";
+    int sl = 1;
+}
+
+<table class="table table-bordered table-striped" id="myTable">
+    <thead>
+        <tr>
+            <th>@Html.Raw("SL")</th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeId)
+            </th>
+            <th>
+                @Html.DisplayName("From")
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.To)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RequsitionNumber)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@(sl++)</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employee.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Form)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.To)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequsitionNumber)
+                </td>
+                <td>
+                    @Html.ActionLink("View", "Details", "Requsition", new { id = item.Id }, new { @class = "btn btn-info" })
+                    @Html.ActionLink("Assign", "Assign", new { id = item.Id }, new { @class = "btn btn-primary" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
