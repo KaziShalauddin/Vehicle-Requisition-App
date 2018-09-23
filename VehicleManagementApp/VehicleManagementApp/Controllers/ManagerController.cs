@@ -417,21 +417,20 @@ namespace VehicleManagementApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var employee = _employeeManager.GetAll();
-            var requsition = _requisitionManager.GetById((int)id);
 
-            RequsitionViewModel requisitionVm = new RequsitionViewModel()
+            var manager = managerManager.GetById((int) id);
+            var requsition = _requisitionManager.GetAll();
+            var employee = _employeeManager.GetAll();
+            var vehicle = vehicleManager.GetAll();
+
+            ManagerViewModel requisitionVm = new ManagerViewModel()
             {
-                Id = requsition.Id,
-                Form = requsition.Form,
-                To = requsition.To,
-                Description = requsition.Description,
-                JourneyStart = requsition.JourneyStart,
-                JouneyEnd = requsition.JouneyEnd,
-                Employee = employee.FirstOrDefault(x => x.Id == requsition.EmployeeId)
+                Id = manager.Id,
+                Requsition = requsition.FirstOrDefault(c=>c.Id == manager.RequsitionId),
+                Vehicle = vehicle.FirstOrDefault(c=>c.Id == manager.VehicleId),
+                Employee = employee.FirstOrDefault(x => x.Id == manager.EmployeeId)
             };
-            //requsition.Status = "Seen";
-           // _requsitionManager.Update(requsition);
+
             return View(requisitionVm);
         }
         public ActionResult RequsitionEmployeeName(int? id)
@@ -526,7 +525,7 @@ namespace VehicleManagementApp.Controllers
             bool isDeleted = managerManager.Remove(manager);
             if (isDeleted)
             {
-                return RedirectToAction("AssignIndex");
+                return RedirectToAction("CompleteRequsition");
             }
             return View();
         }
