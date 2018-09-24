@@ -1,4 +1,4 @@
-﻿@model VehicleManagementApp.ViewModels.EmployeeViewModel
+﻿@model VehicleManagementApp.ViewModels.DriverViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -9,7 +9,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <h1>Employee Details</h1>
+            <h1 style="text-align:center;">Employee Details</h1>
             <div class="jumbotron">
                 <table class="details_view">
                     <tr>
@@ -26,7 +26,10 @@
                         <td class="title_name">Employee Email :</td>
                         <td>@Html.DisplayFor(model => model.Email)</td>
                     </tr>
-
+                    <tr>
+                        <td class="title_name">Employee Licence No :</td>
+                        <td>@Html.DisplayFor(model => model.LicenceNo)</td>
+                    </tr>
                     <tr>
                         <td class="title_name">Employee Address-1 :</td>
                         <td>@Html.DisplayFor(model => model.Address1)</td>
@@ -36,11 +39,6 @@
                         <td class="title_name">Employee Address-2 :</td>
                         <td>@Html.DisplayFor(model => model.Address2)</td>
                     </tr>
-
-                    @*<tr>
-                        <td class="title_name">Employee Licence No :</td>
-                        <td>@Html.DisplayFor(model => model.LicenceNo)</td>
-                    </tr>*@
 
                     <tr>
                         <td class="title_name">Department Name :</td>

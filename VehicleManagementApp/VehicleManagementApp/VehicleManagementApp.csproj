@@ -208,6 +208,7 @@
     <Compile Include="Controllers\DesignationController.cs" />
     <Compile Include="Controllers\DistrictController.cs" />
     <Compile Include="Controllers\DivisionController.cs" />
+    <Compile Include="Controllers\DriverController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -234,7 +235,9 @@
     <Compile Include="ViewModels\DesignationViewModel.cs" />
     <Compile Include="ViewModels\DistrictViewModel.cs" />
     <Compile Include="ViewModels\DivisionViewModel.cs" />
+    <Compile Include="ViewModels\EditDriverViewModel.cs" />
     <Compile Include="ViewModels\EditEmployeeViewModel.cs" />
+    <Compile Include="ViewModels\DriverViewModel.cs" />
     <Compile Include="ViewModels\EmployeeViewModel.cs" />
     <Compile Include="ViewModels\ManagerViewModel.cs" />
     <Compile Include="ViewModels\OrganaizationViewModels.cs" />
@@ -741,6 +744,11 @@
     <Content Include="Views\Manager\AvailableDriver.cshtml" />
     <Content Include="Views\Manager\ReAssign.cshtml" />
     <Content Include="Views\Manager\CancleIndex.cshtml" />
+    <Content Include="Views\Driver\Index.cshtml" />
+    <Content Include="Views\Driver\Added.cshtml" />
+    <Content Include="Views\Driver\Edit.cshtml" />
+    <Content Include="Views\Driver\Details.cshtml" />
+    <Content Include="Views\Driver\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

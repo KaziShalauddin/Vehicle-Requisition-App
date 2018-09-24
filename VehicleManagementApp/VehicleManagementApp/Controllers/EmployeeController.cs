@@ -55,7 +55,7 @@ namespace VehicleManagementApp.Controllers
                 employeeVM.Email = emploeedata.Email;
                 employeeVM.Address1 = emploeedata.Address1;
                 employeeVM.Address2 = emploeedata.Address2;
-                employeeVM.LicenceNo = emploeedata.LicenceNo;
+                //employeeVM.LicenceNo = emploeedata.LicenceNo;
                 employeeVM.Department = department.Where(x => x.Id == emploeedata.DepartmentId).FirstOrDefault();
                 employeeVM.Designation = designation.Where(x => x.Id == emploeedata.DesignationId).FirstOrDefault();
                 employeeVM.Division = division.Where(x => x.Id == emploeedata.DivisionId).FirstOrDefault();
@@ -135,8 +135,8 @@ namespace VehicleManagementApp.Controllers
                     Email = employeeVM.Email,
                     Address1 = employeeVM.Address1,
                     Address2 = employeeVM.Address2,
-                    LicenceNo = employeeVM.LicenceNo,
-                    IsDriver = employeeVM.IsDriver,
+                    //LicenceNo = employeeVM.LicenceNo,
+                    //IsDriver = employeeVM.IsDriver,
                     DepartmentId = employeeVM.DepartmentId,
                     DesignationId = employeeVM.DesignationId,
                     DivisionId = employeeVM.DivisionId,
@@ -174,8 +174,8 @@ namespace VehicleManagementApp.Controllers
             employeeVM.Email = employee.Email;
             employeeVM.Address1 = employee.Address1;
             employeeVM.Address2 = employee.Address2;
-            employeeVM.LicenceNo = employee.LicenceNo;
-            employeeVM.IsDriver = employee.IsDriver;
+            //employeeVM.LicenceNo = employee.LicenceNo;
+            //employeeVM.IsDriver = employee.IsDriver;
             employeeVM.DepartmentId = (int) employee.DepartmentId;
             employeeVM.DesignationId = (int) employee.DesignationId;
             employeeVM.DivisionId = (int) employee.DivisionId;
@@ -204,8 +204,8 @@ namespace VehicleManagementApp.Controllers
                 employee.Email = employeeVM.Email;
                 employee.Address1 = employeeVM.Address1;
                 employee.Address2 = employeeVM.Address2;
-                employee.LicenceNo = employeeVM.LicenceNo;
-                employee.IsDriver = employeeVM.IsDriver;
+                //employee.LicenceNo = employeeVM.LicenceNo;
+                //employee.IsDriver = employeeVM.IsDriver;
                 employee.DepartmentId = employeeVM.DepartmentId;
                 employee.DesignationId = employeeVM.DesignationId;
                 employee.DivisionId = employeeVM.DivisionId;
@@ -269,7 +269,7 @@ namespace VehicleManagementApp.Controllers
                 Email = employee.Email,
                 Address1 = employee.Address1,
                 Address2 = employee.Address2,
-                LicenceNo = employee.LicenceNo,
+                //LicenceNo = employee.LicenceNo,
                 Department = department.Where(x => x.Id == employee.DepartmentId).FirstOrDefault(),
                 Designation = designation.Where(x => x.Id == employee.DesignationId).FirstOrDefault(),
                 Division = division.Where(x => x.Id == employee.DivisionId).FirstOrDefault(),
@@ -279,36 +279,36 @@ namespace VehicleManagementApp.Controllers
             };
             return View(employeeVM);
         }
-        public ActionResult Driver()
-        {
-            var employee = _employeeManager.Get(c => c.IsDriver == true && c.IsDeleted == false);
-            var department = _departmentManager.GetAll();
-            var designation = _designationManager.GetAll();
-            var division = _divisionManager.GetAll();
-            var district = _districtManager.GetAll();
-            var thana = _thanaManager.GetAll();
+        //public ActionResult Driver()
+        //{
+        //    var employee = _employeeManager.Get(c => c.IsDriver == true && c.IsDeleted == false);
+        //    var department = _departmentManager.GetAll();
+        //    var designation = _designationManager.GetAll();
+        //    var division = _divisionManager.GetAll();
+        //    var district = _districtManager.GetAll();
+        //    var thana = _thanaManager.GetAll();
 
-            List<EmployeeViewModel> employeeViewList = new List<EmployeeViewModel>();
-            foreach (var emploeedata in employee)
-            {
-                var employeeVM = new EmployeeViewModel();
-                employeeVM.Id = emploeedata.Id;
-                employeeVM.Name = emploeedata.Name;
-                employeeVM.ContactNo = emploeedata.ContactNo;
-                employeeVM.Email = emploeedata.Email;
-                employeeVM.Address1 = emploeedata.Address1;
-                employeeVM.Address2 = emploeedata.Address2;
-                employeeVM.LicenceNo = emploeedata.LicenceNo;
-                employeeVM.Department = department.Where(x => x.Id == emploeedata.DepartmentId).FirstOrDefault();
-                employeeVM.Designation = designation.Where(x => x.Id == emploeedata.DesignationId).FirstOrDefault();
-                employeeVM.Division = division.Where(x => x.Id == emploeedata.DivisionId).FirstOrDefault();
-                employeeVM.District = district.Where(x => x.Id == emploeedata.DistrictId).FirstOrDefault();
-                employeeVM.Thana = thana.Where(x => x.Id == emploeedata.ThanaId).FirstOrDefault();
+        //    List<EmployeeViewModel> employeeViewList = new List<EmployeeViewModel>();
+        //    foreach (var emploeedata in employee)
+        //    {
+        //        var employeeVM = new EmployeeViewModel();
+        //        employeeVM.Id = emploeedata.Id;
+        //        employeeVM.Name = emploeedata.Name;
+        //        employeeVM.ContactNo = emploeedata.ContactNo;
+        //        employeeVM.Email = emploeedata.Email;
+        //        employeeVM.Address1 = emploeedata.Address1;
+        //        employeeVM.Address2 = emploeedata.Address2;
+        //        employeeVM.LicenceNo = emploeedata.LicenceNo;
+        //        employeeVM.Department = department.Where(x => x.Id == emploeedata.DepartmentId).FirstOrDefault();
+        //        employeeVM.Designation = designation.Where(x => x.Id == emploeedata.DesignationId).FirstOrDefault();
+        //        employeeVM.Division = division.Where(x => x.Id == emploeedata.DivisionId).FirstOrDefault();
+        //        employeeVM.District = district.Where(x => x.Id == emploeedata.DistrictId).FirstOrDefault();
+        //        employeeVM.Thana = thana.Where(x => x.Id == emploeedata.ThanaId).FirstOrDefault();
 
-                employeeViewList.Add(employeeVM);
-            }
-            return View(employeeViewList);
-        }
+        //        employeeViewList.Add(employeeVM);
+        //    }
+        //    return View(employeeViewList);
+        //}
 
         public JsonResult GetEmployePhoneNo(int? employeeId)
         {
@@ -328,22 +328,22 @@ namespace VehicleManagementApp.Controllers
             var department = _departmentManager.GetAll();
             var designation = _designationManager.GetAll();
 
-            List<EmployeeViewModel> AllDriverList = new List<EmployeeViewModel>();
+            List<DriverViewModel> AllDriverList = new List<DriverViewModel>();
             foreach (var emploeedata in driverList)
             {
-                var employeeVM = new EmployeeViewModel();
-                employeeVM.Id = emploeedata.Id;
-                employeeVM.Name = emploeedata.Name;
-                employeeVM.ContactNo = emploeedata.ContactNo;
-                employeeVM.Email = emploeedata.Email;
-                employeeVM.Address1 = emploeedata.Address1;
-                employeeVM.Address2 = emploeedata.Address2;
-                employeeVM.LicenceNo = emploeedata.LicenceNo;
-                employeeVM.IsDriver = emploeedata.IsDriver;
-                employeeVM.Department = department.Where(x => x.Id == emploeedata.DepartmentId).FirstOrDefault();
-                employeeVM.Designation = designation.Where(x => x.Id == emploeedata.DesignationId).FirstOrDefault();
+                var driverVm = new DriverViewModel();
+                driverVm.Id = emploeedata.Id;
+                driverVm.Name = emploeedata.Name;
+                driverVm.ContactNo = emploeedata.ContactNo;
+                driverVm.Email = emploeedata.Email;
+                driverVm.Address1 = emploeedata.Address1;
+                driverVm.Address2 = emploeedata.Address2;
+                driverVm.LicenceNo = emploeedata.LicenceNo;
+                driverVm.IsDriver = emploeedata.IsDriver;
+                driverVm.Department = department.Where(x => x.Id == emploeedata.DepartmentId).FirstOrDefault();
+                driverVm.Designation = designation.Where(x => x.Id == emploeedata.DesignationId).FirstOrDefault();
 
-                AllDriverList.Add(employeeVM);
+                AllDriverList.Add(driverVm);
             }
             ViewBag.TotalDriver = driverList.Count;
             return View(AllDriverList);

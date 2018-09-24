@@ -8,7 +8,7 @@ using VehicleManagementApp.Models.Models;
 
 namespace VehicleManagementApp.ViewModels
 {
-    public class EditEmployeeViewModel
+    public class EditDriverViewModel
     {
         public int Id { get; set; }
 
@@ -25,8 +25,8 @@ namespace VehicleManagementApp.ViewModels
         public string Address2 { get; set; }
 
         
-        //public string LicenceNo { get; set; }
-        //public bool IsDriver { get; set; }
+        public string LicenceNo { get; set; }
+        public bool IsDriver { get; set; }
         
         [Display(Name = "Department")]
         [Required]

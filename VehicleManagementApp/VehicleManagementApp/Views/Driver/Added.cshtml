@@ -1,7 +1,6 @@
-﻿@model VehicleManagementApp.ViewModels.EmployeeViewModel
-
+﻿@model VehicleManagementApp.ViewModels.DriverViewModel
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Added";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -24,44 +23,60 @@
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                     <div class="jumbotron">
-
+                        
                         <div class="form-group">
-                            @Html.LabelFor(model => model.DepartmentId, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.DropDownListFor(model => model.DepartmentId, new SelectList(Model.Departments, "Id", "Name"), "Select Department", new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.DepartmentId, "", new { @class = "text-danger" })
+                            <div class="col-md-offset-2 col-md-10">
+                                <div class="checkbox">
+                                    @Html.CheckBoxFor(m => m.IsDriver,new {@checked="checked",@disabled="disabled"} )
+                                    @Html.LabelFor(m => m.IsDriver)
+                                </div>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.DesignationId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.LabelFor(model => model.DepartmentId, htmlAttributes: new {@class = "control-label col-md-2"})
                             <div class="col-md-10">
-                                @Html.DropDownListFor(model => model.DesignationId, new SelectList(Model.Designations, "Id", "Name"), "Select Designation", new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.DesignationId, "", new { @class = "text-danger" })
+                                @Html.DropDownListFor(model => model.DepartmentId, new SelectList(Model.Departments, "Id", "Name"), "Select Department", new {@class = "form-control"})
+                                @Html.ValidationMessageFor(model => model.DepartmentId, "", new {@class = "text-danger"})
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.LabelFor(model => model.DesignationId, htmlAttributes: new {@class = "control-label col-md-2"})
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                @Html.DropDownListFor(model => model.DesignationId, new SelectList(Model.Designations, "Id", "Name"), "Select Designation", new {@class = "form-control"})
+                                @Html.ValidationMessageFor(model => model.DesignationId, "", new {@class = "text-danger"})
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.ContactNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.LabelFor(model => model.Name, htmlAttributes: new {@class = "control-label col-md-2"})
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.ContactNo, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.ContactNo, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.Name, new {htmlAttributes = new {@class = "form-control"}})
+                                @Html.ValidationMessageFor(model => model.Name, "", new {@class = "text-danger"})
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.LabelFor(model => model.ContactNo, htmlAttributes: new {@class = "control-label col-md-2"})
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.ContactNo, new {htmlAttributes = new {@class = "form-control"}})
+                                @Html.ValidationMessageFor(model => model.ContactNo, "", new {@class = "text-danger"})
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Email, htmlAttributes: new {@class = "control-label col-md-2"})
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Email, new {htmlAttributes = new {@class = "form-control"}})
+                                @Html.ValidationMessageFor(model => model.Email, "", new {@class = "text-danger"})
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LicenceNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.LicenceNo, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.LicenceNo, "", new { @class = "text-danger" })
                             </div>
                         </div>
                     </div>
@@ -160,7 +175,7 @@
 
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Added Employee" class="btn btn-primary" style="float: right;"/>
+                            <input type="submit" value="Create" class="btn btn-default" />
                         </div>
                     </div>
                 </div>
@@ -176,9 +191,6 @@
 @section scripts{
     <script>
         $(document).ready(function () {
-
-
-
 
             // permanent address
             $("#DivisionDD1").change(function () {
@@ -212,24 +224,7 @@
 
         });
         debugger;
-        //$("#IsDriver").change(function () {
-        //    $("#LicenceNo").removeClass("required");
-        //    var checked = $("#IsDriver").is(":checked");
-        //    if (checked === true) {
-        //        $("#LicenceNo").addClass("required");
-
-        //        if ($("#LicenceNo").val().length === 0) {
-        //            return false;
-        //        }
-        //        else {
-        //            return true;
-        //        }
-        //    }
-        //    //else {
-        //    //    $("#LicenceNo").removeClass("required");
-        //    //}
-
-        //});
+        
         //permanent
         function GetPermanentDistrictAndBind(permanentDivisionId, permanentTargetId) {
 

@@ -198,7 +198,7 @@ namespace VehicleManagementApp.Controllers
             return View();
 
 
-            return View();
+           
         }
 
 
@@ -783,43 +783,43 @@ namespace VehicleManagementApp.Controllers
         public ActionResult AssignDriver()
         {
             var employee = _employeeManager.Get(c => c.Status == "Assigned");
-            List<EmployeeViewModel> employeeViewList = new List<EmployeeViewModel>();
+            List<DriverViewModel> driverViewList = new List<DriverViewModel>();
             foreach (var data in employee)
             {
-                var employeeVM = new EmployeeViewModel();
-                employeeVM.Id = data.Id;
-                employeeVM.Name = data.Name;
-                employeeVM.ContactNo = data.ContactNo;
-                employeeVM.Email = data.Email;
-                employeeVM.Address1 = data.Address1;
-                employeeVM.Address2 = data.Address2;
-                employeeVM.LicenceNo = data.LicenceNo;
-                employeeVM.Department = data.Department;
-                employeeVM.Designation = data.Designation;
-                employeeViewList.Add(employeeVM);
+                var driverVm = new DriverViewModel();
+                driverVm.Id = data.Id;
+                driverVm.Name = data.Name;
+                driverVm.ContactNo = data.ContactNo;
+                driverVm.Email = data.Email;
+                driverVm.Address1 = data.Address1;
+                driverVm.Address2 = data.Address2;
+                driverVm.LicenceNo = data.LicenceNo;
+                driverVm.Department = data.Department;
+                driverVm.Designation = data.Designation;
+                driverViewList.Add(driverVm);
             }
-            return View(employeeViewList);
+            return View(driverViewList);
         }
 
         public ActionResult AvailableDriver()
         {
-            var employee = _employeeManager.Get(c => c.Status == "Available");
-            List<EmployeeViewModel> employeeViewList = new List<EmployeeViewModel>();
-            foreach (var data in employee)
+            var driver = _employeeManager.Get(c => c.Status == "Available");
+            List<DriverViewModel> driverViewList = new List<DriverViewModel>();
+            foreach (var data in driver)
             {
-                var employeeVM = new EmployeeViewModel();
-                employeeVM.Id = data.Id;
-                employeeVM.Name = data.Name;
-                employeeVM.ContactNo = data.ContactNo;
-                employeeVM.Email = data.Email;
-                employeeVM.Address1 = data.Address1;
-                employeeVM.Address2 = data.Address2;
-                employeeVM.LicenceNo = data.LicenceNo;
-                employeeVM.Department = data.Department;
-                employeeVM.Designation = data.Designation;
-                employeeViewList.Add(employeeVM);
+                var driverVm = new DriverViewModel();
+                driverVm.Id = data.Id;
+                driverVm.Name = data.Name;
+                driverVm.ContactNo = data.ContactNo;
+                driverVm.Email = data.Email;
+                driverVm.Address1 = data.Address1;
+                driverVm.Address2 = data.Address2;
+                driverVm.LicenceNo = data.LicenceNo;
+                driverVm.Department = data.Department;
+                driverVm.Designation = data.Designation;
+                driverViewList.Add(driverVm);
             }
-            return View(employeeViewList);
+            return View(driverViewList);
         }
 
         public ActionResult Cancle(int? id)
