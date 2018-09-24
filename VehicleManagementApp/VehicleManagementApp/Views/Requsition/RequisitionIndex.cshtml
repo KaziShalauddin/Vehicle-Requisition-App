@@ -4,7 +4,7 @@
     ViewBag.Title = "Requisition";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var employees = ViewBag.Employees;
-    var result=   ViewBag.Result;
+    var result = ViewBag.Result;
 }
 
 
@@ -139,20 +139,19 @@
 }
 
 <div>
-    @if (TempData["msg"] != null)
-    {
-        <div class="alert alert-info">
-            @TempData["msg"]
-        </div>
-    }
+    @*@if (TempData["msg"] != null)
+        {
+            <div class="alert alert-info">
+                @TempData["msg"]
+            </div>
+        }*@
 </div>
-<div>
-    
-        <div class="alert alert-success" id="resultDiv">
-           
-        </div>
+
+<div class="alert alert-success" id="resultDiv">
 
 </div>
+
+
 
 <div>
     <h3 style="text-align: center"> All Requisitions</h3>
@@ -164,7 +163,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $("#EmployeeDiv").hide();
-
+            $("#resultDiv").hide();
             $("").datepicker({
                 minDate: 0
             });
@@ -242,11 +241,13 @@
                 data: data,
                 success: function (result) {
                     debugger;
-                    $.post('@Url.Action("RequisitionIndex","Requsition")', JSON.stringify(result));
+                    @*$.post('@Url.Action("RequisitionIndex","Requsition")', JSON.stringify(result));*@
 
                     //window.location.href = "/Requsition/RequisitionIndex";
                     $("#MyModal").modal("hide");
+                    $("#resultDiv").show();
                     $("#resultDiv").html(result);
+                    @*@TempData["msg"] = result.val;*@
                 },
                 error: function () {
 

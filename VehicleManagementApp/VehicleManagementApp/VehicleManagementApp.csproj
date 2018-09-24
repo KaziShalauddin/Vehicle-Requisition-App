@@ -249,6 +249,7 @@
     <Compile Include="ViewModels\EditVehicleTypeViewModel.cs" />
     <Compile Include="ViewModels\VehicleTypeViewModel.cs" />
     <Compile Include="ViewModels\EditVehicleViewModel.cs" />
+    <Compile Include="ViewModels\VehicleDropDownViewModel.cs" />
     <Compile Include="ViewModels\VehicleViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
