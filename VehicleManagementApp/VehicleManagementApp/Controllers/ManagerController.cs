@@ -196,9 +196,7 @@ namespace VehicleManagementApp.Controllers
             }
 
             return View();
-
-
-            return View();
+            
         }
 
 
