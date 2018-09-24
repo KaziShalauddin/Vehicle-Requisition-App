@@ -68,7 +68,7 @@ namespace VehicleManagementApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var employee = _employeeManager.GetAll();
-            var requsition = _requisitionManager.GetById((int) id);
+            var requsition = _requisitionManager.GetById((int)id);
 
             RequsitionViewModel requisitionVm = new RequsitionViewModel()
             {
@@ -115,18 +115,16 @@ namespace VehicleManagementApp.Controllers
         }
         [HttpGet]
         public ActionResult Assign(int? id)
-
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            Requsition requsition = _requisitionManager.GetById((int) id);
+            Requsition requsition = _requisitionManager.GetById((int)id);
             Manager manager = new Manager();
-            var employees = _employeeManager.Get(c => c.IsDriver == true && c.Status== "Available" && c.IsDeleted == false);
-            var assignVehicle = vehicleManager.Get(c => c.Status == "NULL");
-
+            var employees = _employeeManager.Get(c => c.IsDriver == true && c.Status == "Available" && c.IsDeleted == false);
+            var assignVehicle = vehicleManager.Get(c => c.Status == null);
+            
             ManagerViewModel managerVM = new ManagerViewModel();
             managerVM.Id = manager.Id;
             managerVM.RequsitionId = requsition.Id;
@@ -134,9 +132,37 @@ namespace VehicleManagementApp.Controllers
             managerVM.Employees = employees;
             managerVM.Vehicles = assignVehicle;
 
-            //ViewBag.EmployeeId = new SelectList(employees, "Id", "Name", manager.EmployeeId);
-            //ViewBag.VehicleId = new SelectList(assignVehicle, "Id", "VehicleName", manager.EmployeeId);
+            List<VehicleDropDownViewModel> vehicleDropDownList = new List<VehicleDropDownViewModel>();
+
+            if (assignVehicle.Count != 0)
+            {
+                foreach (var item in assignVehicle)
+                {
+                    VehicleDropDownViewModel vehicleDrop = new VehicleDropDownViewModel
+                    {
+                        Id = item.Id,
+                        VehicleDetails =
+                            item.VehicleName + "-" + item.VModel + "-" +
+                           item.VRegistrationNo
+
+                    };
+                    vehicleDropDownList.Add(vehicleDrop);
+                }
+                //VehicleDropDownViewModel vehicleDrop = new VehicleDropDownViewModel
+                //{
+
+                //    Id = managerVM.Vehicle.Id,
+                //    VehicleDetails = managerVM.Vehicle.VehicleName + "-" + managerVM.Vehicle.VModel + "-" + managerVM.Vehicle.VRegistrationNo
+
+                //};
+                //vehicleDropDownList.Add(vehicleDrop);
+                ViewBag.Vehicles = new SelectList(vehicleDropDownList, "Id", "VehicleDetails", manager.EmployeeId);
+            }
             
+
+            ViewBag.EmployeeId = new SelectList(employees, "Id", "Name", manager.EmployeeId);
+           
+
             return View(managerVM);
         }
 
@@ -148,7 +174,7 @@ namespace VehicleManagementApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Manager managerById = managerManager.GetById((int) id); 
+            Manager managerById = managerManager.GetById((int)id);
             //Requsition requsition = _requisitionManager.GetById((int)id);
             Manager manager = new Manager();
             var employees = _employeeManager.Get(c => c.IsDriver == true && c.Status == "Available" && c.IsDeleted == false);
@@ -196,7 +222,7 @@ namespace VehicleManagementApp.Controllers
             }
 
             return View();
-            
+
         }
 
 
@@ -207,12 +233,12 @@ namespace VehicleManagementApp.Controllers
                 return;
             }
             var requsition = _requisitionManager.GetById((int)requsitionId);
-            var employee = _employeeManager.GetById((int) EmployeeId);
+            var employee = _employeeManager.GetById((int)EmployeeId);
 
-            var dod = "<span><strong>Employee Name</strong> :"+" "+ requsition.Employee.Name + "</span>" +"<br/>"
-                    + "<span> <strong>Employee Number</strong> :"+" "+ requsition.Employee.ContactNo+ "</span>" + "<br/>"
-                    + "<span> <strong>Department Name</strong> :"+" "+ requsition.Employee.Department.Name + "</span>" + "<br/>"
-                    + "<span> <strong>Designation Name</strong> :"+" "+ requsition.Employee.Designation.Name + "</span>" + "<br/>";
+            var dod = "<span><strong>Employee Name</strong> :" + " " + requsition.Employee.Name + "</span>" + "<br/>"
+                    + "<span> <strong>Employee Number</strong> :" + " " + requsition.Employee.ContactNo + "</span>" + "<br/>"
+                    + "<span> <strong>Department Name</strong> :" + " " + requsition.Employee.Department.Name + "</span>" + "<br/>"
+                    + "<span> <strong>Designation Name</strong> :" + " " + requsition.Employee.Designation.Name + "</span>" + "<br/>";
 
             var body = dod;
             var message = new MailMessage();
@@ -238,7 +264,7 @@ namespace VehicleManagementApp.Controllers
             }
         }
 
-        public void SendingEmailEmployee(int? EmployeeId , int?RequsitionId)
+        public void SendingEmailEmployee(int? EmployeeId, int? RequsitionId)
         {
             if (EmployeeId == null && RequsitionId == null)
             {
@@ -289,7 +315,7 @@ namespace VehicleManagementApp.Controllers
             SendingEmailDriver(managerViewModel.EmployeeId, managerViewModel.RequsitionId);
             SendingEmailEmployee(managerViewModel.EmployeeId, managerViewModel.RequsitionId);
             //Email Sending Methon end
-            
+
             bool isSaved = managerManager.Add(manager);
             RequsitionAssign(managerViewModel.Id);
             VehicleStatusChange(managerViewModel.VehicleId);
@@ -300,7 +326,7 @@ namespace VehicleManagementApp.Controllers
                 TempData["msg"] = "Requisition Assign Successfully";
                 return RedirectToAction("New");
             }
-            
+
             return View();
         }
         private void DriverAssigned(int? employeeId)
@@ -318,8 +344,8 @@ namespace VehicleManagementApp.Controllers
                 Email = driver.Email,
                 Address1 = driver.Address1,
                 Address2 = driver.Address2,
-                DepartmentId = (int) driver.DepartmentId,
-                DesignationId = (int) driver.DesignationId
+                DepartmentId = (int)driver.DepartmentId,
+                DesignationId = (int)driver.DesignationId
             };
             if (driver.Status == "Available")
             {
@@ -329,7 +355,7 @@ namespace VehicleManagementApp.Controllers
             {
                 driver.Status = "Available";
             }
-            
+
             _employeeManager.Update(driver);
         }
         private void VehicleStatusChange(int? vehicleId)
@@ -347,9 +373,9 @@ namespace VehicleManagementApp.Controllers
             {
                 vehicles.Status = "NULL";
             }
-            
+
             vehicleManager.Update(vehicles);
-            
+
         }
         public ActionResult AssignIndex()
         {
@@ -399,11 +425,11 @@ namespace VehicleManagementApp.Controllers
             }
             var manager = managerManager.GetById((int)id);
             var employee = _employeeManager.Get(c => c.IsDriver == false && c.IsDeleted == false);
-            
+
             ManagerViewModel managerVM = new ManagerViewModel()
             {
                 Id = manager.Id,
-                Employee = employee.Where(c=>c.Id == manager.EmployeeId).FirstOrDefault()
+                Employee = employee.Where(c => c.Id == manager.EmployeeId).FirstOrDefault()
             };
 
             ViewBag.EmployeName = employee;
@@ -416,7 +442,7 @@ namespace VehicleManagementApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var manager = managerManager.GetById((int) id);
+            var manager = managerManager.GetById((int)id);
             var requsition = _requisitionManager.GetAll();
             var employee = _employeeManager.GetAll();
             var vehicle = vehicleManager.GetAll();
@@ -424,8 +450,8 @@ namespace VehicleManagementApp.Controllers
             ManagerViewModel requisitionVm = new ManagerViewModel()
             {
                 Id = manager.Id,
-                Requsition = requsition.FirstOrDefault(c=>c.Id == manager.RequsitionId),
-                Vehicle = vehicle.FirstOrDefault(c=>c.Id == manager.VehicleId),
+                Requsition = requsition.FirstOrDefault(c => c.Id == manager.RequsitionId),
+                Vehicle = vehicle.FirstOrDefault(c => c.Id == manager.VehicleId),
                 Employee = employee.FirstOrDefault(x => x.Id == manager.EmployeeId)
             };
 
@@ -438,7 +464,7 @@ namespace VehicleManagementApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             int ids = (int)id;
-            var manager = managerManager.GetById((int) id);
+            var manager = managerManager.GetById((int)id);
             Manager managers = new Manager();
             manager.Id = ids;
             var requsition = _requisitionManager.GetAll();
@@ -474,7 +500,7 @@ namespace VehicleManagementApp.Controllers
         public ActionResult AssignCar()
         {
             var assignVehicle = vehicleManager.Get(c => c.Status == "Assigned");
-            
+
             List<VehicleViewModel> vehicleViewModels = new List<VehicleViewModel>();
             foreach (var vehicle in assignVehicle)
             {
@@ -515,7 +541,7 @@ namespace VehicleManagementApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var manager = managerManager.GetById((int) id);
+            var manager = managerManager.GetById((int)id);
             if (manager == null)
             {
                 return HttpNotFound();
@@ -550,7 +576,7 @@ namespace VehicleManagementApp.Controllers
 
             return View(managerViewModels);
         }
-        
+
         public ActionResult CheckOutEdit(int? id)
         {
             if (id == null)
@@ -572,7 +598,7 @@ namespace VehicleManagementApp.Controllers
             {
                 return RedirectToAction("CheckOut");
             }
-            
+
 
             return View();
         }
@@ -597,7 +623,7 @@ namespace VehicleManagementApp.Controllers
 
             return View();
         }
-        
+
         public ActionResult CheckInUpdate(int? id)
         {
             if (id == null)
@@ -708,7 +734,7 @@ namespace VehicleManagementApp.Controllers
             var Driver = _employeeManager.Get(c => c.IsDriver == false && c.IsDeleted == false);
             var requsitions = _requisitionManager.Get(c => c.Status == "Assign");
             var vehicle = vehicleManager.GetAll();
-            
+
 
             ManagerViewModel managerViewModel = new ManagerViewModel();
             managerViewModel.Status = manager.Status;

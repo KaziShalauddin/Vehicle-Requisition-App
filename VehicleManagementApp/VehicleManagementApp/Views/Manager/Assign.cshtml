@@ -4,7 +4,9 @@
 @{
     ViewBag.Title = "Assign Requisition";
     Layout = "~/Views/Shared/_LayoutManager.cshtml";
-   
+    var vehicles = ViewBag.Vehicles;
+    
+
 }
 
 <h2 style="padding-bottom: 30px; text-align: center">Assign Requisition</h2>
@@ -29,8 +31,15 @@
         <div class="form-group">
             @Html.LabelFor(model => model.VehicleId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model=>model.VehicleId, new SelectList(Model.Vehicles, "Id", "VehicleName"), " Select Car ",  new { @class = "form-control"  })
-                @Html.ValidationMessageFor(model => model.VehicleId, "", new { @class = "text-danger" })
+                @if (vehicles != null)
+                {
+                    @Html.DropDownListFor(model => model.VehicleId, (SelectList) vehicles, "Select Car", new {@class = "form-control"})
+                }
+                else
+                {
+                    @Html.Raw("No vehicle available now!")
+                }
+                @Html.ValidationMessageFor(model => model.VehicleId, "", new {@class = "text-danger"})
             </div>
         </div>
 
