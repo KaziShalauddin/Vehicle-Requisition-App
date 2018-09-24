@@ -129,7 +129,7 @@ namespace VehicleManagementApp.Controllers
             return PartialView("_CommentList", commentListViewModel);
         }
 
-        private TempDataDictionary data;
+        
         public ActionResult RequisitionIndex()
         {
             RequsitionCreateViewModel allRequsitions = new RequsitionCreateViewModel();
@@ -149,7 +149,16 @@ namespace VehicleManagementApp.Controllers
         public string AutoNumber()
         {
             string year = DateTime.Now.Year.ToString();
-            string month = DateTime.Now.Month.ToString();
+            string month;
+            if (DateTime.Now.Month < 10)
+            {
+                month ="0"+ DateTime.Now.Month;
+            }
+            else
+            {
+                month =  DateTime.Now.Month.ToString();
+            }
+           
             int day = DateTime.Now.Day;
             string time = DateTime.Now.Hour.ToString();
             string minute = DateTime.Now.Minute.ToString();
