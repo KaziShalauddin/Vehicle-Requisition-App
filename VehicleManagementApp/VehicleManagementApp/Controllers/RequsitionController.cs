@@ -136,7 +136,11 @@ namespace VehicleManagementApp.Controllers
             var employees = _employeeManager.Get(c => c.IsDriver == false && c.IsDeleted == false);
 
             ViewBag.Employees = employees.ToList();
-
+            //if (data["msg"] != null)
+            //{
+            //    ViewBag.Result = data["msg"];
+            //}
+            
             var requsitionViewList = RequisitionListView();
             allRequsitions.RequsitionViewModels = requsitionViewList;
             return View(allRequsitions);
@@ -178,6 +182,7 @@ namespace VehicleManagementApp.Controllers
                 if (isSaved)
                 {
                     TempData["msg"] = "Requisition Send Successfully";
+                   
                 }
                 else
                 {
@@ -197,6 +202,7 @@ namespace VehicleManagementApp.Controllers
             GetRequisitionComplete();
 
             var allRequisitions = _requisitionManager.GetAll();
+            
             var employee = _employeeManager.GetAll();
             //var requstionStatus = _requsitionStatusManager.GetAll();
 

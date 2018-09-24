@@ -7,7 +7,7 @@ namespace VehicleManagementApp.Repository.Migrations
     {
         public override void Up()
         {
-            CreateTable(
+           CreateTable(
                 "dbo.Comments",
                 c => new
                     {

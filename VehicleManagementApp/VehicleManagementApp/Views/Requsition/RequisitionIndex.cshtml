@@ -4,7 +4,7 @@
     ViewBag.Title = "Requisition";
     Layout = "~/Views/Shared/_Layout.cshtml";
     var employees = ViewBag.Employees;
-
+    var result=   ViewBag.Result;
 }
 
 
@@ -20,7 +20,7 @@
             <div class="modal-dialog">
 
                 <div class="modal-content">
-                    <div class="modal-header" style="text-align: center; text-decoration-color: #6a5acd; background-color: #b0e0e6; border-top-left-radius: 5px; border-top-right-radius: 5px;">
+                    <div class="modal-header" style="text-align: center; color: #6a5acd; background-color: #b0e0e6; border-top-left-radius: 5px; border-top-right-radius: 5px;">
                         <h3 id="ModalTitle">Add New Requisition</h3>
                         <button href="#" class="close" data-dismiss="modal">&times;</button>
 
@@ -50,9 +50,9 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="row col-md-12">
-                                        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-3" })
+                                        @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-4" })
                                         <div class="col-md-7">
-                                            @Html.TextAreaFor(model => model.Description,3,20, new { htmlAttributes = new { @class = "form-control"} })
+                                            @Html.TextAreaFor(model => model.Description, 3, 20, new { htmlAttributes = new { @class = "form-control" } })
                                             @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
@@ -63,9 +63,6 @@
 
                                         <div class="col-md-7">
                                             @Html.EditorFor(model => model.JourneyStartDate, new { htmlAttributes = new { @class = "form-control datePicker" } })
-                                        <div class="col-md-8">
-                                            @Html.EditorFor(model => model.JourneyStartDate, new { htmlAttributes = new { @class = "form-control datetimepicker  datecls" } })
-
                                             @Html.ValidationMessageFor(model => model.JourneyStartDate, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
@@ -118,7 +115,7 @@
                                     <div class="row col-md-12">
                                         @Html.LabelFor(model => model.EmployeeId, htmlAttributes: new { @class = "control-label col-md-3" })
                                         <div class="col-md-7">
-                                            @Html.DropDownListFor(model => model.EmployeeId, new SelectList(employees, "Id", "Name"),  new { @class = "form-control" })
+                                            @Html.DropDownListFor(model => model.EmployeeId, new SelectList(employees, "Id", "Name"), new { @class = "form-control" })
                                             @Html.ValidationMessageFor(model => model.EmployeeId, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
@@ -149,7 +146,13 @@
         </div>
     }
 </div>
+<div>
+    
+        <div class="alert alert-success" id="resultDiv">
+           
+        </div>
 
+</div>
 
 <div>
     <h3 style="text-align: center"> All Requisitions</h3>
@@ -159,13 +162,13 @@
 @section scripts{
 
     <script type="text/javascript">
-        $(document).ready(function() {
+        $(document).ready(function () {
             $("#EmployeeDiv").hide();
 
             $("").datepicker({
                 minDate: 0
             });
-   
+
 
             //$(".form-group").css({ "padding-bottom": "35px" });
 
@@ -173,7 +176,7 @@
         //$("#RequestForOther").change(function() {
         //    debugger;
 
-            //$(".form-group").css({ "padding-bottom": "35px" });
+        //$(".form-group").css({ "padding-bottom": "35px" });
         //});
 
         $("#RequestForOther").change(function () {
@@ -225,7 +228,7 @@
             $("#MyModal").modal();
 
         }
-       
+
 
         //$(function () {
         //    $(".datetimepicker").datetimepicker();
@@ -237,10 +240,13 @@
                 type: "Post",
                 url: "/Requsition/JsonCreate",
                 data: data,
-                success: function () {
+                success: function (result) {
+                    debugger;
+                    $.post('@Url.Action("RequisitionIndex","Requsition")', JSON.stringify(result));
 
-                    window.location.href = "/Requsition/RequisitionIndex";
+                    //window.location.href = "/Requsition/RequisitionIndex";
                     $("#MyModal").modal("hide");
+                    $("#resultDiv").html(result);
                 },
                 error: function () {
 

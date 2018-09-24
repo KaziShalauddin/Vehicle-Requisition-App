@@ -253,12 +253,12 @@ namespace VehicleManagementApp.Controllers
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var password = "1234";
 
-                //Add role to user
-                var role = new IdentityUserRole();
-                role.UserId = user.Id;
-                // assign User role Id
-                role.RoleId = "648d557d-307b-4a72-9555-5f60070d80c9";
-                user.Roles.Add(role);
+                ////Add role to user
+                //var role = new IdentityUserRole();
+                //role.UserId = user.Id;
+                //// assign User role Id
+                //role.RoleId = "648d557d-307b-4a72-9555-5f60070d80c9";
+                //user.Roles.Add(role);
 
                 CreateEmployee(model);
 
