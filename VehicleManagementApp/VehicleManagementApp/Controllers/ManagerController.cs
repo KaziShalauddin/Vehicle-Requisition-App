@@ -124,7 +124,7 @@ namespace VehicleManagementApp.Controllers
             Manager manager = new Manager();
             var employees = _employeeManager.Get(c => c.IsDriver == true && c.Status == "Available" && c.IsDeleted == false);
             var assignVehicle = vehicleManager.Get(c => c.Status == null);
-            
+
             ManagerViewModel managerVM = new ManagerViewModel();
             managerVM.Id = manager.Id;
             managerVM.RequsitionId = requsition.Id;
@@ -132,38 +132,36 @@ namespace VehicleManagementApp.Controllers
             managerVM.Employees = employees;
             managerVM.Vehicles = assignVehicle;
 
-            List<VehicleDropDownViewModel> vehicleDropDownList = new List<VehicleDropDownViewModel>();
-
-            if (assignVehicle.Count != 0)
+            if (assignVehicle != null)
             {
-                foreach (var item in assignVehicle)
-                {
-                    VehicleDropDownViewModel vehicleDrop = new VehicleDropDownViewModel
-                    {
-                        Id = item.Id,
-                        VehicleDetails =
-                            item.VehicleName + "-" + item.VModel + "-" +
-                           item.VRegistrationNo
+                var vehicleDropDownList = SetVehicleDropDown(assignVehicle);
 
-                    };
-                    vehicleDropDownList.Add(vehicleDrop);
-                }
-                //VehicleDropDownViewModel vehicleDrop = new VehicleDropDownViewModel
-                //{
-
-                //    Id = managerVM.Vehicle.Id,
-                //    VehicleDetails = managerVM.Vehicle.VehicleName + "-" + managerVM.Vehicle.VModel + "-" + managerVM.Vehicle.VRegistrationNo
-
-                //};
-                //vehicleDropDownList.Add(vehicleDrop);
                 ViewBag.Vehicles = new SelectList(vehicleDropDownList, "Id", "VehicleDetails", manager.EmployeeId);
             }
-            
 
             ViewBag.EmployeeId = new SelectList(employees, "Id", "Name", manager.EmployeeId);
-           
+
 
             return View(managerVM);
+        }
+
+        private static List<VehicleDropDownViewModel> SetVehicleDropDown(ICollection<Vehicle> assignVehicle)
+        {
+            List<VehicleDropDownViewModel> vehicleDropDownList = new List<VehicleDropDownViewModel>();
+            
+            foreach (var item in assignVehicle)
+            {
+                VehicleDropDownViewModel vehicleDrop = new VehicleDropDownViewModel
+                {
+                    Id = item.Id,
+                    VehicleDetails =
+                        item.VehicleName + "-" + item.VModel + "-" +
+                        item.VRegistrationNo
+                };
+                vehicleDropDownList.Add(vehicleDrop);
+            }
+
+            return vehicleDropDownList;
         }
 
         [HttpGet]
@@ -186,6 +184,7 @@ namespace VehicleManagementApp.Controllers
 
             managerVM.Employees = employees;
             managerVM.Vehicles = assignVehicle;
+
 
             //ViewBag.EmployeeId = new SelectList(employees,"Id","Name", managerById.EmployeeId);
             //ViewBag.VehicleId = new SelectList(assignVehicle,"Id","VehicleName", managerById.VehicleId);
