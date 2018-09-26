@@ -79,9 +79,11 @@ namespace VehicleManagementApp.Controllers
             requsitionViewModel.Manager = manager.FirstOrDefault(c => c.RequsitionId == requsition.Id);
 
             int? emplId = requsition.EmployeeId;
+            string employeeNam = requsition.Employee.Name;
             requsitionViewModel.CommentViewModel = new CommentViewModel
             {
                 EmployeeId = (int)emplId,
+                EmployeName = employeeNam,
                 RequsitionId = requsitionId
             };
 
@@ -92,7 +94,7 @@ namespace VehicleManagementApp.Controllers
             {
                 commentListViewModel.Add
                 (
-                    new CommentViewModel { RequsitionId = requsitionId, Comments = item.Comments, Employee = item.Employee}
+                    new CommentViewModel { RequsitionId = requsitionId, Comments = item.Comments, EmployeeId = item.EmployeeId,  EmployeName = item.Employee.Name}
                 );
             }
             requsitionViewModel.CommentViewModels = commentListViewModel;
@@ -117,12 +119,17 @@ namespace VehicleManagementApp.Controllers
             {
                 //Collect the list of comment to display the list under comment
                 var commentListView = commentManager.GetCommentsByRequisition(commentViewModel.RequsitionId);
+
                 foreach (var item in commentListView.ToList())
                 {
-                    commentListViewModel.Add
-                    (
-                        new CommentViewModel { RequsitionId = commentViewModel.RequsitionId, Comments = item.Comments, Employee = item.Employee}
-                    );
+                    var cmnt = new CommentViewModel();
+                    cmnt.RequsitionId = item.RequsitionId;
+                    cmnt.EmployeeId = item.EmployeeId;
+                    cmnt.Comments = item.Comments;
+                    cmnt.Employee = item.Employee;
+                    cmnt.EmployeName = commentViewModel.EmployeName;
+                    commentListViewModel.Add(cmnt);
+
                 }
                 return PartialView("_CommentList", commentListViewModel);
             }

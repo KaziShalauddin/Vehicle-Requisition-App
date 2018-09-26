@@ -8,6 +8,8 @@
                 @Html.AntiForgeryToken()
                 @Html.HiddenFor(m=> m.RequsitionId)
                 @Html.HiddenFor(m=>m.EmployeeId)
+                @Html.HiddenFor(m=>m.EmployeName)
+
                 <div class="form-group">
                     <label class="control-label col-md-4">Comment</label>
                     <div class="col-md-12">
