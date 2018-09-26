@@ -18,7 +18,7 @@
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
-                @Html.Raw("Organaization")
+                @Html.DisplayNameFor(model => model.DepartmentId)
             </th>
             <th></th>
         </tr>
@@ -34,7 +34,7 @@
                     @Html.DisplayFor(modelItem => item.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Organaization.Name)
+                    @Html.DisplayFor(modelItem => item.Department.Name)
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })

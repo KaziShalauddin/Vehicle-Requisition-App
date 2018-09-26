@@ -13,7 +13,7 @@
 {
     @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
+    <div class="form-horizontal" >
 
         @if (TempData["msg"] != null)
         {
@@ -23,6 +23,15 @@
         }
 
         @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+
+        <div class="form-group">
+            @Html.Label("Department", htmlAttributes: new {@class = "control-label col-md-2"})
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.DepartmentId, new SelectList(Model.Departments, "Id", "Name"), "Select Department", new {@class = "form-control"})
+                @Html.ValidationMessageFor(model => model.DepartmentId, "", new {@class = "text-danger"})
+            </div>
+        </div>
+
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new {@class = "control-label col-md-2"})
             <div class="col-md-10">
@@ -30,18 +39,14 @@
                 @Html.ValidationMessageFor(model => model.Name, "", new {@class = "text-danger"})
             </div>
         </div>
+        <div class="alert alert-success" id="resultDiv">
 
-        <div class="form-group">
-            @Html.Label("Organaization", htmlAttributes: new {@class = "control-label col-md-2"})
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.OrganaizationId, new SelectList(Model.Organaizations, "Id", "Name"), "Select Organaization", new {@class = "form-control" })
-                @Html.ValidationMessageFor(model => model.OrganaizationId, "", new {@class = "text-danger"})
-            </div>
         </div>
+       
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default"/>
+                <input type="submit" id="btnSubmit" value="Create" class="btn btn-default"/>
             </div>
         </div>
     </div>
@@ -50,3 +55,39 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $("#resultDiv").hide();
+        });
+
+    </script>
+
+
+    <script>
+
+        $("#btnSubmit").click(function () {
+            debugger;
+            var data = new FormData();
+            data.append("Name", $("#Name").val());
+            data.append("DepartmentId", $("#DepartmentId").val());
+
+            $.ajax({
+                type: "Post",
+                url: "/Designation/IsNameExist",
+                data: data,
+               
+                success: function(result) {
+                    debugger;
+                    $("#resultDiv").show();
+                    $("#resultDiv").html(result);
+                   
+                },
+                error: function() {
+
+                }
+            });
+        });
+    </script>
+}

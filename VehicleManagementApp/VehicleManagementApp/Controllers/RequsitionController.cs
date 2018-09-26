@@ -129,11 +129,7 @@ namespace VehicleManagementApp.Controllers
             return PartialView("_CommentList", commentListViewModel);
         }
 
-<<<<<<< HEAD
-        //private TempDataDictionary data;
-=======
-        
->>>>>>> 97791957dd9fd8304563e6746126d07d36256488
+
         public ActionResult RequisitionIndex()
         {
             RequsitionCreateViewModel allRequsitions = new RequsitionCreateViewModel();

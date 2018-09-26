@@ -18,9 +18,9 @@ namespace VehicleManagementApp.ViewModels
         [Remote("IsNameExist", "Designation", HttpMethod = "POST", ErrorMessage = "Designation Already Exist, Try Another")]
         public string Name { get; set; }
 
-        [Display(Name = "Organaization")]
-        public int OrganaizationId { get; set; }
-        public Organaization Organaization { get; set; }
-        public IEnumerable<Organaization> Organaizations { get; set; } 
+        [Display(Name = "Department")]
+        public int DepartmentId { get; set; }
+        public Department Department { get; set; }
+        public IEnumerable<Department> Departments { get; set; } 
     }
 }

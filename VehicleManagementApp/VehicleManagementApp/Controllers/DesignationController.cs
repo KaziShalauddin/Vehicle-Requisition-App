@@ -18,15 +18,15 @@ namespace VehicleManagementApp.Controllers
         //OrganaizationManager _organaizationManager = new OrganaizationManager();
 
         private IDesignationManager _designationManager;
-        private IOrganaizationManager _organaizationManager;
-        public DesignationController(IDesignationManager manager, IOrganaizationManager organaizationManager)
+        private IDepartmentManager _departmenManager;
+        public DesignationController(IDesignationManager manager, IDepartmentManager departmenManager)
         {
             this._designationManager = manager;
-            this._organaizationManager = organaizationManager;
+            this._departmenManager = departmenManager;
         }
         public ActionResult Index()
         {
-            var organaization = _organaizationManager.GetAll();
+            var departments = _departmenManager.GetAll();
             var designation = _designationManager.GetAll();
 
             List<DesignationViewModel> designationList = new List<DesignationViewModel>();
@@ -35,7 +35,7 @@ namespace VehicleManagementApp.Controllers
                 var designationVM = new DesignationViewModel();
                 designationVM.Id = designation1.Id;
                 designationVM.Name = designation1.Name;
-                designationVM.Organaization = organaization.Where(x => x.Id == designation1.OrganaizationId).FirstOrDefault();
+                designationVM.Department = departments.Where(x => x.Id == designation1.DepartmentId).FirstOrDefault();
                 designationList.Add(designationVM);
             } 
             return View(designationList);
@@ -48,14 +48,14 @@ namespace VehicleManagementApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var organaization = _organaizationManager.GetAll();
+            var departments = _departmenManager.GetAll();
             Designation designation = _designationManager.GetById((int) id);
 
             DesignationViewModel designationVM = new DesignationViewModel()
             {
                 Id = designation.Id,
                 Name = designation.Name,
-                Organaization = organaization.Where(x=>x.Id == designation.OrganaizationId).FirstOrDefault()
+                Department = departments.Where(x=>x.Id == designation.DepartmentId).FirstOrDefault()
 
             };
             return View(designationVM);
@@ -65,11 +65,11 @@ namespace VehicleManagementApp.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            DesignationViewModel organaizationVM = new DesignationViewModel();
-            var organaizations = _organaizationManager.GetAll();
-            organaizationVM.Organaizations = organaizations;
+            DesignationViewModel designationVM = new DesignationViewModel();
+            var departments = _departmenManager.GetAll();
+            designationVM.Departments = departments;
 
-            return View(organaizationVM);
+            return View(designationVM);
         }
 
         // POST: Designation/Create
@@ -80,7 +80,7 @@ namespace VehicleManagementApp.Controllers
             {
                 Designation designation = new Designation();
                 designation.Name = designationVM.Name;
-                designation.OrganaizationId = designationVM.OrganaizationId;
+                designation.DepartmentId = designationVM.DepartmentId;
                 _designationManager.Add(designation);
                 return RedirectToAction("Index");
             }
@@ -98,24 +98,26 @@ namespace VehicleManagementApp.Controllers
                 return HttpNotFound();
             }
             Designation designation = _designationManager.GetById((int) id);
-            EditDepartmentViewModel designationVM = new EditDepartmentViewModel();
+            DesignationViewModel designationVM = new DesignationViewModel();
             designationVM.Id = designation.Id;
             designationVM.Name = designation.Name;
-            designationVM.OrganaizationId = designation.OrganaizationId;
-            ViewBag.OrganaizationId = new SelectList(_organaizationManager.GetAll(),"Id","Name", designation.OrganaizationId);
+            designationVM.Departments = _departmenManager.GetAll();
+            //designationVM.DepartmentId = designation.DepartmentId;
+            //ViewBag.DesignationId = new SelectList(_departmenManager.GetAll(),"Id","Name", designation.DepartmentId);
+            //return View(designationVM);
             return View(designationVM);
         }
 
         // POST: Designation/Edit/5
         [HttpPost]
-        public ActionResult Edit(EditDepartmentViewModel designationVM)
+        public ActionResult Edit(DesignationViewModel designationVM)
         {
             try
             {
                 Designation designation = new Designation();
                 designation.Id = designationVM.Id;
                 designation.Name = designationVM.Name;
-                designation.OrganaizationId = designationVM.OrganaizationId;
+                designation.DepartmentId = designationVM.DepartmentId;
                 _designationManager.Update(designation);
                 return RedirectToAction("Index");
             }
@@ -157,9 +159,9 @@ namespace VehicleManagementApp.Controllers
             }
         }
 
-        public JsonResult IsNameExist(string Name)
+        public JsonResult IsNameExist(string Name,int DepartmentId)
         {
-            var name = _designationManager.IsNameAlreadyExist(Name);
+            var name = _designationManager.IsNameAlreadyExist(Name,DepartmentId);
             return Json(name, JsonRequestBehavior.AllowGet);
         }
     }

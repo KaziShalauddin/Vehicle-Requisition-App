@@ -30,5 +30,18 @@ namespace VehicleManagementApp.BLL
                 return true;
             }
         }
+
+        public bool IsNameAlreadyExist(string name, int departmentId)
+        {
+            var designation = designationRepository.Get(c => c.Name.ToLower().Equals(name.ToLower())&& c.DepartmentId==departmentId);
+            if (designation.Count > 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }

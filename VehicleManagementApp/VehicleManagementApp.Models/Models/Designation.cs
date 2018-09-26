@@ -16,8 +16,8 @@ namespace VehicleManagementApp.Models.Models
 
         [StringLength(255)]
         public string Name { get; set; }
-        public int OrganaizationId { get; set; }
-        public Organaization Organaization { get; set; }
+        public int? DepartmentId { get; set; }
+        public Department Department { get; set; }
         public bool IsDeleted { get; set; }
         public bool withDeleted()
         {

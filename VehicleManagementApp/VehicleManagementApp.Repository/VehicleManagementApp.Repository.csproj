@@ -68,6 +68,10 @@
     <Compile Include="Migrations\201809221907506_EmployeeTableStatusFieldAdded.Designer.cs">
       <DependentUpon>201809221907506_EmployeeTableStatusFieldAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809251757577_DesignationTable_Modified.cs" />
+    <Compile Include="Migrations\201809251757577_DesignationTable_Modified.Designer.cs">
+      <DependentUpon>201809251757577_DesignationTable_Modified.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OrganaizationRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -105,6 +109,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809221907506_EmployeeTableStatusFieldAdded.resx">
       <DependentUpon>201809221907506_EmployeeTableStatusFieldAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809251757577_DesignationTable_Modified.resx">
+      <DependentUpon>201809251757577_DesignationTable_Modified.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

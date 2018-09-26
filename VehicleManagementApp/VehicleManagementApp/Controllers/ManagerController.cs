@@ -221,12 +221,6 @@ namespace VehicleManagementApp.Controllers
             }
 
             return View();
-
-<<<<<<< HEAD
-
-           
-=======
->>>>>>> 97791957dd9fd8304563e6746126d07d36256488
         }
 
 
