@@ -31,10 +31,10 @@ namespace VehicleManagementApp.BLL
             }
         }
 
-        public bool IsNameAlreadyExist(string name, int departmentId)
+        public bool IsNameUnique(string name, int departmentId)
         {
-            var designation = designationRepository.Get(c => c.Name.ToLower().Equals(name.ToLower())&& c.DepartmentId==departmentId);
-            if (designation.Count > 0)
+            var searchDesignation = designationRepository.Get(c => c.Name == name && c.DepartmentId == departmentId);
+            if (searchDesignation.Count > 0)
             {
                 return false;
             }
@@ -42,6 +42,28 @@ namespace VehicleManagementApp.BLL
             {
                 return true;
             }
+
+
         }
+
+        //public bool IsNameAlreadyExist(string name, int departmentId)
+        //{
+        //    var designation = designationRepository.Get(c => c.Name.ToLower().Equals(name.ToLower()) && c.DepartmentId == departmentId);
+        //    if (designation.Count > 0)
+        //    {
+        //        return false;
+        //    }
+        //    else
+        //    {
+        //        return true;
+        //    }
+
+        //    //if (context.Entities.Any(e => e.FirstColumn == value1
+        //    //               && e.SecondColumn == value2))
+        //    //{
+        //    //    // deal with duplicate values here.
+        //    //}
+
+        //}
     }
 }

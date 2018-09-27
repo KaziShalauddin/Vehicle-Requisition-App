@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -15,12 +16,20 @@ namespace VehicleManagementApp.ViewModels
 
         [StringLength(255)]
         [Required]
-        [Remote("IsNameExist", "Designation", HttpMethod = "POST", ErrorMessage = "Designation Already Exist, Try Another")]
+        //[Index("IX_DepartmentIdAndName", 2, IsUnique = true)]
+        [Remote("IsNameUnique", "Designation", HttpMethod = "POST", AdditionalFields = "DepartmentId", ErrorMessage = "Designation Already Exist, Try Another")]
         public string Name { get; set; }
 
+        [Required]
         [Display(Name = "Department")]
+        //[Index("IX_DepartmentIdAndName", 1, IsUnique = true)]
+        //[Remote("IsNameUnique", "Designation", HttpMethod = "POST")]
         public int DepartmentId { get; set; }
         public Department Department { get; set; }
         public IEnumerable<Department> Departments { get; set; } 
+
+
     }
+
+   
 }

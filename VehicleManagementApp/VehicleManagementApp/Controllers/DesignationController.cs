@@ -28,7 +28,7 @@ namespace VehicleManagementApp.Controllers
         {
             var departments = _departmenManager.GetAll();
             var designation = _designationManager.GetAll();
-
+            
             List<DesignationViewModel> designationList = new List<DesignationViewModel>();
             foreach (var designation1 in designation)
             {
@@ -159,10 +159,19 @@ namespace VehicleManagementApp.Controllers
             }
         }
 
-        public JsonResult IsNameExist(string Name,int DepartmentId)
+        public JsonResult IsNameExist(string Name)
         {
-            var name = _designationManager.IsNameAlreadyExist(Name,DepartmentId);
+            var name = _designationManager.IsNameAlreadyExist(Name);
             return Json(name, JsonRequestBehavior.AllowGet);
+
+           
+        }
+
+        public JsonResult IsNameUnique(string name,int departmentId)
+        {
+            var searchDesignation = _designationManager.IsNameUnique(name, departmentId); 
+            return Json(searchDesignation, JsonRequestBehavior.AllowGet);
+            
         }
     }
 }

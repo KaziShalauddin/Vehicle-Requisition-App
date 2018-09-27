@@ -9,7 +9,8 @@
 <br/>
 <hr/>
 <br/>
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
+//@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "myform" }))
 {
     @Html.AntiForgeryToken()
 
@@ -27,7 +28,7 @@
         <div class="form-group">
             @Html.Label("Department", htmlAttributes: new {@class = "control-label col-md-2"})
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.DepartmentId, new SelectList(Model.Departments, "Id", "Name"), "Select Department", new {@class = "form-control"})
+                @Html.DropDownListFor(model => model.DepartmentId, new SelectList(Model.Departments, "Id", "Name"), "Select Department", new {@class = "form-control", onchange = "DropDownValueChanged()" })
                 @Html.ValidationMessageFor(model => model.DepartmentId, "", new {@class = "text-danger"})
             </div>
         </div>
@@ -57,37 +58,69 @@
 </div>
 @section scripts{
     <script type="text/javascript">
-        $(document).ready(function() {
+       // var validator = $("#myform").validate();
+        //$(document).ready(function() {
+        function DropDownValueChanged() {
+            
+            $("#Name").val("");
+           
+           // validator.resetForm();
+            var $form = $("form");
+            var $validator = $form.validate();
 
-            $("#resultDiv").hide();
-        });
+            // all errors
+            //var $errors = $form.find(".field-validation-error span");
+
+            // find just error attached to FireSrv_Size
+            var $errors = $("#Name").next(".field-validation-error").find("span");
+
+            // trick unobtrusive to think the elements were successfully validated
+            // this removes the validation messages
+            $errors.each(function () {
+                debugger;
+                //if ($validator.hasClass("field-validation-error")) {
+                    $validator.settings.success($(this));
+                //} else {
+                //    $validator.settings.enable($(this));
+                    
+                //}
+                
+               
+            });
+            ValidatorEnable($form, true);
+
+
+
+        };
+       
+       
 
     </script>
 
 
     <script>
 
-        $("#btnSubmit").click(function () {
-            debugger;
-            var data = new FormData();
-            data.append("Name", $("#Name").val());
-            data.append("DepartmentId", $("#DepartmentId").val());
+        //$("#btnSubmit").click(function () {
+        //    debugger;
+        //    var data = new FormData();
+        //    data.append("Name", $("#Name").val());
+        //    data.append("DepartmentId", $("#DepartmentId").val());
 
-            $.ajax({
-                type: "Post",
-                url: "/Designation/IsNameExist",
-                data: data,
+        //    $.ajax({
+        //        type: "Post",
+        //        url: "/Designation/IsNameExist",
+        //        data: data,
                
-                success: function(result) {
-                    debugger;
-                    $("#resultDiv").show();
-                    $("#resultDiv").html(result);
+        //        success: function(result) {
+        //            debugger;
+        //            $("#resultDiv").show();
+        //            $("#resultDiv").html(result);
                    
-                },
-                error: function() {
+        //        },
+        //        error: function() {
 
-                }
-            });
-        });
+        //        }
+        //    });
+        //});
     </script>
 }
