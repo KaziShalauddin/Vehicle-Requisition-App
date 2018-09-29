@@ -173,5 +173,17 @@ namespace VehicleManagementApp.Controllers
             return Json(searchDesignation, JsonRequestBehavior.AllowGet);
             
         }
+        public JsonResult GetByDepartments(int? departmentId)
+        {
+            if (departmentId == null)
+            {
+                return null;
+            }
+
+            var designations = _designationManager.Get(c => c.DepartmentId == departmentId).ToList();
+
+            return Json(designations, JsonRequestBehavior.AllowGet);
+
+        }
     }
 }

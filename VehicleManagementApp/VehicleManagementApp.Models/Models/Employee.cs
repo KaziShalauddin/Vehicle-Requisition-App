@@ -50,11 +50,14 @@ namespace VehicleManagementApp.Models.Models
         public int? ThanaId { get; set; }
         public Thana Thana { get; set; }
 
-
+        
         public bool IsDeleted { get; set; }
         public bool withDeleted()
         {
             return IsDeleted;
         }
+
+        public byte[] Image { get; set; }
+        public string ImagePath { get; set; }
     }
 }

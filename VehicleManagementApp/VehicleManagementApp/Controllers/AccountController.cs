@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -199,7 +200,7 @@ namespace VehicleManagementApp.Controllers
         private IDivisionManager _divisionManager;
         private IDistrictManager _districtManager;
         private IThanaManager _thanaManager;
-        public  AccountController(IEmployeeManager employee, IDepartmentManager department,
+        public AccountController(IEmployeeManager employee, IDepartmentManager department,
            IDesignationManager designation,
            IDivisionManager division, IDistrictManager district, IThanaManager thana)
         {
@@ -216,28 +217,29 @@ namespace VehicleManagementApp.Controllers
         public ActionResult EmployeeRegister()
         {
 
-            var department = _departmentManager.GetAll();
+            var departments = _departmentManager.GetAll();
             var designation = _designationManager.GetAll();
-            var division = _divisionManager.GetAll();
+            var divisions = _divisionManager.GetAll();
             var district = _districtManager.GetAll();
             var thana = _thanaManager.GetAll();
 
-            EmployeeRegisterViewModel employeeVM = new EmployeeRegisterViewModel
-            {
-                Departments = department,
-                Designations = designation,
-                Divisions = division,
-                Districts = district,
-                Thanas = thana
-            };
+            //EmployeeRegisterViewModel employeeVM = new EmployeeRegisterViewModel
+            //{
+            //    Departments = department,
+            //    Designations = designation,
+            //    Divisions = division,
+            //    Districts = district,
+            //    Thanas = thana
+            //};
 
-
-            ViewBag.districtDropDown = new SelectListItem[] { new SelectListItem() { Value = "", Text = "Select..." } };
+            ViewBag.Departments = departments;
+            ViewBag.Divisions = divisions;
+            ViewBag.DesignationId = new SelectListItem[] { new SelectListItem() { Value = "", Text = "Select..." } };
             ViewBag.DistrictId = new SelectListItem[] { new SelectListItem() { Value = "", Text = "Select..." } };
             ViewBag.ThanaId = new SelectListItem[] { new SelectListItem() { Value = "", Text = "Select..." } };
 
 
-            return View(employeeVM);
+            return View();
         }
 
         //
@@ -245,27 +247,40 @@ namespace VehicleManagementApp.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EmployeeRegister(EmployeeRegisterViewModel model)
+        public  ActionResult EmployeeRegister(EmployeeRegisterViewModel_V2 model)
         {
+            byte[] imageData = null;
+            if (Request.Files.Count > 0)
+            {
+                HttpPostedFileBase poImgFile = Request.Files["ImageFile"];
+
+                using (var binary = new BinaryReader(poImgFile.InputStream))
+                {
+                    imageData = binary.ReadBytes(poImgFile.ContentLength);
+                    
+                }
+            }
+            var user = new ApplicationUser { UserName = model.Name, Email = model.Email };
+            //CreateEmployee(model, user, imageData);
             if (ModelState.IsValid)
             {
 
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                
                 var password = "1234";
 
-                ////Add role to user
-                //var role = new IdentityUserRole();
-                //role.UserId = user.Id;
-                //// assign User role Id
-                //role.RoleId = "648d557d-307b-4a72-9555-5f60070d80c9";
-                //user.Roles.Add(role);
+                //Add role to user
+                var role = new IdentityUserRole();
+                role.UserId = user.Id;
+                // assign User role Id
+                role.RoleId = "648d557d-307b-4a72-9555-5f60070d80c9";
+                user.Roles.Add(role);
 
-                CreateEmployee(model);
 
-                var result = await UserManager.CreateAsync(user, password);
+
+                var result =  UserManager.Create(user, password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                     SignInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
@@ -285,6 +300,8 @@ namespace VehicleManagementApp.Controllers
             //return View(model);
         }
 
+       
+
         private void CreateEmployee(EmployeeRegisterViewModel model)
         {
             Employee employee = new Employee
@@ -297,10 +314,10 @@ namespace VehicleManagementApp.Controllers
                 DistrictId = model.DistrictId,
                 ThanaId = model.ThanaId,
                 Address1 = model.Address1,
-                Address2 = model.Address2,
+                //Address2 = model.Address2,
                 ContactNo = model.ContactNo,
-                LicenceNo = model.LicenceNo,
-                IsDriver = model.IsDriver
+                //LicenceNo = model.LicenceNo,
+                IsDriver = false
             };
             //IEmployeeManager employeeManager=new EmployeeManager();
             _employeeManager.Add(employee);
@@ -556,7 +573,103 @@ namespace VehicleManagementApp.Controllers
 
             base.Dispose(disposing);
         }
+        // GET: /Account/ShanuRegister
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult ShanuRegister()
+        {
+            var departments = _departmentManager.GetAll();
+            var divisions = _divisionManager.GetAll();
 
+            ViewBag.Departments = departments;
+            ViewBag.Divisions = divisions;
+
+            ViewBag.DesignationId = new SelectListItem[] { new SelectListItem() { Value = "", Text = "Select..." } };
+            ViewBag.DistrictId = new SelectListItem[] { new SelectListItem() { Value = "", Text = "Select..." } };
+            ViewBag.ThanaId = new SelectListItem[] { new SelectListItem() { Value = "", Text = "Select..." } };
+
+            return View();
+        }
+        private void CreateEmployee(ShanuRegisterViewModel model, ApplicationUser user, byte[] imageData, string imagePath)
+        {
+
+            Employee employee = new Employee
+            {
+                Name = model.Name,
+                UserId = user.Id,
+                Email = model.Email,
+                DepartmentId = model.DepartmentId,
+                DesignationId = model.DesignationId,
+                DivisionId = model.DivisionId,
+                DistrictId = model.DistrictId,
+                ThanaId = model.ThanaId,
+                Address1 = model.Address1,
+                //Address2 = model.Address2,
+                ContactNo = model.ContactNo,
+                //LicenceNo = model.LicenceNo,
+                IsDriver = false,
+                Image = imageData,
+                ImagePath = imagePath,
+                IsDeleted = false
+            };
+
+            _employeeManager.Add(employee);
+            //}
+        }
+
+        //
+        // POST: /Account/ShanuRegister
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ShanuRegister([Bind(Exclude = "UserPhoto")]ShanuRegisterViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+
+                // To convert the user uploaded Photo as Byte Array before save to DB
+                byte[] imageData = null;
+                string imagePath=null;
+                if (Request.Files.Count > 0)
+                {
+                    HttpPostedFileWrapper poImgFile = Request.Files["UserPhoto"] as HttpPostedFileWrapper;
+                    poImgFile.SaveAs(Server.MapPath("~/EmployeeImages/" + poImgFile.FileName));
+                    //BinaryReader reader = new BinaryReader(file.InputStream);
+
+                    // imagebyte = reader.ReadBytes(file.ContentLength);
+                    using (var binary = new BinaryReader(poImgFile.InputStream))
+                    {
+                        imageData = binary.ReadBytes(poImgFile.ContentLength);
+                        imagePath = "~/EmployeeImages/" + poImgFile.FileName;
+                    }
+                }
+
+                
+
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                CreateEmployee(model, user, imageData, imagePath);
+                //Here we pass the byte array to user context to store in db
+                // user.UserPhoto = imageData;
+                //, model.Password
+                var result = await UserManager.CreateAsync(user);
+                if (result.Succeeded)
+                {
+                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                    // Send an email with this link
+                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                    return RedirectToAction("Index", "Home");
+                }
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
         #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";

@@ -221,6 +221,15 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809240448277_InitialCreate.cs" />
+    <Compile Include="Migrations\201809240448277_InitialCreate.Designer.cs">
+      <DependentUpon>201809240448277_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201809290251363_UserTable_userPhotoAdded.cs" />
+    <Compile Include="Migrations\201809290251363_UserTable_userPhotoAdded.Designer.cs">
+      <DependentUpon>201809290251363_UserTable_userPhotoAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -448,6 +457,7 @@
     <Content Include="img\slider\6.jpg" />
     <Content Include="img\slider\7.jpg" />
     <Content Include="js\bootstrap.min.js" />
+    <Content Include="js\jquery-ui.js" />
     <Content Include="js\jquery-ui.min.js" />
     <Content Include="js\jquery.fitvids.js" />
     <Content Include="js\jquery.slicknav.min.js" />
@@ -750,9 +760,11 @@
     <Content Include="Views\Driver\Edit.cshtml" />
     <Content Include="Views\Driver\Details.cshtml" />
     <Content Include="Views\Driver\Delete.cshtml" />
+    <Content Include="Views\Account\ShanuRegister.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="EmployeeImages\" />
     <Folder Include="Views\Comment\" />
   </ItemGroup>
   <ItemGroup>
@@ -795,6 +807,14 @@
       <Project>{EDD22EBA-DE0B-4C69-BB85-6E5E8CC4A379}</Project>
       <Name>VehicleManagementApp.Repository</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201809240448277_InitialCreate.resx">
+      <DependentUpon>201809240448277_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809290251363_UserTable_userPhotoAdded.resx">
+      <DependentUpon>201809290251363_UserTable_userPhotoAdded.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
