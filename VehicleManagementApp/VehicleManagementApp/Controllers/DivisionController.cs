@@ -55,7 +55,7 @@ namespace VehicleManagementApp.Controllers
                 {
                     TempData["msg"] = "Division Saved Successfully";
                 }
-                return RedirectToAction("Create");
+                return RedirectToAction("Index");
             }
             catch
             {

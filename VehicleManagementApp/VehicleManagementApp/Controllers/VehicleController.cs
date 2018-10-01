@@ -105,22 +105,22 @@ namespace VehicleManagementApp.Controllers
         {
             try
             {
-                Vehicle vehicle = new Vehicle()
-                {
-                    VehicleName = vehicleViewModel.VehicleName,
-                    VModel = vehicleViewModel.VModel,
-                    VRegistrationNo = vehicleViewModel.VRegistrationNo,
-                    VChesisNo = vehicleViewModel.VChesisNo,
-                    VCapacity = vehicleViewModel.VCapacity,
-                    Description = vehicleViewModel.Description,
-                    VehicleTypeId = vehicleViewModel.VehicleTypeId
-                };
+                Vehicle vehicle = new Vehicle();
+
+                vehicle.VehicleName = vehicleViewModel.VehicleName;
+                vehicle.VModel = vehicleViewModel.VModel;
+                vehicle.VRegistrationNo = vehicleViewModel.VRegistrationNo;
+                vehicle.VChesisNo = vehicleViewModel.VChesisNo;
+                vehicle.VCapacity = vehicleViewModel.VCapacity;
+                vehicle.Description = vehicleViewModel.Description;
+                vehicle.VehicleTypeId = vehicleViewModel.VehicleTypeId;
+                
                 bool isSaved = _vehicleManager.Add(vehicle);
                 if (isSaved)
                 {
                     TempData["msg"] = "Vehicle Saved Successfully";
                 }
-                return RedirectToAction("Create");
+                return RedirectToAction("Index");
             }
             catch
             {
