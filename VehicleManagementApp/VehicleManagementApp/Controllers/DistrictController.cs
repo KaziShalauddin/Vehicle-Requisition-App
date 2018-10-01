@@ -81,7 +81,7 @@ namespace VehicleManagementApp.Controllers
                 {
                     TempData["msg"] = "District Save Successfully";
                 }
-                return RedirectToAction("Create");
+                return RedirectToAction("Index");
             }
             catch
             {

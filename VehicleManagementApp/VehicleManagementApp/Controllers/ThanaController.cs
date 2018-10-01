@@ -80,10 +80,10 @@ namespace VehicleManagementApp.Controllers
                 bool isSaved = _thanaManager.Add(thana);
                 if (isSaved)
                 {
-                    TempData["msg"] = "Thana Saved Successfully";
+                    TempData["msg"] = "Upzilla Saved Successfully";
                 }
 
-                return RedirectToAction("Create");
+                return RedirectToAction("Index");
             }
             catch
             {
