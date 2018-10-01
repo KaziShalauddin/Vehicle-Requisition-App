@@ -3,68 +3,70 @@
 @{
     ViewBag.Title = "Create";
 }
+<div class="container" style="background-color: whitesmoke;">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 style="text-align: center;">Designation Added Page</h1>
 
-<h2>Add Designation</h2>
+            <br/>
+            @using (Html.BeginForm())
+                //@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "myform" }))
+            {
+                @Html.AntiForgeryToken()
 
-<br/>
-<hr/>
-<br/>
-@using (Html.BeginForm())
-//@using (Html.BeginForm(null, null, FormMethod.Post, new { id = "myform" }))
-{
-    @Html.AntiForgeryToken()
+                <div class="form-horizontal">
 
-    <div class="form-horizontal" >
+                    @if (TempData["msg"] != null)
+                    {
+                        <div class="alert alert-info">
+                            @TempData["msg"]
+                        </div>
+                    }
 
-        @if (TempData["msg"] != null)
-        {
-            <div class="alert alert-info">
-                @TempData["msg"]
-            </div>
-        }
+                    @Html.ValidationSummary(true, "", new {@class = "text-danger"})
 
-        @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                    <div class="form-group">
+                        @Html.Label("Department", htmlAttributes: new {@class = "control-label col-md-2"})
+                        <div class="col-md-10">
+                            @Html.DropDownListFor(model => model.DepartmentId, new SelectList(Model.Departments, "Id", "Name"), "Select Department", new {@class = "form-control", onchange = "DropDownValueChanged()"})
+                            @Html.ValidationMessageFor(model => model.DepartmentId, "", new {@class = "text-danger"})
+                        </div>
+                    </div>
 
-        <div class="form-group">
-            @Html.Label("Department", htmlAttributes: new {@class = "control-label col-md-2"})
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.DepartmentId, new SelectList(Model.Departments, "Id", "Name"), "Select Department", new {@class = "form-control", onchange = "DropDownValueChanged()" })
-                @Html.ValidationMessageFor(model => model.DepartmentId, "", new {@class = "text-danger"})
-            </div>
-        </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Name, htmlAttributes: new {@class = "control-label col-md-2"})
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Name, new {htmlAttributes = new {@class = "form-control"}})
+                            @Html.ValidationMessageFor(model => model.Name, "", new {@class = "text-danger"})
+                        </div>
+                    </div>
+                    @*<div class="alert alert-success" id="resultDiv">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new {@class = "control-label col-md-2"})
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new {htmlAttributes = new {@class = "form-control"}})
-                @Html.ValidationMessageFor(model => model.Name, "", new {@class = "text-danger"})
-            </div>
-        </div>
-        <div class="alert alert-success" id="resultDiv">
+                    </div>*@
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" id="btnSubmit" value="Create Designation" class="btn btn-primary" style="float: right;"/>
+                        </div>
+                    </div>
+                </div>
+            }
 
-        </div>
-       
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" id="btnSubmit" value="Create" class="btn btn-default"/>
+            <div>
+                @Html.ActionLink("Back to List", "Index")
             </div>
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
+
 @section scripts{
     <script type="text/javascript">
-       // var validator = $("#myform").validate();
+        // var validator = $("#myform").validate();
         //$(document).ready(function() {
         function DropDownValueChanged() {
-            
+
             $("#Name").val("");
-           
-           // validator.resetForm();
+
+            // validator.resetForm();
             var $form = $("form");
             var $validator = $form.validate();
 
@@ -79,48 +81,19 @@
             $errors.each(function () {
                 debugger;
                 //if ($validator.hasClass("field-validation-error")) {
-                    $validator.settings.success($(this));
+                $validator.settings.success($(this));
                 //} else {
                 //    $validator.settings.enable($(this));
-                    
+
                 //}
-                
-               
+
+
             });
             ValidatorEnable($form, true);
 
 
 
         };
-       
-       
-
     </script>
 
-
-    <script>
-
-        //$("#btnSubmit").click(function () {
-        //    debugger;
-        //    var data = new FormData();
-        //    data.append("Name", $("#Name").val());
-        //    data.append("DepartmentId", $("#DepartmentId").val());
-
-        //    $.ajax({
-        //        type: "Post",
-        //        url: "/Designation/IsNameExist",
-        //        data: data,
-               
-        //        success: function(result) {
-        //            debugger;
-        //            $("#resultDiv").show();
-        //            $("#resultDiv").html(result);
-                   
-        //        },
-        //        error: function() {
-
-        //        }
-        //    });
-        //});
-    </script>
 }

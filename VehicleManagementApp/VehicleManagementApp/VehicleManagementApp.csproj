@@ -249,6 +249,7 @@
     <Compile Include="ViewModels\DriverViewModel.cs" />
     <Compile Include="ViewModels\EmployeeViewModel.cs" />
     <Compile Include="ViewModels\ManagerViewModel.cs" />
+    <Compile Include="ViewModels\EditOrganaizationViewModels.cs" />
     <Compile Include="ViewModels\OrganaizationViewModels.cs" />
     <Compile Include="ViewModels\ReplayCommentViewModel.cs" />
     <Compile Include="ViewModels\RequsitionCreateViewModel.cs" />

@@ -34,15 +34,15 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.DepartmentId, htmlAttributes: new {@class = "control-label col-md-2"})
+                            @Html.LabelFor(model => model.DepartmentId, htmlAttributes: new { @class = "control-label col-md-2" })<span class="important">*</span>
                             <div class="col-md-10">
-                                @Html.DropDownListFor(model => model.DepartmentId, new SelectList(Model.Departments, "Id", "Name"), "Select Department", new {@class = "form-control"})
-                                @Html.ValidationMessageFor(model => model.DepartmentId, "", new {@class = "text-danger"})
+                               @Html.DropDownListFor(model => model.DepartmentId, new SelectList(Model.Departments, "Id", "Name"), "Select Department", new { @class = "form-control" })
+                               @Html.ValidationMessageFor(model => model.DepartmentId, "", new {@class = "text-danger"})
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.DesignationId, htmlAttributes: new {@class = "control-label col-md-2"})
+                            @Html.LabelFor(model => model.DesignationId, htmlAttributes: new { @class = "control-label col-md-2" })<span class="important">*</span>
                             <div class="col-md-10">
                                 @Html.DropDownListFor(model => model.DesignationId, new SelectList(Model.Designations, "Id", "Name"), "Select Designation", new {@class = "form-control"})
                                 @Html.ValidationMessageFor(model => model.DesignationId, "", new {@class = "text-danger"})
@@ -50,7 +50,7 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Name, htmlAttributes: new {@class = "control-label col-md-2"})
+                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })<span class="important">*</span>
                             <div class="col-md-10">
                                 @Html.EditorFor(model => model.Name, new {htmlAttributes = new {@class = "form-control"}})
                                 @Html.ValidationMessageFor(model => model.Name, "", new {@class = "text-danger"})
@@ -58,7 +58,7 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.ContactNo, htmlAttributes: new {@class = "control-label col-md-2"})
+                            @Html.LabelFor(model => model.ContactNo, htmlAttributes: new { @class = "control-label col-md-2" })<span class="important">*</span>
                             <div class="col-md-10">
                                 @Html.EditorFor(model => model.ContactNo, new {htmlAttributes = new {@class = "form-control"}})
                                 @Html.ValidationMessageFor(model => model.ContactNo, "", new {@class = "text-danger"})
@@ -73,9 +73,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.LicenceNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.LabelFor(model => model.LicenceNo, htmlAttributes: new { @class = "control-label col-md-2" })<span class="important">*</span>
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.LicenceNo, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.LicenceNo, new { htmlAttributes = new { @class = "form-control"} })
                                 @Html.ValidationMessageFor(model => model.LicenceNo, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -84,36 +84,36 @@
                     <h3><strong>Permanent Address</strong></h3>
                     <div class="jumbotron">
                         <div class="form-group">
-                            @Html.LabelFor(model => model.DivisionId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.LabelFor(model => model.DivisionId, htmlAttributes: new {@class = "control-label col-md-2"})
                             <div class="col-md-10">
-                                @Html.DropDownListFor(model => model.DivisionId, new SelectList(Model.Divisions, "Id", "Name"), "Select Division", new { @class = "form-control", id = "DivisionDD1" })
-                                @Html.ValidationMessageFor(model => model.DivisionId, "", new { @class = "text-danger" })
+                                @Html.DropDownListFor(model => model.DivisionId, new SelectList(Model.Divisions, "Id", "Name"), "Select Division", new {@class = "form-control", id = "DivisionDD1"})
+                                @Html.ValidationMessageFor(model => model.DivisionId, "", new {@class = "text-danger"})
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.DistrictId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.LabelFor(model => model.DistrictId, htmlAttributes: new {@class = "control-label col-md-2"})
                             <div class="col-md-10">
                                 @*@Html.DropDownListFor(model => model.DistrictId, new SelectList(Model.Districts, "Id", "Name"), "Select Designation", new { @class = "form-control", id = "DistrictDD1" })*@
-                                @Html.DropDownList("DistrictId", null, new { @class = "form-control", id = "DistrictDD1" })
-                                @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
+                                @Html.DropDownList("DistrictId", null, new {@class = "form-control", id = "DistrictDD1"})
+                                @Html.ValidationMessageFor(model => model.DistrictId, "", new {@class = "text-danger"})
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.ThanaId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.LabelFor(model => model.ThanaId, htmlAttributes: new {@class = "control-label col-md-2"})
                             <div class="col-md-10">
                                 @*@Html.DropDownListFor(model => model.ThanaId, new SelectList(Model.Thanas, "Id", "Name"), "Select Designation", new { @class = "form-control", id="thanaDD1" })*@
-                                @Html.DropDownList("ThanaId", null, new { @class = "form-control", id = "thanaDD1" })
-                                @Html.ValidationMessageFor(model => model.ThanaId, "", new { @class = "text-danger" })
+                                @Html.DropDownList("ThanaId", null, new {@class = "form-control", id = "thanaDD1"})
+                                @Html.ValidationMessageFor(model => model.ThanaId, "", new {@class = "text-danger"})
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="control-label col-md-2">Address Details</label>
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.Address1, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Address1, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.Address1, new {htmlAttributes = new {@class = "form-control", id = "addressDetails"} })
+                                @Html.ValidationMessageFor(model => model.Address1, "", new {@class = "text-danger"})
                             </div>
                         </div>
 
@@ -128,29 +128,30 @@
 
                     <h3><strong>Present Address</strong></h3>
                     <div class="jumbotron">
+                        <h3>&nbsp;&nbsp;<input type="checkbox" id="whencheckassame" />&nbsp;&nbsp;Same as above</h3>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.DivisionId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.LabelFor(model => model.DivisionId, htmlAttributes: new {@class = "control-label col-md-2"})
                             <div class="col-md-10">
-                                @Html.DropDownListFor(model => model.DivisionId, new SelectList(Model.Divisions, "Id", "Name"), "Select Division", new { @class = "form-control", id = "DivisionDD2" })
-                                @Html.ValidationMessageFor(model => model.DivisionId, "", new { @class = "text-danger" })
+                                @Html.DropDownListFor(model => model.DivisionId, new SelectList(Model.Divisions, "Id", "Name"), "Select Division", new {@class = "form-control", id = "DivisionDD2"})
+                                @Html.ValidationMessageFor(model => model.DivisionId, "", new {@class = "text-danger"})
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.DistrictId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.LabelFor(model => model.DistrictId, htmlAttributes: new {@class = "control-label col-md-2"})
                             <div class="col-md-10">
                                 @*@Html.DropDownListFor(model => model.DistrictId, new SelectList(Model.Districts, "Id", "Name"), "Select Designation", new { @class = "form-control", id = "DistrictDD1" })*@
-                                @Html.DropDownList("DistrictId", null, new { @class = "form-control", id = "DistrictDD2" })
-                                @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
+                                @Html.DropDownList("DistrictId", null, new {@class = "form-control", id = "DistrictDD2"})
+                                @Html.ValidationMessageFor(model => model.DistrictId, "", new {@class = "text-danger"})
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.ThanaId, htmlAttributes: new { @class = "control-label col-md-2" })
+                            @Html.LabelFor(model => model.ThanaId, htmlAttributes: new {@class = "control-label col-md-2"})
                             <div class="col-md-10">
                                 @*@Html.DropDownListFor(model => model.ThanaId, new SelectList(Model.Thanas, "Id", "Name"), "Select Designation", new { @class = "form-control", id="thanaDD1" })*@
-                                @Html.DropDownList("ThanaId", null, new { @class = "form-control", id = "thanaDD2" })
-                                @Html.ValidationMessageFor(model => model.ThanaId, "", new { @class = "text-danger" })
+                                @Html.DropDownList("ThanaId", null, new {@class = "form-control", id = "thanaDD2"})
+                                @Html.ValidationMessageFor(model => model.ThanaId, "", new {@class = "text-danger"})
                             </div>
                         </div>
 
@@ -158,15 +159,15 @@
                             <label class="control-label col-md-2">Address Details</label>
                             @*@Html.LabelFor(model => model.Address, htmlAttributes: new {@class = "control-label col-md-2"})*@
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.Address1, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Address1, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.Address1, new {htmlAttributes = new {@class = "form-control", id = "addressDetails01"}})
+                                @Html.ValidationMessageFor(model => model.Address1, "", new {@class = "text-danger"})
                             </div>
                         </div>
 
                         @*<div class="form-group">
                             <label class="control-label col-md-2">Address Line 2</label>*@
-                            @*@Html.LabelFor(model => model.Address, htmlAttributes: new {@class = "control-label col-md-2"})*@
-                            @*<div class="col-md-10">
+                        @*@Html.LabelFor(model => model.Address, htmlAttributes: new {@class = "control-label col-md-2"})*@
+                        @*<div class="col-md-10">
                                 @Html.EditorFor(model => model.Address2, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Address2, "", new { @class = "text-danger" })
                             </div>
@@ -175,7 +176,7 @@
 
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Create" class="btn btn-default" />
+                            <input type="submit" value="Added Driver" class="btn btn-primary" style="float: right;" />
                         </div>
                     </div>
                 </div>
@@ -191,6 +192,41 @@
 @section scripts{
     <script>
         $(document).ready(function () {
+
+            //Permanent to Present Address Same As copy
+            $("#whencheckassame").on("click", function () {
+
+                var division = $("#DivisionDD1").val();
+                var distric = $("#DistrictDD1").val();
+                var thana = $("#thanaDD1").val();
+
+                if ($(this).is(":checked")) {
+
+                    $("#DivisionDD2").val(division);
+                    $("#DivisionDD2").trigger("change");
+                    $("#DistrictDD2").val(distric);
+                    $("#DistrictDD2").trigger("change");
+                    $("#thanaDD2").val(thana);
+                    $("#addressDetails01").val($("#addressDetails").val()).prop("disabled", true);
+
+                    $("#DivisionDD2").attr("disabled", "disabled");
+                    $("#DistrictDD2").attr("disabled", "disabled");
+                    $("#thanaDD2").attr("disabled", "disabled");
+
+
+                } else {
+                    document.getElementById("DivisionDD2").selectedIndex = "";
+                    document.getElementById("DistrictDD2").selectedIndex = "";
+                    document.getElementById("thanaDD2").selectedIndex = "";
+
+                    $("#DivisionDD2").attr("disabled", false);
+                    $("#DistrictDD2").attr("disabled", false);
+                    $("#thanaDD2").attr("disabled", false);
+
+                    $("#addressDetails01").val('').prop("disabled", false);
+
+                }
+            });
 
             // permanent address
             $("#DivisionDD1").change(function () {
@@ -233,6 +269,7 @@
                 url: "/district/GetByDivision",
                 data: jsonData,
                 type: "POST",
+                async: false,
                 success: function (response) {
                     $(permanentTargetId).empty();
 
@@ -256,6 +293,7 @@
                 url: "/Thana/GetByDistrict",
                 data: jsonData,
                 type: "POST",
+                async: false,
                 success: function (response) {
                     $(permanentTargetId).empty();
                     var options = "<option>Select.....</option>";
@@ -278,6 +316,7 @@
                 url: "/district/GetByDivision",
                 data: jsonData,
                 type: "POST",
+                async: false,
                 success: function(response) {
                     $(targetid).empty();
 
@@ -301,6 +340,7 @@
                 url: "/Thana/GetByDistrict",
                 data: jsonData,
                 type: "POST",
+                async: false,
                 success: function (response) {
                     $(targetid).empty();
 

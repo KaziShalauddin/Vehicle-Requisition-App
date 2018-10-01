@@ -19,7 +19,7 @@ namespace VehicleManagementApp.ViewModels
         [Required]
         [Remote("IsNameExist", "Employee", HttpMethod = "POST", ErrorMessage = "Contact No Already Exist, Try Another")]
         public string ContactNo { get; set; }
-        [Required]
+        
         [Remote("IsEmailExist", "Employee", HttpMethod = "POST", ErrorMessage = "Email Already Exist, Try Another")]
         public string Email { get; set; }
         

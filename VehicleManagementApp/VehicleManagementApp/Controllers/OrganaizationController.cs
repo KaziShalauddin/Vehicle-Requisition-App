@@ -78,11 +78,11 @@ namespace VehicleManagementApp.Controllers
                 return HttpNotFound();
             }
             Organaization organaization = _manager.GetById((int)id);
-            OrganaizationViewModels organaizationVM = new OrganaizationViewModels();
-            organaizationVM.Id = organaization.Id;
-            organaizationVM.Name = organaization.Name;
-            organaizationVM.Description = organaization.Description;
-            return View(organaizationVM);
+            EditOrganaizationViewModels organaizationVm = new EditOrganaizationViewModels();
+            organaizationVm.Id = organaization.Id;
+            organaizationVm.Name = organaization.Name;
+            organaizationVm.Description = organaization.Description;
+            return View(organaizationVm);
         }
 
         // POST: Organaization/Edit/5
