@@ -35,7 +35,7 @@ namespace VehicleManagementApp.Controllers
         {
             var department = _departmentManager.GetAll();
             var designation = _designationManager.GetAll();
-            var driver = _employeeManager.Get(c=> c.IsDeleted == false);
+            var driver = _employeeManager.Get(c=> c.IsDriver ==true && c.IsDeleted == false);
             var division = _divisionManager.GetAll();
             var district = _districtManager.GetAll();
             var thana = _thanaManager.GetAll();
@@ -91,22 +91,21 @@ namespace VehicleManagementApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                Employee driver = new Employee
-                {
-                    Name = driverVm.Name,
-                    ContactNo = driverVm.ContactNo,
-                    Email = driverVm.Email,
-                    Address1 = driverVm.Address1,
-                    Address2 = driverVm.Address2,
-                    LicenceNo = driverVm.LicenceNo,
-                    IsDriver = driverVm.IsDriver,
-                    DepartmentId = driverVm.DepartmentId,
-                    DesignationId = driverVm.DesignationId,
-                    DivisionId = driverVm.DivisionId,
-                    DistrictId = driverVm.DivisionId,
-                    ThanaId = driverVm.ThanaId
-                };
-                bool isSaved = _employeeManager.Add(driver);
+                Employee employee = new Employee();
+                employee.Name = driverVm.Name;
+                employee.ContactNo = driverVm.ContactNo;
+                employee.Email = driverVm.Email;
+                employee.Address1 = driverVm.Address1;
+                employee.Address2 = driverVm.Address2;
+                employee.LicenceNo = driverVm.LicenceNo;
+                employee.IsDriver = driverVm.IsDriver;
+                employee.DepartmentId = driverVm.DepartmentId;
+                employee.DesignationId = driverVm.DesignationId;
+                employee.DivisionId = driverVm.DivisionId;
+                employee.DistrictId = driverVm.DistrictId;
+                employee.ThanaId = driverVm.ThanaId;
+                
+                bool isSaved = _employeeManager.Add(employee);
                 if (isSaved)
                 {
                     TempData["msg"] = "Driver Save Successfully.";

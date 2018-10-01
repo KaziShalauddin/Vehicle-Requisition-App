@@ -6,6 +6,7 @@
 
 
 <div class="container">
+    <h1 style="text-align: center;">Driver Added Page</h1>
     <div class="row">
         <div class="col-md-12">
             @using (Html.BeginForm())
@@ -13,36 +14,29 @@
                 @Html.AntiForgeryToken()
 
                 <div class="form-horizontal">
-
-                    @if (TempData["msg"] != null)
-                    {
-                        <div class="alert alert-info">
-                            @TempData["msg"]
-                        </div>
-                    }
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.ValidationSummary(true, "", new {@class = "text-danger"})
 
                     <div class="jumbotron">
-                        
+
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
                                 <div class="checkbox">
-                                    @Html.CheckBoxFor(m => m.IsDriver,new {@checked="checked",@disabled="disabled"} )
+                                    @Html.CheckBoxFor(m => m.IsDriver, new {@checked = "checked",id="isDrivertrue"})
                                     @Html.LabelFor(m => m.IsDriver)
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.DepartmentId, htmlAttributes: new { @class = "control-label col-md-2" })<span class="important">*</span>
+                            @Html.LabelFor(model => model.DepartmentId, htmlAttributes: new {@class = "control-label col-md-2"})<span class="important">*</span>
                             <div class="col-md-10">
-                               @Html.DropDownListFor(model => model.DepartmentId, new SelectList(Model.Departments, "Id", "Name"), "Select Department", new { @class = "form-control" })
-                               @Html.ValidationMessageFor(model => model.DepartmentId, "", new {@class = "text-danger"})
+                                @Html.DropDownListFor(model => model.DepartmentId, new SelectList(Model.Departments, "Id", "Name"), "Select Department", new {@class = "form-control"})
+                                @Html.ValidationMessageFor(model => model.DepartmentId, "", new {@class = "text-danger"})
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.DesignationId, htmlAttributes: new { @class = "control-label col-md-2" })<span class="important">*</span>
+                            @Html.LabelFor(model => model.DesignationId, htmlAttributes: new {@class = "control-label col-md-2"})<span class="important">*</span>
                             <div class="col-md-10">
                                 @Html.DropDownListFor(model => model.DesignationId, new SelectList(Model.Designations, "Id", "Name"), "Select Designation", new {@class = "form-control"})
                                 @Html.ValidationMessageFor(model => model.DesignationId, "", new {@class = "text-danger"})
@@ -50,7 +44,7 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })<span class="important">*</span>
+                            @Html.LabelFor(model => model.Name, htmlAttributes: new {@class = "control-label col-md-2"})<span class="important">*</span>
                             <div class="col-md-10">
                                 @Html.EditorFor(model => model.Name, new {htmlAttributes = new {@class = "form-control"}})
                                 @Html.ValidationMessageFor(model => model.Name, "", new {@class = "text-danger"})
@@ -58,7 +52,7 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.ContactNo, htmlAttributes: new { @class = "control-label col-md-2" })<span class="important">*</span>
+                            @Html.LabelFor(model => model.ContactNo, htmlAttributes: new {@class = "control-label col-md-2"})<span class="important">*</span>
                             <div class="col-md-10">
                                 @Html.EditorFor(model => model.ContactNo, new {htmlAttributes = new {@class = "form-control"}})
                                 @Html.ValidationMessageFor(model => model.ContactNo, "", new {@class = "text-danger"})
@@ -73,15 +67,16 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            @Html.LabelFor(model => model.LicenceNo, htmlAttributes: new { @class = "control-label col-md-2" })<span class="important">*</span>
+                            @Html.LabelFor(model => model.LicenceNo, htmlAttributes: new {@class = "control-label col-md-2"})<span class="important">*</span>
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.LicenceNo, new { htmlAttributes = new { @class = "form-control"} })
-                                @Html.ValidationMessageFor(model => model.LicenceNo, "", new { @class = "text-danger" })
+                                @Html.EditorFor(model => model.LicenceNo, new {htmlAttributes = new {@class = "form-control"}})
+                                @Html.ValidationMessageFor(model => model.LicenceNo, "", new {@class = "text-danger"})
                             </div>
                         </div>
                     </div>
 
-                    <h3><strong>Permanent Address</strong></h3>
+                    <h3><strong>Permanent Address</strong>
+                    </h3>
                     <div class="jumbotron">
                         <div class="form-group">
                             @Html.LabelFor(model => model.DivisionId, htmlAttributes: new {@class = "control-label col-md-2"})
@@ -112,7 +107,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-2">Address Details</label>
                             <div class="col-md-10">
-                                @Html.EditorFor(model => model.Address1, new {htmlAttributes = new {@class = "form-control", id = "addressDetails"} })
+                                @Html.EditorFor(model => model.Address1, new {htmlAttributes = new {@class = "form-control", id = "addressDetails"}})
                                 @Html.ValidationMessageFor(model => model.Address1, "", new {@class = "text-danger"})
                             </div>
                         </div>
@@ -126,9 +121,11 @@
                         </div>*@
                     </div>
 
-                    <h3><strong>Present Address</strong></h3>
+                    <h3><strong>Present Address</strong>
+                    </h3>
                     <div class="jumbotron">
-                        <h3>&nbsp;&nbsp;<input type="checkbox" id="whencheckassame" />&nbsp;&nbsp;Same as above</h3>
+                        <h3>&nbsp;&nbsp;<input type="checkbox" id="whencheckassame"/>&nbsp;&nbsp;Same as above
+                        </h3>
                         <div class="form-group">
                             @Html.LabelFor(model => model.DivisionId, htmlAttributes: new {@class = "control-label col-md-2"})
                             <div class="col-md-10">
@@ -176,7 +173,7 @@
 
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Added Driver" class="btn btn-primary" style="float: right;" />
+                            <input type="submit" value="Added Driver" class="btn btn-primary" style="float: right;"/>
                         </div>
                     </div>
                 </div>
@@ -192,6 +189,12 @@
 @section scripts{
     <script>
         $(document).ready(function () {
+
+            //if ($("#isDrivertrue").is(":checked")) {
+            //    $("#isDrivertrue").attr("disabled", "disabled");
+            //} else {
+            //    $("#isDrivertrue").attr("disabled", false);
+            //}
 
             //Permanent to Present Address Same As copy
             $("#whencheckassame").on("click", function () {
