@@ -16,7 +16,7 @@ namespace VehicleManagementApp.Models.Models
         [Key]
         public int Id { get; set; }
        
-        public Guid? UserId { get; set; }
+        public string UserId { get; set; }
 
         [StringLength(255)]
         public string Name { get; set; }

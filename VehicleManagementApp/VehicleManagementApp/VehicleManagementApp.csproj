@@ -762,6 +762,9 @@
     <Content Include="Views\Driver\Details.cshtml" />
     <Content Include="Views\Driver\Delete.cshtml" />
     <Content Include="Views\Account\EmployeeRegisterWithRole.cshtml" />
+    <Content Include="Views\Account\OperatorRegister.cshtml" />
+    <Content Include="Views\Account\DriverRegisterWithRole.cshtml" />
+    <Content Include="Views\Requsition\MyRequisitionList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

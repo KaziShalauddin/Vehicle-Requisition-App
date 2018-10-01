@@ -80,6 +80,10 @@
     <Compile Include="Migrations\201810010801408_EmployeeTable_UserId_Modified.Designer.cs">
       <DependentUpon>201810010801408_EmployeeTable_UserId_Modified.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810010812136_EmployeeTable_UserId_ModifiedAgain.cs" />
+    <Compile Include="Migrations\201810010812136_EmployeeTable_UserId_ModifiedAgain.Designer.cs">
+      <DependentUpon>201810010812136_EmployeeTable_UserId_ModifiedAgain.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OrganaizationRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -126,6 +130,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810010801408_EmployeeTable_UserId_Modified.resx">
       <DependentUpon>201810010801408_EmployeeTable_UserId_Modified.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810010812136_EmployeeTable_UserId_ModifiedAgain.resx">
+      <DependentUpon>201810010812136_EmployeeTable_UserId_ModifiedAgain.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

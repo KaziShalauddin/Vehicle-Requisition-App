@@ -14,6 +14,7 @@ using VehicleManagementApp.ViewModels;
 
 namespace VehicleManagementApp.Controllers
 {
+    [Authorize(Roles = "Controller,Operator")]
     public class EmployeeController : Controller
     {
         // GET: Employee
@@ -100,7 +101,7 @@ namespace VehicleManagementApp.Controllers
 
             return View(employeeVM);
         }
-
+        
         // POST: Employee/Create
         [HttpPost]
         public ActionResult Create(EmployeeViewModel employeeVM)

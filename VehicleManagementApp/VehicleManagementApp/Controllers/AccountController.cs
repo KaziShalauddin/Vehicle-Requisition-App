@@ -435,7 +435,7 @@ namespace VehicleManagementApp.Controllers
         IDivisionManager divisionManager = new DivisionManager();
         // GET: /Account/EmployeeRegisterWithRole
         [HttpGet]
-        [AllowAnonymous]
+        [Authorize(Roles = "Controller,Operator")]
         public ActionResult EmployeeRegisterWithRole()
         {
             
@@ -457,7 +457,7 @@ namespace VehicleManagementApp.Controllers
             Employee employee = new Employee
             {
                 Name = model.Name,
-                UserId = Guid.NewGuid(),
+                UserId = user.Id,
                 Email = model.Email,
                 DepartmentId = model.DepartmentId,
                 DesignationId = model.DesignationId,
@@ -487,11 +487,12 @@ namespace VehicleManagementApp.Controllers
             role.RoleId = "648d557d-307b-4a72-9555-5f60070d80c9";
             user.Roles.Add(role);
         }
-
+        
         //
         // POST: /Account/EmployeeRegisterWithRole
         [HttpPost]
-        [AllowAnonymous]
+        
+        [Authorize(Roles = "Controller,Operator")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> EmployeeRegisterWithRole([Bind(Exclude = "UserPhoto,DepartmentId")]EmployeeRegisterWithRoleViewModel model)
         {
@@ -503,7 +504,8 @@ namespace VehicleManagementApp.Controllers
 
                 var imageData = GetImageData();
 
-                var user = new ApplicationUser { UserName = model.Name, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
+                user.Id = Guid.NewGuid().ToString();
                 var password = "1234";
                 user.UserPhoto = imageData;
                 //ViewBag.SuggestUserName= SuggestUserName(model.Name+)
@@ -527,6 +529,162 @@ namespace VehicleManagementApp.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+        [HttpGet]
+        [Authorize(Roles = "Controller")]
+        public ActionResult OperatorRegister()
+        {
+
+            var departments = departmentManager.GetAll();
+            var divisions = divisionManager.GetAll();
+
+            ViewBag.Departments = departments;
+            ViewBag.Divisions = divisions;
+
+            ViewBag.DesignationId = new SelectListItem[] { new SelectListItem() { Value = "", Text = "Select..." } };
+            ViewBag.DistrictId = new SelectListItem[] { new SelectListItem() { Value = "", Text = "Select..." } };
+            ViewBag.ThanaId = new SelectListItem[] { new SelectListItem() { Value = "", Text = "Select..." } };
+
+            return View();
+        }
+        private static void AddOperatorRole(ApplicationUser user)
+        {
+            var role = new IdentityUserRole();
+            role.UserId = user.Id;
+            // assign User role Id
+            role.RoleId = "00c884db-10ae-4fc2-acb4-177c50e25eeb";
+            user.Roles.Add(role);
+        }
+        [HttpPost]
+        [Authorize(Roles = "Controller")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> OperatorRegister([Bind(Exclude = "UserPhoto,DepartmentId")]EmployeeRegisterWithRoleViewModel model)
+        {
+            if (ModelState.IsValid == false)
+            {
+
+                // To convert the user uploaded Photo as Byte Array before save to DB
+
+
+                var imageData = GetImageData();
+
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
+                user.Id = Guid.NewGuid().ToString();
+                var password = "1234";
+                user.UserPhoto = imageData;
+                //ViewBag.SuggestUserName= SuggestUserName(model.Name+)
+                AddOperatorRole(user);
+                CreateEmployee(model, user, imageData);
+                //, model.Password
+                var result = await UserManager.CreateAsync(user, password);
+
+                if (result.Succeeded)
+                {
+                    // await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+
+                    TempData["msg"] = "Operator Saved Successfully!";
+                    return RedirectToAction("OperatorRegister");
+                }
+                AddErrors(result);
+
+            }
+            TempData["msg"] = "Operator Not Saved!";
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+        private static void AddDriverRole(ApplicationUser user)
+        {
+            var role = new IdentityUserRole();
+            role.UserId = user.Id;
+            // assign User role Id
+            role.RoleId = "8a0b3939-369f-4f3a-ac22-5d1bb15fd169";
+            user.Roles.Add(role);
+        }
+        [HttpGet]
+        [Authorize(Roles = "Controller,Operator")]
+        public ActionResult DriverRegisterWithRole()
+        {
+
+            var departments = departmentManager.GetAll();
+            var divisions = divisionManager.GetAll();
+
+            ViewBag.Departments = departments;
+            ViewBag.Divisions = divisions;
+
+            ViewBag.DesignationId = new SelectListItem[] { new SelectListItem() { Value = "", Text = "Select..." } };
+            ViewBag.DistrictId = new SelectListItem[] { new SelectListItem() { Value = "", Text = "Select..." } };
+            ViewBag.ThanaId = new SelectListItem[] { new SelectListItem() { Value = "", Text = "Select..." } };
+
+            return View();
+        }
+        [HttpPost]
+        [Authorize(Roles = "Controller,Operator")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DriverRegisterWithRole([Bind(Exclude = "UserPhoto,DepartmentId")]EmployeeRegisterWithRoleViewModel model)
+        {
+            if (ModelState.IsValid == false)
+            {
+
+                // To convert the user uploaded Photo as Byte Array before save to DB
+
+
+                var imageData = GetImageData();
+
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
+                user.Id = Guid.NewGuid().ToString();
+                var password = "1234";
+                user.UserPhoto = imageData;
+                //ViewBag.SuggestUserName= SuggestUserName(model.Name+)
+                AddDriverRole(user);
+                CreateDriver(model, user, imageData);
+                //, model.Password
+                var result = await UserManager.CreateAsync(user, password);
+
+                if (result.Succeeded)
+                {
+                    // await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+
+                    TempData["msg"] = "Driver Saved Successfully!";
+                    return RedirectToAction("DriverRegisterWithRole");
+                }
+                AddErrors(result);
+
+            }
+            TempData["msg"] = "Driver Not Saved!";
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+        private void CreateDriver(EmployeeRegisterWithRoleViewModel model, ApplicationUser user, byte[] imageData)
+        {
+            IEmployeeManager employeeManager = new EmployeeManager();
+            Employee employee = new Employee
+            {
+                Name = model.Name,
+                UserId = user.Id,
+                Email = model.Email,
+                DepartmentId = model.DepartmentId,
+                DesignationId = model.DesignationId,
+                DivisionId = model.DivisionId,
+                DistrictId = model.DistrictId,
+                ThanaId = model.ThanaId,
+                Address1 = model.Address1,
+                //Address2 = model.Address2,
+                ContactNo = model.ContactNo,
+                //LicenceNo = model.LicenceNo,
+                IsDriver = true,
+                Image = imageData,
+                ImagePath = "~/EmployeeImages/" + model.Name + DateTime.Now,
+                IsDeleted = false
+            };
+
+            employeeManager.Add(employee);
+
+            //}
+        }
+
+
         [AllowAnonymous]
         public JsonResult SuggestUserName(string name, string contactNo)
         {

@@ -55,56 +55,101 @@
 
 
                         <li class="menu-active">@Html.ActionLink("Home", "Index", "Home")</li>
+                        @if (User.IsInRole(AppEnum.RoleEnum.Controller.ToString()))
+                        {
+                            <li class="menu-has-children">
+                                <a href="#">Setup</a>
+                                <ul>
+                                    <li class="menu-has-children">
+                                        @Html.ActionLink("Organaization", "Index", "Organaization")
+                                        <ul>
+                                            <li>@Html.ActionLink("Department", "Index", "Department")</li>
+                                            <li>@Html.ActionLink("Designation", "Index", "Designation")</li>
+                                        </ul>
+                                    </li>
+                                    <li class="menu-has-children">
+                                        @Html.ActionLink("Division", "Create", "Division")
+                                        <ul>
+                                            <li>@Html.ActionLink("District", "Create", "District")</li>
+                                            <li>@Html.ActionLink("Upzilla", "Create", "Thana")</li>
+                                        </ul>
+                                    </li>
 
-                        <li class="menu-has-children">
-                            <a href="#">Setup</a>
-                            <ul>
-                                <li class="menu-has-children">
-                                    @Html.ActionLink("Organaization", "Index", "Organaization")
-                                    <ul>
-                                        <li>@Html.ActionLink("Department", "Index", "Department")</li>
-                                        <li>@Html.ActionLink("Designation", "Index", "Designation")</li>
-                                    </ul>
-                                </li>
-                                <li class="menu-has-children">
-                                    @Html.ActionLink("Division", "Create", "Division")
-                                    <ul>
-                                        <li>@Html.ActionLink("District", "Create", "District")</li>
-                                        <li>@Html.ActionLink("Upzilla", "Create", "Thana")</li>
-                                    </ul>
-                                </li>
+                                    <li class="menu-has-children">
+                                        <a href="#">Employee</a>
+                                        <ul>
+                                            <li>@Html.ActionLink("Data Entry Operator", "OperatorRegister", "Account")</li>
+                                            <li>@Html.ActionLink("Employee With Role", "EmployeeRegisterWithRole", "Account")</li>
+                                            <li>@Html.ActionLink("Employee Without Role", "Index", "Employee")</li>
+                                            <li>@Html.ActionLink("Driver With Role", "DriverRegisterWithRole", "Account")</li>
+                                            <li>@Html.ActionLink("Driver Without Role", "DriverRegisterWithRole", "Account")</li>
+                                            <li>@Html.ActionLink("Drivers", "Index", "Driver")</li>
+                                            <li>@Html.ActionLink("Employees", "Index", "Employee")</li>
+                                        </ul>
+                                    </li>
+                                    <li class="menu-has-children">
+                                        <a href="#">Vehicle</a>
+                                        <ul>
+                                            <li>@Html.ActionLink("Vehicle Type", "Index", "VehicleType")</li>
+                                            <li>@Html.ActionLink("Vehicle", "Index", "Vehicle")</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="menu-has-children">
+                                <a href="#">Requisition</a>
+                                <ul>
+                                    <li>@Html.ActionLink("Requisition", "RequisitionIndex", "Requsition")</li>
+                                    <li>@Html.ActionLink("Requisition Queue", "Index", "Manager")</li>
+                                    <li>@Html.ActionLink("My Requisitions", "MyRequisitionList", "Requsition")</li>
+                                </ul>
+                            </li>
+                            
+                        }
+                        @if (User.IsInRole(AppEnum.RoleEnum.Operator.ToString()))
+                        {
+                            <li class="menu-has-children">
+                                <a href="#">Setup</a>
+                                <ul>
 
-                                <li class="menu-has-children">
-                                    <a href="#">Employee</a>
-                                    <ul>
-                                        <li>@Html.ActionLink("Employee", "Index", "Employee")</li>
-                                        <li>@Html.ActionLink("Register Employee", "EmployeeRegister", "Account")</li>
-                                        <li>@Html.ActionLink("Driver", "Index", "Driver")</li>
-                                    </ul>
-                                </li>
-                                <li class="menu-has-children">
-                                    <a href="#">Vehicle</a>
-                                    <ul>
-                                        <li>@Html.ActionLink("Vehicle Type", "Index", "VehicleType")</li>
-                                        <li>@Html.ActionLink("Vehicle", "Index", "Vehicle")</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="menu-has-children">
-                            <a href="#">Requisition</a>
-                            <ul>
-                                <li>@Html.ActionLink("Requisition", "RequisitionIndex", "Requsition")</li>
-                                <li>@Html.ActionLink("Requisition Queue", "Index", "Manager")</li>
-                            </ul>
-                        </li>
-                        <li class="menu-has-children">
-                            <a href="#">Gate Pass</a>
-                            <ul>
-                                <li>@Html.ActionLink("Check Out", "CheckOut", "Manager")</li>
-                                <li>@Html.ActionLink("Check In", "CheckIn", "Manager")</li>
-                            </ul>
-                        </li>
+                                    <li class="menu-has-children">
+                                        <a href="#">Employee</a>
+                                        <ul>
+
+                                            <li>@Html.ActionLink("Employee With Role", "EmployeeRegisterWithRole", "Account")</li>
+                                            <li>@Html.ActionLink("Employee Without Role", "Index", "Employee")</li>
+                                            <li>@Html.ActionLink("Driver With Role", "DriverRegisterWithRole", "Account")</li>
+                                            <li>@Html.ActionLink("Driver Without Role", "DriverRegisterWithRole", "Account")</li>
+                                            <li>@Html.ActionLink("Drivers", "Index", "Driver")</li>
+                                            <li>@Html.ActionLink("Employees", "Index", "Employee")</li>
+                                        </ul>
+                                    </li>
+
+                                </ul>
+                            </li>
+                            <li class="menu-has-children">
+                                <a href="#">Requisition</a>
+                                <ul>
+                                    <li>@Html.ActionLink("My Requisitions", "MyRequisitionList", "Requsition")</li>
+                                    
+                                </ul>
+                            </li>
+
+
+                        }
+                        @if (User.IsInRole(AppEnum.RoleEnum.Employee.ToString()))
+                        {
+                            <li class="menu-has-children">
+                                <a href="#">Requisition</a>
+                                <ul>
+                                    <li>@Html.ActionLink("My Requisitions", "MyRequisitionList", "Requsition")</li>
+
+                                </ul>
+                            </li>
+
+
+                        }
+                       
                         <li>
                             @if (Request.IsAuthenticated)
                             {
@@ -116,7 +161,7 @@
 
                                     }*@
                                 <img src="@Url.Action("UserPhotos", "Home")" class="img-circle" style="height: 20px; width: 40px;" />
-                                    <ul>@Html.Partial("_LoginPartial")</ul>
+                                <ul>@Html.Partial("_LoginPartial")</ul>
                             }
                             else
                             {
@@ -197,7 +242,3 @@
 
 </body>
 </html>
-
-
-
-

@@ -5,8 +5,10 @@
         public enum RoleEnum
         {
             Controller = 0,
-            Employee = 1
+            Employee = 1,
+            Operator = 2,
+            Driver=3
         }
-
+        
     }
 }

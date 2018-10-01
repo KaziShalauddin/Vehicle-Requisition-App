@@ -4,12 +4,16 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using VehicleManagementApp.BLL.Contracts;
+using VehicleManagementApp.Models;
 using VehicleManagementApp.Models.Models;
 using VehicleManagementApp.ViewModels;
 
 namespace VehicleManagementApp.Controllers
 {
+    [Authorize]
     public class RequsitionController : Controller
     {
         // GET: Requsition
@@ -152,6 +156,26 @@ namespace VehicleManagementApp.Controllers
             allRequsitions.RequsitionViewModels = requsitionViewList;
             return View(allRequsitions);
         }
+        public ActionResult MyRequisitionList()
+        {
+            ApplicationUser user =
+                System.Web.HttpContext.Current.GetOwinContext()
+                    .GetUserManager<ApplicationUserManager>()
+                    .FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+
+            RequsitionCreateViewModel allRequsitions = new RequsitionCreateViewModel();
+            var employees = _employeeManager.Get(c => c.IsDriver == false && c.IsDeleted == false&&c.UserId==user.Id);
+
+            ViewBag.Employees = employees.ToList();
+            //if (data["msg"] != null)
+            //{
+            //    ViewBag.Result = data["msg"];
+            //}
+
+            var requsitionViewList = RequisitionListView();
+            allRequsitions.RequsitionViewModels = requsitionViewList;
+            return View(allRequsitions);
+        }
 
         public string AutoNumber()
         {
@@ -171,7 +195,7 @@ namespace VehicleManagementApp.Controllers
             string minute = DateTime.Now.Minute.ToString();
             string second = DateTime.Now.Second.ToString();
 
-            string yearMonth = second + minute + time + day + month + year;
+            string yearMonth ="RQ-"+ second + minute + time + day + month + year;
             return yearMonth;
         }
 

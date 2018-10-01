@@ -14,6 +14,7 @@ using Requsition = VehicleManagementApp.Models.Models.Requsition;
 
 namespace VehicleManagementApp.Controllers
 {
+    [Authorize(Roles = "Controller")]
     public class ManagerController : Controller
     {
         private IManagerManager managerManager;
