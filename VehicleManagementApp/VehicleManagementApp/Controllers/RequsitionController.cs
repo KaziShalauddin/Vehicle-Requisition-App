@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls.Expressions;
 using VehicleManagementApp.BLL.Contracts;
 using VehicleManagementApp.Models.Models;
 using VehicleManagementApp.ViewModels;
@@ -140,7 +141,7 @@ namespace VehicleManagementApp.Controllers
         public ActionResult RequisitionIndex()
         {
             RequsitionCreateViewModel allRequsitions = new RequsitionCreateViewModel();
-            var employees = _employeeManager.Get(c => c.IsDriver == false && c.IsDeleted == false);
+            var employees = _employeeManager.Get( c => c.IsDriver == false && c.IsDeleted == false);
 
             ViewBag.Employees = employees.ToList();
             //if (data["msg"] != null)
@@ -217,7 +218,7 @@ namespace VehicleManagementApp.Controllers
         {
             GetRequisitionComplete();
 
-            var allRequisitions = _requisitionManager.GetAll();
+            var allRequisitions = _requisitionManager.GetAll().OrderByDescending(c=>c.Id);
             
             var employee = _employeeManager.GetAll();
             //var requstionStatus = _requsitionStatusManager.GetAll();
