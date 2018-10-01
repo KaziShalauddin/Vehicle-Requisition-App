@@ -81,7 +81,11 @@ namespace VehicleManagementApp.Controllers
                 Designation designation = new Designation();
                 designation.Name = designationVM.Name;
                 designation.DepartmentId = designationVM.DepartmentId;
-                _designationManager.Add(designation);
+                bool isSaved = _designationManager.Add(designation);
+                if (isSaved)
+                {
+                    TempData["msg"] = "Designation Save Successfully";
+                }
                 return RedirectToAction("Index");
             }
             catch

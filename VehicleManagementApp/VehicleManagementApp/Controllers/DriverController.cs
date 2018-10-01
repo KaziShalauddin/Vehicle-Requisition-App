@@ -35,7 +35,7 @@ namespace VehicleManagementApp.Controllers
         {
             var department = _departmentManager.GetAll();
             var designation = _designationManager.GetAll();
-            var driver = _employeeManager.Get(c => c.IsDriver == true && c.IsDeleted == false);
+            var driver = _employeeManager.Get(c=> c.IsDeleted == false);
             var division = _divisionManager.GetAll();
             var district = _districtManager.GetAll();
             var thana = _thanaManager.GetAll();
