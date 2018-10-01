@@ -15,6 +15,12 @@ namespace VehicleManagementApp.BLL
     public class DepartmentManager:Manager<Department>,IDepartmentManager
     {
         private IDepartmentRepository departmentRepository;
+
+        public DepartmentManager():base(new DepartmentRepository())
+        {
+           this.departmentRepository = (DepartmentRepository) base.BaseRepository;
+        }
+
         public DepartmentManager(IDepartmentRepository Repository) : base(Repository)
         {
             this.departmentRepository = Repository;
@@ -33,4 +39,6 @@ namespace VehicleManagementApp.BLL
             }
         }
     }
+
+   
 }

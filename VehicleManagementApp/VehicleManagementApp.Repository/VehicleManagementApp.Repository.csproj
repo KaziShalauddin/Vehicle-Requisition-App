@@ -76,6 +76,10 @@
     <Compile Include="Migrations\201809280425155_EmployeeTable_ImagePropertyAdded.Designer.cs">
       <DependentUpon>201809280425155_EmployeeTable_ImagePropertyAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810010801408_EmployeeTable_UserId_Modified.cs" />
+    <Compile Include="Migrations\201810010801408_EmployeeTable_UserId_Modified.Designer.cs">
+      <DependentUpon>201810010801408_EmployeeTable_UserId_Modified.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OrganaizationRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -119,6 +123,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809280425155_EmployeeTable_ImagePropertyAdded.resx">
       <DependentUpon>201809280425155_EmployeeTable_ImagePropertyAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810010801408_EmployeeTable_UserId_Modified.resx">
+      <DependentUpon>201810010801408_EmployeeTable_UserId_Modified.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -449,6 +449,7 @@
     <Content Include="img\Membar\2.jpg" />
     <Content Include="img\Membar\3.jpg" />
     <Content Include="img\Membar\4.jpg" />
+    <Content Include="img\noImg.png" />
     <Content Include="img\slider\1.jpg" />
     <Content Include="img\slider\2.jpg" />
     <Content Include="img\slider\3.jpg" />
@@ -740,7 +741,6 @@
     <Content Include="Views\VehicleType\Details.cshtml" />
     <Content Include="Views\VehicleType\Edit.cshtml" />
     <Content Include="Views\VehicleType\Index.cshtml" />
-    <Content Include="Views\Account\EmployeeRegister.cshtml" />
     <Content Include="Views\Employee\Details.cshtml" />
     <Content Include="Views\Requsition\_CommentList.cshtml" />
     <Content Include="Views\Requsition\_CommentPartial.cshtml" />
@@ -760,7 +760,7 @@
     <Content Include="Views\Driver\Edit.cshtml" />
     <Content Include="Views\Driver\Details.cshtml" />
     <Content Include="Views\Driver\Delete.cshtml" />
-    <Content Include="Views\Account\ShanuRegister.cshtml" />
+    <Content Include="Views\Account\EmployeeRegisterWithRole.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

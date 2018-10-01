@@ -52,8 +52,8 @@ namespace VehicleManagementApp.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
+        [Display(Name = "User Name")]
+        //[EmailAddress]
         public string Email { get; set; }
 
         [Required]
@@ -213,9 +213,9 @@ namespace VehicleManagementApp.Models
         //public IEnumerable<District> Districts { get; set; }
         //public IEnumerable<Thana> Thanas { get; set; }
     }
-    public class ShanuRegisterViewModel
+    public class EmployeeRegisterWithRoleViewModel
     {
-        [Required]
+        //[Required]
         //[EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -231,31 +231,36 @@ namespace VehicleManagementApp.Models
         //[System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         //public string ConfirmPassword { get; set; }
 
-
+       
         [Display(Name = "UserPhoto")]
+        [Required]
         public byte[] UserPhoto { get; set; }
 
         [Required]
+        //[Remote("SuggestUserName", "Account", HttpMethod = "POST", AdditionalFields = "ContactNo")]
         public string Name { get; set; }
 
-
+        [Required]
+        [Remote("UserAlreadyExists", "Account", HttpMethod = "POST", ErrorMessage = "User Name Already Exist, Try Another")]
+        public string UserName { get; set; }
+       
+        [Required]
+        [Remote("IsNameExist", "Employee", HttpMethod = "POST", AdditionalFields = "Name", ErrorMessage = "Contact No Already Exist, Try Another")]
         public string ContactNo { get; set; }
 
         //public byte[] Image { get; set; }
 
 
-
+        [Required]
         public string Address1 { get; set; }
 
 
         [Display(Name = "Department")]
-
-        public int DepartmentId { get; set; }
+        public int? DepartmentId { get; set; }
 
 
 
         [Display(Name = "Designation")]
-
         public int DesignationId { get; set; }
 
 

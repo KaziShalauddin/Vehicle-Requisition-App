@@ -160,18 +160,6 @@ namespace VehicleManagementApp.Controllers
 
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
 
-
-                //Add role to user
-                var role = new IdentityUserRole();
-                role.UserId = user.Id;
-                // assign User role Id
-                role.RoleId = "648d557d-307b-4a72-9555-5f60070d80c9";
-                user.Roles.Add(role);
-
-                Employee employee = new Employee { Email = user.Email };
-                IEmployeeManager employeeManager = new EmployeeManager();
-                employeeManager.Add(employee);
-
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -194,134 +182,23 @@ namespace VehicleManagementApp.Controllers
         //
         // GET: /Account/Register
 
-        private IEmployeeManager _employeeManager;
-        private IDepartmentManager _departmentManager;
-        private IDesignationManager _designationManager;
-        private IDivisionManager _divisionManager;
-        private IDistrictManager _districtManager;
-        private IThanaManager _thanaManager;
-        public AccountController(IEmployeeManager employee, IDepartmentManager department,
-           IDesignationManager designation,
-           IDivisionManager division, IDistrictManager district, IThanaManager thana)
-        {
-            this._employeeManager = employee;
-            this._departmentManager = department;
-            this._designationManager = designation;
-            this._divisionManager = division;
-            this._districtManager = district;
-            this._thanaManager = thana;
-        }
-
-
-        [AllowAnonymous]
-        public ActionResult EmployeeRegister()
-        {
-
-            var departments = _departmentManager.GetAll();
-            var designation = _designationManager.GetAll();
-            var divisions = _divisionManager.GetAll();
-            var district = _districtManager.GetAll();
-            var thana = _thanaManager.GetAll();
-
-            //EmployeeRegisterViewModel employeeVM = new EmployeeRegisterViewModel
-            //{
-            //    Departments = department,
-            //    Designations = designation,
-            //    Divisions = division,
-            //    Districts = district,
-            //    Thanas = thana
-            //};
-
-            ViewBag.Departments = departments;
-            ViewBag.Divisions = divisions;
-            ViewBag.DesignationId = new SelectListItem[] { new SelectListItem() { Value = "", Text = "Select..." } };
-            ViewBag.DistrictId = new SelectListItem[] { new SelectListItem() { Value = "", Text = "Select..." } };
-            ViewBag.ThanaId = new SelectListItem[] { new SelectListItem() { Value = "", Text = "Select..." } };
-
-
-            return View();
-        }
-
-        //
-        // POST: /Account/Register
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public  ActionResult EmployeeRegister(EmployeeRegisterViewModel_V2 model)
-        {
-            byte[] imageData = null;
-            if (Request.Files.Count > 0)
-            {
-                HttpPostedFileBase poImgFile = Request.Files["ImageFile"];
-
-                using (var binary = new BinaryReader(poImgFile.InputStream))
-                {
-                    imageData = binary.ReadBytes(poImgFile.ContentLength);
-                    
-                }
-            }
-            var user = new ApplicationUser { UserName = model.Name, Email = model.Email };
-            //CreateEmployee(model, user, imageData);
-            if (ModelState.IsValid)
-            {
-
-                
-                var password = "1234";
-
-                //Add role to user
-                var role = new IdentityUserRole();
-                role.UserId = user.Id;
-                // assign User role Id
-                role.RoleId = "648d557d-307b-4a72-9555-5f60070d80c9";
-                user.Roles.Add(role);
-
-
-
-                var result =  UserManager.Create(user, password);
-                if (result.Succeeded)
-                {
-                     SignInManager.SignIn(user, isPersistent: false, rememberBrowser: false);
-
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    TempData["msg"] = "Employee Save Successfully!";
-                    return RedirectToAction("EmployeeRegister");
-                }
-                AddErrors(result);
-            }
-            TempData["msg"] = "Employee Not Saved!";
-            return RedirectToAction("EmployeeRegister");
-
-            // If we got this far, something failed, redisplay form
-            //return View(model);
-        }
-
-       
-
-        private void CreateEmployee(EmployeeRegisterViewModel model)
-        {
-            Employee employee = new Employee
-            {
-                Name = model.Name,
-                Email = model.Email,
-                DepartmentId = model.DepartmentId,
-                DesignationId = model.DesignationId,
-                DivisionId = model.DivisionId,
-                DistrictId = model.DistrictId,
-                ThanaId = model.ThanaId,
-                Address1 = model.Address1,
-                //Address2 = model.Address2,
-                ContactNo = model.ContactNo,
-                //LicenceNo = model.LicenceNo,
-                IsDriver = false
-            };
-            //IEmployeeManager employeeManager=new EmployeeManager();
-            _employeeManager.Add(employee);
-        }
+        //private IEmployeeManager _employeeManager;
+        //private IDepartmentManager _departmentManager;
+        //private IDesignationManager _designationManager;
+        //private IDivisionManager _divisionManager;
+        //private IDistrictManager _districtManager;
+        //private IThanaManager _thanaManager;
+        //public AccountController(IEmployeeManager employee, IDepartmentManager department,
+        //   IDesignationManager designation,
+        //   IDivisionManager division, IDistrictManager district, IThanaManager thana)
+        //{
+        //    this._employeeManager = employee;
+        //    this._departmentManager = department;
+        //    this._designationManager = designation;
+        //    this._divisionManager = division;
+        //    this._districtManager = district;
+        //    this._thanaManager = thana;
+        //}
 
         //
         // GET: /Account/ConfirmEmail
@@ -554,6 +431,149 @@ namespace VehicleManagementApp.Controllers
             return View();
         }
 
+        IDepartmentManager departmentManager = new DepartmentManager();
+        IDivisionManager divisionManager = new DivisionManager();
+        // GET: /Account/EmployeeRegisterWithRole
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult EmployeeRegisterWithRole()
+        {
+            
+            var departments = departmentManager.GetAll();
+            var divisions = divisionManager.GetAll();
+
+            ViewBag.Departments = departments;
+            ViewBag.Divisions = divisions;
+
+            ViewBag.DesignationId = new SelectListItem[] { new SelectListItem() { Value = "", Text = "Select..." } };
+            ViewBag.DistrictId = new SelectListItem[] { new SelectListItem() { Value = "", Text = "Select..." } };
+            ViewBag.ThanaId = new SelectListItem[] { new SelectListItem() { Value = "", Text = "Select..." } };
+
+            return View();
+        }
+        private void CreateEmployee(EmployeeRegisterWithRoleViewModel model, ApplicationUser user, byte[] imageData)
+        {
+            IEmployeeManager employeeManager = new EmployeeManager();
+            Employee employee = new Employee
+            {
+                Name = model.Name,
+                UserId = Guid.NewGuid(),
+                Email = model.Email,
+                DepartmentId = model.DepartmentId,
+                DesignationId = model.DesignationId,
+                DivisionId = model.DivisionId,
+                DistrictId = model.DistrictId,
+                ThanaId = model.ThanaId,
+                Address1 = model.Address1,
+                //Address2 = model.Address2,
+                ContactNo = model.ContactNo,
+                //LicenceNo = model.LicenceNo,
+                IsDriver = false,
+                Image = imageData,
+                ImagePath = "~/EmployeeImages/" + model.Name + DateTime.Now,
+                IsDeleted = false
+            };
+
+            employeeManager.Add(employee);
+
+            //}
+        }
+
+        private static void AddEmployeeRole(ApplicationUser user)
+        {
+            var role = new IdentityUserRole();
+            role.UserId = user.Id;
+            // assign User role Id
+            role.RoleId = "648d557d-307b-4a72-9555-5f60070d80c9";
+            user.Roles.Add(role);
+        }
+
+        //
+        // POST: /Account/EmployeeRegisterWithRole
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EmployeeRegisterWithRole([Bind(Exclude = "UserPhoto,DepartmentId")]EmployeeRegisterWithRoleViewModel model)
+        {
+            if (ModelState.IsValid==false)
+            {
+
+                // To convert the user uploaded Photo as Byte Array before save to DB
+
+
+                var imageData = GetImageData();
+
+                var user = new ApplicationUser { UserName = model.Name, Email = model.Email };
+                var password = "1234";
+                user.UserPhoto = imageData;
+                //ViewBag.SuggestUserName= SuggestUserName(model.Name+)
+                AddEmployeeRole(user);
+                CreateEmployee(model, user, imageData);
+                //, model.Password
+                var result = await UserManager.CreateAsync(user, password);
+
+                if (result.Succeeded)
+                {
+                   // await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                   
+
+                    TempData["msg"] = "Employee Saved Successfully!";
+                    return RedirectToAction("EmployeeRegisterWithRole");
+                }
+                AddErrors(result);
+
+            }
+            TempData["msg"] = "Employee Not Saved!";
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+        [AllowAnonymous]
+        public JsonResult SuggestUserName(string name, string contactNo)
+        {
+          var trimContactNo = contactNo.Substring(contactNo.Length - 4);
+
+            var result = name + trimContactNo;
+            //Response.AddHeader("X-ID", "result");
+
+            //return Json(true, JsonRequestBehavior.AllowGet);
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
+        [AllowAnonymous]
+        public  JsonResult UserAlreadyExists(string userName)
+      {
+            ApplicationUser result =
+                 UserManager.FindByName(userName);
+            
+            if (result == null)
+            {
+                // add the id that you want to communicate to the client
+                // in case of validation success as a custom HTTP header
+                //Response.AddHeader("X-ID", "123");
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("User Name Already Exist, Try Another!", JsonRequestBehavior.AllowGet);
+        }
+
+        private byte[] GetImageData()
+        {
+            byte[] imageData = null;
+
+            if (Request.Files.Count > 0)
+            {
+                HttpPostedFileWrapper imgFile = Request.Files["UserPhoto"] as HttpPostedFileWrapper;
+                if (imgFile != null)
+                {
+                    imgFile.SaveAs(Server.MapPath("~/EmployeeImages/" + imgFile.FileName));
+
+                    using (var binary = new BinaryReader(imgFile.InputStream))
+                    {
+                        imageData = binary.ReadBytes(imgFile.ContentLength);
+                    }
+                }
+            }
+            return imageData;
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -572,103 +592,6 @@ namespace VehicleManagementApp.Controllers
             }
 
             base.Dispose(disposing);
-        }
-        // GET: /Account/ShanuRegister
-        [HttpGet]
-        [AllowAnonymous]
-        public ActionResult ShanuRegister()
-        {
-            var departments = _departmentManager.GetAll();
-            var divisions = _divisionManager.GetAll();
-
-            ViewBag.Departments = departments;
-            ViewBag.Divisions = divisions;
-
-            ViewBag.DesignationId = new SelectListItem[] { new SelectListItem() { Value = "", Text = "Select..." } };
-            ViewBag.DistrictId = new SelectListItem[] { new SelectListItem() { Value = "", Text = "Select..." } };
-            ViewBag.ThanaId = new SelectListItem[] { new SelectListItem() { Value = "", Text = "Select..." } };
-
-            return View();
-        }
-        private void CreateEmployee(ShanuRegisterViewModel model, ApplicationUser user, byte[] imageData, string imagePath)
-        {
-
-            Employee employee = new Employee
-            {
-                Name = model.Name,
-                UserId = user.Id,
-                Email = model.Email,
-                DepartmentId = model.DepartmentId,
-                DesignationId = model.DesignationId,
-                DivisionId = model.DivisionId,
-                DistrictId = model.DistrictId,
-                ThanaId = model.ThanaId,
-                Address1 = model.Address1,
-                //Address2 = model.Address2,
-                ContactNo = model.ContactNo,
-                //LicenceNo = model.LicenceNo,
-                IsDriver = false,
-                Image = imageData,
-                ImagePath = imagePath,
-                IsDeleted = false
-            };
-
-            _employeeManager.Add(employee);
-            //}
-        }
-
-        //
-        // POST: /Account/ShanuRegister
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ShanuRegister([Bind(Exclude = "UserPhoto")]ShanuRegisterViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-
-                // To convert the user uploaded Photo as Byte Array before save to DB
-                byte[] imageData = null;
-                string imagePath=null;
-                if (Request.Files.Count > 0)
-                {
-                    HttpPostedFileWrapper poImgFile = Request.Files["UserPhoto"] as HttpPostedFileWrapper;
-                    poImgFile.SaveAs(Server.MapPath("~/EmployeeImages/" + poImgFile.FileName));
-                    //BinaryReader reader = new BinaryReader(file.InputStream);
-
-                    // imagebyte = reader.ReadBytes(file.ContentLength);
-                    using (var binary = new BinaryReader(poImgFile.InputStream))
-                    {
-                        imageData = binary.ReadBytes(poImgFile.ContentLength);
-                        imagePath = "~/EmployeeImages/" + poImgFile.FileName;
-                    }
-                }
-
-                
-
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                CreateEmployee(model, user, imageData, imagePath);
-                //Here we pass the byte array to user context to store in db
-                // user.UserPhoto = imageData;
-                //, model.Password
-                var result = await UserManager.CreateAsync(user);
-                if (result.Succeeded)
-                {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    return RedirectToAction("Index", "Home");
-                }
-                AddErrors(result);
-            }
-
-            // If we got this far, something failed, redisplay form
-            return View(model);
         }
         #region Helpers
         // Used for XSRF protection when adding external logins
