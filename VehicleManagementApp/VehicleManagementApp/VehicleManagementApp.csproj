@@ -250,6 +250,8 @@
     <Compile Include="ViewModels\EmployeeViewModel.cs" />
     <Compile Include="ViewModels\ManagerViewModel.cs" />
     <Compile Include="ViewModels\EditOrganaizationViewModels.cs" />
+    <Compile Include="ViewModels\MyRequsitionCreateViewModel.cs" />
+    <Compile Include="ViewModels\MyRequsitionViewModel.cs" />
     <Compile Include="ViewModels\OrganaizationViewModels.cs" />
     <Compile Include="ViewModels\ReplayCommentViewModel.cs" />
     <Compile Include="ViewModels\RequsitionCreateViewModel.cs" />
@@ -765,6 +767,7 @@
     <Content Include="Views\Account\OperatorRegister.cshtml" />
     <Content Include="Views\Account\DriverRegisterWithRole.cshtml" />
     <Content Include="Views\Requsition\MyRequisitionList.cshtml" />
+    <Content Include="Views\Requsition\_MyRequisitionListPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

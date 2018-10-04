@@ -159,26 +159,7 @@ namespace VehicleManagementApp.Controllers
             allRequsitions.RequsitionViewModels = requsitionViewList;
             return View(allRequsitions);
         }
-        public ActionResult MyRequisitionList()
-        {
-            ApplicationUser user =
-                System.Web.HttpContext.Current.GetOwinContext()
-                    .GetUserManager<ApplicationUserManager>()
-                    .FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
-
-            RequsitionCreateViewModel allRequsitions = new RequsitionCreateViewModel();
-            var employees = _employeeManager.Get(c => c.IsDriver == false && c.IsDeleted == false&&c.UserId==user.Id);
-
-            ViewBag.Employees = employees.ToList();
-            //if (data["msg"] != null)
-            //{
-            //    ViewBag.Result = data["msg"];
-            //}
-
-            var requsitionViewList = RequisitionListView();
-            allRequsitions.RequsitionViewModels = requsitionViewList;
-            return View(allRequsitions);
-        }
+       
 
         public string AutoNumber()
         {
@@ -400,6 +381,99 @@ namespace VehicleManagementApp.Controllers
             {
                 return View();
             }
+        }
+        public ActionResult MyRequisitionList()
+        {
+
+
+            MyRequsitionCreateViewModel allRequsitions = new MyRequsitionCreateViewModel();
+
+            var employees = _employeeManager.Get(c => c.IsDriver == false && c.IsDeleted == false);
+            ViewBag.Employees = employees.ToList();
+            //if (data["msg"] != null)
+            //{
+            //    ViewBag.Result = data["msg"];
+            //}
+
+            var requsitionViewList = MyRequisitionListView();
+            allRequsitions.RequsitionViewModels = requsitionViewList;
+            return View(allRequsitions);
+        }
+        public JsonResult MyJsonCreate(RequsitionCreateViewModel requisitionVm)
+        {
+            //newDateTime = date.Date + time.TimeOfDay;
+
+            if (ModelState.IsValid)
+            {
+                var journeyStart = requisitionVm.JourneyStartDate.Date + requisitionVm.JourneyStartTime.TimeOfDay;
+                var jouneyEnd = requisitionVm.JouneyEndDate.Date + requisitionVm.JouneyEndTime.TimeOfDay;
+
+                var employeeId = GetEmployeeId();
+
+                Requsition requisition = new Requsition();
+                requisition.Form = requisitionVm.Form;
+                requisition.To = requisitionVm.To;
+                requisition.RequsitionNumber = AutoNumber();
+                requisition.Description = requisitionVm.Description;
+                requisition.JourneyStart = journeyStart;
+                requisition.JouneyEnd = jouneyEnd;
+                requisition.EmployeeId = employeeId;
+
+                bool isSaved = _requisitionManager.Add(requisition);
+                if (isSaved)
+                {
+                    TempData["msg"] = "Requisition Send Successfully";
+
+                }
+                else
+                {
+                    TempData["msg"] = "Requisition not Send !";
+                }
+            }
+            else
+            {
+                TempData["msg"] = "Requisition not Send !";
+            }
+            return Json(TempData["msg"], JsonRequestBehavior.AllowGet);
+
+        }
+        private List<MyRequsitionViewModel> MyRequisitionListView()
+        {
+            GetRequisitionComplete();
+            var employeeId = GetEmployeeId();
+
+            var allRequisitions = _requisitionManager.Get(r => r.EmployeeId == employeeId).OrderByDescending(c => c.Id);
+
+
+            //var requstionStatus = _requsitionStatusManager.GetAll();
+
+            List<MyRequsitionViewModel> requisitionViewList = new List<MyRequsitionViewModel>();
+            foreach (var requisition in allRequisitions)
+            {
+                var requisitionVM = new MyRequsitionViewModel();
+                requisitionVM.Id = requisition.Id;
+                requisitionVM.Form = requisition.Form;
+                requisitionVM.To = requisition.To;
+                requisitionVM.Description = requisition.Description;
+                requisitionVM.JourneyStart = requisition.JourneyStart;
+                requisitionVM.JouneyEnd = requisition.JouneyEnd;
+
+                requisitionVM.Status = requisition.Status;
+                requisitionViewList.Add(requisitionVM);
+            }
+            return requisitionViewList;
+        }
+
+        private int GetEmployeeId()
+        {
+            ApplicationUser user =
+                System.Web.HttpContext.Current.GetOwinContext()
+                    .GetUserManager<ApplicationUserManager>()
+                    .FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+
+            var employee = _employeeManager.Get(c => c.IsDriver == false && c.IsDeleted == false && c.UserId == user.Id);
+            var employeeId = employee.Select(e => e.Id).FirstOrDefault();
+            return employeeId;
         }
 
 
