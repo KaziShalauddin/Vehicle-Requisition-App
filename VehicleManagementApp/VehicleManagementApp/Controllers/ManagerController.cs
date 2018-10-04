@@ -233,7 +233,10 @@ namespace VehicleManagementApp.Controllers
             }
             var requsition = _requisitionManager.GetById((int)requsitionId);
             var employee = _employeeManager.GetById((int)EmployeeId);
-
+            if (employee.Email == null)
+            {
+                return;
+            }
             var dod = "<span><strong>Employee Name</strong> :" + " " + requsition.Employee.Name + "</span>" + "<br/>"
                     + "<span> <strong>Employee Number</strong> :" + " " + requsition.Employee.ContactNo + "</span>" + "<br/>"
                     + "<span> <strong>Department Name</strong> :" + " " + requsition.Employee.Department.Name + "</span>" + "<br/>"
@@ -271,6 +274,10 @@ namespace VehicleManagementApp.Controllers
             }
             var requsition = _requisitionManager.GetById((int)RequsitionId);
             var employee = _employeeManager.GetById((int)EmployeeId);
+            if (employee.Email == null)
+            {
+                return;
+            }
             var dod = "<span><strong>Driver Name</strong> :" + " " + employee.Name + "</span>" + "<br/>"
                       + "<span> <strong>Phone Number</strong> :" + " " + employee.ContactNo + "</span>" + "<br/>";
 
