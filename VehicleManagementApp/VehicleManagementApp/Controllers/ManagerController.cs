@@ -123,13 +123,13 @@ namespace VehicleManagementApp.Controllers
             }
             Requsition requsition = _requisitionManager.GetById((int)id);
             Manager manager = new Manager();
-            var employees = _employeeManager.Get(c => c.IsDriver == true && c.Status == "Available" && c.IsDeleted == false);
-            var assignVehicle = vehicleManager.Get(c => c.Status == "Available" && c.IsDeleted == false);
+            var employees = _employeeManager.Get(c => c.IsDriver == true && c.Status == null || c.Status =="NULL" ||  c.Status == "Assigned" && c.IsDeleted == false);
+            var assignVehicle = vehicleManager.Get(c => c.Status == null || c.Status == "NULL" && c.IsDeleted == false);
 
             ManagerViewModel managerVM = new ManagerViewModel();
             managerVM.Id = manager.Id;
             managerVM.RequsitionId = requsition.Id;
-
+            managerVM.Requsition = requsition;
             managerVM.Employees = employees;
             managerVM.Vehicles = assignVehicle;
 
@@ -346,13 +346,17 @@ namespace VehicleManagementApp.Controllers
                 DepartmentId = (int)driver.DepartmentId,
                 DesignationId = (int)driver.DesignationId
             };
-            if (driver.Status == "Available")
+            if (driver.Status == null)
             {
                 driver.Status = "Assigned";
             }
-            else
+            else if(driver.Status == "Assigned")
             {
-                driver.Status = "Available";
+                driver.Status = "NULL";
+            }
+            else if (driver.Status == "NULL")
+            {
+                driver.Status = "Assigned";
             }
 
             _employeeManager.Update(driver);
@@ -364,15 +368,18 @@ namespace VehicleManagementApp.Controllers
                 return;
             }
             var vehicles = vehicleManager.GetById((int)vehicleId);
-            if (vehicles.Status == "NULL")
+            if (vehicles.Status == null)
             {
                 vehicles.Status = "Assigned";
             }
-            else
+            else if(vehicles.Status == "Assigned")
             {
                 vehicles.Status = "NULL";
             }
-
+            else if (vehicles.Status == "NULL")
+            {
+                vehicles.Status = "Assigned";
+            }
             vehicleManager.Update(vehicles);
 
         }
@@ -517,7 +524,7 @@ namespace VehicleManagementApp.Controllers
         }
         public ActionResult NonAssignCar()
         {
-            var assignVehicle = vehicleManager.Get(c => c.Status == "Null");
+            var assignVehicle = vehicleManager.Get(c => c.Status == "Null" || c.Status == null);
 
             List<VehicleViewModel> vehicleViewModels = new List<VehicleViewModel>();
             foreach (var vehicle in assignVehicle)
@@ -826,7 +833,7 @@ namespace VehicleManagementApp.Controllers
 
         public ActionResult AvailableDriver()
         {
-            var driver = _employeeManager.Get(c => c.Status == "Available");
+            var driver = _employeeManager.Get(c => c.Status == "NULL" || c.Status==null);
             List<DriverViewModel> driverViewList = new List<DriverViewModel>();
             foreach (var data in driver)
             {

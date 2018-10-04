@@ -16,10 +16,25 @@
             @Html.DisplayNameFor(model => model.EmployeeId)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Employee.ContactNo)
+        </th>
+        <th>
+            @Html.DisplayName("Department")
+        </th>
+        <th>
+            @Html.DisplayName("Designation")
+        </th>
+        <th>
             @Html.DisplayName("From")
         </th>
         <th>
             @Html.DisplayNameFor(model => model.To)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JourneyStart)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JouneyEnd)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.RequsitionNumber)
@@ -36,18 +51,34 @@
                     @Html.DisplayFor(modelItem => item.Employee.Name)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.Employee.ContactNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employee.Department.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employee.Designation.Name)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Form)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.To)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.JourneyStart)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.JouneyEnd)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.RequsitionNumber)
                 </td>
                 <td>
-                    @Html.ActionLink("View", "Details","Requsition", new {id = item.Id}, new {@class="btn btn-default"})
-                    @Html.ActionLink("Hold", "Hole", new {id = item.Id}, new {@class="btn btn-primary", onclick = "return confirm('Are You Sure? You Want To Hold This')" })
-                    @Html.ActionLink("Cancle", "Cancle", new { id = item.Id }, new { @class = "btn btn-info", onclick = "return confirm('Are You Sure? You Want To Cancle This !!')" })
+                    @Html.ActionLink("Assign", "Assign", new { id = item.Id }, new { @class = "btn btn-success"})
+                    @Html.ActionLink("View", "Details", "Requsition", new {id = item.Id}, new {@class = "btn btn-default"})
+                    @Html.ActionLink("Hold", "Hole", new {id = item.Id}, new {@class = "btn btn-primary", onclick = "return confirm('Are You Sure? You Want To Hold This')"})
+                    @Html.ActionLink("Cancle", "Cancle", new {id = item.Id}, new {@class = "btn btn-danger", onclick = "return confirm('Are You Sure? You Want To Cancle This !!')"})
                 </td>
             </tr>
         }

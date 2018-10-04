@@ -594,14 +594,3 @@ body{
     .vagigation ul li:hover > ul{display: block;}
     .vagigation ul ul ul {margin-left: 201px; top: 0px; position: absolute;}
 }
-
-
-@media screen and (min-width: 485px) and (max-width:768px) {
-/* ADD YOUR CSS ADJUSTMENTS BELOW HERE */
-. . .
-}
-
-@media screen and (min-width: 770px) and (max-width: 1080px) {
-/* ADD YOUR CSS ADJUSTMENTS BELOW HERE */
-. . .
-}

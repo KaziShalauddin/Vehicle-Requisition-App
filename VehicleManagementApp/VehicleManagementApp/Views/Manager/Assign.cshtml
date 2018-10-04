@@ -5,75 +5,111 @@
     ViewBag.Title = "Assign Requisition";
     Layout = "~/Views/Shared/_LayoutManager.cshtml";
     var vehicles = ViewBag.Vehicles;
-    
+
 
 }
-
 <h2 style="padding-bottom: 30px; text-align: center">Assign Requisition</h2>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Requsition Details</h2>
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th>Employee Name </th>
+                    <td>@Html.DisplayFor(model => model.Requsition.Employee.Name)</td>
+                </tr>
+                <tr>
+                    <th>Contact </th>
+                    <td>@Html.DisplayFor(model => model.Requsition.Employee.ContactNo)</td>
+                </tr>
+                <tr>
+                    <th>Email </th>
+                    <td>@Html.DisplayFor(model => model.Requsition.Employee.Email)</td>
+                </tr>
+                <tr>
+                    <th>Department </th>
+                    <td>@Html.DisplayFor(model => model.Requsition.Employee.Department.Name)</td>
+                </tr>
+                <tr>
+                    <th>Department </th>
+                    <td>@Html.DisplayFor(model => model.Requsition.Employee.Designation.Name)</td>
+                </tr>
+                <tr>
+                    <th>From </th>
+                    <td>@Html.DisplayFor(model => model.Requsition.Form)</td>
+                </tr>
+                <tr>
+                    <th>To </th>
+                    <td>@Html.DisplayFor(model => model.Requsition.To)</td>
+                </tr>
+                <tr>
+                    <th>Description </th>
+                    <td>@Html.DisplayFor(model => model.Requsition.Description)</td>
+                </tr>
+                <tr>
+                    <th>Start Date </th>
+                    <td>@Html.DisplayFor(model => model.Requsition.JourneyStart)</td>
+                </tr>
+                <tr>
+                    <th>End Date </th>
+                    <td>@Html.DisplayFor(model => model.Requsition.JouneyEnd)</td>
+                </tr>
+            </table>
 
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.RequsitionId, htmlAttributes: new {@class = "control-label col-md-2"})
-            <div class="col-md-10">
-                @Html.HiddenFor(model => model.RequsitionId, new {htmlAttributes = new {@class = "form-control"}})
-                @Html.ValidationMessageFor(model => model.RequsitionId, "", new {@class = "text-danger"})
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.VehicleId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @if (vehicles != null)
+            <h3>Please Select Driver and Vehicle</h3>
+            @* assign requsition *@
+            <div>
+                @using (Html.BeginForm())
                 {
-                    @Html.DropDownListFor(model => model.VehicleId, (SelectList) vehicles, "Select Car", new {@class = "form-control"})
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-horizontal">
+
+                        @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                        @Html.HiddenFor(model => model.Id)
+
+                        <div class="form-group">
+                            @Html.HiddenFor(model => model.RequsitionId, htmlAttributes: new {@class = "control-label col-md-2"})
+                            <div class="col-md-10">
+                                @Html.HiddenFor(model => model.RequsitionId, new {htmlAttributes = new {@class = "form-control"}})
+                                @Html.ValidationMessageFor(model => model.RequsitionId, "", new {@class = "text-danger"})
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.VehicleId, htmlAttributes: new {@class = "control-label col-md-2"})
+                            <div class="col-md-10">
+                                @if (vehicles != null)
+                                {
+                                    @Html.DropDownListFor(model => model.VehicleId, (SelectList) vehicles, "Select Car", new {@class = "form-control"})
+                                }
+                                else
+                                {
+                                    @Html.Raw("No vehicle available now!")
+                                }
+                                @Html.ValidationMessageFor(model => model.VehicleId, "", new {@class = "text-danger"})
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.EmployeeId, htmlAttributes: new {@class = "control-label col-md-2"})
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(model => model.EmployeeId, new SelectList(Model.Employees, "Id", "Name"), "Select Driver", new {@class = "form-control", id = "employeeDD"})
+                                @Html.ValidationMessageFor(model => model.EmployeeId, "", new {@class = "text-danger"})
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Save" class="btn btn-default"/>
+                            </div>
+                        </div>
+                    </div>
                 }
-                else
-                {
-                    @Html.Raw("No vehicle available now!")
-                }
-                @Html.ValidationMessageFor(model => model.VehicleId, "", new {@class = "text-danger"})
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.EmployeeId, htmlAttributes: new {@class = "control-label col-md-2"})
-            <div class="col-md-10">
-                @Html.DropDownListFor(model=>model.EmployeeId, new SelectList(Model.Employees,"Id", "Name") , "Select Driver", new {@class = "form-control", id="employeeDD"})
-                @Html.ValidationMessageFor(model => model.EmployeeId, "", new {@class = "text-danger"})
-            </div>
-        </div>
-
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.VehicleId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("VehicleId",null, " Select Car ",  new { @class = "form-control"  })
-                @Html.ValidationMessageFor(model => model.VehicleId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.EmployeeId, htmlAttributes: new {@class = "control-label col-md-2"})
-            <div class="col-md-10">
-                @Html.DropDownList("EmployeeId", null, "Select Driver", new {@class = "form-control", id="employeeDD"})
-                @Html.ValidationMessageFor(model => model.EmployeeId, "", new {@class = "text-danger"})
-            </div>
-        </div>*@
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
     </div>
-}
+</div>
 
 <div>
     @Html.ActionLink("Back to List", "New")

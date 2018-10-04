@@ -136,7 +136,7 @@ namespace VehicleManagementApp.Controllers
                     Email = employeeVM.Email,
                     Address1 = employeeVM.Address1,
                     Address2 = employeeVM.Address2,
-                    //LicenceNo = employeeVM.LicenceNo,
+                    Status = "employee",
                     //IsDriver = employeeVM.IsDriver,
                     DepartmentId = employeeVM.DepartmentId,
                     DesignationId = employeeVM.DesignationId,
@@ -175,7 +175,7 @@ namespace VehicleManagementApp.Controllers
             employeeVM.Email = employee.Email;
             employeeVM.Address1 = employee.Address1;
             employeeVM.Address2 = employee.Address2;
-            //employeeVM.LicenceNo = employee.LicenceNo;
+            employeeVM.Status = "employee";
             //employeeVM.IsDriver = employee.IsDriver;
             employeeVM.DepartmentId = (int) employee.DepartmentId;
             employeeVM.DesignationId = (int) employee.DesignationId;
@@ -205,8 +205,7 @@ namespace VehicleManagementApp.Controllers
                 employee.Email = employeeVM.Email;
                 employee.Address1 = employeeVM.Address1;
                 employee.Address2 = employeeVM.Address2;
-                //employee.LicenceNo = employeeVM.LicenceNo;
-                //employee.IsDriver = employeeVM.IsDriver;
+                employee.Status = "employee";
                 employee.DepartmentId = employeeVM.DepartmentId;
                 employee.DesignationId = employeeVM.DesignationId;
                 employee.DivisionId = employeeVM.DivisionId;
