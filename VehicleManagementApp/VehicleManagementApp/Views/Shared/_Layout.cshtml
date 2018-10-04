@@ -152,8 +152,12 @@
                         <li>
                             @if (Request.IsAuthenticated)
                             {
-                                <img src="@Url.Action("UserPhotos", "Home")" class="img-circle" style="height: 20px; width: 40px;" />
+
+                                @*<img src="@Url.Action("UserPhotos", "Home")" class="img-circle" style="height: 20px; width: 40px;" />*@
+                            <li class="menu-has-children">
+                                <a href="#">Sign Out</a>
                                 <ul>@Html.Partial("_LoginPartial")</ul>
+                            </li>
                             }
                             else
                             {
@@ -161,77 +165,77 @@
                             }
 
 
-                        </li>
+                            </li>
 
-                    </ul>
+                        </ul>
 
-                    <!-- #nav-menu-container -->
+                        <!-- #nav-menu-container -->
 
-                </nav>
+                    </nav>
 
+                </div>
+            </div>
+
+        </header><!-- #header -->
+        @*Start Render Body*@
+
+        <div class="section-gap">
+            <div class="row" style="padding-left: 100px; padding-right: 100px; padding-top: 50px;">
+
+                <div class="slider_section">
+                    @RenderBody()
+                </div>
             </div>
         </div>
 
-    </header><!-- #header -->
-    @*Start Render Body*@
 
-    <div class="section-gap">
-        <div class="row" style="padding-left: 100px; padding-right: 100px; padding-top: 50px;">
+        @*End Render Body*@
 
-            <div class="slider_section">
-                @RenderBody()
-            </div>
-        </div>
-    </div>
+        <script src="~/thirdPartyCss/js/vendor/jquery-2.2.4.min.js"></script>
+        <script src="~/scripts/jquery.validate.js"></script>
+        <script src="~/scripts/jquery.validate.unobtrusive.js"></script>
+        <script src="~/scripts/DataTables/jquery.dataTables.min.js"></script>
+        @*<script src="~/scripts/jquery.datetimepicker.full.min.js"></script>*@
+        <script src="~/js/plugins.js"></script>
+        <script src="~/js/bootstrap.min.js"></script>
+        <script src="~/js/jquery.slicknav.min.js"></script>
 
-
-    @*End Render Body*@
-
-    <script src="~/thirdPartyCss/js/vendor/jquery-2.2.4.min.js"></script>
-    <script src="~/scripts/jquery.validate.js"></script>
-    <script src="~/scripts/jquery.validate.unobtrusive.js"></script>
-    <script src="~/scripts/DataTables/jquery.dataTables.min.js"></script>
-    @*<script src="~/scripts/jquery.datetimepicker.full.min.js"></script>*@
-    <script src="~/js/plugins.js"></script>
-    <script src="~/js/bootstrap.min.js"></script>
-    <script src="~/js/jquery.slicknav.min.js"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="~/thirdPartyCss/js/vendor/bootstrap.min.js"></script>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
-    <script src="~/thirdPartyCss/js/easing.min.js"></script>
-    <script src="~/thirdPartyCss/js/hoverIntent.js"></script>
-    <script src="~/thirdPartyCss/js/superfish.min.js"></script>
-    <script src="~/thirdPartyCss/js/jquery.ajaxchimp.min.js"></script>
-    <script src="~/thirdPartyCss/js/jquery.magnific-popup.min.js"></script>
-    <script src="~/thirdPartyCss/js/owl.carousel.min.js"></script>
-    <script src="~/thirdPartyCss/js/hexagons.min.js"></script>
-    <script src="~/thirdPartyCss/js/jquery.nice-select.min.js"></script>
-    <script src="~/thirdPartyCss/js/jquery.counterup.min.js"></script>
-    <script src="~/thirdPartyCss/js/waypoints.min.js"></script>
-    <script src="~/thirdPartyCss/js/mail-script.js"></script>
-    <script src="~/thirdPartyCss/js/main.js"></script>
-    <script src="~/scripts/jquery.unobtrusive-ajax.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="~/thirdPartyCss/js/vendor/bootstrap.min.js"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
+        <script src="~/thirdPartyCss/js/easing.min.js"></script>
+        <script src="~/thirdPartyCss/js/hoverIntent.js"></script>
+        <script src="~/thirdPartyCss/js/superfish.min.js"></script>
+        <script src="~/thirdPartyCss/js/jquery.ajaxchimp.min.js"></script>
+        <script src="~/thirdPartyCss/js/jquery.magnific-popup.min.js"></script>
+        <script src="~/thirdPartyCss/js/owl.carousel.min.js"></script>
+        <script src="~/thirdPartyCss/js/hexagons.min.js"></script>
+        <script src="~/thirdPartyCss/js/jquery.nice-select.min.js"></script>
+        <script src="~/thirdPartyCss/js/jquery.counterup.min.js"></script>
+        <script src="~/thirdPartyCss/js/waypoints.min.js"></script>
+        <script src="~/thirdPartyCss/js/mail-script.js"></script>
+        <script src="~/thirdPartyCss/js/main.js"></script>
+        <script src="~/scripts/jquery.unobtrusive-ajax.js"></script>
 
 
 
-    @*<script src="~/js/owl.carousel.min.js"></script>
-        <script src="~/js/wow.min.js"></script>
-        <script src="~/js/jquery.fitvids.js"></script>
-        <script src="~/js/main.js"></script>*@
+        @*<script src="~/js/owl.carousel.min.js"></script>
+            <script src="~/js/wow.min.js"></script>
+            <script src="~/js/jquery.fitvids.js"></script>
+            <script src="~/js/main.js"></script>*@
 
 
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#myTable').DataTable();
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#myTable').DataTable();
 
 
-        });
-    </script>
+            });
+        </script>
 
-    @RenderSection("scripts", required: false)
+        @RenderSection("scripts", required: false)
 
 
-</body>
+    </body>
 </html>
