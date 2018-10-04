@@ -53,23 +53,28 @@ namespace VehicleManagementApp.Controllers
                 // to get the user details to load user Image
                 var bdUsers = HttpContext.GetOwinContext().Get<ApplicationDbContext>();
                 var userImage = bdUsers.Users.Where(x => x.Id == userId).FirstOrDefault();
-
+                if (userImage.UserPhoto == null)
+                {
+                    return GetNotRegisteredUserPhotos();
+                }
                 return new FileContentResult(userImage.UserPhoto, "image/jpeg");
             }
-            else
-            {
-                string fileName = HttpContext.Server.MapPath(@"~/img/noImg.png");
-
-                byte[] imageData = null;
-                FileInfo fileInfo = new FileInfo(fileName);
-                long imageFileLength = fileInfo.Length;
-                FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
-                BinaryReader br = new BinaryReader(fs);
-                imageData = br.ReadBytes((int)imageFileLength);
-                return File(imageData, "image/png");
-
-            }
+            
+                return GetNotRegisteredUserPhotos();
+            
         }
 
+        private FileContentResult GetNotRegisteredUserPhotos()
+        {
+            string fileName = HttpContext.Server.MapPath(@"~/img/noImg.png");
+
+            byte[] imageData = null;
+            FileInfo fileInfo = new FileInfo(fileName);
+            long imageFileLength = fileInfo.Length;
+            FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+            BinaryReader br = new BinaryReader(fs);
+            imageData = br.ReadBytes((int) imageFileLength);
+            return File(imageData, "image/png");
+        }
     }
 }

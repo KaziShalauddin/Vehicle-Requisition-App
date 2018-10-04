@@ -104,7 +104,7 @@
                                     <li>@Html.ActionLink("My Requisitions", "MyRequisitionList", "Requsition")</li>
                                 </ul>
                             </li>
-                            
+
                         }
                         @if (User.IsInRole(AppEnum.RoleEnum.Operator.ToString()))
                         {
@@ -131,7 +131,7 @@
                                 <a href="#">Requisition</a>
                                 <ul>
                                     <li>@Html.ActionLink("My Requisitions", "MyRequisitionList", "Requsition")</li>
-                                    
+
                                 </ul>
                             </li>
 
@@ -149,90 +149,9 @@
 
 
                         }
-
-    
-        <header id="header">
-            <div class="container main-menu">
-                <div class="row align-items-center justify-content-between d-flex">
-                    <div id="logo">
-                        <img src="~/thirdPartyCss/img/Untitled-1 copy.png" alt="" title=""/>
-                    </div>
-                    <nav class="nav-menu-container">
-                       
-                            <ul class="nav-menu">
-
-
-                                <li class="menu-active">@Html.ActionLink("Home", "Index", "Home")</li>
-
-                                <li class="menu-has-children">
-                                    <a href="#">Setup</a>
-                                    <ul>
-                                        <li class="menu-has-children">
-                                            @Html.ActionLink("Organaization", "Index", "Organaization")
-                                            <ul>
-                                                <li>@Html.ActionLink("Department", "Index", "Department")</li>
-                                                <li>@Html.ActionLink("Designation", "Index", "Designation")</li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu-has-children">
-                                            @Html.ActionLink("Division", "Index", "Division")
-                                            <ul>
-                                                <li>@Html.ActionLink("District", "Index", "District")</li>
-                                                <li>@Html.ActionLink("Upzilla", "Index", "Thana")</li>
-                                            </ul>
-                                        </li>
-
-                                        <li class="menu-has-children">
-                                            <a href="#">Employee</a>
-                                            <ul>
-                                                <li>@Html.ActionLink("Employee", "Index", "Employee")</li>
-                                                <li>@Html.ActionLink("Register Employee", "EmployeeRegister", "Account")</li>
-                                                <li>@Html.ActionLink("Driver", "Index", "Driver")</li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu-has-children">
-                                            <a href="#">Vehicle</a>
-                                            <ul>
-                                                <li>@Html.ActionLink("Vehicle Type", "Index", "VehicleType")</li>
-                                                <li>@Html.ActionLink("Vehicle", "Index", "Vehicle")</li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="menu-has-children">
-                                    <a href="#">Requisition</a>
-                                    <ul>
-                                        <li>@Html.ActionLink("Requisition", "RequisitionIndex", "Requsition")</li>
-                                        <li>@Html.ActionLink("Requisition Queue", "Index", "Manager")</li>
-                                    </ul>
-                                </li>
-                                <li class="menu-has-children">
-                                    <a href="#">Gate Pass</a>
-                                    <ul>
-                                        <li>@Html.ActionLink("Check Out", "CheckOut", "Manager")</li>
-                                        <li>@Html.ActionLink("Check In", "CheckIn", "Manager")</li>
-                                    </ul>
-                                </li>
-                                <li class="menu-has-children">
-                                    <a href="#">My Profile</a>
-                                    <ul>@Html.Partial("_LoginPartial")</ul>
-
-                                </li>
-                            </ul>
-
-                       <!-- #nav-menu-container -->
-
-                       
                         <li>
                             @if (Request.IsAuthenticated)
                             {
-                                @*using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
-                                    {
-                                        @Html.AntiForgeryToken()
-                                        <a href="javascript:document.getElementById('logoutForm').submit()" class="btn btn-default btn-flat">Sign out</a>
-
-
-                                    }*@
                                 <img src="@Url.Action("UserPhotos", "Home")" class="img-circle" style="height: 20px; width: 40px;" />
                                 <ul>@Html.Partial("_LoginPartial")</ul>
                             }
@@ -252,6 +171,7 @@
 
             </div>
         </div>
+
     </header><!-- #header -->
     @*Start Render Body*@
 
