@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleManagementApp", "VehicleManagementApp\VehicleManagementApp.csproj", "{C0E259F5-B3A0-4511-835B-6048690DFDCF}"
 EndProject
@@ -16,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleManagementApp.Repository", "VehicleManagementApp.Repository\VehicleManagementApp.Repository.csproj", "{EDD22EBA-DE0B-4C69-BB85-6E5E8CC4A379}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleManagementApp.Repository.Contracts", "VehicleManagementApp.Repository.Contracts\VehicleManagementApp.Repository.Contracts.csproj", "{D648BDE6-9853-484E-8C4F-87479271DC35}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VehicleManagementApp.Reports", "VehicleManagementApp.Reports\VehicleManagementApp.Reports.csproj", "{86AC9B86-C35D-478C-96A4-4E6AD6D90680}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{D648BDE6-9853-484E-8C4F-87479271DC35}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D648BDE6-9853-484E-8C4F-87479271DC35}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D648BDE6-9853-484E-8C4F-87479271DC35}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86AC9B86-C35D-478C-96A4-4E6AD6D90680}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86AC9B86-C35D-478C-96A4-4E6AD6D90680}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86AC9B86-C35D-478C-96A4-4E6AD6D90680}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86AC9B86-C35D-478C-96A4-4E6AD6D90680}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
