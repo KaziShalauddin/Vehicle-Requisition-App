@@ -127,7 +127,7 @@ namespace VehicleManagementApp.Controllers
             Manager manager = new Manager();
             var employees = _employeeManager.Get(c => c.IsDriver == true && c.Status == null || c.Status =="NULL" ||  c.Status == "Assigned" && c.IsDeleted == false);
             var assignVehicle = vehicleManager.Get(c => c.Status == null || c.Status == "NULL" && c.IsDeleted == false);
-
+            
             ManagerViewModel managerVM = new ManagerViewModel();
             managerVM.Id = manager.Id;
             managerVM.RequsitionId = requsition.Id;
