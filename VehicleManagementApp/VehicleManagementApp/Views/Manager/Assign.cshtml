@@ -1,12 +1,9 @@
-﻿@using VehicleManagementApp.Models.Models
-@model VehicleManagementApp.ViewModels.ManagerViewModel
+﻿@model VehicleManagementApp.ViewModels.ManagerViewModel
 
 @{
     ViewBag.Title = "Assign Requisition";
     Layout = "~/Views/Shared/_LayoutManager.cshtml";
     var vehicles = ViewBag.Vehicles;
-
-
 }
 <h2 style="padding-bottom: 30px; text-align: center">Assign Requisition</h2>
 
@@ -83,6 +80,7 @@
                                 @if (vehicles != null)
                                 {
                                     @Html.DropDownListFor(model => model.VehicleId, (SelectList) vehicles, "Select Car", new {@class = "form-control"})
+                                    
                                 }
                                 else
                                 {
@@ -114,4 +112,16 @@
 <div>
     @Html.ActionLink("Back to List", "New")
 </div>
+
+@*@section Scripts{
+    
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#VehicleId").change(function() {
+                var value = $("#VehicleId").val();
+                alert(value);
+            });
+        });
+    </script>
+}*@
 

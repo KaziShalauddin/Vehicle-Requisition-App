@@ -15,6 +15,12 @@
             @Html.Raw("SL")
         </th>
         <th>
+            @Html.Raw("Employee Name")
+        </th>
+        <th>
+            @Html.Raw("Employee Contact")
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.EmployeeId)
         </th>
         <th>
@@ -41,6 +47,12 @@
                     @(sl++)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.Requsition.Employee.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Requsition.Employee.ContactNo)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Employee.Name)
                 </td>
                 <td>
@@ -56,7 +68,7 @@
                     @Html.DisplayFor(modelItem => item.Vehicle.VehicleName)
                 </td>
                 <td>
-                    @Html.ActionLink("Re Assign", "ReAssign", new { id = item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are You Sure? You Want To Re-Assign This??')" })
+                    @Html.ActionLink("Print", "Print", new { id = item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are You Sure? You Want To Re-Assign This??')" })
                     @Html.ActionLink("Details", "AssignIndexDetails", new { id = item.Id }, new { @class = "btn btn-primary" })
                     @Html.ActionLink("Check In", "CheckIn", new { id = item.Id }, new { @class = "btn btn-info", onclick = "return confirm('Are You Sure? You Want To Check In !!')" })
                 </td>
