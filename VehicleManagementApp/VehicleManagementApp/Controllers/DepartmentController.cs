@@ -169,5 +169,11 @@ namespace VehicleManagementApp.Controllers
             var name = _departmentManager.IsNameAlreadyExist(Name);
             return Json(name, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GetDepartments()
+        {
+            var department = _departmentManager.GetAll();
+            return Json(department, JsonRequestBehavior.AllowGet);
+        }
     }
 }

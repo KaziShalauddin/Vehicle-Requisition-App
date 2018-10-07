@@ -232,7 +232,7 @@ namespace VehicleManagementApp.Models
         //public string ConfirmPassword { get; set; }
 
        
-        [Display(Name = "UserPhoto")]
+        [Display(Name = "User Photo")]
         [Required]
         public byte[] UserPhoto { get; set; }
 
@@ -252,6 +252,7 @@ namespace VehicleManagementApp.Models
 
 
         [Required]
+        [Display(Name = "Address")]
         public string Address1 { get; set; }
 
 
@@ -275,6 +276,10 @@ namespace VehicleManagementApp.Models
 
         [Display(Name = "Thana/Upzilla")]
         public int ThanaId { get; set; }
+
+        public string Role { get; set; }
+       
+        
 
     }
 }

@@ -16,7 +16,7 @@ namespace VehicleManagementApp.ViewModels
         public string Form { get; set; }
 
         [Required]
-        [Display(Name = "Departure Place")]
+        [Display(Name = "Destination")]
         public string To { get; set; }
 
         [Required]

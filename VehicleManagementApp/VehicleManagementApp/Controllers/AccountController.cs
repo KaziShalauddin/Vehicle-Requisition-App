@@ -431,25 +431,54 @@ namespace VehicleManagementApp.Controllers
             return View();
         }
 
+       
+
         IDepartmentManager departmentManager = new DepartmentManager();
+        IDesignationManager designationManager = new DesignationManager();
+
         IDivisionManager divisionManager = new DivisionManager();
-        // GET: /Account/EmployeeRegisterWithRole
-        [HttpGet]
-        [Authorize(Roles = "Controller,Operator")]
-        public ActionResult EmployeeRegisterWithRole()
+        IDistrictManager districtManager = new DistrictManager();
+        IThanaManager thanaManager = new ThanaManager();
+        private void GetDropDownsValues()
         {
-            
             var departments = departmentManager.GetAll();
+            var designations = designationManager.GetAll();
+
             var divisions = divisionManager.GetAll();
+            var districts = districtManager.GetAll();
+            var thanas = thanaManager.GetAll();
 
             ViewBag.Departments = departments;
+            ViewBag.Designations = designations;
+
             ViewBag.Divisions = divisions;
+            ViewBag.Districts = districts;
+            ViewBag.Thanas = thanas;
+        }
+        private static void AddEmployeeRole(ApplicationUser user)
+        {
+            var role = new IdentityUserRole();
+            role.UserId = user.Id;
+            // assign User role Id
+            role.RoleId = "648d557d-307b-4a72-9555-5f60070d80c9";
+            user.Roles.Add(role);
+        }
+        private static void AddOperatorRole(ApplicationUser user)
+        {
+            var role = new IdentityUserRole();
+            role.UserId = user.Id;
+            // assign User role Id
+            role.RoleId = "00c884db-10ae-4fc2-acb4-177c50e25eeb";
 
-            ViewBag.DesignationId = new SelectListItem[] { new SelectListItem() { Value = "", Text = "Select..." } };
-            ViewBag.DistrictId = new SelectListItem[] { new SelectListItem() { Value = "", Text = "Select..." } };
-            ViewBag.ThanaId = new SelectListItem[] { new SelectListItem() { Value = "", Text = "Select..." } };
-
-            return View();
+            user.Roles.Add(role);
+        }
+        private static void AddDriverRole(ApplicationUser user)
+        {
+            var role = new IdentityUserRole();
+            role.UserId = user.Id;
+            // assign User role Id
+            role.RoleId = "8a0b3939-369f-4f3a-ac22-5d1bb15fd169";
+            user.Roles.Add(role);
         }
         private void CreateEmployee(EmployeeRegisterWithRoleViewModel model, ApplicationUser user, byte[] imageData)
         {
@@ -478,184 +507,6 @@ namespace VehicleManagementApp.Controllers
 
             //}
         }
-
-        private static void AddEmployeeRole(ApplicationUser user)
-        {
-            var role = new IdentityUserRole();
-            role.UserId = user.Id;
-            // assign User role Id
-            role.RoleId = "648d557d-307b-4a72-9555-5f60070d80c9";
-            user.Roles.Add(role);
-        }
-        
-        //
-        // POST: /Account/EmployeeRegisterWithRole
-        [HttpPost]
-        
-        [Authorize(Roles = "Controller,Operator")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EmployeeRegisterWithRole([Bind(Exclude = "UserPhoto,DepartmentId")]EmployeeRegisterWithRoleViewModel model)
-        {
-            if (ModelState.IsValid==false)
-            {
-
-                // To convert the user uploaded Photo as Byte Array before save to DB
-
-
-                var imageData = GetImageData();
-
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
-                user.Id = Guid.NewGuid().ToString();
-                var password = "1234";
-                user.UserPhoto = imageData;
-                //ViewBag.SuggestUserName= SuggestUserName(model.Name+)
-                AddEmployeeRole(user);
-                CreateEmployee(model, user, imageData);
-                //, model.Password
-                var result = await UserManager.CreateAsync(user, password);
-
-                if (result.Succeeded)
-                {
-                   // await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                   
-
-                    TempData["msg"] = "Employee Saved Successfully!";
-                    return RedirectToAction("EmployeeRegisterWithRole");
-                }
-                AddErrors(result);
-
-            }
-            TempData["msg"] = "Employee Not Saved!";
-            // If we got this far, something failed, redisplay form
-            return View(model);
-        }
-
-        [HttpGet]
-        [Authorize(Roles = "Controller")]
-        public ActionResult OperatorRegister()
-        {
-
-            var departments = departmentManager.GetAll();
-            var divisions = divisionManager.GetAll();
-
-            ViewBag.Departments = departments;
-            ViewBag.Divisions = divisions;
-
-            ViewBag.DesignationId = new SelectListItem[] { new SelectListItem() { Value = "", Text = "Select..." } };
-            ViewBag.DistrictId = new SelectListItem[] { new SelectListItem() { Value = "", Text = "Select..." } };
-            ViewBag.ThanaId = new SelectListItem[] { new SelectListItem() { Value = "", Text = "Select..." } };
-
-            return View();
-        }
-        private static void AddOperatorRole(ApplicationUser user)
-        {
-            var role = new IdentityUserRole();
-            role.UserId = user.Id;
-            // assign User role Id
-            role.RoleId = "00c884db-10ae-4fc2-acb4-177c50e25eeb";
-            user.Roles.Add(role);
-        }
-        [HttpPost]
-        [Authorize(Roles = "Controller")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> OperatorRegister([Bind(Exclude = "UserPhoto,DepartmentId")]EmployeeRegisterWithRoleViewModel model)
-        {
-            if (ModelState.IsValid == false)
-            {
-
-                // To convert the user uploaded Photo as Byte Array before save to DB
-
-
-                var imageData = GetImageData();
-
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
-                user.Id = Guid.NewGuid().ToString();
-                var password = "1234";
-                user.UserPhoto = imageData;
-                //ViewBag.SuggestUserName= SuggestUserName(model.Name+)
-                AddOperatorRole(user);
-                CreateEmployee(model, user, imageData);
-                //, model.Password
-                var result = await UserManager.CreateAsync(user, password);
-
-                if (result.Succeeded)
-                {
-                    // await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
-
-                    TempData["msg"] = "Operator Saved Successfully!";
-                    return RedirectToAction("OperatorRegister");
-                }
-                AddErrors(result);
-
-            }
-            TempData["msg"] = "Operator Not Saved!";
-            // If we got this far, something failed, redisplay form
-            return View(model);
-        }
-        private static void AddDriverRole(ApplicationUser user)
-        {
-            var role = new IdentityUserRole();
-            role.UserId = user.Id;
-            // assign User role Id
-            role.RoleId = "8a0b3939-369f-4f3a-ac22-5d1bb15fd169";
-            user.Roles.Add(role);
-        }
-        [HttpGet]
-        [Authorize(Roles = "Controller,Operator")]
-        public ActionResult DriverRegisterWithRole()
-        {
-
-            var departments = departmentManager.GetAll();
-            var divisions = divisionManager.GetAll();
-
-            ViewBag.Departments = departments;
-            ViewBag.Divisions = divisions;
-
-            ViewBag.DesignationId = new SelectListItem[] { new SelectListItem() { Value = "", Text = "Select..." } };
-            ViewBag.DistrictId = new SelectListItem[] { new SelectListItem() { Value = "", Text = "Select..." } };
-            ViewBag.ThanaId = new SelectListItem[] { new SelectListItem() { Value = "", Text = "Select..." } };
-
-            return View();
-        }
-        [HttpPost]
-        [Authorize(Roles = "Controller,Operator")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DriverRegisterWithRole([Bind(Exclude = "UserPhoto,DepartmentId")]EmployeeRegisterWithRoleViewModel model)
-        {
-            if (ModelState.IsValid == false)
-            {
-
-                // To convert the user uploaded Photo as Byte Array before save to DB
-
-
-                var imageData = GetImageData();
-
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
-                user.Id = Guid.NewGuid().ToString();
-                var password = "1234";
-                user.UserPhoto = imageData;
-                //ViewBag.SuggestUserName= SuggestUserName(model.Name+)
-                AddDriverRole(user);
-                CreateDriver(model, user, imageData);
-                //, model.Password
-                var result = await UserManager.CreateAsync(user, password);
-
-                if (result.Succeeded)
-                {
-                    // await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
-
-                    TempData["msg"] = "Driver Saved Successfully!";
-                    return RedirectToAction("DriverRegisterWithRole");
-                }
-                AddErrors(result);
-
-            }
-            TempData["msg"] = "Driver Not Saved!";
-            // If we got this far, something failed, redisplay form
-            return View(model);
-        }
         private void CreateDriver(EmployeeRegisterWithRoleViewModel model, ApplicationUser user, byte[] imageData)
         {
             IEmployeeManager employeeManager = new EmployeeManager();
@@ -683,6 +534,143 @@ namespace VehicleManagementApp.Controllers
 
             //}
         }
+
+        // GET: /Account/EmployeeRegisterWithRole
+        [HttpGet]
+        [Authorize(Roles = "Controller,Operator")]
+        public ActionResult EmployeeRegisterWithRole()
+        {
+            GetDropDownsValues();
+
+            return View();
+        }
+        //
+        // POST: /Account/EmployeeRegisterWithRole
+        [HttpPost]
+        [Authorize(Roles = "Controller,Operator")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EmployeeRegisterWithRole([Bind(Exclude = "UserPhoto")]EmployeeRegisterWithRoleViewModel model)
+        {
+            var imageData = GetImageData();
+            ModelState.Remove("UserPhoto");
+            if (ModelState.IsValid)
+            {
+
+                // To convert the user uploaded Photo as Byte Array before save to DB
+               
+
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
+                user.Id = Guid.NewGuid().ToString();
+                var password = "1234";
+                user.UserPhoto = imageData;
+
+                if (model.Role == "Employee")
+                {
+                    AddEmployeeRole(user);
+                    CreateEmployee(model, user, imageData);
+                }
+                if (model.Role == "Operator")
+                {
+                    AddOperatorRole(user);
+                    CreateEmployee(model, user, imageData);
+                }
+                if (model.Role == "Driver")
+                {
+                    AddDriverRole(user);
+                    CreateDriver(model, user, imageData);
+                }
+
+               var  result = UserManager.Create(user, password);
+                if (result.Succeeded)
+                {
+                    TempData["msg"] = model.Role + " Saved Successfully!";
+                    return RedirectToAction("EmployeeRegisterWithRole");
+                }
+                AddErrors(result);
+
+            }
+            TempData["msg"] = model.Role + " Not Saved!";
+
+            GetDropDownsValues();
+            return View(model);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Controller")]
+        public ActionResult OperatorRegister()
+        {
+            GetDropDownsValues();
+
+            return View();
+        }
+       
+        [HttpPost]
+        [Authorize(Roles = "Controller")]
+        [ValidateAntiForgeryToken]
+        public ActionResult OperatorRegister([Bind(Exclude = "UserPhoto")]EmployeeRegisterWithRoleViewModel model)
+        {
+            ModelState.Remove("UserPhoto");
+            if (ModelState.IsValid)
+            {
+                var imageData = GetImageData();
+
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
+                user.Id = Guid.NewGuid().ToString();
+                var password = "1234";
+                user.UserPhoto = imageData;
+             
+                AddOperatorRole(user);
+                CreateEmployee(model, user, imageData);
+               
+                var result =UserManager.Create(user, password);
+
+                if (result.Succeeded)
+                {
+                    TempData["msg"] = "Operator Saved Successfully!";
+                    return RedirectToAction("OperatorRegister");
+                }
+                AddErrors(result);
+
+            }
+            TempData["msg"] = "Operator Not Saved!";
+            GetDropDownsValues();
+            return View(model);
+        }
+      
+      
+        [HttpPost]
+        [Authorize(Roles = "Controller,Operator")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DriverRegisterWithRole([Bind(Exclude = "UserPhoto")]EmployeeRegisterWithRoleViewModel model)
+        {
+            ModelState.Remove("UserPhoto");
+            if (ModelState.IsValid)
+            {
+                var imageData = GetImageData();
+
+                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
+                user.Id = Guid.NewGuid().ToString();
+                var password = "1234";
+                user.UserPhoto = imageData;
+              
+                AddDriverRole(user);
+                CreateDriver(model, user, imageData);
+            
+                var result =UserManager.Create(user, password);
+
+                if (result.Succeeded)
+                {
+                    TempData["msg"] = "Driver Saved Successfully!";
+                    return RedirectToAction("DriverRegisterWithRole");
+                }
+                AddErrors(result);
+
+            }
+            TempData["msg"] = "Driver Not Saved!";
+            GetDropDownsValues();
+            return View(model);
+        }
+        
 
 
         [AllowAnonymous]

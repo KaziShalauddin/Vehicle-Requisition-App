@@ -1,14 +1,21 @@
 ﻿@model VehicleManagementApp.Models.EmployeeRegisterWithRoleViewModel
 @{
     ViewBag.Title = "Employee Register";
+
     var departments = ViewBag.Departments;
+    var designations = ViewBag.Designations;
+
     var divisions = ViewBag.Divisions;
+    var districts = ViewBag.Districts;
+    var thanas = ViewBag.Thanas;
+
+
 
 }
 
-<h2>Employee @ViewBag.Title</h2>
+<h2> @ViewBag.Title</h2>
 <br />
-@using (Html.BeginForm("EmployeeRegisterWithRole", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+@using (Html.BeginForm(new { @class = "form-horizontal", @id = "formEmployee", role = "form", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -23,7 +30,8 @@
                 @TempData["msg"]
             </div>
         }
-        @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model=>model.Role)
         <form id="formEmployee">
             <div id="defaultTab" class="col-md-12">
                 <ul class="nav nav-tabs">
@@ -84,9 +92,9 @@
 
                         </div>
                     </div>
-                    @*<div class="tab-pane active" id="tab3">*@
+
                     <a style="float: right" id="btnNext01" class="btn btn-success btnNext">Next</a>
-                    @*</div>*@
+
                 </div>
                 <div id="tabs-2">
                     <div class="row">
@@ -103,7 +111,7 @@
                             <div class="form-group">
                                 @Html.LabelFor(model => model.DesignationId, htmlAttributes: new { @class = "control-label col-md-2" })
                                 <div class="col-md-10">
-                                    @Html.DropDownListFor(model => model.DesignationId, null, new { @class = "form-control" })
+                                    @Html.DropDownListFor(model => model.DesignationId, new SelectList(designations, "Id", "Name"), "Select Designation", new { @class = "form-control" })
 
                                     @Html.ValidationMessageFor(model => model.DesignationId, "", new { @class = "text-danger" })
 
@@ -130,8 +138,10 @@
                                 <div class="form-group">
                                     <fieldset data-role="controlgroup">
                                         <legend>Choose User Role:</legend>
-
-                                        <input type="radio" name="role" id="radioEmployeeRole" value="Employee" checked />Employee<br>
+                                        @*@Html.RadioButton("role", "Employee")
+                                        @Html.RadioButton("role", "Operator")
+                                        @Html.RadioButton("role", "Driver")*@
+                                        <input type="radio" name="role" id="radioEmployeeRole" value="Employee" />Employee<br>
 
                                         <input type="radio" name="role" id="radioOperatorRole" value="Operator" />Operator<br>
 
@@ -162,8 +172,7 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.DistrictId, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @*@Html.DropDownListFor(model => model.DistrictId, new SelectList(Model.Districts, "Id", "Name"), "Select Designation", new { @class = "form-control", id = "DistrictDD1" })*@
-                                @Html.DropDownList("DistrictId", null, new { @class = "form-control", id = "DistrictDD2" })
+                                @Html.DropDownList("DistrictId", new SelectList(districts, "Id", "Name"), "Select District", new { @class = "form-control", id = "DistrictDD2" })
                                 @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -171,15 +180,14 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.ThanaId, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @*@Html.DropDownListFor(model => model.ThanaId, new SelectList(Model.Thanas, "Id", "Name"), "Select Designation", new { @class = "form-control", id="thanaDD1" })*@
-                                @Html.DropDownList("ThanaId", null, new { @class = "form-control", id = "thanaDD2" })
+                                @Html.DropDownList("ThanaId", new SelectList(thanas, "Id", "Name"), "Select Thana", new { @class = "form-control", id = "thanaDD2" })
                                 @Html.ValidationMessageFor(model => model.ThanaId, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="control-label col-md-2">Address</label>
-                            @*@Html.LabelFor(model => model.Address, htmlAttributes: new {@class = "control-label col-md-2"})*@
+
                             <div class="col-md-10">
                                 @Html.EditorFor(model => model.Address1, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Address1, "", new { @class = "text-danger" })
@@ -187,20 +195,11 @@
                         </div>
                     </div>
 
-                    @*<div class="form-group">
-                        <label class="control-label col-md-2">Address Line 2</label>
-                        @Html.LabelFor(model => model.Address, htmlAttributes: new {@class = "control-label col-md-2"})
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.Address2, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Address2, "", new { @class = "text-danger" })
-                        </div>
-                    </div>*@
-                    @*</div>*@
 
 
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" class="btn btn-default" value="Register" />
+                            <input type="submit" id="btnRegister" class="btn btn-default" value="Register" />
                         </div>
                     </div>
                     <a style="float: right; margin: 40px 40px; font-size: 20px" class="btn btn-success btnPrevious">Previous</a>
@@ -209,7 +208,7 @@
             </div>
         </form>
     </div>
-    
+
 }
 
 @section Scripts {
@@ -217,34 +216,32 @@
     <script src="~/js/jquery-ui.js"></script>
     <script>
         $(document).ready(function () {
-            $(document).ready(function () {
 
-                $("#DepartmentId").change(function () {
-                    var selectedDepartmentId = $("#DepartmentId").val();
-                    var jsonData = { departmentId: selectedDepartmentId };
 
-                    $.ajax(
-                    {
-                        url: "/Designation/GetByDepartments",
-                        data: jsonData,
-                        type: "POST",
-                        success: function (response) {
-                            $("#DesignationId").empty();
-                            var options = "<option >Select...</option>";
-                            $.each(response,
-                                function (key, designation) {
-                                    options += "<option value='" + designation.Id + "'>" + designation.Name + "</option>";
-                                });
+            $("#DepartmentId").change(function () {
+                var selectedDepartmentId = $("#DepartmentId").val();
+                var jsonData = { departmentId: selectedDepartmentId };
 
-                            $("#DesignationId").append(options);
+                $.ajax(
+                {
+                    url: "/Designation/GetByDepartments",
+                    data: jsonData,
+                    type: "POST",
+                    success: function (response) {
+                        $("#DesignationId").empty();
+                        var options = "<option >Select...</option>";
+                        $.each(response,
+                            function (key, designation) {
+                                options += "<option value='" + designation.Id + "'>" + designation.Name + "</option>";
+                            });
+                        $("#DesignationId").append(options);
+                    },
+                    error: function (response) {
 
-                        },
-                        error: function (response) {
+                    }
 
-                        }
-
-                    });
                 });
+
             });
             // permanent address
             $("#DivisionDD1").change(function () {
@@ -392,16 +389,17 @@
             $('.nav-tabs > .active').next('li').find('a').trigger('click');
         });
 
-        $('.btnPrevious').click(function () {
+        $('.btnPrevious').click(function() {
             $('.nav-tabs > .active').prev('li').find('a').trigger('click');
-        })
+        });
     </script>
 
     <script type="text/javascript">
-
-        $(document).ready(function() {
-
-            $("#fileUpload").change(function() {
+       
+        $(document).ready(function () {
+            $('#radioEmployeeRole').attr('checked', true);
+            $('#Role').val('Employee');
+            $("#fileUpload").change(function () {
 
                 var file = this.files;
 
@@ -413,16 +411,16 @@
         });
 
 
-        var ReadImage = function(file) {
+        var ReadImage = function (file) {
 
             var reader = new FileReader;
             var image = new Image;
 
             reader.readAsDataURL(file);
-            reader.onload = function(_file) {
+            reader.onload = function (_file) {
 
                 image.src = _file.target.result;
-                image.onload = function() {
+                image.onload = function () {
 
                     var height = this.height;
                     var width = this.width;
@@ -436,7 +434,7 @@
                 };
             };
         };
-        var ClearPreview = function() {
+        var ClearPreview = function () {
             $("#fileUpload").val('');
             $("#description").text('');
             $("#imgPreview").hide();
@@ -444,54 +442,39 @@
         };
     </script>
     <script type="text/javascript">
-
         $('#radioEmployeeRole').change(function () {
             debugger;
             if ($('#radioEmployeeRole').is(':checked')) {
-                //window.prot.find("#userNameSuggestion").val();
-                var data = $('formEmployee').serialize();
-                $.ajax({
-                    url: '@Url.Action("EmployeeRegisterWithRole")',
-                    data:data,
-                    type: "Post",
-                    //cache: false,
 
-                    success: function (result) {
-
-
-                        $("#userNameSuggestion").html(result);
-                    },
-                    error: function () {
-
-                    }
-
-                });
+                $('#radioEmployeeRole').attr('checked', true);
+                $('#radioOperatorRole').attr('checked', false);
+                $('#radioDriverRole').attr('checked', false);
+                $('#Role').val('Employee');
             }
+        });
+        $('#radioOperatorRole').change(function () {
+            debugger;
+            if ($('#radioOperatorRole').is(':checked')) {
+
+                $('#radioEmployeeRole').attr('checked', false);
+                $('#radioOperatorRole').attr('checked', true);
+                $('#radioDriverRole').attr('checked', false);
+                $('#Role').val('Operator');
+            }
+        });
+        $('#radioDriverRole').change(function () {
+            debugger;
             if ($('#radioDriverRole').is(':checked')) {
-                debugger;
-                //window.prot.find("#userNameSuggestion").val();
-                var data = $('formEmployee').serialize();
-                $.ajax({
-                    url: '@Url.Action("DriverRegisterWithRole")',
-                    data: data,
-                    type: "Post",
-                    //cache: false,
 
-                    success: function (result) {
-
-
-                        $("#userNameSuggestion").html(result);
-                    },
-                    error: function () {
-
-                    }
-
-                });
+                $('#radioEmployeeRole').attr('checked', false);
+                $('#radioOperatorRole').attr('checked', false);
+                $('#radioDriverRole').attr('checked', true);
+                $('#Role').val('Driver');
             }
         });
         $('#chkUserName').change(function () {
             if ($('#chkUserName').is(':checked')) {
-                //window.prot.find("#userNameSuggestion").val();
+
                 $('#UserName').val($("#userNameSuggestion").html());
             } else {
                 $('#UserName').val('');
@@ -500,17 +483,6 @@
         });
         $('#btnNext01').click(function () {
 
-            //$('#container').show();
-            //$('#Name').rules().remote.complete = function (xhr) {
-            //    if (xhr.status == 200 && xhr.responseText === 'true') {
-            //        // validation succeeded => we fetch the id that
-            //        // was sent from the server
-            //        var id = xhr.getResponseHeader('X-ID');
-
-            //        // and of course we do something useful with this id
-            //        alert(id);
-            //    }
-            //};
             var _name = $('#Name').val();
             var _contactNo = $('#ContactNo').val();
 
@@ -531,6 +503,68 @@
 
             });
         });
+        $("#btnRegister").click(function() {
+            //$('#radioEmployeeRole').change(function () {
+            debugger;
+            //if ($('#radioEmployeeRole').is(':checked')) {
+
+            var data = $('#formEmployee').serialize();
+            $.ajax({
+                url: '@Url.Action("EmployeeRegisterWithRole")',
+                data: data,
+                type: "Post",
+                //cache: false,
+
+                success: function() {
+
+                },
+                error: function() {
+
+                }
+
+            });
+        });
+            @*if ($('#radioOperatorRole').is(':checked')) {
+                debugger;
+
+                var data = $('#formEmployee').serialize();
+                $.ajax({
+                    url: '@Url.Action("OperatorRegister")',
+                    data: data,
+                    type: "Post",
+                    //cache: false,
+
+                    success: function () {
+
+                    },
+                    error: function () {
+
+                    }
+
+                });
+
+            }
+           if ($('#radioDriverRole').is(':checked')) {
+                debugger;
+
+                var data = $('#formEmployee').serialize();
+                $.ajax({
+                    url: '@Url.Action("DriverRegisterWithRole")',
+                    data: data,
+                    type: "Post",
+                    //cache: false,
+
+                    success: function () {
+                    },
+                    error: function () {
+                    }
+
+                });
+            }*@
+        //});
+        //});
+
+       
 
         //$(function () {
         //    $('#Name').rules().remote.complete = function (xhr) {

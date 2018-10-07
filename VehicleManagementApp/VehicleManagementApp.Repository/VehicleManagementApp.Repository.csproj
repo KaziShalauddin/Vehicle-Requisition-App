@@ -84,6 +84,14 @@
     <Compile Include="Migrations\201810010812136_EmployeeTable_UserId_ModifiedAgain.Designer.cs">
       <DependentUpon>201810010812136_EmployeeTable_UserId_ModifiedAgain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810061302314_RequisitionTable_Modified.cs" />
+    <Compile Include="Migrations\201810061302314_RequisitionTable_Modified.Designer.cs">
+      <DependentUpon>201810061302314_RequisitionTable_Modified.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810071702327_RequisitionTable_RequestFor_Removed.cs" />
+    <Compile Include="Migrations\201810071702327_RequisitionTable_RequestFor_Removed.Designer.cs">
+      <DependentUpon>201810071702327_RequisitionTable_RequestFor_Removed.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OrganaizationRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -133,6 +141,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810010812136_EmployeeTable_UserId_ModifiedAgain.resx">
       <DependentUpon>201810010812136_EmployeeTable_UserId_ModifiedAgain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810061302314_RequisitionTable_Modified.resx">
+      <DependentUpon>201810061302314_RequisitionTable_Modified.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810071702327_RequisitionTable_RequestFor_Removed.resx">
+      <DependentUpon>201810071702327_RequisitionTable_RequestFor_Removed.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

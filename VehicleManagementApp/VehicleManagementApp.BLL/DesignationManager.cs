@@ -14,6 +14,12 @@ namespace VehicleManagementApp.BLL
     public class DesignationManager:Manager<Designation>, IDesignationManager
     {
         private IDesignationRepository designationRepository;
+
+        public DesignationManager():base(new DesignationRepository())
+        {
+            this.designationRepository = (DesignationRepository)base.BaseRepository;
+        }
+
         public DesignationManager(IDesignationRepository Repository) : base(Repository)
         {
             this.designationRepository = Repository;

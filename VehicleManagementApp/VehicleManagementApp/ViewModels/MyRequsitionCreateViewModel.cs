@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
+using Foolproof;
 using VehicleManagementApp.Models.Models;
 
 namespace VehicleManagementApp.ViewModels
@@ -16,7 +18,7 @@ namespace VehicleManagementApp.ViewModels
         public string Form { get; set; }
 
         [Required]
-        [Display(Name = "Departure Place")]
+        [Display(Name = "Destination")]
         public string To { get; set; }
 
         [Required]
@@ -43,36 +45,21 @@ namespace VehicleManagementApp.ViewModels
         [DataType(DataType.Time)]
         public DateTime JouneyEndTime { get; set; }
 
-        //[DataType(DataType.Time)]
-        //public DateTime Time { get; set; }
+
+        public string RequestType { get; set; }
+        public List<SelectListItem> RequestTypes { get; set; }
 
         [Display(Name = "Request For Other")]
         public bool RequestForOther { get; set; }
+        
 
         [Display(Name = "Employee Name")]
-        public int EmployeeId { get; set; }
+       // [Remote("IsEmployeeIdProvided", "Requsition", HttpMethod = "POST", AdditionalFields = "RequestForOther", ErrorMessage = "Please Select Employee !")]
+        [RequiredIfTrue("RequestForOther", ErrorMessage = "Please, Select An Employee!")]
+        public int? EmployeeId { get; set; }
         public virtual Employee Employee { get; set; }
 
-        public IEnumerable<MyRequsitionViewModel> RequsitionViewModels { get; set; }
+        public IEnumerable<MyRequsitionListViewModel> RequsitionViewModels { get; set; }
 
-        //[Display(Name = "Employee")]
-        //public int EmployeeId { get; set; }
-        //public virtual Employee Employee { get; set; }
-        //public IEnumerable<Employee> Employees { get; set; }
-        //public IEnumerable<Employee> Employees { get; set; }
-
-
-        //[Display(Name = "Vehicle Name")]
-        //public int VehicleId { get; set; }
-        //public Vehicle Vehicle { get; set; }
-        //public IEnumerable<Vehicle> Vehicles { get; set; }
-
-        //[Display(Name = "Vehicle Name")]
-        //public int ManagerId { get; set; }
-        //public Manager Manager { get; set; }
-        //public IEnumerable<Manager> Managers { get; set; }
-
-        //public int EmployeeViewModelId { get; set; }
-        //public EmployeeViewModel EmployeeViewModel { get; set; }
     }
 }

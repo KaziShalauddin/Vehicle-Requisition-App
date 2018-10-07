@@ -10,7 +10,7 @@ using VehicleManagementApp.Repository.Repository;
 
 namespace VehicleManagementApp.Repository
 {
-    public class DistrictRepository:DeletableRepository<District>,IDristictRepository
+    public class DistrictRepository:DeletableRepository<District>,IDistrictRepository
     {
         
     }

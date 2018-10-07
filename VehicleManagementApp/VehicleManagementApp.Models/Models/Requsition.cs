@@ -13,6 +13,7 @@ namespace VehicleManagementApp.Models.Models
     {
         [Key]
         public int Id { get; set; }
+        
         public string Form { get; set; }
         public string To { get; set; }
         public string Description { get; set; }
@@ -20,9 +21,15 @@ namespace VehicleManagementApp.Models.Models
         public DateTime JouneyEnd { get; set; }
         public string Status { get; set; }
         public string RequsitionNumber { get; set; }
+
+        [Display(Name = "Request For")]
         public int? EmployeeId { get; set; }
         public virtual Employee Employee { get; set; }
-        
+
+        public string RequestType { get; set; }
+
+        [Display(Name = "Requested By")]
+        public int? RequestedBy { get; set; }
         //public int? ManagerId { get; set; }
         //public Manager Manager { get; set; }
 

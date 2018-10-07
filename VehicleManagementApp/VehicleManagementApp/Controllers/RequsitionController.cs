@@ -8,7 +8,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System.Web.UI.WebControls.Expressions;
-
+using Microsoft.Ajax.Utilities;
 using VehicleManagementApp.BLL.Contracts;
 using VehicleManagementApp.Models;
 using VehicleManagementApp.Models.Models;
@@ -81,6 +81,8 @@ namespace VehicleManagementApp.Controllers
             requsitionViewModel.Id = requsition.Id;
             requsitionViewModel.Form = requsition.Form;
             requsitionViewModel.To = requsition.To;
+            requsitionViewModel.JourneyStart = requsition.JourneyStart;
+            requsitionViewModel.JouneyEnd = requsition.JouneyEnd;
             requsitionViewModel.Description = requsition.Description;
             requsitionViewModel.Employee = requsition.Employee;
             requsitionViewModel.Manager = manager.FirstOrDefault(c => c.RequsitionId == requsition.Id);
@@ -150,11 +152,7 @@ namespace VehicleManagementApp.Controllers
             var employees = _employeeManager.Get( c => c.IsDriver == false && c.IsDeleted == false);
 
             ViewBag.Employees = employees.ToList();
-            //if (data["msg"] != null)
-            //{
-            //    ViewBag.Result = data["msg"];
-            //}
-            
+
             var requsitionViewList = RequisitionListView();
             allRequsitions.RequsitionViewModels = requsitionViewList;
             return View(allRequsitions);
@@ -382,33 +380,61 @@ namespace VehicleManagementApp.Controllers
                 return View();
             }
         }
+        public bool IsEmployeeIdProvided(int? employeeId,bool requestForOther)
+        {
+            if (requestForOther)
+            {
+                if (employeeId == 0)
+                    return false;
+            }
+            return true;
+
+        }
         public ActionResult MyRequisitionList()
         {
 
 
             MyRequsitionCreateViewModel allRequsitions = new MyRequsitionCreateViewModel();
+            allRequsitions.RequestTypes = GetRequisitionTypes();
 
-            var employees = _employeeManager.Get(c => c.IsDriver == false && c.IsDeleted == false);
+           int myEmployeeId = GetEmployeeId();
+
+
+            var employees = _employeeManager.Get(c => c.IsDriver == false && c.IsDeleted == false && c.Id!=myEmployeeId);
             ViewBag.Employees = employees.ToList();
-            //if (data["msg"] != null)
-            //{
-            //    ViewBag.Result = data["msg"];
-            //}
-
+           
             var requsitionViewList = MyRequisitionListView();
             allRequsitions.RequsitionViewModels = requsitionViewList;
             return View(allRequsitions);
         }
-        public JsonResult MyJsonCreate(RequsitionCreateViewModel requisitionVm)
+        public ActionResult MyRequestList()
+        {
+            var requsitionViewList = MyRequisitionListView();
+            return PartialView("_MyRequisitionListPartial",requsitionViewList);
+        }
+        public JsonResult MyJsonCreate(MyRequsitionCreateViewModel requisitionVm)
         {
             //newDateTime = date.Date + time.TimeOfDay;
+            
 
             if (ModelState.IsValid)
             {
+                int requestForEmployeeId;
+                if (requisitionVm.RequestForOther == false)
+                {
+                    requestForEmployeeId = GetEmployeeId();
+
+                }
+                else
+                {
+                    requestForEmployeeId = (int)requisitionVm.EmployeeId;
+                }
+
+
                 var journeyStart = requisitionVm.JourneyStartDate.Date + requisitionVm.JourneyStartTime.TimeOfDay;
                 var jouneyEnd = requisitionVm.JouneyEndDate.Date + requisitionVm.JouneyEndTime.TimeOfDay;
-
-                var employeeId = GetEmployeeId();
+               
+                
 
                 Requsition requisition = new Requsition();
                 requisition.Form = requisitionVm.Form;
@@ -417,51 +443,66 @@ namespace VehicleManagementApp.Controllers
                 requisition.Description = requisitionVm.Description;
                 requisition.JourneyStart = journeyStart;
                 requisition.JouneyEnd = jouneyEnd;
-                requisition.EmployeeId = employeeId;
+                requisition.EmployeeId = requestForEmployeeId;
+                
+                requisition.RequestedBy = GetEmployeeId();
+                requisition.RequestType = requisitionVm.RequestType;
 
                 bool isSaved = _requisitionManager.Add(requisition);
                 if (isSaved)
                 {
                     TempData["msg"] = "Requisition Send Successfully";
-
+                   
                 }
                 else
                 {
                     TempData["msg"] = "Requisition not Send !";
                 }
+               
+                return Json(TempData["msg"], JsonRequestBehavior.AllowGet);
             }
-            else
-            {
-                TempData["msg"] = "Requisition not Send !";
-            }
+            TempData["msg"] = "Requisition not Send !";
             return Json(TempData["msg"], JsonRequestBehavior.AllowGet);
 
         }
-        private List<MyRequsitionViewModel> MyRequisitionListView()
+        private List<MyRequsitionListViewModel> MyRequisitionListView()
         {
             GetRequisitionComplete();
             var employeeId = GetEmployeeId();
 
-            var allRequisitions = _requisitionManager.Get(r => r.EmployeeId == employeeId).OrderByDescending(c => c.Id);
+            var allRequisitions = _requisitionManager.Get(r => r.RequestedBy == employeeId || r.EmployeeId==employeeId).OrderByDescending(c => c.Id);
 
 
             //var requstionStatus = _requsitionStatusManager.GetAll();
 
-            List<MyRequsitionViewModel> requisitionViewList = new List<MyRequsitionViewModel>();
+            List<MyRequsitionListViewModel> requisitionViewList = new List<MyRequsitionListViewModel>();
             foreach (var requisition in allRequisitions)
             {
-                var requisitionVM = new MyRequsitionViewModel();
+                var requisitionVM = new MyRequsitionListViewModel();
                 requisitionVM.Id = requisition.Id;
+                requisitionVM.RequestType = requisition.RequestType;
+
+                requisitionVM.RequestedBy = requisition.RequestedBy == employeeId ? "Me" : GetEmployeeName(requisition.RequestedBy);
+                requisitionVM.EmployeeName = requisition.EmployeeId == employeeId ? "Me" : GetEmployeeName(requisition.EmployeeId);
+                
+                
                 requisitionVM.Form = requisition.Form;
                 requisitionVM.To = requisition.To;
                 requisitionVM.Description = requisition.Description;
                 requisitionVM.JourneyStart = requisition.JourneyStart;
                 requisitionVM.JouneyEnd = requisition.JouneyEnd;
-
+                
                 requisitionVM.Status = requisition.Status;
                 requisitionViewList.Add(requisitionVM);
             }
             return requisitionViewList;
+        }
+
+        private string GetEmployeeName(int? employeeId)
+        {
+
+            var employee = _employeeManager.Get(c => c.Id== employeeId).Select(c=>c.Name).FirstOrDefault();
+            return employee;
         }
 
         private int GetEmployeeId()
@@ -475,7 +516,13 @@ namespace VehicleManagementApp.Controllers
             var employeeId = employee.Select(e => e.Id).FirstOrDefault();
             return employeeId;
         }
-
+        public List<SelectListItem> GetRequisitionTypes()
+        {
+            return new List<SelectListItem>(){
+                    new SelectListItem{Value = "1",Text = "Official"},
+                    new SelectListItem{Value = "2",Text = "Personal"}
+                    };
+        }
 
     }
 }
