@@ -8,7 +8,7 @@
     IEmployeeManager employee = new EmployeeManager();
 
     var totalDriver = employee.Get(c => c.IsDriver == true);
-    var availableDriver = employee.Get(c => c.Status == "Available");
+    var availableDriver = employee.Get(c => c.Status == "NULL" || c.Status == null && c.IsDriver == true);
     var assignDriver = employee.Get(c => c.Status == "Assigned");
 
     var totalVehicle = vehicle.GetAll().Count();
@@ -96,6 +96,35 @@
                             <li class="menu-active">@Html.ActionLink("Home", "Index", "Home")</li>
                             @if (User.IsInRole(AppEnum.RoleEnum.Controller.ToString()))
                             {
+
+                                <li class="menu-has-children">
+                                    <a href="#">Employee Section</a>
+                                    <ul>
+                                        <li class="menu-has-children">
+                                            <a href="#">Employee Register</a>
+                                            <ul>
+                                                <li>@Html.ActionLink("Employee With Role", "EmployeeRegisterWithRole", "Account")</li>
+                                                <li>@Html.ActionLink("Employee Without Role", "Index", "Employee")</li>
+
+                                            </ul>
+                                        </li>
+                                        <li class="menu-has-children">
+                                            <a href="#">Employee List</a>
+                                            <ul>
+                                                <li>@Html.ActionLink("Drivers", "Index", "Driver")</li>
+                                                <li>@Html.ActionLink("Employees", "Index", "Employee")</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="menu-has-children">
+                                    <a href="#">Requisition</a>
+                                    <ul>
+                                        @*<li>@Html.ActionLink("Requisition", "RequisitionIndex", "Requsition")</li>*@
+                                        <li>@Html.ActionLink("Requisition Queue", "Index", "Manager")</li>
+                                        <li>@Html.ActionLink("My Requisitions", "MyRequisitionList", "Requsition")</li>
+                                    </ul>
+                                </li>
                                 <li class="menu-has-children">
                                     <a href="#">Setup</a>
                                     <ul>
@@ -114,18 +143,7 @@
                                             </ul>
                                         </li>
 
-                                        <li class="menu-has-children">
-                                            <a href="#">Employee</a>
-                                            <ul>
-                                                <li>@Html.ActionLink("Data Entry Operator", "OperatorRegister", "Account")</li>
-                                                <li>@Html.ActionLink("Employee With Role", "EmployeeRegisterWithRole", "Account")</li>
-                                                <li>@Html.ActionLink("Employee Without Role", "Index", "Employee")</li>
-                                                <li>@Html.ActionLink("Driver With Role", "DriverRegisterWithRole", "Account")</li>
-                                                <li>@Html.ActionLink("Driver Without Role", "DriverRegisterWithRole", "Account")</li>
-                                                <li>@Html.ActionLink("Drivers", "Index", "Driver")</li>
-                                                <li>@Html.ActionLink("Employees", "Index", "Employee")</li>
-                                            </ul>
-                                        </li>
+
                                         <li class="menu-has-children">
                                             <a href="#">Vehicle</a>
                                             <ul>
@@ -135,44 +153,31 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="menu-has-children">
-                                    <a href="#">Requisition</a>
-                                    <ul>
-                                        <li>@Html.ActionLink("Requisition", "RequisitionIndex", "Requsition")</li>
-                                        <li>@Html.ActionLink("Requisition Queue", "Index", "Manager")</li>
-                                        <li>@Html.ActionLink("My Requisitions", "MyRequisitionList", "Requsition")</li>
-                                    </ul>
-                                </li>
-
                             }
                             @if (User.IsInRole(AppEnum.RoleEnum.Operator.ToString()))
                             {
                                 <li class="menu-has-children">
-                                    <a href="#">Setup</a>
+                                    <a href="#">Employee Register</a>
                                     <ul>
-
-                                        <li class="menu-has-children">
-                                            <a href="#">Employee</a>
-                                            <ul>
-
-                                                <li>@Html.ActionLink("Employee With Role", "EmployeeRegisterWithRole", "Account")</li>
-                                                <li>@Html.ActionLink("Employee Without Role", "Index", "Employee")</li>
-                                                <li>@Html.ActionLink("Driver With Role", "DriverRegisterWithRole", "Account")</li>
-                                                <li>@Html.ActionLink("Driver Without Role", "DriverRegisterWithRole", "Account")</li>
-                                                <li>@Html.ActionLink("Drivers", "Index", "Driver")</li>
-                                                <li>@Html.ActionLink("Employees", "Index", "Employee")</li>
-                                            </ul>
-                                        </li>
+                                        <li>@Html.ActionLink("Employee With Role", "EmployeeRegisterWithRole", "Account")</li>
+                                        <li>@Html.ActionLink("Employee Without Role", "Index", "Employee")</li>
 
                                     </ul>
                                 </li>
                                 <li class="menu-has-children">
-                                    <a href="#">Requisition</a>
+                                    <a href="#">Employee List</a>
                                     <ul>
-                                        <li>@Html.ActionLink("My Requisitions", "MyRequisitionList", "Requsition")</li>
-
+                                        <li>@Html.ActionLink("Drivers", "Index", "Driver")</li>
+                                        <li>@Html.ActionLink("Employees", "Index", "Employee")</li>
                                     </ul>
                                 </li>
+                                        <li class="menu-has-children">
+                                            <a href="#">Requisition</a>
+                                            <ul>
+                                                <li>@Html.ActionLink("My Requisitions", "MyRequisitionList", "Requsition")</li>
+
+                                            </ul>
+                                        </li>
 
 
                             }
@@ -183,23 +188,14 @@
                                     <ul>
                                         <li>@Html.ActionLink("My Requisitions", "MyRequisitionList", "Requsition")</li>
 
-
                                     </ul>
                                 </li>
 
 
                             }
-
                             <li>
                                 @if (Request.IsAuthenticated)
                                 {
-                                    @*using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
-                                        {
-                                            @Html.AntiForgeryToken()
-                                            <a href="javascript:document.getElementById('logoutForm').submit()" class="btn btn-default btn-flat">Sign out</a>
-
-
-                                        }*@
 
                                     @*<img src="@Url.Action("UserPhotos", "Home")" class="img-circle" style="height: 20px; width: 40px;" />*@
                                 <li class="menu-has-children">
@@ -216,6 +212,8 @@
                                 </li>
 
                             </ul>
+
+
 
                             <!-- #nav-menu-container -->
 

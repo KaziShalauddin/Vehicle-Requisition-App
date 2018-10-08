@@ -3,19 +3,30 @@
     ViewBag.Title = "Employee Register";
 
     var departments = ViewBag.Departments;
-    var designations = ViewBag.Designations;
+    // var designations = ViewBag.Designations;
 
     var divisions = ViewBag.Divisions;
-    var districts = ViewBag.Districts;
-    var thanas = ViewBag.Thanas;
+    //var districts = ViewBag.DistrictId;
+    //var thanas = ViewBag.Thanas;
 
-
+    //"EmployeeRegisterWithRole", "Account", FormMethod.Post,
 
 }
+@section styles{
+    <style>
+        .not-active {
+            pointer-events: none;
+            cursor: default;
+            text-decoration: none;
+            color: black;
+        }
 
+       
+    </style>
+}
 <h2> @ViewBag.Title</h2>
 <br />
-@using (Html.BeginForm(new { @class = "form-horizontal", @id = "formEmployee", role = "form", enctype = "multipart/form-data" }))
+@using (Html.BeginForm("EmployeeRegisterWithRole", "Account", FormMethod.Post, new { @class = "form-horizontal", @id = "formEmployee", role = "form", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
@@ -30,14 +41,20 @@
                 @TempData["msg"]
             </div>
         }
+        @if (TempData["msgPhoto"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["msgPhoto"]
+            </div>
+        }
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model=>model.Role)
+        @Html.HiddenFor(model => model.Role)
         <form id="formEmployee">
             <div id="defaultTab" class="col-md-12">
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="#tabs-3">Personal Information</a></li>
-                    <li><a href="#tabs-2">Official Information</a></li>
-                    <li><a href="#tabs-1">Present Address</a></li>
+                    <li class="not-active"><a href="#tabs-2">Official Information</a></li>
+                    <li class="not-active"><a href="#tabs-1">Present Address</a></li>
 
                 </ul>
                 <br />
@@ -47,24 +64,24 @@
                         <div class="col-md-6">
                             <div class="jumbotron">
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    @Html.LabelFor(model => model.Name, htmlAttributes: new {@class = "control-label col-md-2"})
                                     <div class="col-md-10">
-                                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                        @Html.EditorFor(model => model.Name, new {htmlAttributes = new {@class = "form-control"}})
+                                        @Html.ValidationMessageFor(model => model.Name, "", new {@class = "text-danger"})
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    @Html.LabelFor(model => model.Email, htmlAttributes: new {@class = "control-label col-md-2"})
                                     <div class="col-md-10">
-                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                        @Html.EditorFor(model => model.Email, new {htmlAttributes = new {@class = "form-control"}})
+                                        @Html.ValidationMessageFor(model => model.Email, "", new {@class = "text-danger"})
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.ContactNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    @Html.LabelFor(model => model.ContactNo, htmlAttributes: new {@class = "control-label col-md-2"})
                                     <div class="col-md-10">
-                                        @Html.EditorFor(model => model.ContactNo, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.ContactNo, "", new { @class = "text-danger" })
+                                        @Html.EditorFor(model => model.ContactNo, new {htmlAttributes = new {@class = "form-control"}})
+                                        @Html.ValidationMessageFor(model => model.ContactNo, "", new {@class = "text-danger"})
                                     </div>
                                 </div>
                             </div>
@@ -72,30 +89,35 @@
                         <div class="col-md-6 ">
 
                             <div class="form-group">
-                                @Html.Label("User Photo", new { @class = "col-md-4 control-label" })
+                                @Html.Label("User Photo", new {@class = "col-md-4 control-label"})
                                 <div id="imgPreview" class="thumbnail" style="display: block">
-                                    <img class="img-responsive" id="targetImg" style="height: 300px; width: 350px" />
+                                    <img class="img-responsive" id="targetImg" style="height: 300px; width: 350px"/>
                                     <div class="caption">
                                         <a href="#" onclick="ClearPreview()"><i class="glyphicon glyphicon-trash"></i></a>
                                         <span id="description"></span>
                                     </div>
                                     @*<a href="#" class="btn btn-default" onclick="Uploadimage()">Upload</a>*@
                                 </div>
-                                <br />
+                                <br/>
                                 <div class="btn btn-primary ">
                                     <div class="col-md-10">
-                                        <input type="file" name="UserPhoto" id="fileUpload" accept=".png,.jpg,.jpeg,.gif,.tif" />
+                                        <input type="file" name="UserPhoto" id="fileUpload" accept=".png,.jpg,.jpeg,.gif,.tif"/>
                                     </div>
                                 </div>
 
                             </div>
 
                         </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <a style="float: right" id="btnNext01" class="btn btn-info btnNext"> Next </a>
+                        </div>
                     </div>
 
-                    <a style="float: right" id="btnNext01" class="btn btn-success btnNext">Next</a>
-
                 </div>
+               
                 <div id="tabs-2">
                     <div class="row">
                         <div class="col-md-6 jumbotron">
@@ -111,7 +133,14 @@
                             <div class="form-group">
                                 @Html.LabelFor(model => model.DesignationId, htmlAttributes: new { @class = "control-label col-md-2" })
                                 <div class="col-md-10">
-                                    @Html.DropDownListFor(model => model.DesignationId, new SelectList(designations, "Id", "Name"), "Select Designation", new { @class = "form-control" })
+                                    @if (Model.Designations.Any())
+                                    {
+                                        @Html.DropDownListFor(model => model.DesignationId, new SelectList(Model.Designations, "Id", "Name"), "Select Designation", new { @class = "form-control" })
+                                    }
+                                    @if (!Model.Designations.Any())
+                                    {
+                                        @Html.DropDownListFor(model => model.DesignationId, null, new { @class = "form-control" })
+                                    }
 
                                     @Html.ValidationMessageFor(model => model.DesignationId, "", new { @class = "text-danger" })
 
@@ -122,30 +151,28 @@
                         <div class="col-md-6 ">
                             <div class="jumbotron ">
                                 <div class="form-group">
-                                    @Html.Label("UserName", htmlAttributes: new { @class = "control-label col-md-2" })
+                                    @Html.Label("UserName", htmlAttributes: new {@class = "control-label col-md-2"})
                                     <div class="col-md-10">
-                                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
-                                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                                        @Html.EditorFor(model => model.UserName, new {htmlAttributes = new {@class = "form-control"}})
+                                        @Html.ValidationMessageFor(model => model.UserName, "", new {@class = "text-danger"})
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div>
                                         <span>User Name Suggestion:  </span>
-                                        <span id="userNameSuggestion"></span>
-                                        <input type="checkbox" id="chkUserName" /> Use it.<br>
+                                        <span id="userNameSuggestion">Give employee name and contact no. first!</span>
+                                        <input type="checkbox" id="chkUserName"/> Use it.<br>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <fieldset data-role="controlgroup">
                                         <legend>Choose User Role:</legend>
-                                        @*@Html.RadioButton("role", "Employee")
-                                        @Html.RadioButton("role", "Operator")
-                                        @Html.RadioButton("role", "Driver")*@
-                                        <input type="radio" name="role" id="radioEmployeeRole" value="Employee" />Employee<br>
 
-                                        <input type="radio" name="role" id="radioOperatorRole" value="Operator" />Operator<br>
+                                        <input type="radio" name="role" id="radioEmployeeRole" value="Employee"/>Employee<br>
 
-                                        <input type="radio" name="role" id="radioDriverRole" value="Driver" />Driver<br>
+                                        <input type="radio" name="role" id="radioOperatorRole" value="Operator"/>Operator<br>
+
+                                        <input type="radio" name="role" id="radioDriverRole" value="Driver"/>Driver<br>
                                     </fieldset>
 
                                 </div>
@@ -153,11 +180,19 @@
                                     <span>Default Password :  </span>
                                     <span><b>1234</b>  </span>
                                 </div>
+
                             </div>
+                          
+                                <a style="float: right; margin-left: 20px;" id="btnNext02" class="btn btn-info btnNext">Next</a>
+                                
+                         
+                                <a style="float: right; margin-left: 20px;" class="btn btn-info btnPrevious">Previous</a>
+                           
+                           
                         </div>
                     </div>
-                    <a style="float: right" class="btn btn-success btnNext">Next</a>
-                    <a style="float: right" class="btn btn-success btnPrevious">Previous</a>
+                    <br />
+                    <br />
                 </div>
                 <div id="tabs-1">
                     <div class="jumbotron">
@@ -172,7 +207,15 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.DistrictId, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.DropDownList("DistrictId", new SelectList(districts, "Id", "Name"), "Select District", new { @class = "form-control", id = "DistrictDD2" })
+                                @if (Model.Districts.Any())
+                                {
+                                    @Html.DropDownListFor(model => model.DistrictId, new SelectList(Model.Districts, "Id", "Name"), "Select District", new { @class = "form-control" })
+                                }
+                                @if (!Model.Districts.Any())
+                                {
+                                    @Html.DropDownListFor(model => model.DistrictId, null, new { @class = "form-control", id = "DistrictDD2" })
+                                }
+                                @*@Html.DropDownList("DistrictId", new SelectList(districts, "Id", "Name"), "Select District", new { @class = "form-control", id = "DistrictDD2" })*@
                                 @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -180,7 +223,16 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.ThanaId, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.DropDownList("ThanaId", new SelectList(thanas, "Id", "Name"), "Select Thana", new { @class = "form-control", id = "thanaDD2" })
+                                @if (Model.Thanas.Any())
+                                {
+                                    @Html.DropDownListFor(model => model.ThanaId, new SelectList(Model.Thanas, "Id", "Name"), "Select Thana", new { @class = "form-control" })
+                                }
+                                @if (!Model.Thanas.Any())
+                                {
+                                    @Html.DropDownListFor(model => model.ThanaId, null, new { @class = "form-control", id = "thanaDD2" })
+                                }
+
+                                @*@Html.DropDownList("ThanaId", new SelectList(thanas, "Id", "Name"), "Select Thana", new { @class = "form-control", id = "thanaDD2" })*@
                                 @Html.ValidationMessageFor(model => model.ThanaId, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -195,14 +247,18 @@
                         </div>
                     </div>
 
-
-
                     <div class="form-group">
-                        <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" id="btnRegister" class="btn btn-default" value="Register" />
-                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="submit" class="btn btn-default" value="Register" />
+
+                            </div>
+                            <div class="col-md-6">
+                                <a style="float: right; font-size: 20px" class="btn btn-info btnPrevious">Previous</a>
+
+                            </div>
+                            </div>
                     </div>
-                    <a style="float: right; margin: 40px 40px; font-size: 20px" class="btn btn-success btnPrevious">Previous</a>
                 </div>
 
             </div>
@@ -215,10 +271,10 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script src="~/js/jquery-ui.js"></script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
 
 
-            $("#DepartmentId").change(function () {
+            $("#DepartmentId").change(function() {
                 var selectedDepartmentId = $("#DepartmentId").val();
                 var jsonData = { departmentId: selectedDepartmentId };
 
@@ -227,16 +283,16 @@
                     url: "/Designation/GetByDepartments",
                     data: jsonData,
                     type: "POST",
-                    success: function (response) {
+                    success: function(response) {
                         $("#DesignationId").empty();
                         var options = "<option >Select...</option>";
                         $.each(response,
-                            function (key, designation) {
+                            function(key, designation) {
                                 options += "<option value='" + designation.Id + "'>" + designation.Name + "</option>";
                             });
                         $("#DesignationId").append(options);
                     },
-                    error: function (response) {
+                    error: function(response) {
 
                     }
 
@@ -244,21 +300,21 @@
 
             });
             // permanent address
-            $("#DivisionDD1").change(function () {
+            $("#DivisionDD1").change(function() {
                 var permanentDivisionId = $("#DivisionDD1").val();
                 var permanentTargetId = "#DistrictDD1";
                 GetPermanentDistrictAndBind(permanentDivisionId, permanentTargetId);
             });
 
             //permanent thana
-            $("#DistrictDD1").change(function () {
+            $("#DistrictDD1").change(function() {
                 var permanentDistrictId = $("#DistrictDD1").val();
                 var permanentTargetId = "#thanaDD1";
                 GetPermanentThanaAndBind(permanentDistrictId, permanentTargetId);
             });
 
             // present address
-            $("#DivisionDD2").change(function () {
+            $("#DivisionDD2").change(function() {
                 var selectedDivisionId = $("#DivisionDD2").val();
                 var targetid = "#DistrictDD2";
                 GetDistrictAndBind(selectedDivisionId, targetid);
@@ -267,7 +323,7 @@
 
 
             // thana present
-            $("#DistrictDD2").change(function () {
+            $("#DistrictDD2").change(function() {
                 var selectedthanaId = $("#DistrictDD2").val();
                 var targetid = "#thanaDD2";
                 GetThanaAndBind(selectedthanaId, targetid);
@@ -283,17 +339,17 @@
                 url: "/district/GetByDivision",
                 data: jsonData,
                 type: "POST",
-                success: function (response) {
+                success: function(response) {
                     $(permanentTargetId).empty();
 
                     var options = "<option>Select.....</option>";
                     $.each(response,
-                        function (key, district) {
+                        function(key, district) {
                             options += "<option value='" + district.Id + "'>" + district.Name + "</option>";
                         });
                     $(permanentTargetId).append(options);
                 },
-                error: function (response) {
+                error: function(response) {
 
                 }
             });
@@ -306,16 +362,16 @@
                 url: "/Thana/GetByDistrict",
                 data: jsonData,
                 type: "POST",
-                success: function (response) {
+                success: function(response) {
                     $(permanentTargetId).empty();
                     var options = "<option>Select.....</option>";
                     $.each(response,
-                        function (key, thana) {
+                        function(key, thana) {
                             options += "<option value='" + thana.Id + "'>" + thana.Name + "</option>";
                         });
                     $(permanentTargetId).append(options);
                 },
-                error: function (response) {
+                error: function(response) {
 
                 }
             });
@@ -328,17 +384,17 @@
                 url: "/district/GetByDivision",
                 data: jsonData,
                 type: "POST",
-                success: function (response) {
+                success: function(response) {
                     $(targetid).empty();
 
                     var options = "<option>Select.....</option>";
                     $.each(response,
-                        function (key, district) {
+                        function(key, district) {
                             options += "<option value='" + district.Id + "'>" + district.Name + "</option>";
                         });
                     $(targetid).append(options);
                 },
-                error: function (response) {
+                error: function(response) {
 
                 }
             });
@@ -351,17 +407,17 @@
                 url: "/Thana/GetByDistrict",
                 data: jsonData,
                 type: "POST",
-                success: function (response) {
+                success: function(response) {
                     $(targetid).empty();
 
                     var options = "<option>Select.....</option>";
                     $.each(response,
-                        function (key, district) {
+                        function(key, district) {
                             options += "<option value='" + district.Id + "'>" + district.Name + "</option>";
                         });
                     $(targetid).append(options);
                 },
-                error: function (response) {
+                error: function(response) {
 
                 }
             });
@@ -369,7 +425,10 @@
 
     </script>
     <script type="text/javascript">
-
+        //$(document).ready(function () {
+        //    $("#tabs-2").addClass("not-active");
+        //    $("#tabs-3").addClass("not-active");
+        //});
 
         $(function () {
 
@@ -379,8 +438,14 @@
             });
 
         });
-
-
+        $("#btnNext01").on("click", function () {
+            $(this).removeClass("active");
+            $("#tabs-2").addClass("active");
+        });
+        $("#btnNext02").on("click", function () {
+            $(this).removeClass("active");
+            $("#tabs-3").addClass("active");
+        });
         $(".nav li").on("click", function () {
             $(".nav li").removeClass("active");
             $(this).addClass("active");
@@ -389,14 +454,15 @@
             $('.nav-tabs > .active').next('li').find('a').trigger('click');
         });
 
-        $('.btnPrevious').click(function() {
+        $('.btnPrevious').click(function () {
             $('.nav-tabs > .active').prev('li').find('a').trigger('click');
         });
     </script>
 
     <script type="text/javascript">
-       
+
         $(document).ready(function () {
+
             $('#radioEmployeeRole').attr('checked', true);
             $('#Role').val('Employee');
             $("#fileUpload").change(function () {
@@ -485,86 +551,26 @@
 
             var _name = $('#Name').val();
             var _contactNo = $('#ContactNo').val();
-
-            $.ajax({
-                url: '@Url.Action("SuggestUserName")',
-                data: { name: _name, contactNo: _contactNo },
-                type: "Post",
-                //cache: false,
-
-                success: function (result) {
-
-
-                    $("#userNameSuggestion").html(result);
-                },
-                error: function () {
-
-                }
-
-            });
-        });
-        $("#btnRegister").click(function() {
-            //$('#radioEmployeeRole').change(function () {
-            debugger;
-            //if ($('#radioEmployeeRole').is(':checked')) {
-
-            var data = $('#formEmployee').serialize();
-            $.ajax({
-                url: '@Url.Action("EmployeeRegisterWithRole")',
-                data: data,
-                type: "Post",
-                //cache: false,
-
-                success: function() {
-
-                },
-                error: function() {
-
-                }
-
-            });
-        });
-            @*if ($('#radioOperatorRole').is(':checked')) {
-                debugger;
-
-                var data = $('#formEmployee').serialize();
+            if (_name != '' && _contactNo != '') {
                 $.ajax({
-                    url: '@Url.Action("OperatorRegister")',
-                    data: data,
+                    url: '@Url.Action("SuggestUserName")',
+                    data: { name: _name, contactNo: _contactNo },
                     type: "Post",
                     //cache: false,
 
-                    success: function () {
+                    success: function (result) {
 
+
+                        $("#userNameSuggestion").html(result);
                     },
                     error: function () {
 
                     }
 
                 });
-
             }
-           if ($('#radioDriverRole').is(':checked')) {
-                debugger;
-
-                var data = $('#formEmployee').serialize();
-                $.ajax({
-                    url: '@Url.Action("DriverRegisterWithRole")',
-                    data: data,
-                    type: "Post",
-                    //cache: false,
-
-                    success: function () {
-                    },
-                    error: function () {
-                    }
-
-                });
-            }*@
-        //});
-        //});
-
-       
+            
+        });
 
         //$(function () {
         //    $('#Name').rules().remote.complete = function (xhr) {

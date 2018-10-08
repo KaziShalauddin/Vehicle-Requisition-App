@@ -215,10 +215,7 @@ namespace VehicleManagementApp.Models
     }
     public class EmployeeRegisterWithRoleViewModel
     {
-        //[Required]
-        //[EmailAddress]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
+       
 
         //[Required]
         //[StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
@@ -232,28 +229,25 @@ namespace VehicleManagementApp.Models
         //public string ConfirmPassword { get; set; }
 
        
-        [Display(Name = "User Photo")]
-        [Required]
-        public byte[] UserPhoto { get; set; }
+       
 
         [Required]
         //[Remote("SuggestUserName", "Account", HttpMethod = "POST", AdditionalFields = "ContactNo")]
         public string Name { get; set; }
 
-        [Required]
-        [Remote("UserAlreadyExists", "Account", HttpMethod = "POST", ErrorMessage = "User Name Already Exist, Try Another")]
-        public string UserName { get; set; }
-       
+        //[Required]
+        //[EmailAddress]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
         [Required]
         [Remote("IsNameExist", "Employee", HttpMethod = "POST", AdditionalFields = "Name", ErrorMessage = "Contact No Already Exist, Try Another")]
         public string ContactNo { get; set; }
 
-        //public byte[] Image { get; set; }
 
-
-        [Required]
-        [Display(Name = "Address")]
-        public string Address1 { get; set; }
+        [Display(Name = "User Photo")]
+        //[Remote("UserAlreadyExists", "Account", HttpMethod = "POST", ErrorMessage = "User Name Already Exist, Try Another")]
+        public byte[] UserPhoto { get; set; }
 
 
         [Display(Name = "Department")]
@@ -263,12 +257,17 @@ namespace VehicleManagementApp.Models
 
         [Display(Name = "Designation")]
         public int DesignationId { get; set; }
+        public IEnumerable<Designation> Designations { get; set; }
 
+         [Required]
+        [Remote("UserAlreadyExists", "Account", HttpMethod = "POST", ErrorMessage = "User Name Already Exist, Try Another")]
+        public string UserName { get; set; }
+       
 
 
         [Display(Name = "Division")]
         public int DivisionId { get; set; }
-
+        public IEnumerable<District> Districts { get; set; }
 
         [Display(Name = "District")]
         public int DistrictId { get; set; }
@@ -276,6 +275,13 @@ namespace VehicleManagementApp.Models
 
         [Display(Name = "Thana/Upzilla")]
         public int ThanaId { get; set; }
+        public IEnumerable<Thana> Thanas { get; set; }
+
+
+        [Required]
+        [Display(Name = "Address")]
+        public string Address1 { get; set; }
+
 
         public string Role { get; set; }
        

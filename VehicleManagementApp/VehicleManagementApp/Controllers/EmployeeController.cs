@@ -106,28 +106,8 @@ namespace VehicleManagementApp.Controllers
         [HttpPost]
         public ActionResult Create(EmployeeViewModel employeeVM)
         {
-
-
-
             if (ModelState.IsValid)
             {
-                //ApplicationUser user =
-                //    System.Web.HttpContext.Current.GetOwinContext()
-                //        .GetUserManager<ApplicationUserManager>()
-                //        .FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
-                
-
-                //var newUser = new ApplicationUser { UserName = employeeVM.Email, Email = employeeVM.Email };
-                ////Add role to user
-                //var role = new IdentityUserRole();
-                //role.UserId = user.Id;
-                //// assign User role Id
-                //role.RoleId = "648d557d-307b-4a72-9555-5f60070d80c9";
-                //user.Roles.Add(role);
-                //user.Email = employeeVM.Email;
-               
-                //var result = await UserManager.CreateAsync(user, model.Password);
-
                 Employee employee = new Employee
                 {
                     //UserId = user.Id,

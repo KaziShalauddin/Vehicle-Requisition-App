@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -431,7 +432,7 @@ namespace VehicleManagementApp.Controllers
             return View();
         }
 
-       
+
 
         IDepartmentManager departmentManager = new DepartmentManager();
         IDesignationManager designationManager = new DesignationManager();
@@ -439,7 +440,7 @@ namespace VehicleManagementApp.Controllers
         IDivisionManager divisionManager = new DivisionManager();
         IDistrictManager districtManager = new DistrictManager();
         IThanaManager thanaManager = new ThanaManager();
-        private void GetDropDownsValues()
+        private void GetDropDownsValues(EmployeeRegisterWithRoleViewModel model)
         {
             var departments = departmentManager.GetAll();
             var designations = designationManager.GetAll();
@@ -449,11 +450,12 @@ namespace VehicleManagementApp.Controllers
             var thanas = thanaManager.GetAll();
 
             ViewBag.Departments = departments;
-            ViewBag.Designations = designations;
-
             ViewBag.Divisions = divisions;
-            ViewBag.Districts = districts;
-            ViewBag.Thanas = thanas;
+
+           
+            model.Designations = designations;
+            model.Districts = districts;
+            model.Thanas = thanas;
         }
         private static void AddEmployeeRole(ApplicationUser user)
         {
@@ -540,175 +542,33 @@ namespace VehicleManagementApp.Controllers
         [Authorize(Roles = "Controller,Operator")]
         public ActionResult EmployeeRegisterWithRole()
         {
-            GetDropDownsValues();
+            var departments = departmentManager.GetAll();
+            var divisions = divisionManager.GetAll();
 
-            return View();
-        }
-        //
-        // POST: /Account/EmployeeRegisterWithRole
-        [HttpPost]
-        [Authorize(Roles = "Controller,Operator")]
-        [ValidateAntiForgeryToken]
-        public ActionResult EmployeeRegisterWithRole([Bind(Exclude = "UserPhoto")]EmployeeRegisterWithRoleViewModel model)
-        {
-            var imageData = GetImageData();
-            ModelState.Remove("UserPhoto");
-            if (ModelState.IsValid)
-            {
+            EmployeeRegisterWithRoleViewModel model=new EmployeeRegisterWithRoleViewModel();
+            model.Designations=new List<Designation>();
+            model.Districts=new List<District>();
+            model.Thanas=new List<Thana>();
 
-                // To convert the user uploaded Photo as Byte Array before save to DB
-               
 
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
-                user.Id = Guid.NewGuid().ToString();
-                var password = "1234";
-                user.UserPhoto = imageData;
+            ViewBag.Departments = departments;
+            ViewBag.DesignationId = new SelectListItem[] { new SelectListItem() { Value = "", Text = "Select Department First...." } };
 
-                if (model.Role == "Employee")
-                {
-                    AddEmployeeRole(user);
-                    CreateEmployee(model, user, imageData);
-                }
-                if (model.Role == "Operator")
-                {
-                    AddOperatorRole(user);
-                    CreateEmployee(model, user, imageData);
-                }
-                if (model.Role == "Driver")
-                {
-                    AddDriverRole(user);
-                    CreateDriver(model, user, imageData);
-                }
+            ViewBag.Divisions = divisions;
+            ViewBag.DistrictId = new SelectListItem[] { new SelectListItem() { Value = "", Text = "Select Division First....." } };
+            ViewBag.ThanaId = new SelectListItem[] { new SelectListItem() { Value = "", Text = "Select District First...." } };
 
-               var  result = UserManager.Create(user, password);
-                if (result.Succeeded)
-                {
-                    TempData["msg"] = model.Role + " Saved Successfully!";
-                    return RedirectToAction("EmployeeRegisterWithRole");
-                }
-                AddErrors(result);
 
-            }
-            TempData["msg"] = model.Role + " Not Saved!";
-
-            GetDropDownsValues();
             return View(model);
         }
-
-        [HttpGet]
-        [Authorize(Roles = "Controller")]
-        public ActionResult OperatorRegister()
-        {
-            GetDropDownsValues();
-
-            return View();
-        }
-       
-        [HttpPost]
-        [Authorize(Roles = "Controller")]
-        [ValidateAntiForgeryToken]
-        public ActionResult OperatorRegister([Bind(Exclude = "UserPhoto")]EmployeeRegisterWithRoleViewModel model)
-        {
-            ModelState.Remove("UserPhoto");
-            if (ModelState.IsValid)
-            {
-                var imageData = GetImageData();
-
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
-                user.Id = Guid.NewGuid().ToString();
-                var password = "1234";
-                user.UserPhoto = imageData;
-             
-                AddOperatorRole(user);
-                CreateEmployee(model, user, imageData);
-               
-                var result =UserManager.Create(user, password);
-
-                if (result.Succeeded)
-                {
-                    TempData["msg"] = "Operator Saved Successfully!";
-                    return RedirectToAction("OperatorRegister");
-                }
-                AddErrors(result);
-
-            }
-            TempData["msg"] = "Operator Not Saved!";
-            GetDropDownsValues();
-            return View(model);
-        }
-      
-      
-        [HttpPost]
-        [Authorize(Roles = "Controller,Operator")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DriverRegisterWithRole([Bind(Exclude = "UserPhoto")]EmployeeRegisterWithRoleViewModel model)
-        {
-            ModelState.Remove("UserPhoto");
-            if (ModelState.IsValid)
-            {
-                var imageData = GetImageData();
-
-                var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
-                user.Id = Guid.NewGuid().ToString();
-                var password = "1234";
-                user.UserPhoto = imageData;
-              
-                AddDriverRole(user);
-                CreateDriver(model, user, imageData);
-            
-                var result =UserManager.Create(user, password);
-
-                if (result.Succeeded)
-                {
-                    TempData["msg"] = "Driver Saved Successfully!";
-                    return RedirectToAction("DriverRegisterWithRole");
-                }
-                AddErrors(result);
-
-            }
-            TempData["msg"] = "Driver Not Saved!";
-            GetDropDownsValues();
-            return View(model);
-        }
-        
-
-
-        [AllowAnonymous]
-        public JsonResult SuggestUserName(string name, string contactNo)
-        {
-          var trimContactNo = contactNo.Substring(contactNo.Length - 4);
-
-            var result = name + trimContactNo;
-            //Response.AddHeader("X-ID", "result");
-
-            //return Json(true, JsonRequestBehavior.AllowGet);
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
-        [AllowAnonymous]
-        public  JsonResult UserAlreadyExists(string userName)
-      {
-            ApplicationUser result =
-                 UserManager.FindByName(userName);
-            
-            if (result == null)
-            {
-                // add the id that you want to communicate to the client
-                // in case of validation success as a custom HTTP header
-                //Response.AddHeader("X-ID", "123");
-                return Json(true, JsonRequestBehavior.AllowGet);
-            }
-
-            return Json("User Name Already Exist, Try Another!", JsonRequestBehavior.AllowGet);
-        }
-
         private byte[] GetImageData()
         {
             byte[] imageData = null;
 
             if (Request.Files.Count > 0)
             {
-                HttpPostedFileWrapper imgFile = Request.Files["UserPhoto"] as HttpPostedFileWrapper;
-                if (imgFile != null)
+                HttpPostedFileBase imgFile = Request.Files["UserPhoto"];
+                if (imgFile != null && imgFile.ContentLength > 0)
                 {
                     imgFile.SaveAs(Server.MapPath("~/EmployeeImages/" + imgFile.FileName));
 
@@ -720,6 +580,102 @@ namespace VehicleManagementApp.Controllers
             }
             return imageData;
         }
+        public bool HasFile(byte[] file)
+        {
+
+            return file != null;
+        }
+
+        //
+        // POST: /Account/EmployeeRegisterWithRole
+        [HttpPost]
+        [Authorize(Roles = "Controller,Operator")]
+        [ValidateAntiForgeryToken]
+        public ActionResult EmployeeRegisterWithRole([Bind(Exclude = "UserPhoto")]EmployeeRegisterWithRoleViewModel model)
+        {
+          
+            // ModelState.Remove("UserPhoto");
+            if (ModelState.IsValid)
+            {
+                var imageData = GetImageData();
+                if (HasFile(imageData)){
+                    // To convert the user uploaded Photo as Byte Array before save to DB
+                    
+                    var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
+                    user.Id = Guid.NewGuid().ToString();
+                    var password = "1234";
+                    user.UserPhoto = imageData;
+
+                    if (model.Role == "Employee")
+                    {
+                        AddEmployeeRole(user);
+                        CreateEmployee(model, user, imageData);
+                    }
+                    if (model.Role == "Operator")
+                    {
+                        AddOperatorRole(user);
+                        CreateEmployee(model, user, imageData);
+                    }
+                    if (model.Role == "Driver")
+                    {
+                        AddDriverRole(user);
+                        CreateDriver(model, user, imageData);
+                    }
+
+                    var result = UserManager.Create(user, password);
+                    if (result.Succeeded)
+                    {
+                        TempData["msg"] = model.Role + " Saved Successfully!";
+                        return RedirectToAction("EmployeeRegisterWithRole");
+                    }
+
+                    AddErrors(result);
+                }
+                else
+                {
+                    TempData["msgPhoto"] = "Please give user photo";
+                    GetDropDownsValues(model);
+                    return View(model);
+                }
+
+            }
+            TempData["msg"] = model.Role + " Not Saved!";
+
+            GetDropDownsValues(model);
+            return View(model);
+        }
+        [AllowAnonymous]
+        public JsonResult SuggestUserName(string name, string contactNo)
+        {
+            if (name != null && contactNo != null)
+            {
+                var trimContactNo = contactNo.Substring(contactNo.Length - 4);
+
+                var result = name + trimContactNo;
+                //Response.AddHeader("X-ID", "result");
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+            return Json(true, JsonRequestBehavior.AllowGet);
+           
+        }
+        [AllowAnonymous]
+        public JsonResult UserAlreadyExists(string userName)
+        {
+            ApplicationUser result =
+                 UserManager.FindByName(userName);
+
+            if (result == null)
+            {
+                // add the id that you want to communicate to the client
+                // in case of validation success as a custom HTTP header
+                //Response.AddHeader("X-ID", "123");
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("User Name Already Exist, Try Another!", JsonRequestBehavior.AllowGet);
+        }
+
+        
         protected override void Dispose(bool disposing)
         {
             if (disposing)

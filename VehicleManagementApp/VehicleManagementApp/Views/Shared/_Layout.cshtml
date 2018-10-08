@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="~/css/owl.carousel.min.css">
     <link rel="stylesheet" href="~/css/normalize.css">
     <link rel="stylesheet" href="~/css/style.css">
-
+    @RenderSection("styles", required: false)
     @*<link href="~/css/jquery.datetimepicker.min.css" rel="stylesheet" />*@
     <script src="~/js/vendor/modernizr-3.5.0.min.js"></script>
 </head>
@@ -57,6 +57,35 @@
                         <li class="menu-active">@Html.ActionLink("Home", "Index", "Home")</li>
                         @if (User.IsInRole(AppEnum.RoleEnum.Controller.ToString()))
                         {
+                            
+                            <li class="menu-has-children">
+                                <a href="#">Employee Section</a>
+                                <ul>
+                                    <li class="menu-has-children">
+                                        <a href="#">Employee Register</a>
+                                        <ul>
+                                            <li>@Html.ActionLink("Employee With Role", "EmployeeRegisterWithRole", "Account")</li>
+                                            <li>@Html.ActionLink("Employee Without Role", "Index", "Employee")</li>
+
+                                        </ul>
+                                    </li>
+                                    <li class="menu-has-children">
+                                        <a href="#">Employee List</a>
+                                        <ul>
+                                            <li>@Html.ActionLink("Drivers", "Index", "Driver")</li>
+                                            <li>@Html.ActionLink("Employees", "Index", "Employee")</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="menu-has-children">
+                                <a href="#">Requisition</a>
+                                <ul>
+                                    @*<li>@Html.ActionLink("Requisition", "RequisitionIndex", "Requsition")</li>*@
+                                    <li>@Html.ActionLink("Requisition Queue", "Index", "Manager")</li>
+                                    <li>@Html.ActionLink("My Requisitions", "MyRequisitionList", "Requsition")</li>
+                                </ul>
+                            </li>
                             <li class="menu-has-children">
                                 <a href="#">Setup</a>
                                 <ul>
@@ -75,18 +104,7 @@
                                         </ul>
                                     </li>
 
-                                    <li class="menu-has-children">
-                                        <a href="#">Employee</a>
-                                        <ul>
-                                            <li>@Html.ActionLink("Data Entry Operator", "OperatorRegister", "Account")</li>
-                                            <li>@Html.ActionLink("Employee With Role", "EmployeeRegisterWithRole", "Account")</li>
-                                            <li>@Html.ActionLink("Employee Without Role", "Index", "Employee")</li>
-                                            <li>@Html.ActionLink("Driver With Role", "DriverRegisterWithRole", "Account")</li>
-                                            <li>@Html.ActionLink("Driver Without Role", "DriverRegisterWithRole", "Account")</li>
-                                            <li>@Html.ActionLink("Drivers", "Index", "Driver")</li>
-                                            <li>@Html.ActionLink("Employees", "Index", "Employee")</li>
-                                        </ul>
-                                    </li>
+
                                     <li class="menu-has-children">
                                         <a href="#">Vehicle</a>
                                         <ul>
@@ -96,44 +114,31 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li class="menu-has-children">
-                                <a href="#">Requisition</a>
-                                <ul>
-                                    <li>@Html.ActionLink("Requisition", "RequisitionIndex", "Requsition")</li>
-                                    <li>@Html.ActionLink("Requisition Queue", "Index", "Manager")</li>
-                                    <li>@Html.ActionLink("My Requisitions", "MyRequisitionList", "Requsition")</li>
-                                </ul>
-                            </li>
-
                         }
                         @if (User.IsInRole(AppEnum.RoleEnum.Operator.ToString()))
                         {
                             <li class="menu-has-children">
-                                <a href="#">Setup</a>
+                                <a href="#">Employee Register</a>
                                 <ul>
-
-                                    <li class="menu-has-children">
-                                        <a href="#">Employee</a>
-                                        <ul>
-
-                                            <li>@Html.ActionLink("Employee With Role", "EmployeeRegisterWithRole", "Account")</li>
-                                            <li>@Html.ActionLink("Employee Without Role", "Index", "Employee")</li>
-                                            <li>@Html.ActionLink("Driver With Role", "DriverRegisterWithRole", "Account")</li>
-                                            <li>@Html.ActionLink("Driver Without Role", "DriverRegisterWithRole", "Account")</li>
-                                            <li>@Html.ActionLink("Drivers", "Index", "Driver")</li>
-                                            <li>@Html.ActionLink("Employees", "Index", "Employee")</li>
-                                        </ul>
-                                    </li>
+                                    <li>@Html.ActionLink("Employee With Role", "EmployeeRegisterWithRole", "Account")</li>
+                                    <li>@Html.ActionLink("Employee Without Role", "Index", "Employee")</li>
 
                                 </ul>
                             </li>
-                            <li class="menu-has-children">
-                                <a href="#">Requisition</a>
-                                <ul>
-                                    <li>@Html.ActionLink("My Requisitions", "MyRequisitionList", "Requsition")</li>
+                                        <li class="menu-has-children">
+                                            <a href="#">Employee List</a>
+                                            <ul>
+                                                <li>@Html.ActionLink("Drivers", "Index", "Driver")</li>
+                                                <li>@Html.ActionLink("Employees", "Index", "Employee")</li>
+                                            </ul>
+                                        </li>
+                                        <li class="menu-has-children">
+                                            <a href="#">Requisition</a>
+                                            <ul>
+                                                <li>@Html.ActionLink("My Requisitions", "MyRequisitionList", "Requsition")</li>
 
-                                </ul>
-                            </li>
+                                            </ul>
+                                        </li>
 
 
                         }
@@ -168,6 +173,8 @@
                             </li>
 
                         </ul>
+
+
 
                         <!-- #nav-menu-container -->
 
@@ -226,14 +233,14 @@
 
 
 
-    <script type="text/javascript">
+        <script type="text/javascript">
 
-        $(document).ready(function () {
+            $(document).ready(function () {
 
-            $('#myTable').DataTable();
+                $('#myTable').DataTable();
 
-        });
-    </script>
+            });
+        </script>
 
         @RenderSection("scripts", required: false)
 
