@@ -52,6 +52,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequsitionManager.cs" />
     <Compile Include="ThanaManager.cs" />
+    <Compile Include="DriverStatusManager.cs" />
+    <Compile Include="VehicleStatusManager.cs" />
     <Compile Include="VehicleManager.cs" />
     <Compile Include="VehicleTypeManager.cs" />
   </ItemGroup>

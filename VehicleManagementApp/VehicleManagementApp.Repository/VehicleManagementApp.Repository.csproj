@@ -103,6 +103,8 @@
     <Compile Include="DepartmentRepository.cs" />
     <Compile Include="RequsistionRepository.cs" />
     <Compile Include="ThanaRepository.cs" />
+    <Compile Include="DriverStatusRepository.cs" />
+    <Compile Include="VehicleStatusRepository.cs" />
     <Compile Include="VehicleRepository.cs" />
     <Compile Include="VehicleTypeRepository.cs" />
   </ItemGroup>

@@ -51,6 +51,8 @@
     <Compile Include="IOrganaizationManager.cs" />
     <Compile Include="IRequsitionManager.cs" />
     <Compile Include="IThanaManager.cs" />
+    <Compile Include="IDriverStatusManager.cs" />
+    <Compile Include="IVehicleStatusManager.cs" />
     <Compile Include="IVehicleManager.cs" />
     <Compile Include="IVehicleTypeManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

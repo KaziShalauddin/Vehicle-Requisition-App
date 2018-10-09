@@ -51,6 +51,8 @@
     <Compile Include="IOrganaizationRepository.cs" />
     <Compile Include="IRequsitionRepository.cs" />
     <Compile Include="IThana.cs" />
+    <Compile Include="IDriverStatusRepository.cs" />
+    <Compile Include="IVehicleStatusRepository.cs" />
     <Compile Include="IVehicleRepository.cs" />
     <Compile Include="IVehicleTypeRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
