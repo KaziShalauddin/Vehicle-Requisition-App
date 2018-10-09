@@ -3,13 +3,10 @@
     ViewBag.Title = "Employee Register";
 
     var departments = ViewBag.Departments;
-    // var designations = ViewBag.Designations;
+
 
     var divisions = ViewBag.Divisions;
-    //var districts = ViewBag.DistrictId;
-    //var thanas = ViewBag.Thanas;
 
-    //"EmployeeRegisterWithRole", "Account", FormMethod.Post,
 
 }
 @section styles{
@@ -21,7 +18,11 @@
             color: black;
         }
 
-       
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
     </style>
 }
 <h2> @ViewBag.Title</h2>
@@ -64,24 +65,24 @@
                         <div class="col-md-6">
                             <div class="jumbotron">
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.Name, htmlAttributes: new {@class = "control-label col-md-2"})
+                                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
-                                        @Html.EditorFor(model => model.Name, new {htmlAttributes = new {@class = "form-control"}})
-                                        @Html.ValidationMessageFor(model => model.Name, "", new {@class = "text-danger"})
+                                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.Email, htmlAttributes: new {@class = "control-label col-md-2"})
+                                    @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
-                                        @Html.EditorFor(model => model.Email, new {htmlAttributes = new {@class = "form-control"}})
-                                        @Html.ValidationMessageFor(model => model.Email, "", new {@class = "text-danger"})
+                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    @Html.LabelFor(model => model.ContactNo, htmlAttributes: new {@class = "control-label col-md-2"})
+                                    @Html.LabelFor(model => model.ContactNo, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
-                                        @Html.EditorFor(model => model.ContactNo, new {htmlAttributes = new {@class = "form-control"}})
-                                        @Html.ValidationMessageFor(model => model.ContactNo, "", new {@class = "text-danger"})
+                                        @Html.EditorFor(model => model.ContactNo, null, new { htmlAttributes = new { @type = "number", @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.ContactNo, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                             </div>
@@ -89,26 +90,26 @@
                         <div class="col-md-6 ">
 
                             <div class="form-group">
-                                @Html.Label("User Photo", new {@class = "col-md-4 control-label"})
+                                @Html.Label("User Photo", new { @class = "col-md-4 control-label" })
                                 <div id="imgPreview" class="thumbnail" style="display: block">
-                                    <img class="img-responsive" id="targetImg" style="height: 300px; width: 350px"/>
+                                    <img class="img-responsive" id="targetImg" style="height: 300px; width: 350px" />
                                     <div class="caption">
                                         <a href="#" onclick="ClearPreview()"><i class="glyphicon glyphicon-trash"></i></a>
                                         <span id="description"></span>
                                     </div>
                                     @*<a href="#" class="btn btn-default" onclick="Uploadimage()">Upload</a>*@
                                 </div>
-                                <br/>
+                                <br />
                                 <div class="btn btn-primary ">
                                     <div class="col-md-10">
-                                        <input type="file" name="UserPhoto" id="fileUpload" accept=".png,.jpg,.jpeg,.gif,.tif"/>
+                                        <input type="file" name="UserPhoto" id="fileUpload" accept=".png,.jpg,.jpeg,.gif,.tif" />
                                     </div>
                                 </div>
 
                             </div>
 
                         </div>
-                        
+
                     </div>
                     <div class="row">
                         <div class="col-md-12">
@@ -117,7 +118,7 @@
                     </div>
 
                 </div>
-               
+
                 <div id="tabs-2">
                     <div class="row">
                         <div class="col-md-6 jumbotron">
@@ -151,28 +152,28 @@
                         <div class="col-md-6 ">
                             <div class="jumbotron ">
                                 <div class="form-group">
-                                    @Html.Label("UserName", htmlAttributes: new {@class = "control-label col-md-2"})
+                                    @Html.Label("UserName", htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10">
-                                        @Html.EditorFor(model => model.UserName, new {htmlAttributes = new {@class = "form-control"}})
-                                        @Html.ValidationMessageFor(model => model.UserName, "", new {@class = "text-danger"})
+                                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div>
                                         <span>User Name Suggestion:  </span>
                                         <span id="userNameSuggestion">Give employee name and contact no. first!</span>
-                                        <input type="checkbox" id="chkUserName"/> Use it.<br>
+                                        <input type="checkbox" id="chkUserName" /> Use it.<br>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <fieldset data-role="controlgroup">
                                         <legend>Choose User Role:</legend>
 
-                                        <input type="radio" name="role" id="radioEmployeeRole" value="Employee"/>Employee<br>
+                                        <input type="radio" name="role" id="radioEmployeeRole" value="Employee" />Employee<br>
 
-                                        <input type="radio" name="role" id="radioOperatorRole" value="Operator"/>Operator<br>
+                                        <input type="radio" name="role" id="radioOperatorRole" value="Operator" />Operator<br>
 
-                                        <input type="radio" name="role" id="radioDriverRole" value="Driver"/>Driver<br>
+                                        <input type="radio" name="role" id="radioDriverRole" value="Driver" />Driver<br>
                                     </fieldset>
 
                                 </div>
@@ -182,13 +183,13 @@
                                 </div>
 
                             </div>
-                          
-                                <a style="float: right; margin-left: 20px;" id="btnNext02" class="btn btn-info btnNext">Next</a>
-                                
-                         
-                                <a style="float: right; margin-left: 20px;" class="btn btn-info btnPrevious">Previous</a>
-                           
-                           
+
+                            <a style="float: right; margin-left: 20px;" id="btnNext02" class="btn btn-info btnNext">Next</a>
+
+
+                            <a style="float: right; margin-left: 20px;" class="btn btn-info btnPrevious">Previous</a>
+
+
                         </div>
                     </div>
                     <br />
@@ -215,7 +216,7 @@
                                 {
                                     @Html.DropDownListFor(model => model.DistrictId, null, new { @class = "form-control", id = "DistrictDD2" })
                                 }
-                                @*@Html.DropDownList("DistrictId", new SelectList(districts, "Id", "Name"), "Select District", new { @class = "form-control", id = "DistrictDD2" })*@
+
                                 @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -232,7 +233,6 @@
                                     @Html.DropDownListFor(model => model.ThanaId, null, new { @class = "form-control", id = "thanaDD2" })
                                 }
 
-                                @*@Html.DropDownList("ThanaId", new SelectList(thanas, "Id", "Name"), "Select Thana", new { @class = "form-control", id = "thanaDD2" })*@
                                 @Html.ValidationMessageFor(model => model.ThanaId, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -257,7 +257,7 @@
                                 <a style="float: right; font-size: 20px" class="btn btn-info btnPrevious">Previous</a>
 
                             </div>
-                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -569,7 +569,7 @@
 
                 });
             }
-            
+
         });
 
         //$(function () {

@@ -561,7 +561,20 @@ namespace VehicleManagementApp.Controllers
 
             return View(model);
         }
-        private byte[] GetImageData()
+        public static string GetFileNameToSave(string s)
+        {
+            return s
+                .Replace("\\", "")
+                .Replace("/", "")
+                .Replace("\"", "")
+                .Replace("*", "")
+                .Replace(":", "")
+                .Replace("?", "")
+                .Replace("<", "")
+                .Replace(">", "")
+                .Replace("|", "");
+        }
+        private byte[] GetImageData(string imgName)
         {
             byte[] imageData = null;
 
@@ -570,7 +583,9 @@ namespace VehicleManagementApp.Controllers
                 HttpPostedFileBase imgFile = Request.Files["UserPhoto"];
                 if (imgFile != null && imgFile.ContentLength > 0)
                 {
-                    imgFile.SaveAs(Server.MapPath("~/EmployeeImages/" + imgFile.FileName));
+                    var fileName= GetFileNameToSave(imgName + DateTime.Now);
+                    imgFile.SaveAs(Server.MapPath("~/EmployeeImages/" + fileName));
+                    //imgFile.SaveAs(Server.MapPath(Path.Combine()));
 
                     using (var binary = new BinaryReader(imgFile.InputStream))
                     {
@@ -597,7 +612,7 @@ namespace VehicleManagementApp.Controllers
             // ModelState.Remove("UserPhoto");
             if (ModelState.IsValid)
             {
-                var imageData = GetImageData();
+                var imageData = GetImageData(model.Name);
                 if (HasFile(imageData)){
                     // To convert the user uploaded Photo as Byte Array before save to DB
                     

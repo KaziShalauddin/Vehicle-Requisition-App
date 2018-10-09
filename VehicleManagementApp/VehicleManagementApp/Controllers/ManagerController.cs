@@ -842,7 +842,7 @@ namespace VehicleManagementApp.Controllers
 
         public ActionResult AvailableDriver()
         {
-            var driver = _employeeManager.Get(c => c.Status == "NULL" || c.Status==null&&c.IsDriver==true);
+            var driver = _employeeManager.Get(c => c.Status == "NULL" || c.Status==null&&c.IsDriver);
             List<DriverViewModel> driverViewList = new List<DriverViewModel>();
             foreach (var data in driver)
             {
