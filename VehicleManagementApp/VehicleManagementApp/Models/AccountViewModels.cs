@@ -189,8 +189,10 @@ namespace VehicleManagementApp.Models
 
 
         public string Role { get; set; }
+        [StringLength(5,ErrorMessage = "License No. must be 5 digit. ")]
        
-        
+        [Remote("IsLicenceExist", "Employee", HttpMethod = "POST", ErrorMessage = "Licence No Already Exist, Try Another")]
+        public string LicenceNo { get; set; }
 
     }
 }

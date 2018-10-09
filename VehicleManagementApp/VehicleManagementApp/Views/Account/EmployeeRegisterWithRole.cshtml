@@ -162,25 +162,34 @@
                                     <div>
                                         <span>User Name Suggestion:  </span>
                                         <span id="userNameSuggestion">Give employee name and contact no. first!</span>
-                                        <input type="checkbox" id="chkUserName" /> Use it.<br>
+                                        <input type="checkbox" id="chkUserName"/> Use it.<br>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <fieldset data-role="controlgroup">
-                                        <legend>Choose User Role:</legend>
-
-                                        <input type="radio" name="role" id="radioEmployeeRole" value="Employee" />Employee<br>
-
-                                        <input type="radio" name="role" id="radioOperatorRole" value="Operator" />Operator<br>
-
-                                        <input type="radio" name="role" id="radioDriverRole" value="Driver" />Driver<br>
-                                    </fieldset>
-
                                 </div>
                                 <div style="color: Red !important">
                                     <span>Default Password :  </span>
                                     <span><b>1234</b>  </span>
                                 </div>
+                                <div class="form-group">
+                                    <fieldset data-role="controlgroup">
+                                        <legend>Choose User Role:</legend>
+
+                                        <input type="radio" name="role" id="radioEmployeeRole" value="Employee"/>Employee<br>
+
+                                        <input type="radio" name="role" id="radioOperatorRole" value="Operator"/>Operator<br>
+
+                                        <input type="radio" name="role" id="radioDriverRole" value="Driver"/>Driver<br>
+                                    </fieldset>
+
+
+                                </div>
+                                <div class="form-group" id="licenseDiv">
+                                    @Html.LabelFor(model => model.LicenceNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10">
+                                        @Html.EditorFor(model => model.LicenceNo, null, new { htmlAttributes = new { @type = "number", @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.LicenceNo, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                               
 
                             </div>
 
@@ -464,6 +473,7 @@
         $(document).ready(function () {
 
             $('#radioEmployeeRole').attr('checked', true);
+            $('#licenseDiv').hide();
             $('#Role').val('Employee');
             $("#fileUpload").change(function () {
 
@@ -515,6 +525,9 @@
                 $('#radioEmployeeRole').attr('checked', true);
                 $('#radioOperatorRole').attr('checked', false);
                 $('#radioDriverRole').attr('checked', false);
+               
+                $('#licenseDiv').hide();
+                $('#LicenceNo').attr('required', false);
                 $('#Role').val('Employee');
             }
         });
@@ -524,8 +537,13 @@
 
                 $('#radioEmployeeRole').attr('checked', false);
                 $('#radioOperatorRole').attr('checked', true);
+
                 $('#radioDriverRole').attr('checked', false);
+
+                $('#licenseDiv').hide();
+                $('#LicenceNo').attr('required', false);
                 $('#Role').val('Operator');
+
             }
         });
         $('#radioDriverRole').change(function () {
@@ -535,7 +553,10 @@
                 $('#radioEmployeeRole').attr('checked', false);
                 $('#radioOperatorRole').attr('checked', false);
                 $('#radioDriverRole').attr('checked', true);
+
                 $('#Role').val('Driver');
+                $('#licenseDiv').show();
+                $('#LicenceNo').attr('required', true);
             }
         });
         $('#chkUserName').change(function () {

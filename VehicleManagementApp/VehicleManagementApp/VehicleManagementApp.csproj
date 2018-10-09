@@ -217,6 +217,7 @@
     <Compile Include="Controllers\DistrictController.cs" />
     <Compile Include="Controllers\DivisionController.cs" />
     <Compile Include="Controllers\DriverController.cs" />
+    <Compile Include="Controllers\DriverStatusController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -245,6 +246,7 @@
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CommentViewModel.cs" />
+    <Compile Include="ViewModels\DriverStatusViewModel.cs" />
     <Compile Include="ViewModels\EditDivisionViewModel.cs" />
     <Compile Include="ViewModels\EditDistrictViewModel.cs" />
     <Compile Include="ViewModels\EditDesignationViewModel.cs" />
@@ -658,6 +660,10 @@
     <Content Include="thirdPartyCss\js\vendor\bootstrap.min.js" />
     <Content Include="thirdPartyCss\js\vendor\jquery-2.2.4.min.js" />
     <Content Include="thirdPartyCss\js\waypoints.min.js" />
+    <Content Include="Views\DriverStatus\Add.cshtml" />
+    <Content Include="Views\DriverStatus\Details.cshtml" />
+    <Content Include="Views\DriverStatus\Update.cshtml" />
+    <Content Include="Views\DriverStatus\Index.cshtml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -802,6 +808,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="EmployeeImages\" />
     <Folder Include="Views\Comment\" />
+    <Folder Include="Views\DriverStatusViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
