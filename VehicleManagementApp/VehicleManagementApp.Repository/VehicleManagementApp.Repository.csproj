@@ -96,6 +96,14 @@
     <Compile Include="Migrations\201810090603321_VehicleStatusTable_And_DriverStatusTableAdded.Designer.cs">
       <DependentUpon>201810090603321_VehicleStatusTable_And_DriverStatusTableAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810091821337_DriverStatusTable_Modified.cs" />
+    <Compile Include="Migrations\201810091821337_DriverStatusTable_Modified.Designer.cs">
+      <DependentUpon>201810091821337_DriverStatusTable_Modified.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810091824132_VehicleStatusTable_Modified.cs" />
+    <Compile Include="Migrations\201810091824132_VehicleStatusTable_Modified.Designer.cs">
+      <DependentUpon>201810091824132_VehicleStatusTable_Modified.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OrganaizationRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -156,6 +164,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810090603321_VehicleStatusTable_And_DriverStatusTableAdded.resx">
       <DependentUpon>201810090603321_VehicleStatusTable_And_DriverStatusTableAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810091821337_DriverStatusTable_Modified.resx">
+      <DependentUpon>201810091821337_DriverStatusTable_Modified.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810091824132_VehicleStatusTable_Modified.resx">
+      <DependentUpon>201810091824132_VehicleStatusTable_Modified.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

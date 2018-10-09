@@ -19,7 +19,10 @@ namespace VehicleManagementApp.Models.Models
         public int EmployeeId { get; set; }
         public Employee Employee { get; set; }
 
-       
+        [ForeignKey("Manager")]
+        public int? ManagerId { get; set; }
+        public virtual Manager Manager { get; set; }
+
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
 

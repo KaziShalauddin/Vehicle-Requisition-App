@@ -23,15 +23,17 @@ namespace VehicleManagementApp.Controllers
         private IRequsitionManager _requisitionManager;
         private IEmployeeManager _employeeManager;
         private IVehicleManager vehicleManager;
+        private IDriverStatusManager driverStatusManager;
         private IVehicleTypeManager vehicleTypeManager;
 
         public ManagerController(IRequsitionManager requisition, IEmployeeManager employee, IManagerManager manager,
-            IVehicleManager vehicle, IVehicleTypeManager vehicleType)
+            IVehicleManager vehicle, IVehicleTypeManager vehicleType, IDriverStatusManager driverStatus)
         {
             this._employeeManager = employee;
             this._requisitionManager = requisition;
             this.managerManager = manager;
             this.vehicleManager = vehicle;
+            this.driverStatusManager = driverStatus;
             this.vehicleTypeManager = vehicleType;
         }
 
