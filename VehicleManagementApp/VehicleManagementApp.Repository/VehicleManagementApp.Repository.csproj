@@ -92,6 +92,10 @@
     <Compile Include="Migrations\201810071702327_RequisitionTable_RequestFor_Removed.Designer.cs">
       <DependentUpon>201810071702327_RequisitionTable_RequestFor_Removed.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810090603321_VehicleStatusTable_And_DriverStatusTableAdded.cs" />
+    <Compile Include="Migrations\201810090603321_VehicleStatusTable_And_DriverStatusTableAdded.Designer.cs">
+      <DependentUpon>201810090603321_VehicleStatusTable_And_DriverStatusTableAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OrganaizationRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -147,6 +151,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810071702327_RequisitionTable_RequestFor_Removed.resx">
       <DependentUpon>201810071702327_RequisitionTable_RequestFor_Removed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810090603321_VehicleStatusTable_And_DriverStatusTableAdded.resx">
+      <DependentUpon>201810090603321_VehicleStatusTable_And_DriverStatusTableAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

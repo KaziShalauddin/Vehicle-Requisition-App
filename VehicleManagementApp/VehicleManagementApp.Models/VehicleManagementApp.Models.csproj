@@ -46,11 +46,13 @@
     <Compile Include="Models\Designation.cs" />
     <Compile Include="Models\District.cs" />
     <Compile Include="Models\Division.cs" />
+    <Compile Include="Models\DriverStatus.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Manager.cs" />
     <Compile Include="Models\Organaization.cs" />
     <Compile Include="Models\Requsition.cs" />
     <Compile Include="Models\Thana.cs" />
+    <Compile Include="Models\VehicleStatus.cs" />
     <Compile Include="Models\Vehicle.cs" />
     <Compile Include="Models\VehicleType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
