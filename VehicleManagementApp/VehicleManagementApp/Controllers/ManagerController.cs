@@ -49,7 +49,7 @@ namespace VehicleManagementApp.Controllers
         {
             Requsition requsitions = new Requsition();
             var employee = _employeeManager.GetAll();
-            var requsition = _requisitionManager.GetAllByNull(requsitions.Status = null).OrderByDescending(c=>c.Id);
+            var requsition = _requisitionManager.GetAllByNull(requsitions.Status = null).OrderByDescending(c => c.Id);
 
             List<RequsitionViewModel> requsitionViewModels = new List<RequsitionViewModel>();
             foreach (var data in requsition)
@@ -99,7 +99,7 @@ namespace VehicleManagementApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-           var employee = _employeeManager.GetAll();
+            var employee = _employeeManager.GetAll();
             var requsition = _requisitionManager.GetById((int)id);
 
             RequsitionViewModel requisitionVm = new RequsitionViewModel()
@@ -122,7 +122,7 @@ namespace VehicleManagementApp.Controllers
             //return View(requisitionVm);
             return null;
         }
-       
+
         [HttpGet]
         public ActionResult Assign(int? id)
         {
@@ -132,9 +132,9 @@ namespace VehicleManagementApp.Controllers
             }
             Requsition requsition = _requisitionManager.GetById((int)id);
             Manager manager = new Manager();
-            var employees = _employeeManager.Get(c => c.IsDriver == true && c.Status == null || c.Status =="NULL" ||  c.Status == "Assigned" && c.IsDeleted == false);
+            var employees = _employeeManager.Get(c => c.IsDriver == true && c.Status == null || c.Status == "NULL" || c.Status == "Assigned" && c.IsDeleted == false);
             var assignVehicle = vehicleManager.Get(c => c.Status == null || c.Status == "NULL" && c.IsDeleted == false);
-            
+
             ManagerViewModel managerVM = new ManagerViewModel();
             managerVM.Id = manager.Id;
             managerVM.RequsitionId = requsition.Id;
@@ -196,10 +196,10 @@ namespace VehicleManagementApp.Controllers
                 RequsitionId = id,
                 StartTime = requsition.JourneyStart,
                 EndTime = requsition.JouneyEnd,
-                EmployeeId = (int) employeeId,
+                EmployeeId = (int)employeeId,
                 Status = "Assign"
             };
-            bool isSaved= driverStatusManager.Add(dv);
+            bool isSaved = driverStatusManager.Add(dv);
             if (isSaved)
             {
                 return true;
@@ -218,7 +218,7 @@ namespace VehicleManagementApp.Controllers
                 RequsitionId = id,
                 StartTime = requsition.JourneyStart,
                 EndTime = requsition.JouneyEnd,
-                VehicleId = (int) vehicleId,
+                VehicleId = (int)vehicleId,
                 Status = "Assign"
             };
             bool isSaved = vehicleStatusManager.Add(vs);
@@ -246,8 +246,54 @@ namespace VehicleManagementApp.Controllers
 
             return false;
         }
-        
 
+        public ActionResult AssignedList()
+        {
+
+            var employee = _employeeManager.GetAll();
+            var vehicle = vehicleManager.GetAll();
+            var vehicleStatus = vehicleStatusManager.Get(c => c.Status == "Assign").OrderByDescending(c => c.Id);
+            var driverStatus = driverStatusManager.Get(c => c.Status == "Assign").OrderByDescending(c => c.Id);
+            //var vehicleNameWithStatus= from vs in vehicleStatus
+            //                           join v in vehicle  on vs.VehicleId equals v.Id
+            //                           select new
+            //                           {
+            //                              vs.Vehicle.VModel,
+
+            //                           };
+
+            var requsition = _requisitionManager.Get(c => c.Status == "Assign").OrderByDescending(c => c.Id);
+
+            var vehicleStatusWithRequisition = from r in requsition
+                                               join v in vehicleStatus on r.Id equals v.RequsitionId 
+                                               join driver in driverStatus on r.Id equals driver.RequsitionId
+                                               select new
+                                               {
+                                                 Requestor=  r.EmployeeId,
+                                                   r.RequsitionNumber,
+                                                   r.JourneyStart,
+                                                   r.JouneyEnd,
+                                                   //v.Vehicle.VModel,
+                                                   v.VehicleId,
+                                                   r.Id,
+                                                 Driver=  driver.EmployeeId
+
+                                               };
+            List<AssignedListViewModel> assignedList = new List<AssignedListViewModel>();
+            foreach (var allData in vehicleStatusWithRequisition)
+            {
+                var assignVM = new AssignedListViewModel();
+                assignVM.Id = allData.Id;
+                assignVM.Employee = employee.Where(c => c.Id == allData.Requestor).FirstOrDefault();
+                assignVM.Vehicle = vehicle.Where(c => c.Id == allData.VehicleId).FirstOrDefault();
+                assignVM.Driver = employee.Where(c => c.Id == allData.Driver).FirstOrDefault();
+                assignVM.Requsition = requsition.Where(c => c.Id == allData.Id).FirstOrDefault();
+                assignedList.Add(assignVM);
+            }
+
+            return View(assignedList);
+
+        }
         [HttpGet]
         public ActionResult AdvanceAssign(int? id)
         {
@@ -256,17 +302,17 @@ namespace VehicleManagementApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Requsition requsition = _requisitionManager.GetById((int)id);
-          
+
             var availableDriverList = driverStatusManager.Get(c => c.EndTime < requsition.JourneyStart).GroupBy(x => x.EmployeeId).Select(x => x.First());
-          
-            List<Employee>availableDrivers=new List<Employee>();
-           
+
+            List<Employee> availableDrivers = new List<Employee>();
+
             foreach (var driver in availableDriverList)
             {
                 var driverItem = _employeeManager.GetById(driver.EmployeeId);
                 availableDrivers.Add(driverItem);
             }
-            
+
             List<Vehicle> availableVehicles = new List<Vehicle>();
 
             var availableVehicleList = vehicleStatusManager.Get(c => c.EndTime < requsition.JourneyStart).GroupBy(x => x.VehicleId).Select(x => x.First());
@@ -275,7 +321,7 @@ namespace VehicleManagementApp.Controllers
                 var vehicleItem = vehicleManager.GetById(vehicle.VehicleId);
                 availableVehicles.Add(vehicleItem);
             }
-          
+
             AssignViewModel assignVm = new AssignViewModel
             {
                 RequsitionId = requsition.Id,
@@ -292,18 +338,18 @@ namespace VehicleManagementApp.Controllers
                 ViewBag.Vehicles = new SelectList(vehicleDropDownList, "Id", "VehicleDetails");
             }
 
-          
+
             return View(assignVm);
         }
 
         [HttpPost]
         public ActionResult AdvanceAssign(AssignViewModel assignVm)
         {
-            
-             bool isRequisitionAssigned = RequisitionAssign(assignVm.Id);
+
+            bool isRequisitionAssigned = RequisitionAssign(assignVm.Id);
             //VehicleStatusChange(assignVm.VehicleId);
-             bool isDriverAssigned=  AddDataToDriverStatusTable(assignVm.EmployeeId, assignVm.Id);
-             bool isVehicleAssigned= AddDataToVehicleStatusTable(assignVm.VehicleId, assignVm.Id);
+            bool isDriverAssigned = AddDataToDriverStatusTable(assignVm.EmployeeId, assignVm.Id);
+            bool isVehicleAssigned = AddDataToVehicleStatusTable(assignVm.VehicleId, assignVm.Id);
             if (isRequisitionAssigned && isDriverAssigned && isVehicleAssigned)
             {
                 TempData["msg"] = "Requisition Assigned Successfully!";
@@ -321,14 +367,14 @@ namespace VehicleManagementApp.Controllers
             //    TempData["msg"] = "Requisition Not Assigned";
             //    return View(assignVm);
             //}
-            
+
             TempData["msg"] = "Requisition Not Assigned";
             return View(assignVm);
         }
         private static List<VehicleDropDownViewModel> SetVehicleDropDown(ICollection<Vehicle> assignVehicle)
         {
             List<VehicleDropDownViewModel> vehicleDropDownList = new List<VehicleDropDownViewModel>();
-            
+
             foreach (var item in assignVehicle)
             {
                 VehicleDropDownViewModel vehicleDrop = new VehicleDropDownViewModel
@@ -485,7 +531,7 @@ namespace VehicleManagementApp.Controllers
             }
         }
 
-        
+
         private void DriverAssigned(int? employeeId)
         {
             if (employeeId == null)
@@ -508,7 +554,7 @@ namespace VehicleManagementApp.Controllers
             {
                 driver.Status = "Assigned";
             }
-            else if(driver.Status == "Assigned")
+            else if (driver.Status == "Assigned")
             {
                 driver.Status = "NULL";
             }
@@ -519,7 +565,7 @@ namespace VehicleManagementApp.Controllers
 
             _employeeManager.Update(driver);
         }
-       
+
         private void VehicleStatusChange(int? vehicleId)
         {
             if (vehicleId == null)
@@ -531,7 +577,7 @@ namespace VehicleManagementApp.Controllers
             {
                 vehicles.Status = "Assigned";
             }
-            else if(vehicles.Status == "Assigned")
+            else if (vehicles.Status == "Assigned")
             {
                 vehicles.Status = "NULL";
             }
@@ -547,7 +593,7 @@ namespace VehicleManagementApp.Controllers
             Manager manager = new Manager();
             var employee = _employeeManager.GetAll();
             var vehicle = vehicleManager.GetAll();
-            var managers = managerManager.Get(c => c.Status == null).OrderByDescending(c=>c.Id);
+            var managers = managerManager.Get(c => c.Status == null).OrderByDescending(c => c.Id);
             var requsition = _requisitionManager.GetAll();
 
             List<ManagerViewModel> managerViewModels = new List<ManagerViewModel>();
@@ -863,7 +909,7 @@ namespace VehicleManagementApp.Controllers
         }
         public ActionResult CompleteRequsition()
         {
-            var Manager = managerManager.Get(c => c.Status == "RequsitionComplete" && c.IsDeleted == false).OrderByDescending(c=>c.Id);
+            var Manager = managerManager.Get(c => c.Status == "RequsitionComplete" && c.IsDeleted == false).OrderByDescending(c => c.Id);
 
             var employee = _employeeManager.Get(c => c.IsDriver == true && c.IsDeleted == false);
             var vehicle = vehicleManager.GetAll();
@@ -992,7 +1038,7 @@ namespace VehicleManagementApp.Controllers
 
         public ActionResult AvailableDriver()
         {
-            var driver = _employeeManager.Get(c => c.Status == "NULL" || c.Status==null&&c.IsDriver);
+            var driver = _employeeManager.Get(c => c.Status == "NULL" || c.Status == null && c.IsDriver);
             List<DriverViewModel> driverViewList = new List<DriverViewModel>();
             foreach (var data in driver)
             {
@@ -1076,10 +1122,10 @@ namespace VehicleManagementApp.Controllers
             var printManager = managerManager.GetById((int)id);
 
             List<ManagerViewModel> managerViewModels = new List<ManagerViewModel>();
-            
-            
-            var vehicl = vehicle.FirstOrDefault(c => c.Id == printManager.VehicleId); 
-            var reqs = requsition.FirstOrDefault(c =>c.Id == printManager.RequsitionId);
+
+
+            var vehicl = vehicle.FirstOrDefault(c => c.Id == printManager.VehicleId);
+            var reqs = requsition.FirstOrDefault(c => c.Id == printManager.RequsitionId);
             string EmployeName = reqs.Employee.Name;
             string employeeNo = reqs.Employee.ContactNo;
             string designation = reqs.Employee.Designation.Name;

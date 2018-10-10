@@ -1,0 +1,75 @@
+﻿@model IEnumerable<VehicleManagementApp.ViewModels.AssignedListViewModel>
+
+@{
+    ViewBag.Title = "AssignIndex";
+    Layout = "~/Views/Shared/_LayoutManager.cshtml";
+    int sl = 1;
+}
+
+<h2 style="padding-bottom: 30px; text-align: center">Assign Index</h2>
+
+<table class="table table-bordered table-striped" id="myTable">
+    <thead>
+    <tr>
+        <th>
+            @Html.Raw("SL")
+        </th>
+        <th>
+            @Html.Raw("Requsition No")
+        </th>
+        <th>
+            @Html.Raw("Employee Info")
+      </th>
+        <th>
+            @Html.DisplayName("Driver Info")
+             
+        </th>
+        <th>
+            @Html.Raw("Requsition Info")
+       
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VehicleId)
+        </th>
+
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @(sl++)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Requsition.RequsitionNumber)
+                </td>
+                <td>
+            
+                    Name: @Html.DisplayFor(modelItem => item.Employee.Name)
+
+                    Contact No.: @Html.DisplayFor(modelItem => item.Employee.ContactNo)
+                </td>
+                <td>
+                    Name:     @Html.DisplayFor(modelItem => item.Driver.Name)
+                    <br />
+                    Contact No.:  @Html.DisplayFor(modelItem => item.Driver.ContactNo)
+                </td>
+                <td>
+                 From :   @Html.DisplayFor(modelItem => item.Requsition.Form)
+                    <br />
+                   To : @Html.DisplayFor(modelItem => item.Requsition.To)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Vehicle.VehicleName)
+                </td>
+                <td>
+                    @Html.ActionLink("Print", "Print", new { id = item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are You Sure? You Want To Re-Assign This??')" })
+                    @Html.ActionLink("Details", "AssignIndexDetails", new { id = item.Id }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Check In", "CheckIn", new { id = item.Id }, new { @class = "btn btn-info", onclick = "return confirm('Are You Sure? You Want To Check In !!')" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
