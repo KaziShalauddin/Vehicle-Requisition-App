@@ -149,7 +149,36 @@ namespace VehicleManagementApp.Controllers
 
             return View(managerVM);
         }
+        [HttpPost]
+        public ActionResult Assign(ManagerViewModel managerViewModel)
+        {
+            Requsition requsition = new Requsition();
+            Manager manager = new Manager();
+            manager.Id = managerViewModel.Id;
+            manager.DriverNo = managerViewModel.DriverNo;
+            manager.RequsitionId = managerViewModel.RequsitionId;
+            manager.EmployeeId = managerViewModel.EmployeeId;
+            manager.VehicleId = managerViewModel.VehicleId;
 
+            //Email Sending Methon start
+            SendingEmailDriver(managerViewModel.EmployeeId, managerViewModel.RequsitionId);
+            SendingEmailEmployee(managerViewModel.EmployeeId, managerViewModel.RequsitionId);
+            //Email Sending Methon end
+
+            bool isSaved = managerManager.Add(manager);
+            RequsitionAssign(managerViewModel.Id);
+            VehicleStatusChange(managerViewModel.VehicleId);
+            DriverAssigned(managerViewModel.EmployeeId);
+
+            if (isSaved)
+            {
+                TempData["msg"] = "Requisition Assign Successfully";
+                return RedirectToAction("New");
+            }
+
+            return View();
+        }
+        
         private static List<VehicleDropDownViewModel> SetVehicleDropDown(ICollection<Vehicle> assignVehicle)
         {
             List<VehicleDropDownViewModel> vehicleDropDownList = new List<VehicleDropDownViewModel>();
@@ -310,35 +339,7 @@ namespace VehicleManagementApp.Controllers
             }
         }
 
-        [HttpPost]
-        public ActionResult Assign(ManagerViewModel managerViewModel)
-        {
-            Requsition requsition = new Requsition();
-            Manager manager = new Manager();
-            manager.Id = managerViewModel.Id;
-            manager.DriverNo = managerViewModel.DriverNo;
-            manager.RequsitionId = managerViewModel.RequsitionId;
-            manager.EmployeeId = managerViewModel.EmployeeId;
-            manager.VehicleId = managerViewModel.VehicleId;
-
-            //Email Sending Methon start
-            SendingEmailDriver(managerViewModel.EmployeeId, managerViewModel.RequsitionId);
-            SendingEmailEmployee(managerViewModel.EmployeeId, managerViewModel.RequsitionId);
-            //Email Sending Methon end
-
-            bool isSaved = managerManager.Add(manager);
-            RequsitionAssign(managerViewModel.Id);
-            VehicleStatusChange(managerViewModel.VehicleId);
-            DriverAssigned(managerViewModel.EmployeeId);
-
-            if (isSaved)
-            {
-                TempData["msg"] = "Requisition Assign Successfully";
-                return RedirectToAction("New");
-            }
-
-            return View();
-        }
+        
         private void DriverAssigned(int? employeeId)
         {
             if (employeeId == null)
@@ -371,6 +372,28 @@ namespace VehicleManagementApp.Controllers
             }
 
             _employeeManager.Update(driver);
+        }
+        private void DriverStatusTableDataAdd(int? driverId)
+        {
+            if (driverId == null)
+            {
+                return;
+            }
+            var drivers = _employeeManager.GetById((int)driverId);
+            if (drivers.Status == null)
+            {
+                drivers.Status = "Assigned";
+            }
+            else if (drivers.Status == "Assigned")
+            {
+                drivers.Status = "NULL";
+            }
+            else if (drivers.Status == "NULL")
+            {
+                drivers.Status = "Assigned";
+            }
+            _employeeManager.Update(drivers);
+
         }
         private void VehicleStatusChange(int? vehicleId)
         {

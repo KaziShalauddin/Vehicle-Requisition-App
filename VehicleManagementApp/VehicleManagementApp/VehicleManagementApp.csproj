@@ -812,6 +812,7 @@
     <Content Include="Views\Requsition\MyRequisitionList.cshtml" />
     <Content Include="Views\Requsition\_MyRequisitionListPartial.cshtml" />
     <Content Include="Views\Manager\Print.cshtml" />
+    <Content Include="Views\Manager\AdvanceAssign.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

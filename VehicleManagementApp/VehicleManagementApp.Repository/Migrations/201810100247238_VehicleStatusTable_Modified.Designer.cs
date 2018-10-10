@@ -7,13 +7,13 @@ namespace VehicleManagementApp.Repository.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class DriverStatusTable_Modified : IMigrationMetadata
+    public sealed partial class VehicleStatusTable_Modified : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(DriverStatusTable_Modified));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(VehicleStatusTable_Modified));
         
         string IMigrationMetadata.Id
         {
-            get { return "201810091821337_DriverStatusTable_Modified"; }
+            get { return "201810100247238_VehicleStatusTable_Modified"; }
         }
         
         string IMigrationMetadata.Source

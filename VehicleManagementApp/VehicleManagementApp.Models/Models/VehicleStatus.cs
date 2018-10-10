@@ -20,9 +20,10 @@ namespace VehicleManagementApp.Models.Models
         public int VehicleId { get; set; }
         public Vehicle Vehicle { get; set; }
 
-        [ForeignKey("Manager")]
-        public int? ManagerId { get; set; }
-        public virtual Manager Manager { get; set; }
+
+        [ForeignKey("Requsition")]
+        public int? RequsitionId { get; set; }
+        public virtual Requsition Requsition { get; set; }
 
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }

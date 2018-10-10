@@ -93,8 +93,11 @@ namespace VehicleManagementApp
 
             container.RegisterType<DbContext, VehicleDatabaseContext>();
 
+            container.RegisterType<IDriverStatusManager, DriverStatusManager>();
+            container.RegisterType<IDriverStatusRepository, DriverStatusRepository>();
 
-
+            container.RegisterType<IVehicleStatusManager, VehicleStatusManager>();
+            container.RegisterType<IVehicleStatusRepository, VehicleStatusRepository>();
 
             //container.RegisterType<DbContext, VehicleDatabaseContext>();
             //container.RegisterType<IdentityDbContext< ApplicationUser >,ApplicationDbContext >();
