@@ -14,12 +14,14 @@ namespace VehicleManagementApp.Controllers
     {
         // GET: Vehicle
         private IVehicleManager _vehicleManager;
+        private IVehicleStatusManager vehicleStatusManager;
         private IVehicleTypeManager _typeManager;
 
-        public VehicleController(IVehicleManager manager, IVehicleTypeManager typeManager)
+        public VehicleController(IVehicleManager manager, IVehicleTypeManager typeManager, IVehicleStatusManager vehicleStatus)
         {
             this._vehicleManager = manager;
             this._typeManager = typeManager;
+            this.vehicleStatusManager = vehicleStatus;
         }
         public ActionResult Index()
         {
@@ -98,25 +100,53 @@ namespace VehicleManagementApp.Controllers
             vehicleVM.VehicleTypes = data;
             return View(vehicleVM);
         }
-
+        private bool AddDataToVehicleStatusTable(int? vehicleId)
+        {
+            if (vehicleId == null )
+            {
+                return false;
+            }
+          
+            VehicleStatus vs = new VehicleStatus
+            {
+               
+                StartTime =DateTime.Now,
+                EndTime = DateTime.Now,
+                VehicleId = (int)vehicleId,
+                Status = "New Car"
+            };
+            bool isSaved = vehicleStatusManager.Add(vs);
+            if (isSaved)
+            {
+                return true;
+            }
+            return false;
+        }
         // POST: Vehicle/Create
         [HttpPost]
         public ActionResult Create(VehicleViewModel vehicleViewModel)
         {
             try
             {
-                Vehicle vehicle = new Vehicle();
+                Vehicle vehicle = new Vehicle
+                {
+                    VehicleName = vehicleViewModel.VehicleName,
+                    VModel = vehicleViewModel.VModel,
+                    VRegistrationNo = vehicleViewModel.VRegistrationNo,
+                    VChesisNo = vehicleViewModel.VChesisNo,
+                    VCapacity = vehicleViewModel.VCapacity,
+                    Description = vehicleViewModel.Description,
+                    VehicleTypeId = vehicleViewModel.VehicleTypeId
+                };
 
-                vehicle.VehicleName = vehicleViewModel.VehicleName;
-                vehicle.VModel = vehicleViewModel.VModel;
-                vehicle.VRegistrationNo = vehicleViewModel.VRegistrationNo;
-                vehicle.VChesisNo = vehicleViewModel.VChesisNo;
-                vehicle.VCapacity = vehicleViewModel.VCapacity;
-                vehicle.Description = vehicleViewModel.Description;
-                vehicle.VehicleTypeId = vehicleViewModel.VehicleTypeId;
-                
+
                 bool isSaved = _vehicleManager.Add(vehicle);
-                if (isSaved)
+
+                var allVehicles= _vehicleManager.GetAll();
+                var maxVehicleId = allVehicles.Max(c => c.Id);
+
+                bool isVehicleStatusAdded = AddDataToVehicleStatusTable(maxVehicleId);
+                if (isSaved && isVehicleStatusAdded)
                 {
                     TempData["msg"] = "Vehicle Saved Successfully";
                 }

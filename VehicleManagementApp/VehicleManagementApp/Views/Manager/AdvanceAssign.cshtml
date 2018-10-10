@@ -1,4 +1,4 @@
-﻿@model VehicleManagementApp.ViewModels.ManagerViewModel
+﻿@model VehicleManagementApp.ViewModels.AssignViewModel
 
 @{
     ViewBag.Title = "Assign Requisition";
@@ -79,7 +79,7 @@
                             <div class="col-md-10">
                                 @if (vehicles != null)
                                 {
-                                    @Html.DropDownListFor(model => model.VehicleId, (SelectList) vehicles, "Select Car", new {@class = "form-control"})
+                                    @Html.DropDownListFor(model => model.VehicleId, (SelectList) vehicles, "Select Car", new {@class = "form-control",required = true})
                                     
                                 }
                                 else
@@ -93,7 +93,15 @@
                         <div class="form-group">
                             @Html.LabelFor(model => model.EmployeeId, htmlAttributes: new {@class = "control-label col-md-2"})
                             <div class="col-md-10">
-                                @Html.DropDownListFor(model => model.EmployeeId, new SelectList(Model.Employees, "Id", "Name"), "Select Driver", new {@class = "form-control", id = "employeeDD"})
+                                @if (Model.Employees.Any())
+                                {
+                                    @Html.DropDownListFor(model => model.EmployeeId, new SelectList(Model.Employees, "Id", "Name"), "Select Driver", new { @class = "form-control", id = "employeeDD", required = true })
+                                }
+                                else
+                                {
+                                    @Html.Raw("There is no driver available now!")
+                                }
+                               
                                 @Html.ValidationMessageFor(model => model.EmployeeId, "", new {@class = "text-danger"})
                             </div>
                         </div>

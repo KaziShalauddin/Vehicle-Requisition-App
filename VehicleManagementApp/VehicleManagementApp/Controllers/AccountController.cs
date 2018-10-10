@@ -440,6 +440,9 @@ namespace VehicleManagementApp.Controllers
         IDivisionManager divisionManager = new DivisionManager();
         IDistrictManager districtManager = new DistrictManager();
         IThanaManager thanaManager = new ThanaManager();
+
+       IDriverStatusManager driverStatusManager=new DriverStatusManager();
+
         private void GetDropDownsValues(EmployeeRegisterWithRoleViewModel model)
         {
             var departments = departmentManager.GetAll();
@@ -532,10 +535,33 @@ namespace VehicleManagementApp.Controllers
             };
 
             employeeManager.Add(employee);
+            var allEmployees = employeeManager.GetAll();
+            var maxEmployeeId = allEmployees.Max(c => c.Id);
 
-            //}
+            AddDataToDriverStatusTable(maxEmployeeId);
         }
+        private void AddDataToDriverStatusTable(int? driverId)
+        {
+            if (driverId == null)
+            {
+                return;
+            }
 
+            DriverStatus dv = new DriverStatus
+            {
+
+                StartTime = DateTime.Now,
+                EndTime = DateTime.Now,
+                EmployeeId = (int)driverId,
+                Status = "New Recurit"
+            };
+            bool isSaved = driverStatusManager.Add(dv);
+            if (isSaved)
+            {
+                return;
+            }
+            return;
+        }
         // GET: /Account/EmployeeRegisterWithRole
         [HttpGet]
         [Authorize(Roles = "Controller,Operator")]
