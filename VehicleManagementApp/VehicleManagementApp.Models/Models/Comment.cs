@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.ReportingServices.ReportProcessing.ReportObjectModel;
 using VehicleManagementApp.Models.Contracts;
 using VehicleManagementApp.Repository.Contracts;
 
@@ -23,7 +24,6 @@ namespace VehicleManagementApp.Models.Models
         [ForeignKey("Requsition")]
         public int RequsitionId { get; set; }
         public Requsition Requsition { get; set; }
-
         public bool IsDeleted { get; set; }
 
         public bool withDeleted()

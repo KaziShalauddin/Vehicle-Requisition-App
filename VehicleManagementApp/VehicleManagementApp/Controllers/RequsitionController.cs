@@ -37,8 +37,7 @@ namespace VehicleManagementApp.Controllers
         }
         public ActionResult Index()
         {
-
-            GetRequisitionComplete();
+            //GetRequisitionComplete();
 
             var allRequisitions = _requisitionManager.GetAll();
             var employee = _employeeManager.GetAll();
@@ -116,6 +115,10 @@ namespace VehicleManagementApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateComment(CommentViewModel commentViewModel)
         {
+            
+            var userId = User.Identity.GetUserId();
+
+
             Comment comment = new Comment();
             comment.RequsitionId = commentViewModel.RequsitionId;
             comment.Comments = commentViewModel.Comments;
