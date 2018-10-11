@@ -104,6 +104,10 @@
     <Compile Include="Migrations\201810100247238_VehicleStatusTable_Modified.Designer.cs">
       <DependentUpon>201810100247238_VehicleStatusTable_Modified.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810111614222_VehicleTable_NameField_Added_For_DetailedName.cs" />
+    <Compile Include="Migrations\201810111614222_VehicleTable_NameField_Added_For_DetailedName.Designer.cs">
+      <DependentUpon>201810111614222_VehicleTable_NameField_Added_For_DetailedName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OrganaizationRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -170,6 +174,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810100247238_VehicleStatusTable_Modified.resx">
       <DependentUpon>201810100247238_VehicleStatusTable_Modified.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810111614222_VehicleTable_NameField_Added_For_DetailedName.resx">
+      <DependentUpon>201810111614222_VehicleTable_NameField_Added_For_DetailedName.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

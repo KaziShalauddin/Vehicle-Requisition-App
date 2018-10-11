@@ -12,6 +12,7 @@ namespace VehicleManagementApp.Models.Models
     public class Vehicle:IModel,IDeletable
     {
         public int Id { get; set; }
+        public string Name { get; set; }
         public string VehicleName { get; set; }
         public string VModel {get;set;}
         public string VRegistrationNo { get; set; }
