@@ -764,56 +764,30 @@ namespace VehicleManagementApp.Controllers
             }
             return View();
         }
-
-        public ActionResult CheckOut()
-        {
-            Manager manager = new Manager();
-            var employee = _employeeManager.GetAll();
-            var vehicle = vehicleManager.GetAll();
-            var managers = managerManager.Get(c => c.Status != "Execute");
-            var requsition = _requisitionManager.GetAll();
-
-            List<ManagerViewModel> managerViewModels = new List<ManagerViewModel>();
-            foreach (var allData in managers)
-            {
-                var managerVM = new ManagerViewModel();
-                managerVM.Id = allData.Id;
-                managerVM.Employee = employee.Where(c => c.Id == allData.EmployeeId).FirstOrDefault();
-                managerVM.Vehicle = vehicle.Where(c => c.Id == allData.VehicleId).FirstOrDefault();
-                managerVM.Employee = employee.Where(c => c.Id == allData.EmployeeId).FirstOrDefault();
-                managerVM.Requsition = requsition.Where(c => c.Id == allData.RequsitionId).FirstOrDefault();
-                managerViewModels.Add(managerVM);
-            }
-
-            return View(managerViewModels);
-        }
-
-        public ActionResult CheckOutEdit(int? id)
+        public void RequsitionComplete(int? id)
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return;
             }
-            var AssignManager = managerManager.GetById((int)id);
+            var employee = _employeeManager.GetAll();
+            var requsition = _requisitionManager.GetById((int)id);
 
-            //Manager manager = new Manager();
-            //manager.Id = AssignManager.Id;
-            //manager.RequsitionId= AssignManager.RequsitionId;
-            //manager.VehicleId = AssignManager.VehicleId;
-            //manager.EmployeeId = AssignManager.EmployeeId;
-            AssignManager.Status = "Execute";
-
-            bool isUpdate = managerManager.Update(AssignManager);
-
-            if (isUpdate)
+            RequsitionViewModel requisitionVm = new RequsitionViewModel()
             {
-                return RedirectToAction("CheckOut");
-            }
+                Id = requsition.Id,
+                Form = requsition.Form,
+                To = requsition.To,
+                Description = requsition.Description,
+                JourneyStart = requsition.JourneyStart,
+                JouneyEnd = requsition.JouneyEnd,
+                Employee = employee.Where(x => x.Id == requsition.EmployeeId).FirstOrDefault()
+            };
 
-
-            return View();
+            requsition.Status = "Complete";
+            bool assign = _requisitionManager.Update(requsition);
+            return;
         }
-
         public ActionResult CheckIn(int? id)
         {
             if (id == null)
@@ -821,8 +795,10 @@ namespace VehicleManagementApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             var AssignManager = managerManager.GetById((int)id);
+
             AssignManager.Status = "RequsitionComplete";
             bool isUpdate = managerManager.Update(AssignManager);
+            RequsitionComplete(AssignManager.RequsitionId);
             VehicleStatusChange(AssignManager.VehicleId);
             DriverAssigned(AssignManager.EmployeeId);
 

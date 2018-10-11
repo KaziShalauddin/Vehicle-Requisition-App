@@ -19,7 +19,7 @@
     var managerOnprogess = managers.Get(c => c.Status == "Seen" && c.IsDeleted == false);
     var managerAssign = managers.Get(c => c.Status == "Assign" && c.IsDeleted == false);
     var managerComplete = managers.Get(c => c.Status == "Complete" && c.IsDeleted == false);
-    var managerHold = managers.Get(c => c.Status == "Hole" && c.IsDeleted == false);
+    var managerHold = managers.Get(c => c.Status == "Hold" && c.IsDeleted == false);
     var hold = managerHold.Count;
     var countNew = managerNew.Count;
     var countSeed = managerOnprogess.Count;
