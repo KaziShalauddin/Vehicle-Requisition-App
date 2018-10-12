@@ -931,6 +931,7 @@ namespace VehicleManagementApp.Controllers
             return View(managerViewModel);
         }
 
+
         public ActionResult AssignReport(RequsitionAssignViewModel requsitionAssignViewModel)
         {
             var reportData = managerManager.RequsitionAssignReportViewModels(requsitionAssignViewModel);
