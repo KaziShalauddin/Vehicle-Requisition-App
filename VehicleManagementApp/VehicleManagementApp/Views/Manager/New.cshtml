@@ -13,16 +13,16 @@
     <tr>
         <th>@Html.Raw("SL")</th>
         <th>
-            @Html.DisplayNameFor(model => model.EmployeeId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Employee.ContactNo)
-        </th>
-        <th>
             @Html.DisplayName("Department")
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.EmployeeId)
+        </th>
+        <th>
             @Html.DisplayName("Designation")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Employee.ContactNo)
         </th>
         <th>
             @Html.DisplayName("From")
@@ -48,16 +48,16 @@
             <tr>
                 <td>@(sl++)</td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Employee.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Employee.ContactNo)
-                </td>
-                <td>
                     @Html.DisplayFor(modelItem => item.Employee.Department.Name)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.Employee.Name)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.Employee.Designation.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Employee.ContactNo)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Form)
