@@ -56,11 +56,19 @@
     <div class="row">
         <div class="col-md-12">
             <p>
-                @Html.ActionLink("Edit", "Edit", new {id = Model.Id}, new {@class = "btn btn-primary"})
-                @Html.ActionLink("Assign", "Assign", "Manager", new {id = Model.Id}, new {@class = "btn btn-info"})
-                @Html.ActionLink("Delete", "Delete", new {id = Model.Id}, new {@class = "btn btn-danger", onclick = "return confirm('Are You Sure? You Want To Cancle!')"})
-                @Html.ActionLink("Print", "Print", new {id = Model.Id}, new {@class = "btn btn-success"})
-                @Html.ActionLink("Back to List", "Index", new {id = "",}, new {@class = "btn btn-default"})
+                @if (User.IsInRole(AppEnum.RoleEnum.Employee.ToString()))
+                {
+                    @Html.ActionLink("Edit", "Edit", new {id = Model.Id}, new {@class = "btn btn-primary"}) 
+                    @Html.ActionLink("Delete", "Delete", new {id = Model.Id}, new {@class = "btn btn-danger", onclick = "return confirm('Are You Sure? You Want To Cancle!')"})
+                    @Html.ActionLink("Back to List", "Index", new { id = "", }, new { @class = "btn btn-default" })
+                }
+                else
+                {
+                    @Html.ActionLink("Assign", "Assign", "Manager", new { id = Model.Id }, new { @class = "btn btn-info" })
+                    @Html.ActionLink("Print", "Print", new { id = Model.Id }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Back to List", "Index", new { id = "", }, new { @class = "btn btn-default" })
+                }
+               
             </p>
         </div>
     </div>
