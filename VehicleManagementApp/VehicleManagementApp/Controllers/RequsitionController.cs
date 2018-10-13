@@ -69,6 +69,7 @@ namespace VehicleManagementApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             int requsitionId = (int)id;
+            
             Requsition requsition = _requisitionManager.GetById(requsitionId);
             if (requsition == null)
             {
@@ -92,7 +93,8 @@ namespace VehicleManagementApp.Controllers
             {
                 EmployeeId = (int)emplId,
                 EmployeName = employeeNam,
-                RequsitionId = requsitionId
+                RequsitionId = requsitionId,
+                CommentTime = DateTime.Now
             };
 
             //Collect the list of comment to display the list under comment
@@ -102,7 +104,16 @@ namespace VehicleManagementApp.Controllers
             {
                 commentListViewModel.Add
                 (
-                    new CommentViewModel { RequsitionId = requsitionId, Comments = item.Comments, EmployeeId = item.EmployeeId,  EmployeName = item.Employee.Name}
+                    new CommentViewModel
+                    {
+                        RequsitionId = requsitionId,
+                        Comments = item.Comments,
+                        EmployeeId = item.EmployeeId,
+                        EmployeName = item.Employee.Name,
+                        UserName = item.UserName,
+                        UserId = item.UserId,
+                        CommentTime = DateTime.Now
+                    }
                 );
             }
             requsitionViewModel.CommentViewModels = commentListViewModel;
@@ -117,12 +128,16 @@ namespace VehicleManagementApp.Controllers
         {
             
             var userId = User.Identity.GetUserId();
+            var userName = User.Identity.Name;
 
 
             Comment comment = new Comment();
             comment.RequsitionId = commentViewModel.RequsitionId;
             comment.Comments = commentViewModel.Comments;
             comment.EmployeeId = commentViewModel.EmployeeId;
+            comment.UserId = userId;
+            comment.UserName = userName;
+            comment.CommentTime = DateTime.Now;
             bool isSaved = commentManager.Add(comment);
 
             List<CommentViewModel> commentListViewModel = new List<CommentViewModel>();
@@ -139,6 +154,10 @@ namespace VehicleManagementApp.Controllers
                     cmnt.EmployeeId = item.EmployeeId;
                     cmnt.Comments = item.Comments;
                     cmnt.Employee = item.Employee;
+                    cmnt.Employee = item.Employee;
+                    cmnt.UserId = item.UserId;
+                    cmnt.UserName = item.UserName;
+                    cmnt.CommentTime = item.CommentTime;
                     cmnt.EmployeName = commentViewModel.EmployeName;
                     commentListViewModel.Add(cmnt);
 

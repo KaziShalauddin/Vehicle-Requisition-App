@@ -11,20 +11,20 @@
 <div class="jumbotron">
     <table class="details_view">
         <tr>
-            <td class="title_name">@Html.DisplayNameFor(model => model.EmployeeId)</td>
-            <td>@Html.DisplayFor(model => model.Employee.Name)</td>
-        </tr>
-        <tr>
-            <td class="title_name">@Html.DisplayNameFor(model => model.Employee.ContactNo)</td>
-            <td>@Html.DisplayFor(model => model.Employee.ContactNo)</td>
-        </tr>
-        <tr>
             <td class="title_name">@Html.Raw("Department")</td>
             <td>@Html.DisplayFor(model => model.Employee.Department.Name)</td>
         </tr>
         <tr>
+            <td class="title_name">@Html.DisplayNameFor(model => model.EmployeeId)</td>
+            <td>@Html.DisplayFor(model => model.Employee.Name)</td>
+        </tr>
+        <tr>
             <td class="title_name">@Html.Raw("Designation")</td>
             <td>@Html.DisplayFor(model => model.Employee.Designation.Name)</td>
+        </tr>
+        <tr>
+            <td class="title_name">@Html.DisplayNameFor(model => model.Employee.ContactNo)</td>
+            <td>@Html.DisplayFor(model => model.Employee.ContactNo)</td>
         </tr>
         <tr>
             <td class="title_name">@Html.DisplayNameFor(model => model.Form)</td>
@@ -40,7 +40,7 @@
         </tr>
         <tr>
             <td class="title_name">@Html.DisplayNameFor(model => model.JourneyStart)</td>
-            <td>@Html.DisplayFor(model => model.JourneyStart)</td>
+            <td>@Html.DisplayFor(model=> model.JourneyStart)</td>
         </tr>
         <tr>
             <td class="title_name">@Html.DisplayNameFor(model => model.JouneyEnd)</td>

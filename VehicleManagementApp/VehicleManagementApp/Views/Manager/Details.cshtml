@@ -11,22 +11,21 @@
 <div class="jumbotron">
     <table class="details_view">
         <tr>
-            <td class="title_name">@Html.Raw("Employee Name")</td>
-            <td>@Html.DisplayFor(model => model.Requsition.Employee.Name)</td>
-        </tr>
-        <tr>
-            <td class="title_name">@Html.Raw("Employee Contact")</td>
-            <td>@Html.DisplayFor(model => model.Requsition.Employee.ContactNo)</td>
-        </tr>
-        <tr>
             <td class="title_name">@Html.Raw("Department")</td>
             <td>@Html.DisplayFor(model => model.Requsition.Employee.Department.Name)</td>
+        </tr>
+        <tr>
+            <td class="title_name">@Html.Raw("Employee Name")</td>
+            <td>@Html.DisplayFor(model => model.Requsition.Employee.Name)</td>
         </tr>
         <tr>
             <td class="title_name">@Html.Raw("Designation")</td>
             <td>@Html.DisplayFor(model => model.Requsition.Employee.Designation.Name)</td>
         </tr>
-
+        <tr>
+            <td class="title_name">@Html.Raw("Employee Contact")</td>
+            <td>@Html.DisplayFor(model => model.Requsition.Employee.ContactNo)</td>
+        </tr>
         <tr>
             <td class="title_name">@Html.DisplayNameFor(model => model.Requsition.Form)</td>
             <td>@Html.DisplayFor(model => model.Requsition.Form)</td>

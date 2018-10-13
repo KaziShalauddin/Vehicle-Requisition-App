@@ -25,7 +25,13 @@
                             @Html.Raw("SL")
                         </th>
                         <th>
+                            @Html.DisplayNameFor(model => model.DepartmentId)
+                        </th>
+                        <th>
                             @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.DesignationId)
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.ContactNo)
@@ -39,15 +45,6 @@
                         <th>
                             @Html.DisplayNameFor(model => model.Address1)
                         </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Address2)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.DepartmentId)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.DesignationId)
-                        </th>
                         <th></th>
                     </tr>
                 </thead>
@@ -59,7 +56,13 @@
                                 @(sl++)
                             </td>
                             <td>
+                                @Html.DisplayFor(modelItem => item.Department.Name)
+                            </td>
+                            <td>
                                 @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Designation.Name)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.ContactNo)
@@ -72,15 +75,6 @@
                             </td>
                             <td style="width: 20%;">
                                 @Html.DisplayFor(modelItem => item.Address1)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Address2)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Department.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Designation.Name)
                             </td>
                             <td style="width: 18%;">
                                 @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })

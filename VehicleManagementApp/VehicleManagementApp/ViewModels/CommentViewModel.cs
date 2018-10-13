@@ -20,8 +20,9 @@ namespace VehicleManagementApp.ViewModels
         public string EmployeName { get; set; }
         public IEnumerable<ReplayCommentViewModel> ReplayCommentViewModels { get; set; }
         public ReplayCommentViewModel ReplayCommentViewModel { get; set; }
-
-        public User User { get; set; }
+        public string UserId { get; set; }
+        public string UserName { get; set; }
+        public DateTime CommentTime { get; set; }
 
     }
 }

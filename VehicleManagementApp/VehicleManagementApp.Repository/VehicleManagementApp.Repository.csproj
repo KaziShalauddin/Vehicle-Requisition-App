@@ -108,6 +108,14 @@
     <Compile Include="Migrations\201810111614222_VehicleTable_NameField_Added_For_DetailedName.Designer.cs">
       <DependentUpon>201810111614222_VehicleTable_NameField_Added_For_DetailedName.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810120558156_CommentTableUserIdandUserNameAdded.cs" />
+    <Compile Include="Migrations\201810120558156_CommentTableUserIdandUserNameAdded.Designer.cs">
+      <DependentUpon>201810120558156_CommentTableUserIdandUserNameAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810120618332_CommentTableTimeFieldAdded.cs" />
+    <Compile Include="Migrations\201810120618332_CommentTableTimeFieldAdded.Designer.cs">
+      <DependentUpon>201810120618332_CommentTableTimeFieldAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OrganaizationRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -177,6 +185,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810111614222_VehicleTable_NameField_Added_For_DetailedName.resx">
       <DependentUpon>201810111614222_VehicleTable_NameField_Added_For_DetailedName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810120558156_CommentTableUserIdandUserNameAdded.resx">
+      <DependentUpon>201810120558156_CommentTableUserIdandUserNameAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810120618332_CommentTableTimeFieldAdded.resx">
+      <DependentUpon>201810120618332_CommentTableTimeFieldAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -491,7 +491,7 @@ namespace VehicleManagementApp.Controllers
                 var credential = new NetworkCredential
                 {
                     UserName = "mohammadziaulm62@gmail.com", // replace with valid value
-                    Password = "01915982924" // replace with valid value
+                    Password = "************" // replace with valid value
                 };
                 smtp.Credentials = credential;
                 smtp.Host = "smtp.gmail.com";
@@ -531,7 +531,7 @@ namespace VehicleManagementApp.Controllers
                 var credential = new NetworkCredential
                 {
                     UserName = "mohammadziaulm62@gmail.com", // replace with valid value
-                    Password = "01915982924" // replace with valid value
+                    Password = "*************" // replace with valid value
                 };
                 smtp.Credentials = credential;
                 smtp.Host = "smtp.gmail.com";
