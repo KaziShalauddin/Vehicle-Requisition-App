@@ -10,19 +10,19 @@
             <TextRuns>
               <TextRun>
                 <Value>রিকুইজিশন প্রদানকারী স্বাক্ষর</Value>
-                <Style>
-                  <FontSize>14pt</FontSize>
-                </Style>
+                <Style />
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>2.4184in</Top>
-        <Left>6.4577in</Left>
-        <Height>0.26042in</Height>
-        <Width>2.34375in</Width>
+        <Top>3.33184in</Top>
+        <Left>2.72382in</Left>
+        <Height>0.22917in</Height>
+        <Width>1.66667in</Width>
         <Style>
           <Border>
             <Style>None</Style>
@@ -34,10 +34,10 @@
         </Style>
       </Textbox>
       <Line Name="Line2">
-        <Top>2.4184in</Top>
-        <Left>6.36334in</Left>
+        <Top>3.29018in</Top>
+        <Left>2.71626in</Left>
         <Height>0in</Height>
-        <Width>1.8125in</Width>
+        <Width>1.31597in</Width>
         <ZIndex>1</ZIndex>
         <Style>
           <Border>
@@ -45,38 +45,6 @@
           </Border>
         </Style>
       </Line>
-      <Textbox Name="Textbox32">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>১</Value>
-                <Style>
-                  <FontSize>12pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>0.10243in</Top>
-        <Left>0.18626in</Left>
-        <Height>0.27083in</Height>
-        <Width>0.30208in</Width>
-        <ZIndex>2</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
       <Textbox Name="Textbox33">
         <CanGrow>true</CanGrow>
         <KeepTogether>true</KeepTogether>
@@ -85,20 +53,20 @@
             <TextRuns>
               <TextRun>
                 <Value>রিকুইজিশন প্রদানকারী</Value>
-                <Style>
-                  <FontSize>14pt</FontSize>
-                </Style>
+                <Style />
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>0.10243in</Top>
-        <Left>0.64459in</Left>
-        <Height>0.27083in</Height>
-        <Width>1.91667in</Width>
-        <ZIndex>3</ZIndex>
+        <Top>1.43167in</Top>
+        <Left>0.4334in</Left>
+        <Height>0.20833in</Height>
+        <Width>1.50288in</Width>
+        <ZIndex>2</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -117,84 +85,20 @@
             <TextRuns>
               <TextRun>
                 <Value>কোথায় রিপোর্ট করতে হবে</Value>
-                <Style>
-                  <FontSize>14pt</FontSize>
-                </Style>
+                <Style />
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>0.78646in</Top>
-        <Left>0.64459in</Left>
-        <Height>0.27083in</Height>
-        <Width>2.1875in</Width>
-        <ZIndex>4</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox35">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>২</Value>
-                <Style>
-                  <FontSize>14pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>0.78646in</Top>
-        <Left>0.18626in</Left>
-        <Height>0.27083in</Height>
-        <Width>0.30208in</Width>
-        <ZIndex>5</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox36">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>৩</Value>
-                <Style>
-                  <FontSize>14pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>1.48611in</Top>
-        <Left>0.19668in</Left>
-        <Height>0.27083in</Height>
-        <Width>0.30208in</Width>
-        <ZIndex>6</ZIndex>
+        <Top>1.70944in</Top>
+        <Left>0.4334in</Left>
+        <Height>0.20833in</Height>
+        <Width>1.61458in</Width>
+        <ZIndex>3</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -213,20 +117,20 @@
             <TextRuns>
               <TextRun>
                 <Value>ভ্রমন এর বিবরন ও কারন</Value>
-                <Style>
-                  <FontSize>14pt</FontSize>
-                </Style>
+                <Style />
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>1.49652in</Top>
-        <Left>0.66543in</Left>
-        <Height>0.26042in</Height>
-        <Width>2.17708in</Width>
-        <ZIndex>7</ZIndex>
+        <Top>1.98721in</Top>
+        <Left>0.45424in</Left>
+        <Height>0.21875in</Height>
+        <Width>1.59375in</Width>
+        <ZIndex>4</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -245,52 +149,20 @@
             <TextRuns>
               <TextRun>
                 <Value>গারি ছাড়িবার আনুমানিক সময়</Value>
-                <Style>
-                  <FontSize>14pt</FontSize>
-                </Style>
+                <Style />
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>1.84201in</Top>
-        <Left>0.64459in</Left>
-        <Height>0.24653in</Height>
-        <Width>2.53126in</Width>
-        <ZIndex>8</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox39">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>৪</Value>
-                <Style>
-                  <FontSize>14pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>1.82812in</Top>
-        <Left>0.19668in</Left>
-        <Height>0.26042in</Height>
-        <Width>0.29166in</Width>
-        <ZIndex>9</ZIndex>
+        <Top>2.5393in</Top>
+        <Left>0.45424in</Left>
+        <Height>0.25782in</Height>
+        <Width>1.81252in</Width>
+        <ZIndex>5</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -309,20 +181,18 @@
             <TextRuns>
               <TextRun>
                 <Value>পদবী</Value>
-                <Style>
-                  <FontSize>14pt</FontSize>
-                </Style>
+                <Style />
               </TextRun>
             </TextRuns>
             <Style />
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>0.42188in</Top>
-        <Left>4.20078in</Left>
-        <Height>0.25in</Height>
-        <Width>0.45486in</Width>
-        <ZIndex>10</ZIndex>
+        <Top>1.70944in</Top>
+        <Left>2.70994in</Left>
+        <Height>0.1875in</Height>
+        <Width>0.38193in</Width>
+        <ZIndex>6</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -341,20 +211,18 @@
             <TextRuns>
               <TextRun>
                 <Value>নাম</Value>
-                <Style>
-                  <FontSize>14pt</FontSize>
-                </Style>
+                <Style />
               </TextRun>
             </TextRuns>
             <Style />
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>0.10243in</Top>
-        <Left>4.29043in</Left>
-        <Height>0.27083in</Height>
-        <Width>0.36521in</Width>
-        <ZIndex>11</ZIndex>
+        <Top>1.43167in</Top>
+        <Left>2.82042in</Left>
+        <Height>0.20833in</Height>
+        <Width>0.27146in</Width>
+        <ZIndex>7</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -373,20 +241,20 @@
             <TextRuns>
               <TextRun>
                 <Value>তারিখ ও সময়</Value>
-                <Style>
-                  <FontSize>14pt</FontSize>
-                </Style>
+                <Style />
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Right</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>0.77864in</Top>
-        <Left>3.55495in</Left>
-        <Height>0.27083in</Height>
-        <Width>1.22569in</Width>
-        <ZIndex>12</ZIndex>
+        <Top>1.99764in</Top>
+        <Left>2.12028in</Left>
+        <Height>0.20833in</Height>
+        <Width>0.96118in</Width>
+        <ZIndex>8</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -412,11 +280,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>EmployeeName1</rd:DefaultName>
-        <Top>0.12326in</Top>
-        <Left>4.81189in</Left>
-        <Height>0.25in</Height>
-        <Width>2.23958in</Width>
-        <ZIndex>13</ZIndex>
+        <Top>1.43167in</Top>
+        <Left>3.16132in</Left>
+        <Height>0.20833in</Height>
+        <Width>1.23264in</Width>
+        <ZIndex>9</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -442,11 +310,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Designation1</rd:DefaultName>
-        <Top>0.42188in</Top>
-        <Left>4.81189in</Left>
-        <Height>0.25in</Height>
-        <Width>2.23958in</Width>
-        <ZIndex>14</ZIndex>
+        <Top>1.73027in</Top>
+        <Left>3.16132in</Left>
+        <Height>0.1875in</Height>
+        <Width>1.24591in</Width>
+        <ZIndex>10</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -474,11 +342,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>JourneyEnd1</rd:DefaultName>
-        <Top>0.76563in</Top>
-        <Left>4.81189in</Left>
-        <Height>0.25in</Height>
-        <Width>2.23958in</Width>
-        <ZIndex>15</ZIndex>
+        <Top>1.99764in</Top>
+        <Left>3.16132in</Left>
+        <Height>0.20833in</Height>
+        <Width>1.58333in</Width>
+        <ZIndex>11</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -497,20 +365,18 @@
             <TextRuns>
               <TextRun>
                 <Value>স্থান</Value>
-                <Style>
-                  <FontSize>14pt</FontSize>
-                </Style>
+                <Style />
               </TextRun>
             </TextRuns>
             <Style />
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>1.06336in</Top>
-        <Left>4.29043in</Left>
-        <Height>0.27083in</Height>
-        <Width>0.3652in</Width>
-        <ZIndex>16</ZIndex>
+        <Top>2.27541in</Top>
+        <Left>2.82042in</Left>
+        <Height>0.20833in</Height>
+        <Width>0.27145in</Width>
+        <ZIndex>12</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -536,41 +402,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>To1</rd:DefaultName>
-        <Top>1.08419in</Top>
-        <Left>4.81189in</Left>
-        <Height>0.25in</Height>
-        <Width>2.23958in</Width>
-        <ZIndex>17</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Description3">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!Description.Value, "AssignRequsition")</Value>
-                <Style />
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Description1</rd:DefaultName>
-        <Top>1.48611in</Top>
-        <Left>4.81189in</Left>
-        <Height>0.25in</Height>
-        <Width>2.23958in</Width>
-        <ZIndex>18</ZIndex>
+        <Top>2.27541in</Top>
+        <Left>3.16131in</Left>
+        <Height>0.20833in</Height>
+        <Width>1.15625in</Width>
+        <ZIndex>13</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -596,67 +432,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>JourneyStart</rd:DefaultName>
-        <Top>1.84201in</Top>
-        <Left>4.61334in</Left>
+        <Top>2.55319in</Top>
+        <Left>3.03631in</Left>
         <Height>0.25in</Height>
-        <Width>1.68812in</Width>
-        <ZIndex>19</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Line Name="Line6">
-        <Top>2.88541in</Top>
-        <Left>0.19668in</Left>
-        <Height>0in</Height>
-        <Width>2.97917in</Width>
-        <ZIndex>20</ZIndex>
-        <Style>
-          <Border>
-            <Style>Solid</Style>
-          </Border>
-        </Style>
-      </Line>
-      <Line Name="Line7">
-        <Top>2.88541in</Top>
-        <Left>6.11917in</Left>
-        <Height>0in</Height>
-        <Width>2.97917in</Width>
-        <ZIndex>21</ZIndex>
-        <Style>
-          <Border>
-            <Style>Solid</Style>
-          </Border>
-        </Style>
-      </Line>
-      <Textbox Name="Textbox11">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>অফিস কর্তৃক পূরণের জন্য</Value>
-                <Style>
-                  <FontSize>14pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>2.74999in</Top>
-        <Left>3.84313in</Left>
-        <Height>0.26042in</Height>
-        <Width>2.17708in</Width>
-        <ZIndex>22</ZIndex>
+        <Width>1.59376in</Width>
+        <ZIndex>14</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -675,52 +455,20 @@
             <TextRuns>
               <TextRun>
                 <Value>গাড়ির নাম্বার</Value>
-                <Style>
-                  <FontSize>14pt</FontSize>
-                </Style>
+                <Style />
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>3.11892in</Top>
-        <Left>0.66052in</Left>
-        <Height>0.24653in</Height>
-        <Width>1.11459in</Width>
-        <ZIndex>23</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox45">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>৫</Value>
-                <Style>
-                  <FontSize>14pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>3.10503in</Top>
-        <Left>0.21261in</Left>
-        <Height>0.26042in</Height>
-        <Width>0.29166in</Width>
-        <ZIndex>24</ZIndex>
+        <Top>4.33532in</Top>
+        <Left>0.4334in</Left>
+        <Height>0.23611in</Height>
+        <Width>0.85417in</Width>
+        <ZIndex>15</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -746,11 +494,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>VehicleModel</rd:DefaultName>
-        <Top>3.11545in</Top>
-        <Left>6.55146in</Left>
-        <Height>0.25in</Height>
+        <Top>4.33965in</Top>
+        <Left>3.03631in</Left>
+        <Height>0.21875in</Height>
         <Width>1in</Width>
-        <ZIndex>25</ZIndex>
+        <ZIndex>16</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -769,31 +517,508 @@
             <TextRuns>
               <TextRun>
                 <Value>ড্রাইভার এর নাম</Value>
-                <Style>
-                  <FontSize>14pt</FontSize>
-                </Style>
+                <Style />
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
           </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox6</rd:DefaultName>
+        <Top>4.10094in</Top>
+        <Left>0.45424in</Left>
+        <Height>0.21875in</Height>
+        <Width>1.01043in</Width>
+        <ZIndex>17</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Line Name="Line14">
+        <Left>5.22162in</Left>
+        <Height>5.00111in</Height>
+        <Width>0in</Width>
+        <ZIndex>18</ZIndex>
+        <Style>
+          <Border>
+            <Style>Solid</Style>
+          </Border>
+        </Style>
+      </Line>
+      <Textbox Name="Textbox64">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value />
-                <Style>
-                  <FontSize>14pt</FontSize>
-                </Style>
+                <Value>অফিস কপি</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox6</rd:DefaultName>
+        <Top>0.16667in</Top>
+        <Left>3.42882in</Left>
+        <Height>0.16666in</Height>
+        <Width>0.765in</Width>
+        <ZIndex>19</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Image Name="logo3">
+        <Source>Embedded</Source>
+        <Value>bcc_logocopy</Value>
+        <Sizing>FitProportional</Sizing>
+        <Top>0.51291in</Top>
+        <Left>6.03695in</Left>
+        <Height>0.44792in</Height>
+        <Width>0.53186in</Width>
+        <ZIndex>20</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Image>
+      <Textbox Name="Textbox15">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>সরকারি কাজে</Value>
+                <Style />
               </TextRun>
             </TextRuns>
             <Style />
           </Paragraph>
         </Paragraphs>
-        <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>3.47483in</Top>
-        <Left>0.66543in</Left>
+        <rd:DefaultName>Textbox1</rd:DefaultName>
+        <Top>0.1875in</Top>
+        <Left>7.3709in</Left>
+        <Height>0.20833in</Height>
+        <Width>0.84375in</Width>
+        <ZIndex>21</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox16">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>গাড়ী রিকুইজিশন ফর্ম</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox1</rd:DefaultName>
+        <Top>0.37278in</Top>
+        <Left>7.17299in</Left>
+        <Height>0.16667in</Height>
+        <Width>1.27083in</Width>
+        <ZIndex>22</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox17">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>বাংলাদেশ কম্পিউটার কাউন্সিল</Value>
+                <Style>
+                  <FontFamily>times New Roman</FontFamily>
+                  <FontSize>11pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox1</rd:DefaultName>
+        <Top>0.50694in</Top>
+        <Left>6.73548in</Left>
+        <Height>0.22917in</Height>
+        <Width>2.19792in</Width>
+        <ZIndex>23</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox18">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>তথ্য ও যোগাযোগ প্রযুক্তি বিভাগ</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox1</rd:DefaultName>
+        <Top>0.76291in</Top>
+        <Left>6.73548in</Left>
+        <Height>0.19792in</Height>
+        <Width>2.19792in</Width>
+        <ZIndex>24</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox19">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>ই-১৪/এক্স,বিসিসি ভবন, আগারগাঁও, শেরে-বাংলানগর, ঢাকা-১২০৭</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox1</rd:DefaultName>
+        <Top>0.96083in</Top>
+        <Left>5.98548in</Left>
         <Height>0.25in</Height>
-        <Width>1.43751in</Width>
+        <Width>3.76042in</Width>
+        <ZIndex>25</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Line Name="Line12">
+        <Top>1.32194in</Top>
+        <Left>0.4334in</Left>
+        <Height>0in</Height>
+        <Width>3.76042in</Width>
         <ZIndex>26</ZIndex>
+        <Style>
+          <Border>
+            <Style>Solid</Style>
+          </Border>
+        </Style>
+      </Line>
+      <Line Name="Line13">
+        <Top>1.32194in</Top>
+        <Left>5.98548in</Left>
+        <Height>0in</Height>
+        <Width>3.76042in</Width>
+        <ZIndex>27</ZIndex>
+        <Style>
+          <Border>
+            <Style>Solid</Style>
+          </Border>
+        </Style>
+      </Line>
+      <Textbox Name="Textbox65">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>ড্রাইভার কপি</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox6</rd:DefaultName>
+        <Top>0.125in</Top>
+        <Left>8.43861in</Left>
+        <Height>0.16666in</Height>
+        <Width>0.93229in</Width>
+        <ZIndex>28</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Line Name="Line3">
+        <Top>3.91201in</Top>
+        <Left>0.45424in</Left>
+        <Height>0in</Height>
+        <Width>3.58207in</Width>
+        <ZIndex>29</ZIndex>
+        <Style>
+          <Border>
+            <Style>Solid</Style>
+          </Border>
+        </Style>
+      </Line>
+      <Textbox Name="DriverName">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=First(Fields!DriverName.Value, "AssignRequsition")</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>DriverName</rd:DefaultName>
+        <Top>4.10094in</Top>
+        <Left>3.03631in</Left>
+        <Height>0.19704in</Height>
+        <Width>1in</Width>
+        <ZIndex>30</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox11">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>রিকুইজিশন প্রদানকারী স্বাক্ষর</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox6</rd:DefaultName>
+        <Top>3.34573in</Top>
+        <Left>8.12612in</Left>
+        <Height>0.22917in</Height>
+        <Width>1.66667in</Width>
+        <ZIndex>31</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Line Name="Line4">
+        <Top>3.30407in</Top>
+        <Left>8.11856in</Left>
+        <Height>0in</Height>
+        <Width>1.31597in</Width>
+        <ZIndex>32</ZIndex>
+        <Style>
+          <Border>
+            <Style>Solid</Style>
+          </Border>
+        </Style>
+      </Line>
+      <Textbox Name="Textbox35">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>রিকুইজিশন প্রদানকারী</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox6</rd:DefaultName>
+        <Top>1.44556in</Top>
+        <Left>5.8357in</Left>
+        <Height>0.20833in</Height>
+        <Width>1.50288in</Width>
+        <ZIndex>33</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox36">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>কোথায় রিপোর্ট করতে হবে</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox6</rd:DefaultName>
+        <Top>1.72333in</Top>
+        <Left>5.8357in</Left>
+        <Height>0.20833in</Height>
+        <Width>1.61458in</Width>
+        <ZIndex>34</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox39">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>ভ্রমন এর বিবরন ও কারন</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox6</rd:DefaultName>
+        <Top>2.0011in</Top>
+        <Left>5.85654in</Left>
+        <Height>0.21875in</Height>
+        <Width>1.59375in</Width>
+        <ZIndex>35</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox45">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>গারি ছাড়িবার আনুমানিক সময়</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox6</rd:DefaultName>
+        <Top>2.55319in</Top>
+        <Left>5.85654in</Left>
+        <Height>0.25782in</Height>
+        <Width>1.81252in</Width>
+        <ZIndex>36</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -811,275 +1036,18 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>৬</Value>
-                <Style>
-                  <FontSize>14pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>3.46094in</Top>
-        <Left>0.21752in</Left>
-        <Height>0.26042in</Height>
-        <Width>0.29166in</Width>
-        <ZIndex>27</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="DriverName">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!DriverName.Value, "AssignRequsition")</Value>
+                <Value>পদবী</Value>
                 <Style />
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>DriverName</rd:DefaultName>
-        <Top>3.47483in</Top>
-        <Left>6.55146in</Left>
-        <Height>0.25in</Height>
-        <Width>1in</Width>
-        <ZIndex>28</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Line Name="Line8">
-        <Top>3.88541in</Top>
-        <Height>0in</Height>
-        <Width>9.28in</Width>
-        <ZIndex>29</ZIndex>
-        <Style>
-          <Border>
-            <Style>Solid</Style>
-          </Border>
-        </Style>
-      </Line>
-      <Image Name="logo2">
-        <Source>Embedded</Source>
-        <Value>bcc_logocopy</Value>
-        <Sizing>FitProportional</Sizing>
-        <Top>4.38517in</Top>
-        <Left>1.58271in</Left>
-        <Height>0.80903in</Height>
-        <Width>0.9375in</Width>
-        <ZIndex>30</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-        </Style>
-      </Image>
-      <Textbox Name="Textbox6">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>সরকারি কাজে</Value>
-                <Style />
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>4.05753in</Top>
-        <Left>4.05146in</Left>
-        <Height>0.25in</Height>
-        <Width>0.84375in</Width>
-        <ZIndex>31</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox7">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>গাড়ী রিকুইজিশন ফর্ম</Value>
-                <Style />
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>4.25198in</Top>
-        <Left>3.85355in</Left>
-        <Height>0.25in</Height>
-        <Width>1.27083in</Width>
-        <ZIndex>32</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox8">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>বাংলাদেশ কম্পিউটার কাউন্সিল</Value>
-                <Style>
-                  <FontFamily>times New Roman</FontFamily>
-                  <FontSize>20pt</FontSize>
-                  <FontWeight>Bold</FontWeight>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>4.38517in</Top>
-        <Left>2.66604in</Left>
-        <Height>0.41667in</Height>
-        <Width>3.88542in</Width>
-        <ZIndex>33</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox9">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>তথ্য ও যোগাযোগ প্রযুক্তি বিভাগ</Value>
-                <Style>
-                  <FontSize>12pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>4.74628in</Top>
-        <Left>3.34375in</Left>
-        <Height>0.25in</Height>
-        <Width>2.55209in</Width>
-        <ZIndex>34</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox12">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>ই-১৪/এক্স,বিসিসি ভবন, আগারগাঁও, শেরে-বাংলানগর, ঢাকা-১২০৭</Value>
-                <Style />
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>5.05184in</Top>
-        <Left>2.66604in</Left>
-        <Height>0.25in</Height>
-        <Width>5.03125in</Width>
-        <ZIndex>35</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Line Name="Line3">
-        <Top>5.42969in</Top>
-        <Height>0in</Height>
-        <Width>9.28in</Width>
-        <ZIndex>36</ZIndex>
-        <Style>
-          <Border>
-            <Style>Solid</Style>
-          </Border>
-        </Style>
-      </Line>
-      <Textbox Name="Textbox13">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>রিকুইজিশন প্রদানকারী স্বাক্ষর</Value>
-                <Style>
-                  <FontSize>14pt</FontSize>
-                </Style>
               </TextRun>
             </TextRuns>
             <Style />
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>7.89799in</Top>
-        <Left>6.44498in</Left>
-        <Height>0.26042in</Height>
-        <Width>2.34375in</Width>
+        <Top>1.74416in</Top>
+        <Left>8.06189in</Left>
+        <Height>0.16667in</Height>
+        <Width>0.38193in</Width>
         <ZIndex>37</ZIndex>
         <Style>
           <Border>
@@ -1091,18 +1059,6 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
-      <Line Name="Line4">
-        <Top>7.89799in</Top>
-        <Left>6.35062in</Left>
-        <Height>0in</Height>
-        <Width>1.8125in</Width>
-        <ZIndex>38</ZIndex>
-        <Style>
-          <Border>
-            <Style>Solid</Style>
-          </Border>
-        </Style>
-      </Line>
       <Textbox Name="Textbox48">
         <CanGrow>true</CanGrow>
         <KeepTogether>true</KeepTogether>
@@ -1110,21 +1066,19 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>১</Value>
-                <Style>
-                  <FontSize>12pt</FontSize>
-                </Style>
+                <Value>নাম</Value>
+                <Style />
               </TextRun>
             </TextRuns>
             <Style />
           </Paragraph>
         </Paragraphs>
-        <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>5.58202in</Top>
-        <Left>0.17354in</Left>
-        <Height>0.27083in</Height>
-        <Width>0.30208in</Width>
-        <ZIndex>39</ZIndex>
+        <rd:DefaultName>Textbox6</rd:DefaultName>
+        <Top>1.44556in</Top>
+        <Left>8.17236in</Left>
+        <Height>0.20833in</Height>
+        <Width>0.27146in</Width>
+        <ZIndex>38</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1142,309 +1096,21 @@
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>রিকুইজিশন প্রদানকারী</Value>
-                <Style>
-                  <FontSize>14pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>5.58202in</Top>
-        <Left>0.63187in</Left>
-        <Height>0.27083in</Height>
-        <Width>1.91667in</Width>
-        <ZIndex>40</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox50">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>কোথায় রিপোর্ট করতে হবে</Value>
-                <Style>
-                  <FontSize>14pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>6.26605in</Top>
-        <Left>0.63187in</Left>
-        <Height>0.27083in</Height>
-        <Width>2.1875in</Width>
-        <ZIndex>41</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox51">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>২</Value>
-                <Style>
-                  <FontSize>14pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>6.26605in</Top>
-        <Left>0.17354in</Left>
-        <Height>0.27083in</Height>
-        <Width>0.30208in</Width>
-        <ZIndex>42</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox52">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>৩</Value>
-                <Style>
-                  <FontSize>14pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>6.9657in</Top>
-        <Left>0.18396in</Left>
-        <Height>0.27083in</Height>
-        <Width>0.30208in</Width>
-        <ZIndex>43</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox53">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>ভ্রমন এর বিবরন ও কারন</Value>
-                <Style>
-                  <FontSize>14pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>6.97611in</Top>
-        <Left>0.65271in</Left>
-        <Height>0.26042in</Height>
-        <Width>2.17708in</Width>
-        <ZIndex>44</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox54">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>গারি ছাড়িবার আনুমানিক সময়</Value>
-                <Style>
-                  <FontSize>14pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>7.3216in</Top>
-        <Left>0.63187in</Left>
-        <Height>0.24653in</Height>
-        <Width>2.53126in</Width>
-        <ZIndex>45</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox55">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>৪</Value>
-                <Style>
-                  <FontSize>14pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>7.30771in</Top>
-        <Left>0.18396in</Left>
-        <Height>0.26042in</Height>
-        <Width>0.29166in</Width>
-        <ZIndex>46</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox56">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>পদবী</Value>
-                <Style>
-                  <FontSize>14pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>5.90147in</Top>
-        <Left>4.18806in</Left>
-        <Height>0.25in</Height>
-        <Width>0.45486in</Width>
-        <ZIndex>47</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox57">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>নাম</Value>
-                <Style>
-                  <FontSize>14pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>5.58202in</Top>
-        <Left>4.27771in</Left>
-        <Height>0.27083in</Height>
-        <Width>0.36521in</Width>
-        <ZIndex>48</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox58">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
                 <Value>তারিখ ও সময়</Value>
-                <Style>
-                  <FontSize>14pt</FontSize>
-                </Style>
+                <Style />
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Right</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>6.25823in</Top>
-        <Left>3.54223in</Left>
-        <Height>0.27083in</Height>
-        <Width>1.22569in</Width>
-        <ZIndex>49</ZIndex>
+        <Top>2.01153in</Top>
+        <Left>7.52258in</Left>
+        <Height>0.20833in</Height>
+        <Width>0.92124in</Width>
+        <ZIndex>39</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1470,11 +1136,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>EmployeeName1</rd:DefaultName>
-        <Top>5.60285in</Top>
-        <Left>4.79917in</Left>
-        <Height>0.25in</Height>
-        <Width>2.23958in</Width>
-        <ZIndex>50</ZIndex>
+        <Top>1.44556in</Top>
+        <Left>8.54688in</Left>
+        <Height>0.20833in</Height>
+        <Width>1.23264in</Width>
+        <ZIndex>40</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1500,11 +1166,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Designation1</rd:DefaultName>
-        <Top>5.90147in</Top>
-        <Left>4.79917in</Left>
-        <Height>0.25in</Height>
-        <Width>2.23958in</Width>
-        <ZIndex>51</ZIndex>
+        <Top>1.74416in</Top>
+        <Left>8.54688in</Left>
+        <Height>0.1875in</Height>
+        <Width>1.24591in</Width>
+        <ZIndex>41</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1532,11 +1198,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>JourneyEnd1</rd:DefaultName>
-        <Top>6.24522in</Top>
-        <Left>4.79917in</Left>
-        <Height>0.25in</Height>
-        <Width>2.23958in</Width>
-        <ZIndex>52</ZIndex>
+        <Top>2.01153in</Top>
+        <Left>8.54688in</Left>
+        <Height>0.20833in</Height>
+        <Width>1.61458in</Width>
+        <ZIndex>42</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1547,7 +1213,7 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
-      <Textbox Name="Textbox59">
+      <Textbox Name="Textbox50">
         <CanGrow>true</CanGrow>
         <KeepTogether>true</KeepTogether>
         <Paragraphs>
@@ -1555,20 +1221,18 @@
             <TextRuns>
               <TextRun>
                 <Value>স্থান</Value>
-                <Style>
-                  <FontSize>14pt</FontSize>
-                </Style>
+                <Style />
               </TextRun>
             </TextRuns>
             <Style />
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>6.54295in</Top>
-        <Left>4.27771in</Left>
-        <Height>0.27083in</Height>
-        <Width>0.3652in</Width>
-        <ZIndex>53</ZIndex>
+        <Top>2.27541in</Top>
+        <Left>8.17237in</Left>
+        <Height>0.20833in</Height>
+        <Width>0.27145in</Width>
+        <ZIndex>43</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1594,41 +1258,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>To1</rd:DefaultName>
-        <Top>6.56378in</Top>
-        <Left>4.79917in</Left>
-        <Height>0.25in</Height>
-        <Width>2.23958in</Width>
-        <ZIndex>54</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Description4">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!Description.Value, "AssignRequsition")</Value>
-                <Style />
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Description1</rd:DefaultName>
-        <Top>6.9657in</Top>
-        <Left>4.79917in</Left>
-        <Height>0.25in</Height>
-        <Width>2.23958in</Width>
-        <ZIndex>55</ZIndex>
+        <Top>2.2893in</Top>
+        <Left>8.54687in</Left>
+        <Height>0.20833in</Height>
+        <Width>1.15625in</Width>
+        <ZIndex>44</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1654,11 +1288,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>JourneyStart</rd:DefaultName>
-        <Top>7.3216in</Top>
-        <Left>4.60062in</Left>
+        <Top>2.56708in</Top>
+        <Left>8.42187in</Left>
         <Height>0.25in</Height>
-        <Width>1.68812in</Width>
-        <ZIndex>56</ZIndex>
+        <Width>1.59376in</Width>
+        <ZIndex>45</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1669,63 +1303,7 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
-      <Line Name="Line9">
-        <Top>8.365in</Top>
-        <Left>0.18396in</Left>
-        <Height>0in</Height>
-        <Width>2.97917in</Width>
-        <ZIndex>57</ZIndex>
-        <Style>
-          <Border>
-            <Style>Solid</Style>
-          </Border>
-        </Style>
-      </Line>
-      <Line Name="Line10">
-        <Top>8.365in</Top>
-        <Left>6.10645in</Left>
-        <Height>0in</Height>
-        <Width>2.97917in</Width>
-        <ZIndex>58</ZIndex>
-        <Style>
-          <Border>
-            <Style>Solid</Style>
-          </Border>
-        </Style>
-      </Line>
-      <Textbox Name="Textbox14">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>অফিস কর্তৃক পূরণের জন্য</Value>
-                <Style>
-                  <FontSize>14pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>8.22958in</Top>
-        <Left>3.83041in</Left>
-        <Height>0.26042in</Height>
-        <Width>2.17708in</Width>
-        <ZIndex>59</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox60">
+      <Textbox Name="Textbox51">
         <CanGrow>true</CanGrow>
         <KeepTogether>true</KeepTogether>
         <Paragraphs>
@@ -1733,52 +1311,20 @@
             <TextRuns>
               <TextRun>
                 <Value>গাড়ির নাম্বার</Value>
-                <Style>
-                  <FontSize>14pt</FontSize>
-                </Style>
+                <Style />
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>8.59851in</Top>
-        <Left>0.6478in</Left>
-        <Height>0.24653in</Height>
-        <Width>1.11459in</Width>
-        <ZIndex>60</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox61">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>৫</Value>
-                <Style>
-                  <FontSize>14pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>8.58462in</Top>
-        <Left>0.19989in</Left>
-        <Height>0.26042in</Height>
-        <Width>0.29166in</Width>
-        <ZIndex>61</ZIndex>
+        <Top>4.34921in</Top>
+        <Left>5.8357in</Left>
+        <Height>0.23611in</Height>
+        <Width>0.85417in</Width>
+        <ZIndex>46</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1804,11 +1350,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>VehicleModel</rd:DefaultName>
-        <Top>8.59504in</Top>
-        <Left>6.53874in</Left>
-        <Height>0.25in</Height>
+        <Top>4.35354in</Top>
+        <Left>8.43861in</Left>
+        <Height>0.21875in</Height>
         <Width>1in</Width>
-        <ZIndex>62</ZIndex>
+        <ZIndex>47</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1819,7 +1365,7 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
-      <Textbox Name="Textbox62">
+      <Textbox Name="Textbox52">
         <CanGrow>true</CanGrow>
         <KeepTogether>true</KeepTogether>
         <Paragraphs>
@@ -1827,31 +1373,20 @@
             <TextRuns>
               <TextRun>
                 <Value>ড্রাইভার এর নাম</Value>
-                <Style>
-                  <FontSize>14pt</FontSize>
-                </Style>
+                <Style />
               </TextRun>
             </TextRuns>
-            <Style />
-          </Paragraph>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value />
-                <Style>
-                  <FontSize>14pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Left</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>8.95789in</Top>
-        <Left>0.65271in</Left>
-        <Height>0.24653in</Height>
-        <Width>1.43751in</Width>
-        <ZIndex>63</ZIndex>
+        <Top>4.11483in</Top>
+        <Left>5.85654in</Left>
+        <Height>0.21875in</Height>
+        <Width>1.01043in</Width>
+        <ZIndex>48</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1862,38 +1397,18 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
-      <Textbox Name="Textbox63">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>৬</Value>
-                <Style>
-                  <FontSize>14pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox8</rd:DefaultName>
-        <Top>8.94053in</Top>
-        <Left>0.2048in</Left>
-        <Height>0.26042in</Height>
-        <Width>0.29166in</Width>
-        <ZIndex>64</ZIndex>
+      <Line Name="Line5">
+        <Top>3.9259in</Top>
+        <Left>5.85654in</Left>
+        <Height>0in</Height>
+        <Width>3.58207in</Width>
+        <ZIndex>49</ZIndex>
         <Style>
           <Border>
-            <Style>None</Style>
+            <Style>Solid</Style>
           </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
         </Style>
-      </Textbox>
+      </Line>
       <Textbox Name="DriverName2">
         <CanGrow>true</CanGrow>
         <KeepTogether>true</KeepTogether>
@@ -1909,11 +1424,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>DriverName</rd:DefaultName>
-        <Top>8.95442in</Top>
-        <Left>6.53874in</Left>
-        <Height>0.25in</Height>
+        <Top>4.11483in</Top>
+        <Left>8.43861in</Left>
+        <Height>0.19704in</Height>
         <Width>1in</Width>
-        <ZIndex>65</ZIndex>
+        <ZIndex>50</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1924,28 +1439,171 @@
           <PaddingBottom>2pt</PaddingBottom>
         </Style>
       </Textbox>
-      <Textbox Name="Textbox65">
+      <Image Name="logo4">
+        <Source>Embedded</Source>
+        <Value>bcc_logocopy</Value>
+        <Sizing>FitProportional</Sizing>
+        <Top>0.45041in</Top>
+        <Left>0.50571in</Left>
+        <Height>0.44792in</Height>
+        <Width>0.53186in</Width>
+        <ZIndex>51</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+        </Style>
+      </Image>
+      <Textbox Name="Textbox20">
         <CanGrow>true</CanGrow>
         <KeepTogether>true</KeepTogether>
         <Paragraphs>
           <Paragraph>
             <TextRuns>
               <TextRun>
-                <Value>ড্রাইভার কপি</Value>
-                <Style>
-                  <FontSize>14pt</FontSize>
-                </Style>
+                <Value>সরকারি কাজে</Value>
+                <Style />
               </TextRun>
             </TextRuns>
             <Style />
           </Paragraph>
         </Paragraphs>
-        <rd:DefaultName>Textbox6</rd:DefaultName>
-        <Top>4.38517in</Top>
-        <Left>7.18167in</Left>
-        <Height>0.27083in</Height>
-        <Width>1.11917in</Width>
-        <ZIndex>66</ZIndex>
+        <rd:DefaultName>Textbox1</rd:DefaultName>
+        <Top>0.125in</Top>
+        <Left>1.83966in</Left>
+        <Height>0.20833in</Height>
+        <Width>0.84375in</Width>
+        <ZIndex>52</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox21">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>গাড়ী রিকুইজিশন ফর্ম</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox1</rd:DefaultName>
+        <Top>0.31028in</Top>
+        <Left>1.64175in</Left>
+        <Height>0.16667in</Height>
+        <Width>1.27083in</Width>
+        <ZIndex>53</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox22">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>বাংলাদেশ কম্পিউটার কাউন্সিল</Value>
+                <Style>
+                  <FontFamily>times New Roman</FontFamily>
+                  <FontSize>11pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox1</rd:DefaultName>
+        <Top>0.49084in</Top>
+        <Left>1.20424in</Left>
+        <Height>0.22917in</Height>
+        <Width>2.19792in</Width>
+        <ZIndex>54</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox23">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>তথ্য ও যোগাযোগ প্রযুক্তি বিভাগ</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox1</rd:DefaultName>
+        <Top>0.74902in</Top>
+        <Left>1.20424in</Left>
+        <Height>0.19792in</Height>
+        <Width>2.19792in</Width>
+        <ZIndex>55</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox24">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>ই-১৪/এক্স,বিসিসি ভবন, আগারগাঁও, শেরে-বাংলানগর, ঢাকা-১২০৭</Value>
+                <Style />
+              </TextRun>
+            </TextRuns>
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox1</rd:DefaultName>
+        <Top>0.96083in</Top>
+        <Left>0.45424in</Left>
+        <Height>0.25in</Height>
+        <Width>3.76042in</Width>
+        <ZIndex>56</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -1957,7 +1615,7 @@
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>9.33854in</Height>
+    <Height>5.00111in</Height>
     <Style>
       <Border>
         <Style>None</Style>
@@ -1965,240 +1623,14 @@
       <BackgroundColor>White</BackgroundColor>
     </Style>
   </Body>
-  <Width>9.28in</Width>
+  <Width>10.47792in</Width>
   <Page>
-    <PageHeader>
-      <Height>1.41542in</Height>
-      <PrintOnFirstPage>true</PrintOnFirstPage>
-      <PrintOnLastPage>true</PrintOnLastPage>
-      <ReportItems>
-        <Image Name="logo">
-          <Source>Embedded</Source>
-          <Value>bcc_logocopy</Value>
-          <Sizing>FitProportional</Sizing>
-          <Top>0.44097in</Top>
-          <Left>1.87375in</Left>
-          <Height>0.80903in</Height>
-          <Width>0.9375in</Width>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-          </Style>
-        </Image>
-        <Textbox Name="Textbox1">
-          <CanGrow>true</CanGrow>
-          <KeepTogether>true</KeepTogether>
-          <Paragraphs>
-            <Paragraph>
-              <TextRuns>
-                <TextRun>
-                  <Value>সরকারি কাজে</Value>
-                  <Style />
-                </TextRun>
-              </TextRuns>
-              <Style />
-            </Paragraph>
-          </Paragraphs>
-          <rd:DefaultName>Textbox1</rd:DefaultName>
-          <Top>0.11333in</Top>
-          <Left>4.3425in</Left>
-          <Height>0.25in</Height>
-          <Width>0.84375in</Width>
-          <ZIndex>1</ZIndex>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-            <PaddingLeft>2pt</PaddingLeft>
-            <PaddingRight>2pt</PaddingRight>
-            <PaddingTop>2pt</PaddingTop>
-            <PaddingBottom>2pt</PaddingBottom>
-          </Style>
-        </Textbox>
-        <Textbox Name="Textbox2">
-          <CanGrow>true</CanGrow>
-          <KeepTogether>true</KeepTogether>
-          <Paragraphs>
-            <Paragraph>
-              <TextRuns>
-                <TextRun>
-                  <Value>গাড়ী রিকুইজিশন ফর্ম</Value>
-                  <Style />
-                </TextRun>
-              </TextRuns>
-              <Style />
-            </Paragraph>
-          </Paragraphs>
-          <rd:DefaultName>Textbox1</rd:DefaultName>
-          <Top>0.30778in</Top>
-          <Left>4.14459in</Left>
-          <Height>0.25in</Height>
-          <Width>1.27083in</Width>
-          <ZIndex>2</ZIndex>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-            <PaddingLeft>2pt</PaddingLeft>
-            <PaddingRight>2pt</PaddingRight>
-            <PaddingTop>2pt</PaddingTop>
-            <PaddingBottom>2pt</PaddingBottom>
-          </Style>
-        </Textbox>
-        <Textbox Name="Textbox3">
-          <CanGrow>true</CanGrow>
-          <KeepTogether>true</KeepTogether>
-          <Paragraphs>
-            <Paragraph>
-              <TextRuns>
-                <TextRun>
-                  <Value>বাংলাদেশ কম্পিউটার কাউন্সিল</Value>
-                  <Style>
-                    <FontFamily>times New Roman</FontFamily>
-                    <FontSize>20pt</FontSize>
-                    <FontWeight>Bold</FontWeight>
-                  </Style>
-                </TextRun>
-              </TextRuns>
-              <Style />
-            </Paragraph>
-          </Paragraphs>
-          <rd:DefaultName>Textbox1</rd:DefaultName>
-          <Top>0.44097in</Top>
-          <Left>2.95708in</Left>
-          <Height>0.41667in</Height>
-          <Width>3.88542in</Width>
-          <ZIndex>3</ZIndex>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-            <PaddingLeft>2pt</PaddingLeft>
-            <PaddingRight>2pt</PaddingRight>
-            <PaddingTop>2pt</PaddingTop>
-            <PaddingBottom>2pt</PaddingBottom>
-          </Style>
-        </Textbox>
-        <Textbox Name="Textbox4">
-          <CanGrow>true</CanGrow>
-          <KeepTogether>true</KeepTogether>
-          <Paragraphs>
-            <Paragraph>
-              <TextRuns>
-                <TextRun>
-                  <Value>তথ্য ও যোগাযোগ প্রযুক্তি বিভাগ</Value>
-                  <Style>
-                    <FontSize>12pt</FontSize>
-                  </Style>
-                </TextRun>
-              </TextRuns>
-              <Style />
-            </Paragraph>
-          </Paragraphs>
-          <rd:DefaultName>Textbox1</rd:DefaultName>
-          <Top>0.80208in</Top>
-          <Left>3.63479in</Left>
-          <Height>0.25in</Height>
-          <Width>2.55209in</Width>
-          <ZIndex>4</ZIndex>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-            <PaddingLeft>2pt</PaddingLeft>
-            <PaddingRight>2pt</PaddingRight>
-            <PaddingTop>2pt</PaddingTop>
-            <PaddingBottom>2pt</PaddingBottom>
-          </Style>
-        </Textbox>
-        <Textbox Name="Textbox5">
-          <CanGrow>true</CanGrow>
-          <KeepTogether>true</KeepTogether>
-          <Paragraphs>
-            <Paragraph>
-              <TextRuns>
-                <TextRun>
-                  <Value>ই-১৪/এক্স,বিসিসি ভবন, আগারগাঁও, শেরে-বাংলানগর, ঢাকা-১২০৭</Value>
-                  <Style />
-                </TextRun>
-              </TextRuns>
-              <Style />
-            </Paragraph>
-          </Paragraphs>
-          <rd:DefaultName>Textbox1</rd:DefaultName>
-          <Top>1.10764in</Top>
-          <Left>2.95708in</Left>
-          <Height>0.25in</Height>
-          <Width>5.03125in</Width>
-          <ZIndex>5</ZIndex>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-            <PaddingLeft>2pt</PaddingLeft>
-            <PaddingRight>2pt</PaddingRight>
-            <PaddingTop>2pt</PaddingTop>
-            <PaddingBottom>2pt</PaddingBottom>
-          </Style>
-        </Textbox>
-        <Line Name="Line1">
-          <Top>1.41542in</Top>
-          <Height>0in</Height>
-          <Width>9.28in</Width>
-          <ZIndex>6</ZIndex>
-          <Style>
-            <Border>
-              <Style>Solid</Style>
-            </Border>
-          </Style>
-        </Line>
-        <Textbox Name="Textbox64">
-          <CanGrow>true</CanGrow>
-          <KeepTogether>true</KeepTogether>
-          <Paragraphs>
-            <Paragraph>
-              <TextRuns>
-                <TextRun>
-                  <Value>অফিস কপি</Value>
-                  <Style>
-                    <FontSize>14pt</FontSize>
-                  </Style>
-                </TextRun>
-              </TextRuns>
-              <Style />
-            </Paragraph>
-          </Paragraphs>
-          <rd:DefaultName>Textbox6</rd:DefaultName>
-          <Top>0.28695in</Top>
-          <Left>7.68167in</Left>
-          <Height>0.27083in</Height>
-          <Width>0.99417in</Width>
-          <ZIndex>7</ZIndex>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-            <PaddingLeft>2pt</PaddingLeft>
-            <PaddingRight>2pt</PaddingRight>
-            <PaddingTop>2pt</PaddingTop>
-            <PaddingBottom>2pt</PaddingBottom>
-          </Style>
-        </Textbox>
-      </ReportItems>
-      <Style>
-        <Border>
-          <Style>None</Style>
-        </Border>
-        <BackgroundColor>White</BackgroundColor>
-      </Style>
-    </PageHeader>
-    <PageHeight>5.83in</PageHeight>
-    <PageWidth>8.27in</PageWidth>
-    <LeftMargin>0.25in</LeftMargin>
-    <RightMargin>0.25in</RightMargin>
-    <TopMargin>0.25in</TopMargin>
-    <BottomMargin>0.25in</BottomMargin>
+    <PageHeight>8.27in</PageHeight>
+    <PageWidth>11.69in</PageWidth>
+    <LeftMargin>0.5in</LeftMargin>
+    <RightMargin>0.5in</RightMargin>
+    <TopMargin>0.5in</TopMargin>
+    <BottomMargin>0.5in</BottomMargin>
     <Style />
   </Page>
   <AutoRefresh>0</AutoRefresh>
