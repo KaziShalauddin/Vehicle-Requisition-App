@@ -93,8 +93,7 @@ namespace VehicleManagementApp.Controllers
             {
                 EmployeeId = (int)emplId,
                 EmployeName = employeeNam,
-                RequsitionId = requsitionId,
-                CommentTime = DateTime.Now
+                RequsitionId = requsitionId
             };
 
             //Collect the list of comment to display the list under comment
@@ -112,7 +111,7 @@ namespace VehicleManagementApp.Controllers
                         EmployeName = item.Employee.Name,
                         UserName = item.UserName,
                         UserId = item.UserId,
-                        CommentTime = DateTime.Now
+                        CommentTime = item.CommentTime
                     }
                 );
             }
