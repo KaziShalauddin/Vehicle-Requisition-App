@@ -816,6 +816,7 @@
     <Content Include="Views\Manager\Print.cshtml" />
     <Content Include="Views\Manager\AdvanceAssign.cshtml" />
     <Content Include="Views\Manager\AssignedList.cshtml" />
+    <Content Include="Views\Manager\AssignDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
