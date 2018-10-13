@@ -43,6 +43,8 @@ namespace VehicleManagementApp.ViewModels
         public string DepartmentName { get; set; }
         public string DesignationName { get; set; }
         public string EmployeeNo { get; set; }
+        public string StartTime { get; set; }
+        public string EndTime { get; set; }
 
         [Display(Name = "Employee")]
         public int EmployeeId { get; set; }

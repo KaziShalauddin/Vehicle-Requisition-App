@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System.Web.UI.WebControls.Expressions;
+using System.Web.WebPages;
 using Microsoft.Ajax.Utilities;
 using Microsoft.Reporting.WebForms;
 using VehicleManagementApp.BLL.Contracts;
@@ -557,6 +558,8 @@ namespace VehicleManagementApp.Controllers
             var empltNo = requsition.Employee.ContactNo;
             var dept = requsition.Employee.Department.Name;
             var des = requsition.Employee.Designation.Name;
+            var startdate = requsition.JourneyStart.ToString("f");
+            var enddate = requsition.JouneyEnd.ToString("f");
 
             List<RequsitionViewModel> requsitionViewModels = new List<RequsitionViewModel>();
             var requsitionVM = new RequsitionViewModel();
@@ -567,7 +570,8 @@ namespace VehicleManagementApp.Controllers
             requsitionVM.Form = requsition.Form;
             requsitionVM.To = requsition.To;
             requsitionVM.Description = requsition.Description;
-            requsitionVM.JourneyStart = requsition.JourneyStart;
+            requsitionVM.StartTime = startdate;
+            requsitionVM.EndTime = enddate;
             requsitionVM.JouneyEnd = requsition.JouneyEnd;
             requsitionVM.RequsitionNumber = requsition.RequsitionNumber;
             requsitionViewModels.Add(requsitionVM);
@@ -581,7 +585,7 @@ namespace VehicleManagementApp.Controllers
                 ProcessingMode = ProcessingMode.Local
             };
             reportViewer.LocalReport.ReportPath = reportpath;
-            ReportDataSource rds = new ReportDataSource("RequsitionDetailsDS", requsitionViewModels);
+            ReportDataSource rds = new ReportDataSource("DataSet1", requsitionViewModels);
             reportViewer.LocalReport.DataSources.Add(rds);
             ViewBag.ReportViewer = reportViewer;
             return View(requsitionViewModels);
