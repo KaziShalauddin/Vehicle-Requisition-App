@@ -8,52 +8,42 @@
 <div>
     <table class="table table-bordered table-striped table-hover">
         <tr>
-            <th>Employee Name</th>
+            <td>Employee Name</td>
             <td>@Html.DisplayFor(model => model.Requsition.Employee.Name)</td>
         </tr>
         <tr>
-            <th>Employee Number</th>
+            <td>Employee Number</td>
             <td>@Html.DisplayFor(model => model.Requsition.Employee.ContactNo)</td>
         </tr>
         <tr>
-            <th>Requsition Form</th>
+            <td>Requsition Form</td>
             <td>@Html.DisplayFor(model => model.Requsition.Form)</td>
         </tr>
         <tr>
-            <th>Journey Start Time</th>
+            <td>Journey Start Time</td>
             <td>@Html.DisplayFor(model => model.Requsition.JourneyStart)</td>
         </tr>
         <tr>
-            <th>Journey Start Time</th>
+            <td>Journey Start Time</td>
             <td>@Html.DisplayFor(model => model.Requsition.JouneyEnd)</td>
         </tr>
         <tr>
-            <th>Requsition To</th>
+            <td>Requsition To</td>
             <td>@Html.DisplayFor(model => model.Requsition.To)</td>
         </tr>
         <tr>
-            <th>Vehicle Name</th>
-            <td>@Html.DisplayFor(model => model.Vehicle.VehicleName) </td>
+            <td>Vehicle Info</td>
+            <td><span>Brand Name :</span> @Html.DisplayFor(model => model.Vehicle.VehicleName),  <span>Model Number :</span> @Html.DisplayFor(model => model.Vehicle.VModel),
+               <span>Registration Number :</span> @Html.DisplayFor(model => model.Vehicle.VRegistrationNo)
+            </td>
         </tr>
         <tr>
-            <th>Vehicle Model</th>
-            <td>@Html.DisplayFor(model => model.Vehicle.VModel)</td>
-        </tr>
-        <tr>
-            <th>Vehicle Registration</th>
-            <td>@Html.DisplayFor(model => model.Vehicle.VRegistrationNo)</td>
-        </tr>
-        <tr>
-            <th>Driver Name</th>
+            <td>Driver Name</td>
             <td>@Html.DisplayFor(model => model.Employee.Name)</td>
         </tr>
         <tr>
-            <th>Driver Name</th>
+            <td>Driver Name</td>
             <td>@Html.DisplayFor(model => model.Employee.ContactNo)</td>
-        </tr>
-        <tr>
-            <th>Status</th>
-            <td>@Html.DisplayFor(model => model.Status)</td>
         </tr>
     </table>
 </div>

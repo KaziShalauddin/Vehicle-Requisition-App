@@ -22,7 +22,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.RequsitionNumber)
             </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -41,10 +40,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.RequsitionNumber)
-                </td>
-                <td>
-                    @Html.ActionLink("View", "Details", "Requsition", new { id = item.Id }, new { @class = "btn btn-info" })
-                    @Html.ActionLink("Assign", "Assign", new { id = item.Id }, new { @class = "btn btn-primary" })
                 </td>
             </tr>
         }
