@@ -816,6 +816,7 @@
     <Content Include="Views\Manager\Print.cshtml" />
     <Content Include="Views\Manager\AdvanceAssign.cshtml" />
     <Content Include="Views\Manager\AssignedList.cshtml" />
+    <Content Include="Views\Requsition\Print.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -871,6 +872,7 @@
       <DependentUpon>201809290251363_UserTable_userPhotoAdded.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Report\AssignRequsition\RequsitionAssignRDLC.rdlc" />
+    <EmbeddedResource Include="Report\RequsitionDetails\RequsitionDetailsRDLC.rdlc" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

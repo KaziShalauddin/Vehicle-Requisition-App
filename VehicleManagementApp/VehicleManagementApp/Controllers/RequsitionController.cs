@@ -4,11 +4,12 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-
+using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System.Web.UI.WebControls.Expressions;
 using Microsoft.Ajax.Utilities;
+using Microsoft.Reporting.WebForms;
 using VehicleManagementApp.BLL.Contracts;
 using VehicleManagementApp.Models;
 using VehicleManagementApp.Models.Models;
@@ -543,6 +544,47 @@ namespace VehicleManagementApp.Controllers
                     new SelectListItem{Value = "1",Text = "Official"},
                     new SelectListItem{Value = "2",Text = "Personal"}
                     };
+        }
+
+        public ActionResult Print(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var requsition = _requisitionManager.GetById((int) id);
+            var emplt = requsition.Employee.Name;
+            var empltNo = requsition.Employee.ContactNo;
+            var dept = requsition.Employee.Department.Name;
+            var des = requsition.Employee.Designation.Name;
+
+            List<RequsitionViewModel> requsitionViewModels = new List<RequsitionViewModel>();
+            var requsitionVM = new RequsitionViewModel();
+            requsitionVM.DepartmentName = dept;
+            requsitionVM.EmployeeName = emplt;
+            requsitionVM.DesignationName = des;
+            requsitionVM.EmployeeNo = empltNo;
+            requsitionVM.Form = requsition.Form;
+            requsitionVM.To = requsition.To;
+            requsitionVM.Description = requsition.Description;
+            requsitionVM.JourneyStart = requsition.JourneyStart;
+            requsitionVM.JouneyEnd = requsition.JouneyEnd;
+            requsitionVM.RequsitionNumber = requsition.RequsitionNumber;
+            requsitionViewModels.Add(requsitionVM);
+
+            string reportpath = Request.MapPath(Request.ApplicationPath) + @"Report\RequsitionDetails\RequsitionDetailsRDLC.rdlc";
+            var reportViewer = new ReportViewer()
+            {
+                KeepSessionAlive = true,
+                SizeToReportContent = true,
+                Width = Unit.Percentage(100),
+                ProcessingMode = ProcessingMode.Local
+            };
+            reportViewer.LocalReport.ReportPath = reportpath;
+            ReportDataSource rds = new ReportDataSource("RequsitionDetailsDS", requsitionViewModels);
+            reportViewer.LocalReport.DataSources.Add(rds);
+            ViewBag.ReportViewer = reportViewer;
+            return View(requsitionViewModels);
         }
 
     }

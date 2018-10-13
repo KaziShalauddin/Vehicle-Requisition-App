@@ -39,6 +39,11 @@ namespace VehicleManagementApp.ViewModels
         public string Status { get; set; }
         public string RequsitionNumber { get; set; }
 
+        public string EmployeeName { get; set; }
+        public string DepartmentName { get; set; }
+        public string DesignationName { get; set; }
+        public string EmployeeNo { get; set; }
+
         [Display(Name = "Employee")]
         public int EmployeeId { get; set; }
         public virtual Employee Employee { get; set; }

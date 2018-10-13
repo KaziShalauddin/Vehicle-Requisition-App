@@ -60,6 +60,7 @@
                 {
                     @Html.ActionLink("Edit", "Edit", new {id = Model.Id}, new {@class = "btn btn-primary"}) 
                     @Html.ActionLink("Delete", "Delete", new {id = Model.Id}, new {@class = "btn btn-danger", onclick = "return confirm('Are You Sure? You Want To Cancle!')"})
+                    @Html.ActionLink("Print", "Print", new { id = Model.Id }, new { @class = "btn btn-success" })
                     @Html.ActionLink("Back to List", "Index", new { id = "", }, new { @class = "btn btn-default" })
                 }
                 else
