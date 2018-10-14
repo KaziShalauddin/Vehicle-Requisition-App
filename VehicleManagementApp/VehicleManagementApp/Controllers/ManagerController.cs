@@ -133,7 +133,7 @@ namespace VehicleManagementApp.Controllers
             Requsition requsition = _requisitionManager.GetById((int)id);
             Manager manager = new Manager();
             var employees = _employeeManager.Get(c => c.IsDriver == true && c.Status == null || c.Status == "NULL" || c.Status == "Assigned" && c.IsDeleted == false);
-            var assignVehicle = vehicleManager.Get(c => c.Status == null || c.Status == "NULL" && c.IsDeleted == false);
+            var assignVehicle = vehicleManager.Get(c => c.Status == null || c.Status == "NULL" || c.Status == "Assigned" && c.IsDeleted == false);
 
             ManagerViewModel managerVM = new ManagerViewModel();
             managerVM.Id = manager.Id;
@@ -159,11 +159,17 @@ namespace VehicleManagementApp.Controllers
         {
             Requsition requsition = new Requsition();
             Manager manager = new Manager();
+            var requsitions = _requisitionManager.GetById(managerViewModel.RequsitionId);
+            var startdateTime = requsitions.JourneyStart;
+            var endDateTime = requsitions.JouneyEnd;
+
             manager.Id = managerViewModel.Id;
             manager.DriverNo = managerViewModel.DriverNo;
             manager.RequsitionId = managerViewModel.RequsitionId;
             manager.EmployeeId = managerViewModel.EmployeeId;
             manager.VehicleId = managerViewModel.VehicleId;
+            manager.StartDate = startdateTime;
+            manager.EndDate = endDateTime;
 
             //Email Sending Methon start
             SendingEmailDriver(managerViewModel.EmployeeId, managerViewModel.RequsitionId);
@@ -480,7 +486,7 @@ namespace VehicleManagementApp.Controllers
                 var credential = new NetworkCredential
                 {
                     UserName = "mohammadziaulm62@gmail.com", // replace with valid value
-                    Password = "************" // replace with valid value
+                    Password = "01915982924" // replace with valid value
                 };
                 smtp.Credentials = credential;
                 smtp.Host = "smtp.gmail.com";
@@ -520,7 +526,7 @@ namespace VehicleManagementApp.Controllers
                 var credential = new NetworkCredential
                 {
                     UserName = "mohammadziaulm62@gmail.com", // replace with valid value
-                    Password = "*************" // replace with valid value
+                    Password = "01915982924" // replace with valid value
                 };
                 smtp.Credentials = credential;
                 smtp.Host = "smtp.gmail.com";
@@ -684,7 +690,6 @@ namespace VehicleManagementApp.Controllers
             return View();
 
         }
-
         public ActionResult Car()
         {
             var vehicle = vehicleManager.GetAll();
@@ -886,13 +891,14 @@ namespace VehicleManagementApp.Controllers
         public ActionResult CompleteRequsition()
         {
             var Manager = managerManager.Get(c => c.Status == "RequsitionComplete" && c.IsDeleted == false).OrderByDescending(c => c.Id);
-
+            string todays = DateTime.Today.ToShortDateString();
+            var todayRequsition = Manager.Where(c => c.StartDate.ToShortDateString() == todays);
             var employee = _employeeManager.Get(c => c.IsDriver == true && c.IsDeleted == false);
             var vehicle = vehicleManager.GetAll();
             var requsition = _requisitionManager.GetAll();
 
             List<ManagerViewModel> managerViewModels = new List<ManagerViewModel>();
-            foreach (var manager in Manager)
+            foreach (var manager in todayRequsition)
             {
                 var managerVM = new ManagerViewModel();
                 managerVM.Id = manager.Id;
