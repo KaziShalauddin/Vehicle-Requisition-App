@@ -1,0 +1,83 @@
+﻿@model VehicleManagementApp.ViewModels.AssignedListViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutManager.cshtml";
+}
+
+
+<h3>Requsition Assign Details</h3>
+<div>
+
+    <div class="row col-md-8">
+
+        
+            <table class="table table-hover">
+                <tr>
+                    <td>
+                        <table class="table table-hover col-md-4">
+                            <tr class="card">
+                                <th>Employee Info</th>
+                                <td>
+                                    Name: @Html.DisplayFor(model => model.Requisition.Employee.Name)
+                                    <br />
+                                    Department: @Html.DisplayFor(model => model.Requisition.Employee.Department.Name)
+                                    <br />
+                                    Designation: @Html.DisplayFor(model => model.Requisition.Employee.Designation.Name)
+                                    <br />
+                                    Contact No.: @Html.DisplayFor(model => model.Requisition.Employee.ContactNo)
+                                </td>
+                            </tr>
+                        </table>
+                        @*</div>
+                            <div>*@
+                    </td>
+                    <td>
+                        <table class="table table-hover col-md-4">
+                            <tr class="card">
+                                <th>Requsition Info</th>
+                                <td>
+                                    Type: @Html.DisplayFor(model => model.Requisition.RequestType)
+                                    <br />
+                                    From: @Html.DisplayFor(model => model.Requisition.Form)
+                                    <br />
+                                    To: @Html.DisplayFor(model => model.Requisition.To)
+                                    <br/>
+                                    @{
+                                        var startdate = Model.Requisition.JourneyStart.ToString("dd - MMM - yyyy hh:mm tt");
+                                        var enddate = Model.Requisition.JouneyEnd.ToString("dd - MMM - yyyy hh:mm tt");
+                                    }
+                                    Journey Start: @Html.Label(startdate)
+                                   
+                                    <br />
+                                    Journey End: @Html.Label(enddate)
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+
+                </tr>
+            </table>
+       
+
+
+    </div>
+    <table class="table  table-hover">
+        <tr class="card">
+            <th>Driver Info</th>
+            <td>
+                Name: @Html.DisplayFor(model => model.Driver.Name)
+                <br />
+                Contact No.: @Html.DisplayFor(model => model.Driver.ContactNo)
+            </td>
+        </tr>
+        <tr class="card">
+            <th>Vehicle :</th>
+            <td>@Html.DisplayFor(model => model.Vehicle.Name)</td>
+        </tr>
+    </table>
+</div>
+
+<p>
+    @Html.ActionLink("Back to List", "AssignedList")
+</p>

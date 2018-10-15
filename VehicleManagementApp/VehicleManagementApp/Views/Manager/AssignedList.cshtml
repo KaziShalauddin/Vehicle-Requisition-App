@@ -43,7 +43,7 @@
                     @(sl++)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Requsition.RequsitionNumber)
+                    @Html.DisplayFor(modelItem => item.Requisition.RequsitionNumber)
                 </td>
                 <td>
                     Name: @Html.DisplayFor(modelItem => item.Employee.Name)
@@ -56,16 +56,16 @@
                     <span> Contact No.:  @Html.DisplayFor(modelItem => item.Driver.ContactNo)</span>
                 </td>
                 <td>
-                    From :   @Html.DisplayFor(modelItem => item.Requsition.Form)
+                    From :   @Html.DisplayFor(modelItem => item.Requisition.Form)
                     <br />
-                    To : @Html.DisplayFor(modelItem => item.Requsition.To)
+                    To : @Html.DisplayFor(modelItem => item.Requisition.To)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Vehicle.VehicleName)
+                    @Html.DisplayFor(modelItem => item.Vehicle.Name)
                 </td>
                 <td>
                     @Html.ActionLink("Print", "Print", new { id = item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are You Sure? You Want To Re-Assign This??')" })
-                    @Html.ActionLink("Details", "AssignIndexDetails", new { id = item.Id }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Details", "AssignDetails", new { id = item.Id }, new { @class = "btn btn-primary" })
                     @Html.ActionLink("Check In", "CheckIn", new { id = item.Id }, new { @class = "btn btn-info", onclick = "return confirm('Are You Sure? You Want To Check In !!')" })
                 </td>
             </tr>

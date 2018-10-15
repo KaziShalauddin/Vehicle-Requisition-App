@@ -11,20 +11,9 @@ namespace VehicleManagementApp.ViewModels
     {
         public int Id { get; set; }
 
-        //public string DriverName { get; set; }
-        //public string DriverNo { get; set; }
-        //public string EmployeeName { get; set; }
-        //public string EmployeNumber { get; set; }
-       
-        //public DateTime JourneyStart { get; set; }
-        //public DateTime JourneyEnd { get; set; }
-        //public string VehicleModel { get; set; }
-        //public string To { get; set; }
-        
-        //public string Status { get; set; }
         [Display(Name = "Requsition")]
-        public int RequsitionId { get; set; }
-        public Requsition Requsition { get; set; }
+        public int RequisitionId { get; set; }
+        public Requsition Requisition { get; set; }
        
 
         [Display(Name = "Vehicle")]
@@ -39,8 +28,7 @@ namespace VehicleManagementApp.ViewModels
         public int DriverId { get; set; }
         public Employee Driver { get; set; }
 
-        //public string Description { get; set; }
-        //public string Designation { get; set; }
+        public string Status { get; set; }
 
     }
 }

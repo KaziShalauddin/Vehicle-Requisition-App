@@ -136,7 +136,8 @@ namespace VehicleManagementApp.Controllers
                     VChesisNo = vehicleViewModel.VChesisNo,
                     VCapacity = vehicleViewModel.VCapacity,
                     Description = vehicleViewModel.Description,
-                    VehicleTypeId = vehicleViewModel.VehicleTypeId
+                    VehicleTypeId = vehicleViewModel.VehicleTypeId,
+                    Name = vehicleViewModel.VehicleName + "->" + vehicleViewModel.VModel + "->" + vehicleViewModel.VRegistrationNo
                 };
 
 
