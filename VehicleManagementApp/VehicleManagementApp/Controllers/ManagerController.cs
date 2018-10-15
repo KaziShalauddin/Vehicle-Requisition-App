@@ -13,6 +13,7 @@ using VehicleManagementApp.Models.Models;
 using VehicleManagementApp.Models.ReportViewModel;
 using VehicleManagementApp.Repository.Contracts;
 using VehicleManagementApp.ViewModels;
+using VehicleManagementApp.com.onnorokomsms.api2;
 using Requsition = VehicleManagementApp.Models.Models.Requsition;
 
 namespace VehicleManagementApp.Controllers
@@ -175,6 +176,16 @@ namespace VehicleManagementApp.Controllers
             SendingEmailDriver(managerViewModel.EmployeeId, managerViewModel.RequsitionId);
             SendingEmailEmployee(managerViewModel.EmployeeId, managerViewModel.RequsitionId);
             //Email Sending Methon end
+
+
+            //Mobile SMS Send start
+
+            SendSMSToMobile(managerViewModel.EmployeeId, managerViewModel.VehicleId);
+            //var driverMobileNo = _employeeManager.Get(c=>c.IsDriver==managerViewModel.EmployeeId);
+            //var sms = new SendSms();
+            //string returnValue = sms.NumberSms("0689b8c0-e", "Vehicle Name: "+ managerViewModel.VehicleId+" Driver Name: "+ managerViewModel.EmployeeId, managerViewModel.DriverNo, "text", "", "BCC");
+            //Mobile SMS Send End
+
 
             bool isSaved = managerManager.Add(manager);
             RequsitionAssign(managerViewModel.Id);
@@ -466,6 +477,24 @@ namespace VehicleManagementApp.Controllers
             return View();
         }
 
+        //Mobile SMS Send Method
+        public void SendSMSToMobile(int? employeeId, int? vehicleId)
+        {
+            if (employeeId == null && vehicleId == null)
+            {
+                return;
+            }
+            var driverMobileNo = _employeeManager.GetById((int)employeeId);
+            var vehicleName = vehicleManager.GetById((int)vehicleId);
+            if (driverMobileNo.ContactNo == null)
+            {
+                return;
+            }
+
+            var sms = new SendSms();
+            string returnValue = sms.NumberSms("0689b8c0-e", "Vehicle Name: " + vehicleName.VehicleName+"."+ " Driver Name: " + driverMobileNo.Name, driverMobileNo.ContactNo, "text", "", "BCC");
+
+        }
 
         public void SendingEmailDriver(int? EmployeeId, int? requsitionId)
         {

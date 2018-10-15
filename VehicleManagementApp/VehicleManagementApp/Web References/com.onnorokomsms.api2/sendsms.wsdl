@@ -1,0 +1,531 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://api.onnorokomsms.com/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://api.onnorokomsms.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://api.onnorokomsms.com/">
+      <s:element name="OneToOneBulk">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="messageHeader" type="tns:MessageHeader" />
+            <s:element minOccurs="0" maxOccurs="1" name="wsSmses" type="tns:ArrayOfWsSms" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MessageHeader">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="UserName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UserPassword" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MarskText" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CampingName" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfWsSms">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="WsSms" nillable="true" type="tns:WsSms" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="WsSms">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="MobileNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SmsText" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Type" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="OneToOneBulkResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="OneToOneBulkResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="OneToOne">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="mobileNumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="smsText" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="type" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="maskName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="campaignName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="OneToOneResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="OneToOneResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="OneToMany">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="messageText" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="numberList" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="smsType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="maskName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="campaignName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="OneToManyResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="OneToManyResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeliveryStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="responseId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeliveryStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeliveryStatusResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBalance">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userPassword" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBalanceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetBalanceResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMask">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="userPassword" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetMaskResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetMaskResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NumberSms">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="apiKey" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="messageText" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="numberList" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="smsType" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="maskName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="campaignName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NumberSmsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="NumberSmsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListSms">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="apiKey" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="wsSmses" type="tns:ArrayOfWsSms" />
+            <s:element minOccurs="0" maxOccurs="1" name="maskName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="campaignName" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListSmsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListSmsResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SMSDeliveryStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="apiKey" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="responseId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SMSDeliveryStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SMSDeliveryStatusResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCurrentBalance">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="apiKey" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCurrentBalanceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCurrentBalanceResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllMask">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="apiKey" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllMaskResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllMaskResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="OneToOneBulkSoapIn">
+    <wsdl:part name="parameters" element="tns:OneToOneBulk" />
+  </wsdl:message>
+  <wsdl:message name="OneToOneBulkSoapOut">
+    <wsdl:part name="parameters" element="tns:OneToOneBulkResponse" />
+  </wsdl:message>
+  <wsdl:message name="OneToOneSoapIn">
+    <wsdl:part name="parameters" element="tns:OneToOne" />
+  </wsdl:message>
+  <wsdl:message name="OneToOneSoapOut">
+    <wsdl:part name="parameters" element="tns:OneToOneResponse" />
+  </wsdl:message>
+  <wsdl:message name="OneToManySoapIn">
+    <wsdl:part name="parameters" element="tns:OneToMany" />
+  </wsdl:message>
+  <wsdl:message name="OneToManySoapOut">
+    <wsdl:part name="parameters" element="tns:OneToManyResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeliveryStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:DeliveryStatus" />
+  </wsdl:message>
+  <wsdl:message name="DeliveryStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:DeliveryStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetBalanceSoapIn">
+    <wsdl:part name="parameters" element="tns:GetBalance" />
+  </wsdl:message>
+  <wsdl:message name="GetBalanceSoapOut">
+    <wsdl:part name="parameters" element="tns:GetBalanceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetMaskSoapIn">
+    <wsdl:part name="parameters" element="tns:GetMask" />
+  </wsdl:message>
+  <wsdl:message name="GetMaskSoapOut">
+    <wsdl:part name="parameters" element="tns:GetMaskResponse" />
+  </wsdl:message>
+  <wsdl:message name="NumberSmsSoapIn">
+    <wsdl:part name="parameters" element="tns:NumberSms" />
+  </wsdl:message>
+  <wsdl:message name="NumberSmsSoapOut">
+    <wsdl:part name="parameters" element="tns:NumberSmsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListSmsSoapIn">
+    <wsdl:part name="parameters" element="tns:ListSms" />
+  </wsdl:message>
+  <wsdl:message name="ListSmsSoapOut">
+    <wsdl:part name="parameters" element="tns:ListSmsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SMSDeliveryStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:SMSDeliveryStatus" />
+  </wsdl:message>
+  <wsdl:message name="SMSDeliveryStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:SMSDeliveryStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCurrentBalanceSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCurrentBalance" />
+  </wsdl:message>
+  <wsdl:message name="GetCurrentBalanceSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCurrentBalanceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllMaskSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllMask" />
+  </wsdl:message>
+  <wsdl:message name="GetAllMaskSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllMaskResponse" />
+  </wsdl:message>
+  <wsdl:portType name="SendSmsSoap">
+    <wsdl:operation name="OneToOneBulk">
+      <wsdl:input message="tns:OneToOneBulkSoapIn" />
+      <wsdl:output message="tns:OneToOneBulkSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="OneToOne">
+      <wsdl:input message="tns:OneToOneSoapIn" />
+      <wsdl:output message="tns:OneToOneSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="OneToMany">
+      <wsdl:input message="tns:OneToManySoapIn" />
+      <wsdl:output message="tns:OneToManySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeliveryStatus">
+      <wsdl:input message="tns:DeliveryStatusSoapIn" />
+      <wsdl:output message="tns:DeliveryStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBalance">
+      <wsdl:input message="tns:GetBalanceSoapIn" />
+      <wsdl:output message="tns:GetBalanceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMask">
+      <wsdl:input message="tns:GetMaskSoapIn" />
+      <wsdl:output message="tns:GetMaskSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="NumberSms">
+      <wsdl:input message="tns:NumberSmsSoapIn" />
+      <wsdl:output message="tns:NumberSmsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListSms">
+      <wsdl:input message="tns:ListSmsSoapIn" />
+      <wsdl:output message="tns:ListSmsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SMSDeliveryStatus">
+      <wsdl:input message="tns:SMSDeliveryStatusSoapIn" />
+      <wsdl:output message="tns:SMSDeliveryStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCurrentBalance">
+      <wsdl:input message="tns:GetCurrentBalanceSoapIn" />
+      <wsdl:output message="tns:GetCurrentBalanceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllMask">
+      <wsdl:input message="tns:GetAllMaskSoapIn" />
+      <wsdl:output message="tns:GetAllMaskSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SendSmsSoap" type="tns:SendSmsSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="OneToOneBulk">
+      <soap:operation soapAction="http://api.onnorokomsms.com/OneToOneBulk" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OneToOne">
+      <soap:operation soapAction="http://api.onnorokomsms.com/OneToOne" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OneToMany">
+      <soap:operation soapAction="http://api.onnorokomsms.com/OneToMany" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeliveryStatus">
+      <soap:operation soapAction="http://api.onnorokomsms.com/DeliveryStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBalance">
+      <soap:operation soapAction="http://api.onnorokomsms.com/GetBalance" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMask">
+      <soap:operation soapAction="http://api.onnorokomsms.com/GetMask" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NumberSms">
+      <soap:operation soapAction="http://api.onnorokomsms.com/NumberSms" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListSms">
+      <soap:operation soapAction="http://api.onnorokomsms.com/ListSms" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SMSDeliveryStatus">
+      <soap:operation soapAction="http://api.onnorokomsms.com/SMSDeliveryStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCurrentBalance">
+      <soap:operation soapAction="http://api.onnorokomsms.com/GetCurrentBalance" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllMask">
+      <soap:operation soapAction="http://api.onnorokomsms.com/GetAllMask" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SendSmsSoap12" type="tns:SendSmsSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="OneToOneBulk">
+      <soap12:operation soapAction="http://api.onnorokomsms.com/OneToOneBulk" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OneToOne">
+      <soap12:operation soapAction="http://api.onnorokomsms.com/OneToOne" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="OneToMany">
+      <soap12:operation soapAction="http://api.onnorokomsms.com/OneToMany" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeliveryStatus">
+      <soap12:operation soapAction="http://api.onnorokomsms.com/DeliveryStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBalance">
+      <soap12:operation soapAction="http://api.onnorokomsms.com/GetBalance" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMask">
+      <soap12:operation soapAction="http://api.onnorokomsms.com/GetMask" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NumberSms">
+      <soap12:operation soapAction="http://api.onnorokomsms.com/NumberSms" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListSms">
+      <soap12:operation soapAction="http://api.onnorokomsms.com/ListSms" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SMSDeliveryStatus">
+      <soap12:operation soapAction="http://api.onnorokomsms.com/SMSDeliveryStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCurrentBalance">
+      <soap12:operation soapAction="http://api.onnorokomsms.com/GetCurrentBalance" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllMask">
+      <soap12:operation soapAction="http://api.onnorokomsms.com/GetAllMask" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SendSms">
+    <wsdl:port name="SendSmsSoap" binding="tns:SendSmsSoap">
+      <soap:address location="https://api2.onnorokomsms.com/sendsms.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SendSmsSoap12" binding="tns:SendSmsSoap12">
+      <soap12:address location="https://api2.onnorokomsms.com/sendsms.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
