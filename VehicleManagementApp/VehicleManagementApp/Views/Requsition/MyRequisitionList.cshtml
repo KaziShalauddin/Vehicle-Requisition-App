@@ -9,7 +9,7 @@
 
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("MyRequisitionList", "Requsition", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
 
@@ -26,7 +26,7 @@
 
                     </div>
                     <div class="modal-body">
-                        <form id="rquisitionForm">
+                        @*<form id="rquisitionForm">*@
                             <fieldset id="SubmitForm">
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                 <div class="form-group">
@@ -128,11 +128,11 @@
                                 <br />
                                 <div class="form-group">
                                     <div class="col-md-offset-4 col-md-4" style="float: right">
-                                        <input type="button" value="Submit" class="btn btn-block btn-primary" id="AddRequisition" />
+                                        <input type="submit" value="Submit" class="btn btn-block btn-primary" />
                                     </div>
                                 </div>
                             </fieldset>
-                        </form>
+                        @*</form>*@
                     </div>
                 </div>
             </div>
@@ -248,7 +248,7 @@
         //$(function () {
         //    $(".datetimepicker").datetimepicker();
         //});
-        $("#AddRequisition").on("click", function () {
+        @*$("#AddRequisition").on("click", function () {
             debugger;
 
             var data = $("#SubmitForm").serialize();
@@ -275,6 +275,6 @@
 
                 }
             });
-        });
+        });*@
     </script>
 }

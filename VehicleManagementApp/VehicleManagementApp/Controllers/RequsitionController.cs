@@ -413,6 +413,7 @@ namespace VehicleManagementApp.Controllers
             return true;
 
         }
+        [HttpGet]
         public ActionResult MyRequisitionList()
         {
 
@@ -429,6 +430,59 @@ namespace VehicleManagementApp.Controllers
             var requsitionViewList = MyRequisitionListView();
             allRequsitions.RequsitionViewModels = requsitionViewList;
             return View(allRequsitions);
+        }
+        [HttpPost]
+        public ActionResult MyRequisitionList(MyRequsitionCreateViewModel requisitionVm)
+        {
+
+            if (ModelState.IsValid)
+            {
+                int requestForEmployeeId;
+                if (requisitionVm.RequestForOther == false)
+                {
+                    requestForEmployeeId = GetEmployeeId();
+
+                }
+                else
+                {
+                    requestForEmployeeId = (int)requisitionVm.EmployeeId;
+                }
+
+
+                var journeyStart = requisitionVm.JourneyStartDate.Date + requisitionVm.JourneyStartTime.TimeOfDay;
+                var jouneyEnd = requisitionVm.JouneyEndDate.Date + requisitionVm.JouneyEndTime.TimeOfDay;
+
+
+
+                Requsition requisition = new Requsition();
+                requisition.Form = requisitionVm.Form;
+                requisition.To = requisitionVm.To;
+                requisition.RequsitionNumber = AutoNumber();
+                requisition.Description = requisitionVm.Description;
+                requisition.JourneyStart = journeyStart;
+                requisition.JouneyEnd = jouneyEnd;
+                requisition.EmployeeId = requestForEmployeeId;
+
+                requisition.RequestedBy = GetEmployeeId();
+                requisition.RequestType = requisitionVm.RequestType;
+
+                bool isSaved = _requisitionManager.Add(requisition);
+                if (isSaved)
+                {
+                    TempData["msg"] = "Requisition Send Successfully";
+
+                }
+                else
+                {
+                    TempData["msg"] = "Requisition not Send !";
+                }
+                return RedirectToAction("MyRequisitionList");
+            }
+            requisitionVm.RequestTypes = GetRequisitionTypes();
+            TempData["msg"] = "Requisition not Send !";
+            return View(requisitionVm);
+
+
         }
         public ActionResult MyRequestList()
         {
