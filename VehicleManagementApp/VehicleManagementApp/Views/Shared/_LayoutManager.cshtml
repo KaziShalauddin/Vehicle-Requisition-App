@@ -259,7 +259,11 @@
                                     </a>
                                 </li>
                                 <li class="nav-item ">
-                                    <a class="nav-link" href="@Url.Action("AssignIndex", "Manager")">
+                                    @*<a class="nav-link" href="@Url.Action("AssignIndex", "Manager")">
+
+                                        <p>Assigned Requisitions ( @countAssign )</p>
+                                    </a>*@
+                                    <a class="nav-link" href="@Url.Action("AssignedList", "Manager")">
 
                                         <p>Assigned Requisitions ( @countAssign )</p>
                                     </a>
