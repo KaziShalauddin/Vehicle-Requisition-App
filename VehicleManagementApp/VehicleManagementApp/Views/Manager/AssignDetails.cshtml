@@ -42,10 +42,15 @@
                                     From: @Html.DisplayFor(model => model.Requisition.Form)
                                     <br />
                                     To: @Html.DisplayFor(model => model.Requisition.To)
+                                    <br/>
+                                    @{
+                                        var startdate = Model.Requisition.JourneyStart.ToString("dd - MMM - yyyy hh:mm tt");
+                                        var enddate = Model.Requisition.JouneyEnd.ToString("dd - MMM - yyyy hh:mm tt");
+                                    }
+                                    Journey Start: @Html.Label(startdate)
+                                   
                                     <br />
-                                    Journey Start: @Html.DisplayFor(model => model.Requisition.JourneyStart)
-                                    <br />
-                                    Journey End: @Html.DisplayFor(model => model.Requisition.JouneyEnd)
+                                    Journey End: @Html.Label(enddate)
                                 </td>
                             </tr>
                         </table>
