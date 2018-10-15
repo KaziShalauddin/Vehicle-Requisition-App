@@ -59,8 +59,11 @@
             <td>@Html.DisplayFor(model => model.Employee.ContactNo)</td>
         </tr>
         <tr>
-            <td class="title_name">@Html.DisplayNameFor(model => model.Vehicle.VehicleName)</td>
-            <td>@Html.DisplayFor(model => model.Vehicle.VehicleName)</td>
+            <td class="title_name">Vehicle Info</td>
+            <td>
+                <span>Brand Name :</span> @Html.DisplayFor(model => model.Vehicle.VehicleName),  <span>Model Number :</span> @Html.DisplayFor(model => model.Vehicle.VModel),
+                <span>Registration Number :</span> @Html.DisplayFor(model => model.Vehicle.VRegistrationNo)
+            </td>
         </tr>
         <tr>
 

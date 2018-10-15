@@ -4,11 +4,13 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-
+using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System.Web.UI.WebControls.Expressions;
+using System.Web.WebPages;
 using Microsoft.Ajax.Utilities;
+using Microsoft.Reporting.WebForms;
 using VehicleManagementApp.BLL.Contracts;
 using VehicleManagementApp.Models;
 using VehicleManagementApp.Models.Models;
@@ -93,8 +95,7 @@ namespace VehicleManagementApp.Controllers
             {
                 EmployeeId = (int)emplId,
                 EmployeName = employeeNam,
-                RequsitionId = requsitionId,
-                CommentTime = DateTime.Now
+                RequsitionId = requsitionId
             };
 
             //Collect the list of comment to display the list under comment
@@ -112,7 +113,7 @@ namespace VehicleManagementApp.Controllers
                         EmployeName = item.Employee.Name,
                         UserName = item.UserName,
                         UserId = item.UserId,
-                        CommentTime = DateTime.Now
+                        CommentTime = item.CommentTime
                     }
                 );
             }
@@ -544,6 +545,50 @@ namespace VehicleManagementApp.Controllers
                     new SelectListItem{Value = "1",Text = "Official"},
                     new SelectListItem{Value = "2",Text = "Personal"}
                     };
+        }
+
+        public ActionResult Print(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var requsition = _requisitionManager.GetById((int) id);
+            var emplt = requsition.Employee.Name;
+            var empltNo = requsition.Employee.ContactNo;
+            var dept = requsition.Employee.Department.Name;
+            var des = requsition.Employee.Designation.Name;
+            var startdate = requsition.JourneyStart.ToString("f");
+            var enddate = requsition.JouneyEnd.ToString("f");
+
+            List<RequsitionViewModel> requsitionViewModels = new List<RequsitionViewModel>();
+            var requsitionVM = new RequsitionViewModel();
+            requsitionVM.DepartmentName = dept;
+            requsitionVM.EmployeeName = emplt;
+            requsitionVM.DesignationName = des;
+            requsitionVM.EmployeeNo = empltNo;
+            requsitionVM.Form = requsition.Form;
+            requsitionVM.To = requsition.To;
+            requsitionVM.Description = requsition.Description;
+            requsitionVM.StartTime = startdate;
+            requsitionVM.EndTime = enddate;
+            requsitionVM.JouneyEnd = requsition.JouneyEnd;
+            requsitionVM.RequsitionNumber = requsition.RequsitionNumber;
+            requsitionViewModels.Add(requsitionVM);
+
+            string reportpath = Request.MapPath(Request.ApplicationPath) + @"Report\RequsitionDetails\RequsitionDetailsRDLC.rdlc";
+            var reportViewer = new ReportViewer()
+            {
+                KeepSessionAlive = true,
+                SizeToReportContent = true,
+                Width = Unit.Percentage(100),
+                ProcessingMode = ProcessingMode.Local
+            };
+            reportViewer.LocalReport.ReportPath = reportpath;
+            ReportDataSource rds = new ReportDataSource("DataSet1", requsitionViewModels);
+            reportViewer.LocalReport.DataSources.Add(rds);
+            ViewBag.ReportViewer = reportViewer;
+            return View(requsitionViewModels);
         }
 
     }

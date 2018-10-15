@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="RequsitionAssignRDLC.rdlc" />
+    <EmbeddedResource Include="RequsitionDetailsRDLC.rdlc" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VehicleManagementApp\VehicleManagementApp.csproj">
@@ -63,7 +64,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Properties\DataSources\VehicleApps_2DataSet.datasource" />
+    <None Include="Properties\DataSources\VehicleApps_2DataSet.ManagersDataTable.datasource" />
+    <None Include="Properties\DataSources\VehicleApps_2DataSet.ManagersRow.datasource" />
+    <None Include="Properties\DataSources\VehicleApps_2DataSet.ManagersRowChangeEvent.datasource" />
+    <None Include="Properties\DataSources\VehicleApps_2DataSet.ManagersRowChangeEventHandler.datasource" />
+    <None Include="Properties\DataSources\VehicleManagementApp.Reports.Properties.Settings.datasource" />
+    <None Include="Properties\DataSources\VehicleManagementApp.Reports.VehicleApps_2DataSetTableAdapters.ManagersTableAdapter.datasource" />
+    <None Include="Properties\DataSources\VehicleManagementApp.Reports.VehicleApps_2DataSetTableAdapters.TableAdapterManager+UpdateOrderOption.datasource" />
+    <None Include="Properties\DataSources\VehicleManagementApp.Reports.VehicleApps_2DataSetTableAdapters.TableAdapterManager.datasource" />
     <None Include="Properties\DataSources\VehicleManagementApp.ViewModels.ManagerViewModel.datasource" />
+    <None Include="Properties\DataSources\VehicleManagementApp.ViewModels.RequsitionViewModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -79,6 +90,9 @@
     <None Include="VehicleApps_2DataSet.xss">
       <DependentUpon>VehicleApps_2DataSet.xsd</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

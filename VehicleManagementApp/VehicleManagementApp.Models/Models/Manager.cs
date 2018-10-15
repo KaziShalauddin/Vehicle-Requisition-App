@@ -16,6 +16,8 @@ namespace VehicleManagementApp.Models.Models
         public int Id { get; set; }
         public string DriverNo { get; set; }
         public string Status { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
         [ForeignKey("Requsition")]
         public int RequsitionId { get; set; }
         public Requsition Requsition { get; set; }

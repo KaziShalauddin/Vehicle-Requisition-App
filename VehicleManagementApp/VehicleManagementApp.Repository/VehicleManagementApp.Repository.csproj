@@ -116,6 +116,10 @@
     <Compile Include="Migrations\201810120618332_CommentTableTimeFieldAdded.Designer.cs">
       <DependentUpon>201810120618332_CommentTableTimeFieldAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810141513076_ManagerTableJourneyStartAndEndDateAdded.cs" />
+    <Compile Include="Migrations\201810141513076_ManagerTableJourneyStartAndEndDateAdded.Designer.cs">
+      <DependentUpon>201810141513076_ManagerTableJourneyStartAndEndDateAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OrganaizationRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -191,6 +195,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810120618332_CommentTableTimeFieldAdded.resx">
       <DependentUpon>201810120618332_CommentTableTimeFieldAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810141513076_ManagerTableJourneyStartAndEndDateAdded.resx">
+      <DependentUpon>201810141513076_ManagerTableJourneyStartAndEndDateAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
