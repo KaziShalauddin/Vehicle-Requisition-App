@@ -36,7 +36,7 @@
                 To: @Html.DisplayFor(model => model.Requisition.To)
                 <br/>
                 @{
-                    //"+" at "+"
+                   
                     var startdate = Model.Requisition.JourneyStart.ToString("dd - MMM - yyyy hh:mm tt");
                     var enddate = Model.Requisition.JouneyEnd.ToString("dd - MMM - yyyy  hh:mm tt");
                 }
@@ -49,15 +49,7 @@
     </table>
 
     <table class="table  table-hover">
-        <tr class="card">
-            <th>Driver Info</th>
-            <td>
-                Name: @Html.DisplayFor(model => model.Driver.Name)
-                <br />
-                Contact No.: @Html.DisplayFor(model => model.Driver.ContactNo)
-            </td>
-        </tr>
-        <tr class="card">
+       <tr class="card">
             <th>Vehicle :</th>
             <td>@Html.DisplayFor(model => model.Vehicle.Name)</td>
         </tr>
@@ -65,5 +57,5 @@
 </div>
 
 @*<p>
-    @Html.ActionLink("Back to List", "AssignedList")
+    @Html.ActionLink("Back to List", "DriverMyDutyList")
 </p>*@

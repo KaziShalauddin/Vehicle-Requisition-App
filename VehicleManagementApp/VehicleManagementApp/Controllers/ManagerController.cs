@@ -7,6 +7,8 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using Microsoft.Ajax.Utilities;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Reporting.WebForms;
 using VehicleManagementApp.BLL.Contracts;
 using VehicleManagementApp.Models.Models;
@@ -14,6 +16,7 @@ using VehicleManagementApp.Models.ReportViewModel;
 using VehicleManagementApp.Repository.Contracts;
 using VehicleManagementApp.ViewModels;
 using VehicleManagementApp.com.onnorokomsms.api2;
+using VehicleManagementApp.Models;
 using Requsition = VehicleManagementApp.Models.Models.Requsition;
 
 namespace VehicleManagementApp.Controllers
@@ -312,7 +315,7 @@ namespace VehicleManagementApp.Controllers
             Requsition requisition = _requisitionManager.GetById((int)id);
             var driverId = driverStatusManager.Get(c => c.RequsitionId == id).Select(c => c.EmployeeId).FirstOrDefault();
             var vehicleId = vehicleStatusManager.Get(c => c.RequsitionId == id).Select(c => c.VehicleId).FirstOrDefault();
-          
+
             AssignedListViewModel assignVm = new AssignedListViewModel
             {
                 Requisition = requisition,
@@ -492,7 +495,7 @@ namespace VehicleManagementApp.Controllers
             }
 
             var sms = new SendSms();
-            string returnValue = sms.NumberSms("0689b8c0-e", "Vehicle Name: " + vehicleName.VehicleName+"."+ " Driver Name: " + driverMobileNo.Name, driverMobileNo.ContactNo, "text", "", "BCC");
+            string returnValue = sms.NumberSms("0689b8c0-e", "Vehicle Name: " + vehicleName.VehicleName + "." + " Driver Name: " + driverMobileNo.Name, driverMobileNo.ContactNo, "text", "", "BCC");
 
         }
 
@@ -855,7 +858,7 @@ namespace VehicleManagementApp.Controllers
 
             return View();
         }
-
+      
         public ActionResult CheckInUpdate(int? id)
         {
             if (id == null)
@@ -984,7 +987,7 @@ namespace VehicleManagementApp.Controllers
             return View();
         }
 
-        public ActionResult Hole(int? id)
+        public ActionResult Hold(int? id)
         {
             if (id == null)
             {
@@ -993,17 +996,17 @@ namespace VehicleManagementApp.Controllers
             var employee = _employeeManager.GetAll();
             var requsition = _requisitionManager.GetById((int)id);
 
-            RequsitionViewModel requisitionVm = new RequsitionViewModel()
-            {
-                Id = requsition.Id,
-                Form = requsition.Form,
-                To = requsition.To,
-                RequsitionNumber = requsition.RequsitionNumber,
-                Description = requsition.Description,
-                JourneyStart = requsition.JourneyStart,
-                JouneyEnd = requsition.JouneyEnd,
-                Employee = employee.Where(x => x.Id == requsition.EmployeeId).FirstOrDefault()
-            };
+            //RequsitionViewModel requisitionVm = new RequsitionViewModel()
+            //{
+            //    Id = requsition.Id,
+            //    Form = requsition.Form,
+            //    To = requsition.To,
+            //    RequsitionNumber = requsition.RequsitionNumber,
+            //    Description = requsition.Description,
+            //    JourneyStart = requsition.JourneyStart,
+            //    JouneyEnd = requsition.JouneyEnd,
+            //    Employee = employee.Where(x => x.Id == requsition.EmployeeId).FirstOrDefault()
+            //};
             requsition.Status = "Hold";
             bool isUpdate = _requisitionManager.Update(requsition);
             if (isUpdate)
@@ -1080,27 +1083,27 @@ namespace VehicleManagementApp.Controllers
             return View(driverViewList);
         }
 
-        public ActionResult Cancle(int? id)
+        public ActionResult Cancel(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var employee = _employeeManager.GetAll();
+           // var employee = _employeeManager.GetAll();
             var requsition = _requisitionManager.GetById((int)id);
 
-            RequsitionViewModel requisitionVm = new RequsitionViewModel()
-            {
-                Id = requsition.Id,
-                Form = requsition.Form,
-                To = requsition.To,
-                RequsitionNumber = requsition.RequsitionNumber,
-                Description = requsition.Description,
-                JourneyStart = requsition.JourneyStart,
-                JouneyEnd = requsition.JouneyEnd,
-                Employee = employee.Where(x => x.Id == requsition.EmployeeId).FirstOrDefault()
-            };
-            requsition.Status = "Cancle";
+            //RequsitionViewModel requisitionVm = new RequsitionViewModel()
+            //{
+            //    Id = requsition.Id,
+            //    Form = requsition.Form,
+            //    To = requsition.To,
+            //    RequsitionNumber = requsition.RequsitionNumber,
+            //    Description = requsition.Description,
+            //    JourneyStart = requsition.JourneyStart,
+            //    JouneyEnd = requsition.JouneyEnd,
+            //    Employee = employee.Where(x => x.Id == requsition.EmployeeId).FirstOrDefault()
+            //};
+            requsition.Status = "Cancel";
             bool isUpdate = _requisitionManager.Update(requsition);
             if (isUpdate)
             {
@@ -1109,11 +1112,11 @@ namespace VehicleManagementApp.Controllers
             return View();
         }
 
-        public ActionResult CancleIndex()
+        public ActionResult CancelIndex()
         {
             Requsition requsitions = new Requsition();
             var employee = _employeeManager.GetAll();
-            var requsition = _requisitionManager.GetAllByNull(requsitions.Status = "Cancle");
+            var requsition = _requisitionManager.GetAllByNull(requsitions.Status = "Cancel");
 
             List<RequsitionViewModel> requsitionViewModels = new List<RequsitionViewModel>();
             foreach (var data in requsition)
@@ -1185,6 +1188,149 @@ namespace VehicleManagementApp.Controllers
             reportViewer.LocalReport.DataSources.Add(rds);
             ViewBag.ReportViewer = reportViewer;
             return View(managerViewModels);
+        }
+
+        public ActionResult DriverAssignedList()
+        {
+
+            var employees = _employeeManager.Get(c => c.IsDriver);
+            ViewBag.Employees = employees;
+            return View();
+
+        }
+
+        [HttpPost]
+        public ActionResult DriverAssignedList(int? employeeId)
+        {
+            List<DriverDutyViewModel> assignedList = new List<DriverDutyViewModel>();
+            if (employeeId != null)
+            {
+                var vehicle = vehicleManager.GetAll();
+                var vehicleStatus = vehicleStatusManager.Get(c => c.Status == "Assign").OrderByDescending(c => c.Id);
+                var driverStatus = driverStatusManager.Get(c => c.Status == "Assign").Where(e => e.EmployeeId == employeeId).OrderByDescending(c => c.Id);
+                var requsition = _requisitionManager.Get(c => c.Status == "Assign").OrderByDescending(c => c.Id);
+
+                var driverWithRequisition = from r in requsition
+                                                join v in vehicleStatus on r.Id equals v.RequsitionId
+                                            join driver in driverStatus on r.Id equals driver.RequsitionId
+                                            select new
+                                            {
+                                                r.Id,
+                                                r.RequsitionNumber,
+                                                r.Form,
+                                                r.To,
+                                                //Requestor = r.EmployeeId,
+                                                r.JourneyStart,
+                                                r.JouneyEnd,
+                                                v.VehicleId,
+                                                //Driver = driver.EmployeeId
+
+                                            };
+              
+                foreach (var allData in driverWithRequisition)
+                {
+                    var assignVM = new DriverDutyViewModel();
+                    assignVM.Id = allData.Id;
+                    assignVM.RequsitionNumber = allData.RequsitionNumber;
+                    assignVM.From = allData.Form;
+                    assignVM.To = allData.To;
+                    assignVM.JourneyStart = allData.JourneyStart;
+                    assignVM.JouneyEnd = allData.JouneyEnd;
+                    assignVM.Vehicle = vehicle.Where(c => c.Id == allData.VehicleId).FirstOrDefault();
+                    assignedList.Add(assignVM);
+                }
+
+            }
+            return PartialView("_DriverDutyListPartial",assignedList);
+        }
+
+        public ActionResult DriverDutyCompletedList()
+        {
+
+            var employees = _employeeManager.Get(c => c.IsDriver);
+            ViewBag.Employees = employees;
+            return View();
+
+        }
+
+        [HttpPost]
+        public ActionResult DriverDutyCompletedList(int? employeeId)
+        {
+            List<DriverDutyViewModel> assignedList = new List<DriverDutyViewModel>();
+            if (employeeId != null)
+            {
+                var vehicle = vehicleManager.GetAll();
+                var vehicleStatus = vehicleStatusManager.Get(c => c.Status == "Complete").OrderByDescending(c => c.Id);
+                var driverStatus = driverStatusManager.Get(c => c.Status == "Complete").Where(e => e.EmployeeId == employeeId).OrderByDescending(c => c.Id);
+                var requsition = _requisitionManager.Get(c => c.Status == "Complete").OrderByDescending(c => c.Id);
+
+                var driverWithRequisition = from r in requsition
+                                            join v in vehicleStatus on r.Id equals v.RequsitionId
+                                            join driver in driverStatus on r.Id equals driver.RequsitionId
+                                            select new
+                                            {
+                                                r.Id,
+                                                r.RequsitionNumber,
+                                                r.Form,
+                                                r.To,
+                                                //Requestor = r.EmployeeId,
+                                                r.JourneyStart,
+                                                r.JouneyEnd,
+                                                v.VehicleId,
+                                                //Driver = driver.EmployeeId
+
+                                            };
+
+                foreach (var allData in driverWithRequisition)
+                {
+                    var assignVM = new DriverDutyViewModel();
+                    assignVM.Id = allData.Id;
+                    assignVM.RequsitionNumber = allData.RequsitionNumber;
+                    assignVM.From = allData.Form;
+                    assignVM.To = allData.To;
+                    assignVM.JourneyStart = allData.JourneyStart;
+                    assignVM.JouneyEnd = allData.JouneyEnd;
+                    assignVM.Vehicle = vehicle.Where(c => c.Id == allData.VehicleId).FirstOrDefault();
+                    assignedList.Add(assignVM);
+                }
+
+            }
+            return PartialView("_DriverDutyListPartial", assignedList);
+        }
+       
+        public ActionResult CheckIn_V2(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+           
+            var vehicleStatus = vehicleStatusManager.Get(c=>c.RequsitionId==id).FirstOrDefault();
+            var driverStatus = driverStatusManager.Get(c => c.RequsitionId == id).FirstOrDefault();
+            var requsitionStatus = _requisitionManager.GetById((int)id);
+            
+            if (vehicleStatus != null&& driverStatus != null && requsitionStatus != null)
+            {
+                vehicleStatus.Status = "Complete";
+                bool isVehicleStatusUpdate = vehicleStatusManager.Update(vehicleStatus);
+
+                driverStatus.Status = "Complete";
+                bool isDriverStatusUpdate = driverStatusManager.Update(driverStatus);
+
+                requsitionStatus.Status = "Complete";
+                bool isRequsitionUpdate = _requisitionManager.Update(requsitionStatus);
+
+                if (isVehicleStatusUpdate && isDriverStatusUpdate && isRequsitionUpdate)
+                {
+                    TempData["msg"] = "Check in operaion successfully done!";
+                    return RedirectToAction("AssignedList");
+                }
+
+            }
+
+            TempData["msg"] = "Check in operaion failed.";
+            return RedirectToAction("AssignedList");
+            
         }
     }
 }
