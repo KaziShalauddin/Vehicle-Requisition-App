@@ -1,18 +1,80 @@
-﻿
+﻿@using VehicleManagementApp.BLL
+@using VehicleManagementApp.BLL.Contracts
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_layoutManager.cshtml";
+    IRequsitionManager managers = new RequsitionManager();
+    var managerNew = managers.Get(c => c.Status == null && c.IsDeleted == false);
+    var countNew = managerNew.Count;
+    var managerAssign = managers.Get(c => c.Status == "Assign" && c.IsDeleted == false);
+    var managerComplete = managers.Get(c => c.Status == "Complete" && c.IsDeleted == false);
+    var managerHold = managers.Get(c => c.Status == "Hold" && c.IsDeleted == false);
+    var hold = managerHold.Count;
+    var countAssign = managerAssign.Count;
+    var countComplete = managerComplete.Count;
 }
 <div class="container">
+    @*<div class="row">
+            <div class="col-md-12" style="background-color: lightpink; height: 450px">
+                <h6 style="padding-top: 150px; text-align: center; font-size: 30px;">
+                    Wellcome
+                    <br/>
+                    To
+                    <br/>
+                    Manager Dashboad
+                </h6>
+            </div>
+
+        </div>*@
+    <div class="row col-md-12"></div>
     <div class="row">
-        <div class="col-md-12" style="background-color: lightpink;height: 450px">
-            <h6 style="padding-top: 150px; text-align: center; font-size: 30px;">
-                Wellcome
-                <br />
-                To
-                <br />
-                Manager Dashboad
-            </h6>
+        <div class="col-md-12">
+            <div class="col-md-6" style="float: left">
+                <div class="card card-actions" style="height: 9rem; width: 18rem;">
+                    <div class="card-title" style="text-align: center; font-size: 20px; color: black; padding-top: 40px;">
+                        @Html.ActionLink("New Requisitions", "New", "Manager")
+                    </div>
+                    <div class="card-title" style="text-align: center; font-size: 20px; color: black;">
+                        <p class="card-subtitle">Total : @countNew </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6" style="float: left">
+                <div class="card card-actions" style="height: 9rem; width: 18rem;">
+                    <div class="card-title" style="text-align: center; font-size: 20px; color: black; padding-top: 40px;">
+                        @Html.ActionLink("Hold Requisitions", "HoldIndex", "Manager")
+                    </div>
+                    <div class="card-title" style="text-align: center; font-size: 20px; color: black;">
+                        <p class="card-subtitle">Total : @hold </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+
+            <div class="col-md-6" style="float: left">
+                <div class="card card-actions" style="height: 9rem; width: 18rem;">
+                    <div class="card-title" style="text-align: center; font-size: 20px; color: black; padding-top: 40px;">
+                        @Html.ActionLink("Assigned Requisitions", "AssignedList", "Manager")
+                    </div>
+                    <div class="card-title" style="text-align: center; font-size: 20px; color: black;">
+                        <p class="card-subtitle">Total : @countAssign </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6" style="float: left">
+                <div class="card card-actions" style="height: 9rem; width: 18rem;">
+                    <div class="card-title" style="text-align: center; font-size: 20px; color: black; padding-top: 40px;">
+                        @Html.ActionLink("Complete Requisitions", "CompleteRequsition", "Manager")
+                    </div>
+                    <div class="card-title" style="text-align: center; font-size: 20px; color: black;">
+                        <p class="card-subtitle">Total : @countComplete </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

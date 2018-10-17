@@ -695,16 +695,13 @@
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </Content>
-
     <Content Include="Views\Manager\_CompleteRequsitionPartial.cshtml" />
-
     <Content Include="Views\Manager\DriverAssignedList.cshtml" />
     <Content Include="Views\Manager\_DriverDutyListPartial.cshtml" />
     <Content Include="Views\Manager\DriverDutyCompletedList.cshtml" />
     <Content Include="Views\Driver\MyDutyList.cshtml" />
     <Content Include="Views\Driver\AssignDetails.cshtml" />
     <Content Include="Views\Driver\MyCompletedDuties.cshtml" />
-
     <None Include="Web References\com.onnorokomsms.api2\sendsms.disco" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
