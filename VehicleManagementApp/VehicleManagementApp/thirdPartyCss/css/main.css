@@ -2057,7 +2057,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Nav Menu Arrows */
 .sf-arrows .sf-with-ul {
-  padding-right: 30px;
+  padding-right: 26px;
 }
 
 .sf-arrows .sf-with-ul:after {
@@ -2085,7 +2085,7 @@ h1, h2, h3, h4, h5, h6 {
   display: inline-block;
   color: #000;
   font-weight: 400;
-  font-size: 18px;
+  font-size: 16px;
   text-transform: uppercase;
   outline: none;
     font-family: lat;

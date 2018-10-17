@@ -937,9 +937,12 @@ namespace VehicleManagementApp.Controllers
         [HttpGet]
         public ActionResult CompleteRequsition()
         {
-            var Manager = managerManager.Get(c => c.Status == "RequsitionComplete" && c.IsDeleted == false).OrderByDescending(c => c.Id);
+            //var Manager = managerManager.Get(c => c.Status == "RequsitionComplete" && c.IsDeleted == false).OrderByDescending(c => c.Id);
+
+            var searchingValue = _requisitionManager.Get(c => c.Status == "Complete" && c.IsDeleted == false);
             string todays = DateTime.Today.ToShortDateString();
-            var todayRequsition = Manager.Where(c => c.StartDate.ToShortDateString() == todays);
+            var todayRequsition = searchingValue.Where(c => c.JourneyStart.ToShortDateString() == todays);
+
             var employee = _employeeManager.Get(c => c.IsDriver == true && c.IsDeleted == false);
             var vehicle = vehicleManager.GetAll();
             var requsition = _requisitionManager.GetAll();
@@ -948,20 +951,20 @@ namespace VehicleManagementApp.Controllers
 
 
 
-            List<ManagerViewModel> managerViewModels = new List<ManagerViewModel>();
-            foreach (var manager in Manager)
+            List<RequsitionViewModel> requsitionViewModels = new List<RequsitionViewModel>();
+            foreach (var item in todayRequsition)
             {
-                var managerVM = new ManagerViewModel();
-                managerVM.Id = manager.Id;
-                managerVM.Status = manager.Status;
-                managerVM.Employee = employee.Where(c => c.Id == manager.EmployeeId).FirstOrDefault();
-                managerVM.Vehicle = vehicle.Where(c => c.Id == manager.VehicleId).FirstOrDefault();
-                managerVM.Employee = employee.Where(c => c.Id == manager.EmployeeId).FirstOrDefault();
-                managerVM.Requsition = requsition.Where(c => c.Id == manager.RequsitionId).FirstOrDefault();
-
-                managerViewModels.Add(managerVM);
+                var requisitionVM = new RequsitionViewModel();
+                requisitionVM.Id = item.Id;
+                requisitionVM.Employee = item.Employee;
+                requisitionVM.Form = item.Form;
+                requisitionVM.To = item.To;
+                requisitionVM.Description = item.Description;
+                requisitionVM.JourneyStart = item.JourneyStart;
+                requisitionVM.JouneyEnd = item.JouneyEnd;
+                requsitionViewModels.Add(requisitionVM);
             }
-            filteringSearchViewModel.ManagerViewModels = managerViewModels;
+            filteringSearchViewModel.RequsitionViewModels = requsitionViewModels;
 
             return View(filteringSearchViewModel);
         }
@@ -973,15 +976,25 @@ namespace VehicleManagementApp.Controllers
             var startTime = filteringSearchViewModels.Startdate;
             var endTime = filteringSearchViewModels.EndDate;
 
-            var searchingValue =
-                managerManager.GetAll().Select(c => c.StartDate == startTime && c.EndDate == endTime).ToList();
+            var searchingValue = _requisitionManager.Get(c=>c.Status == "Complete" && c.IsDeleted == false);
+            var selectedValue = searchingValue.Where(c => c.JourneyStart > startTime && c.JouneyEnd < endTime);
 
-            if (startTime > endTime)
+            List<RequsitionViewModel> requsitionViewModels = new List<RequsitionViewModel>();
+            foreach (var item in selectedValue)
             {
-                var nsg =  TempData["End Date Must Bigger than Start date"];
-                return RedirectToAction("CompleteRequsition");
+                var requisitionVM = new RequsitionViewModel();
+                requisitionVM.Id = item.Id;
+                requisitionVM.Employee = item.Employee;
+                requisitionVM.Form = item.Form;
+                requisitionVM.To = item.To;
+                requisitionVM.Description = item.Description;
+                requisitionVM.JourneyStart = item.JourneyStart;
+                requisitionVM.JouneyEnd = item.JouneyEnd;
+                requsitionViewModels.Add(requisitionVM);
             }
-            return View(filteringSearchViewModels);
+
+            filteringSearchViewModels.RequsitionViewModels = requsitionViewModels;
+            return PartialView("_CompleteRequsitionPartial", requsitionViewModels);
         }
 
         public ActionResult AssignIndexDetails(int? id)

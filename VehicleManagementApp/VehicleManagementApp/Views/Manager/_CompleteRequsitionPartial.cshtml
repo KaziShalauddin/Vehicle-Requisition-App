@@ -1,7 +1,9 @@
-﻿@model IEnumerable<VehicleManagementApp.ViewModels.ManagerViewModel>
+﻿@using Microsoft.Ajax.Utilities
+@model IEnumerable<VehicleManagementApp.ViewModels.RequsitionViewModel>
 @{
     int sl = 1;
 }
+
 <table class="table table-bordered table-striped" id="myTable">
     <thead>
     <tr>
@@ -10,13 +12,19 @@
             @Html.Raw("Employee Name")
         </th>
         <th>
-            @Html.Raw("Employee Contact")
+            @Html.Raw("From")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.VehicleId)
+            @Html.Raw("To")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Status)
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JourneyStart)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JouneyEnd)
         </th>
         <th></th>
     </tr>
@@ -27,20 +35,22 @@
         <tr>
             <td>@(sl++)</td>
             <td>
-                @Html.DisplayFor(modelItem => item.Requsition.Employee.Name)
+                @Html.DisplayFor(modelItem => item.Employee.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Requsition.Employee.ContactNo)
+                @Html.DisplayFor(modelItem => item.Form)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Vehicle.VehicleName)
+                @Html.DisplayFor(modelItem => item.To)
             </td>
             <td>
-                @if (item.Status == "RequsitionComplete")
-                {
-                    @Html.Raw("Requsition Complete")
-                }
-
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JourneyStart)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JouneyEnd)
             </td>
             <td>
                 @Html.ActionLink("Details", "Details", new {id = item.Id}, new {@class = "btn btn-info"})
@@ -50,4 +60,15 @@
     }
     </tbody>
 </table>
+
+@section scripts
+{
+    <script src="~/scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script src="~/scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#myTable').DataTable();
+        });
+    </script>
+}
 
