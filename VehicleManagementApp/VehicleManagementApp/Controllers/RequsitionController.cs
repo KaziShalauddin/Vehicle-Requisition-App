@@ -112,7 +112,6 @@ namespace VehicleManagementApp.Controllers
                         EmployeeId = item.EmployeeId,
                         EmployeName = item.Employee.Name,
                         UserName = item.UserName,
-                        UserId = item.UserId,
                         CommentTime = item.CommentTime
                     }
                 );
@@ -136,7 +135,6 @@ namespace VehicleManagementApp.Controllers
             comment.RequsitionId = commentViewModel.RequsitionId;
             comment.Comments = commentViewModel.Comments;
             comment.EmployeeId = commentViewModel.EmployeeId;
-            comment.UserId = userId;
             comment.UserName = userName;
             comment.CommentTime = DateTime.Now;
             bool isSaved = commentManager.Add(comment);
@@ -156,7 +154,6 @@ namespace VehicleManagementApp.Controllers
                     cmnt.Comments = item.Comments;
                     cmnt.Employee = item.Employee;
                     cmnt.Employee = item.Employee;
-                    cmnt.UserId = item.UserId;
                     cmnt.UserName = item.UserName;
                     cmnt.CommentTime = item.CommentTime;
                     cmnt.EmployeName = commentViewModel.EmployeName;

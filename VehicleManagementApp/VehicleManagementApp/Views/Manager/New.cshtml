@@ -74,13 +74,18 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.RequsitionNumber)
                 </td>
-                <td>
-                    @*@Html.ActionLink("Assign", "Assign", new { id = item.Id }, new { @class = "btn btn-success"})*@
-                    @Html.ActionLink("View", "Details", "Requsition", new {id = item.Id}, new {@class = "btn btn-default"})
-                    @Html.ActionLink("Hold", "Hole", new {id = item.Id}, new {@class = "btn btn-primary", onclick = "return confirm('Are You Sure? You Want To Hold This')"})
-                    @Html.ActionLink("Cancle", "Cancle", new {id = item.Id}, new {@class = "btn btn-danger", onclick = "return confirm('Are You Sure? You Want To Cancle This !!')"})
-                    @Html.ActionLink("Assign", "AdvanceAssign", new { id = item.Id }, new { @class = "btn btn-success" })
-                 </td>
+                <td class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        button
+                    </button>
+                    <div class="dropdown-menu" id="dropdownMenu2">
+                        @*@Html.ActionLink("Assign", "Assign", new { id = item.Id }, new { @class = "btn btn-success"})*@
+                        @Html.ActionLink("View", "Details", "Requsition", new { id = item.Id }, new { @class = "btn btn-default" })
+                        @Html.ActionLink("Hold", "Hole", new { id = item.Id }, new { @class = "btn btn-primary", onclick = "return confirm('Are You Sure? You Want To Hold This')" })
+                        @Html.ActionLink("Cancle", "Cancle", new { id = item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are You Sure? You Want To Cancle This !!')" })
+                        @Html.ActionLink("Assign", "AdvanceAssign", new { id = item.Id }, new { @class = "btn btn-success" })
+                    </div>
+                </td>
             </tr>
         }
     </tbody>

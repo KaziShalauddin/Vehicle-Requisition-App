@@ -14,7 +14,6 @@ namespace VehicleManagementApp.Models.Models
     {
         public int Id { get; set; }
         public string Comments { get; set; }
-        public string UserId { get; set; }
         public string UserName { get; set; }
         public DateTime CommentTime { get; set; }
         public int? CommntId { get; set; }

@@ -120,6 +120,10 @@
     <Compile Include="Migrations\201810141513076_ManagerTableJourneyStartAndEndDateAdded.Designer.cs">
       <DependentUpon>201810141513076_ManagerTableJourneyStartAndEndDateAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810160724420_CommentTableUserIdRemove.cs" />
+    <Compile Include="Migrations\201810160724420_CommentTableUserIdRemove.Designer.cs">
+      <DependentUpon>201810160724420_CommentTableUserIdRemove.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="OrganaizationRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -198,6 +202,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810141513076_ManagerTableJourneyStartAndEndDateAdded.resx">
       <DependentUpon>201810141513076_ManagerTableJourneyStartAndEndDateAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810160724420_CommentTableUserIdRemove.resx">
+      <DependentUpon>201810160724420_CommentTableUserIdRemove.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

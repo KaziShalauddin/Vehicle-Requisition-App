@@ -275,6 +275,7 @@
     <Compile Include="ViewModels\DriverViewModel.cs" />
     <Compile Include="ViewModels\EmployeeViewModel.cs" />
     <Compile Include="ViewModels\AssignViewModel.cs" />
+    <Compile Include="ViewModels\FilteringSearchViewModel.cs" />
     <Compile Include="ViewModels\ManagerViewModel.cs" />
     <Compile Include="ViewModels\EditOrganaizationViewModels.cs" />
     <Compile Include="ViewModels\MyRequsitionCreateViewModel.cs" />
@@ -693,6 +694,7 @@
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </Content>
+    <Content Include="Views\Manager\_CompleteRequsitionPartial.cshtml" />
     <None Include="Web References\com.onnorokomsms.api2\sendsms.disco" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

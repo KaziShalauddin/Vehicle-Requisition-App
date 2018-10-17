@@ -39,6 +39,7 @@ namespace VehicleManagementApp.ViewModels
         public Employee Employee { get; set; }
         public IEnumerable<Employee> Employees { get; set; }
 
-        public IEnumerable<RequsitionViewModel> RequsitionViewModels { get; set; } 
+        public IEnumerable<RequsitionViewModel> RequsitionViewModels { get; set; }
+        public IEnumerable<FilteringSearchViewModel> FilteringSearchViewModel { get; set; }
     }
 }

@@ -928,6 +928,10 @@ namespace VehicleManagementApp.Controllers
             }
             return View();
         }
+
+
+
+        [HttpGet]
         public ActionResult CompleteRequsition()
         {
             var Manager = managerManager.Get(c => c.Status == "RequsitionComplete" && c.IsDeleted == false).OrderByDescending(c => c.Id);
@@ -937,8 +941,12 @@ namespace VehicleManagementApp.Controllers
             var vehicle = vehicleManager.GetAll();
             var requsition = _requisitionManager.GetAll();
 
+            FilteringSearchViewModel filteringSearchViewModel = new FilteringSearchViewModel();
+
+
+
             List<ManagerViewModel> managerViewModels = new List<ManagerViewModel>();
-            foreach (var manager in todayRequsition)
+            foreach (var manager in Manager)
             {
                 var managerVM = new ManagerViewModel();
                 managerVM.Id = manager.Id;
@@ -950,8 +958,36 @@ namespace VehicleManagementApp.Controllers
 
                 managerViewModels.Add(managerVM);
             }
+            filteringSearchViewModel.ManagerViewModels = managerViewModels;
 
-            return View(managerViewModels);
+            return View(filteringSearchViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult CompleteRequsition(FilteringSearchViewModel filteringSearchViewModels)
+        {
+            try
+            {
+
+            }
+            catch (Exception)
+            {
+                
+                throw;
+            }
+
+            var startTime = filteringSearchViewModels.Startdate;
+            var endTime = filteringSearchViewModels.EndDate;
+
+            var searchingValue =
+                managerManager.GetAll().Select(c => c.StartDate == startTime && c.EndDate == endTime).ToList();
+
+            if (startTime > endTime)
+            {
+                var nsg =  TempData["End Date Must Bigger than Start date"];
+                return RedirectToAction("CompleteRequsition");
+            }
+            return View(filteringSearchViewModels);
         }
 
         public ActionResult AssignIndexDetails(int? id)
