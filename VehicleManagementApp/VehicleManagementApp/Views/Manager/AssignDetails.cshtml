@@ -67,3 +67,25 @@
 @*<p>
     @Html.ActionLink("Back to List", "AssignedList")
 </p>*@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                @if (User.IsInRole(AppEnum.RoleEnum.Employee.ToString()))
+                {
+                    @*@Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })*@
+                    @Html.ActionLink("Delete", "Delete", new { id = Model.Requisition.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are You Sure? You Want To Cancel!')" })
+                    @Html.ActionLink("Print", "Print", new { id = Model.Requisition.Id }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Back to List", "Index", new { id = "", }, new { @class = "btn btn-default" })
+                }
+                else
+                {
+                    @Html.ActionLink("Assign", "AdvanceAssign", "Manager", new { id = Model.Requisition.Id }, new { @class = "btn btn-info" })
+                    @Html.ActionLink("Print", "Print_V2", new { id = Model.Requisition.Id }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Back to List", "Index", new { id = "", }, new { @class = "btn btn-default" })
+                }
+
+            </p>
+        </div>
+    </div>
+</div>

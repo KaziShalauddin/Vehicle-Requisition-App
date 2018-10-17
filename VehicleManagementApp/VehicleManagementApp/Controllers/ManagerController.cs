@@ -1230,6 +1230,71 @@ namespace VehicleManagementApp.Controllers
             return View(managerViewModels);
         }
 
+        public ActionResult Print_V2(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Requsition requisition = _requisitionManager.GetById((int)id);
+            var driverId = driverStatusManager.Get(c => c.RequsitionId == id).Select(c => c.EmployeeId).FirstOrDefault();
+            var vehicleId = vehicleStatusManager.Get(c => c.RequsitionId == id).Select(c => c.VehicleId).FirstOrDefault();
+
+            AssignedListViewModel assignVm = new AssignedListViewModel
+            {
+                Requisition = requisition,
+                Employee = _employeeManager.GetById((int)requisition.EmployeeId),
+                Driver = _employeeManager.GetById(driverId),
+                Vehicle = vehicleManager.GetById(vehicleId)
+            };
+            //var vehicle = vehicleManager.GetAll();
+            //var requsition = _requisitionManager.GetAll();
+            //var printManager = managerManager.GetById((int)id);
+
+            List<ManagerViewModel> managerViewModels = new List<ManagerViewModel>();
+
+
+            //var vehicl = vehicle.FirstOrDefault(c => c.Id == printManager.VehicleId);
+            //var reqs = requsition.FirstOrDefault(c => c.Id == printManager.RequsitionId);
+            //string EmployeName = reqs.Employee.Name;
+            //string employeeNo = reqs.Employee.ContactNo;
+            //string designation = reqs.Employee.Designation.Name;
+            //string to = reqs.To;
+            //DateTime JouneyEnd = reqs.JouneyEnd;
+            //string Description = reqs.Description;
+            //DateTime JourneyStart = reqs.JourneyStart;
+            //string DriverName = printManager.Employee.Name;
+            //string vehicleModel = vehicl.VModel;
+
+            var managersVM = new ManagerViewModel
+            {
+                Id = assignVm.Id,
+                EmployeeName = assignVm.Employee.Name,
+                EmployeNumber = assignVm.Employee.ContactNo,
+                JourneyEnd = assignVm.Requisition.JouneyEnd,
+                To = assignVm.Requisition.To,
+                Description = assignVm.Requisition.Description,
+                JourneyStart = assignVm.Requisition.JourneyStart,
+                DriverName = assignVm.Driver.Name,
+                VehicleModel = assignVm.Vehicle.Name,
+                Designation = assignVm.Employee.Designation.Name
+            };
+
+            managerViewModels.Add(managersVM);
+            string reportpath = Request.MapPath(Request.ApplicationPath) + @"Report\AssignRequsition\RequsitionAssignRDLC.rdlc";
+            var reportViewer = new ReportViewer()
+            {
+                KeepSessionAlive = true,
+                SizeToReportContent = true,
+                Width = Unit.Percentage(100),
+                ProcessingMode = ProcessingMode.Local
+            };
+            reportViewer.LocalReport.ReportPath = reportpath;
+            ReportDataSource rds = new ReportDataSource("AssignRequsition", managerViewModels);
+            reportViewer.LocalReport.DataSources.Add(rds);
+            ViewBag.ReportViewer = reportViewer;
+            return View(managerViewModels);
+        }
         public ActionResult DriverAssignedList()
         {
 
