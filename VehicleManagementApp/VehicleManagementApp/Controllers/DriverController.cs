@@ -4,7 +4,10 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using VehicleManagementApp.BLL.Contracts;
+using VehicleManagementApp.Models;
 using VehicleManagementApp.Models.Models;
 using VehicleManagementApp.ViewModels;
 
@@ -20,9 +23,15 @@ namespace VehicleManagementApp.Controllers
         private IDistrictManager _districtManager;
         private IThanaManager _thanaManager;
 
+        private IRequsitionManager _requisitionManager;
+        private IVehicleManager vehicleManager;
+        private IDriverStatusManager driverStatusManager;
+        private IVehicleStatusManager vehicleStatusManager;
+
         public DriverController(IEmployeeManager employee, IDepartmentManager department,
             IDesignationManager designation,
-            IDivisionManager division, IDistrictManager district, IThanaManager thana)
+            IDivisionManager division, IDistrictManager district, IThanaManager thana, IRequsitionManager requisition,
+            IVehicleManager vehicle, IDriverStatusManager driverStatus, IVehicleStatusManager vehicleStatus)
         {
             this._employeeManager = employee;
             this._departmentManager = department;
@@ -30,7 +39,18 @@ namespace VehicleManagementApp.Controllers
             this._divisionManager = division;
             this._districtManager = district;
             this._thanaManager = thana;
+            this._requisitionManager = requisition;
+
+            this.vehicleManager = vehicle;
+            this.driverStatusManager = driverStatus;
+            this.vehicleStatusManager = vehicleStatus;
         }
+       
+       
+       
+
+      
+
         public ActionResult Index()
         {
             var department = _departmentManager.GetAll();
@@ -262,5 +282,128 @@ namespace VehicleManagementApp.Controllers
             var licence = _employeeManager.IsLicenceAlreadyExist(LicenceNo);
             return Json(licence, JsonRequestBehavior.AllowGet);
         }
+        private int GetEmployeeId()
+        {
+            ApplicationUser user =
+                System.Web.HttpContext.Current.GetOwinContext()
+                    .GetUserManager<ApplicationUserManager>()
+                    .FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+
+            var employee = _employeeManager.Get(c => c.IsDeleted == false && c.UserId == user.Id);
+            var employeeId = employee.Select(e => e.Id).FirstOrDefault();
+            return employeeId;
+        }
+
+        [Authorize(Roles = "Driver")]
+        public ActionResult MyDutyList()
+        {
+            var employeeId = GetEmployeeId();
+            List<DriverDutyViewModel> assignedList = new List<DriverDutyViewModel>();
+            if (employeeId != 0)
+            {
+                var vehicle = vehicleManager.GetAll();
+                var vehicleStatus = vehicleStatusManager.Get(c => c.Status == "Assign").OrderByDescending(c => c.Id);
+                var driverStatus = driverStatusManager.Get(c => c.Status == "Assign").Where(e => e.EmployeeId == employeeId).OrderByDescending(c => c.Id);
+                var requsition = _requisitionManager.Get(c => c.Status == "Assign").OrderByDescending(c => c.Id);
+
+                var driverWithRequisition = from r in requsition
+                                            join v in vehicleStatus on r.Id equals v.RequsitionId
+                                            join driver in driverStatus on r.Id equals driver.RequsitionId
+                                            select new
+                                            {
+                                                r.Id,
+                                                r.RequsitionNumber,
+                                                r.Form,
+                                                r.To,
+                                                //Requestor = r.EmployeeId,
+                                                r.JourneyStart,
+                                                r.JouneyEnd,
+                                                v.VehicleId,
+                                                //Driver = driver.EmployeeId
+
+                                            };
+
+                foreach (var allData in driverWithRequisition)
+                {
+                    var assignVM = new DriverDutyViewModel();
+                    assignVM.Id = allData.Id;
+                    assignVM.RequsitionNumber = allData.RequsitionNumber;
+                    assignVM.From = allData.Form;
+                    assignVM.To = allData.To;
+                    assignVM.JourneyStart = allData.JourneyStart;
+                    assignVM.JouneyEnd = allData.JouneyEnd;
+                    assignVM.Vehicle = vehicle.Where(c => c.Id == allData.VehicleId).FirstOrDefault();
+                    assignedList.Add(assignVM);
+                }
+
+            }
+            return View(assignedList);
+        }
+        [Authorize(Roles = "Driver")]
+        public ActionResult MyCompletedDuties()
+        {
+            var employeeId = GetEmployeeId();
+            List<DriverDutyViewModel> assignedList = new List<DriverDutyViewModel>();
+            if (employeeId != 0)
+            {
+                var vehicle = vehicleManager.GetAll();
+                var vehicleStatus = vehicleStatusManager.Get(c => c.Status == "Complete").OrderByDescending(c => c.Id);
+                var driverStatus = driverStatusManager.Get(c => c.Status == "Complete").Where(e => e.EmployeeId == employeeId).OrderByDescending(c => c.Id);
+                var requsition = _requisitionManager.Get(c => c.Status == "Complete").OrderByDescending(c => c.Id);
+
+                var driverWithRequisition = from r in requsition
+                                            join v in vehicleStatus on r.Id equals v.RequsitionId
+                                            join driver in driverStatus on r.Id equals driver.RequsitionId
+                                            select new
+                                            {
+                                                r.Id,
+                                                r.RequsitionNumber,
+                                                r.Form,
+                                                r.To,
+                                                //Requestor = r.EmployeeId,
+                                                r.JourneyStart,
+                                                r.JouneyEnd,
+                                                v.VehicleId,
+                                                //Driver = driver.EmployeeId
+
+                                            };
+
+                foreach (var allData in driverWithRequisition)
+                {
+                    var assignVM = new DriverDutyViewModel();
+                    assignVM.Id = allData.Id;
+                    assignVM.RequsitionNumber = allData.RequsitionNumber;
+                    assignVM.From = allData.Form;
+                    assignVM.To = allData.To;
+                    assignVM.JourneyStart = allData.JourneyStart;
+                    assignVM.JouneyEnd = allData.JouneyEnd;
+                    assignVM.Vehicle = vehicle.Where(c => c.Id == allData.VehicleId).FirstOrDefault();
+                    assignedList.Add(assignVM);
+                }
+
+            }
+            return View(assignedList);
+        }
+        [Authorize(Roles = "Driver")]
+        public ActionResult AssignDetails(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Requsition requisition = _requisitionManager.GetById((int)id);
+            var driverId = driverStatusManager.Get(c => c.RequsitionId == id).Select(c => c.EmployeeId).FirstOrDefault();
+            var vehicleId = vehicleStatusManager.Get(c => c.RequsitionId == id).Select(c => c.VehicleId).FirstOrDefault();
+
+            AssignedListViewModel assignVm = new AssignedListViewModel
+            {
+                Requisition = requisition,
+                Employee = _employeeManager.GetById((int)requisition.EmployeeId),
+                Driver = _employeeManager.GetById(driverId),
+                Vehicle = vehicleManager.GetById(vehicleId)
+            };
+            return View(assignVm);
+        }
+
     }
 }

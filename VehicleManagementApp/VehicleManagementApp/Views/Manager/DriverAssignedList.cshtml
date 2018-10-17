@@ -1,0 +1,80 @@
+﻿@model VehicleManagementApp.ViewModels.DriverDutyViewModel
+
+@{
+    ViewBag.Title = "Driver Assigned List";
+    Layout = "~/Views/Shared/_LayoutManager.cshtml";
+    var employees = ViewBag.Employees;
+}
+
+<h3 style="text-align: center">Individual Driver Assigned Duties </h3>
+<hr />
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+
+       
+        <br />
+        <br />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        
+
+        <div class="form-group">
+            <div class="row col-md-10">
+                @Html.LabelFor(model => model.EmployeeId, htmlAttributes: new { @class = "control-label col-md-2" ,@style="color: black"})
+                <div class="col-md-5">
+                    @Html.DropDownListFor(model => model.EmployeeId, new SelectList(employees, "Id", "Name"), "--Select Employee--", new {@class = "form-control"})
+                    @Html.ValidationMessageFor(model => model.EmployeeId, "", new {@class = "text-danger"})
+                </div>
+                <div class="col-md-5">
+                    <input type="submit" value="Submit" class="btn btn-success" id="btnSubmit" />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+           
+        </div>
+    </div>
+}
+
+
+@*<h3 style="text-align: center"> All Assigned Duties</h3>*@
+<div id="resultDiv">
+
+</div>
+@section scripts{
+    <script type="text/javascript">
+
+
+        $('#btnSubmit').click(function(event) {
+            debugger;
+            event.preventDefault();
+            //$('#container').show();
+            var _employeeId = $('#EmployeeId').val();
+            if (_employeeId == '') {
+                alert("Please Select a driver.");
+            }
+            if (_employeeId != '') {
+                $.ajax({
+                    url: '@(Url.Action("DriverAssignedList"))',
+                    data: { employeeId: _employeeId },
+                    type: "POST",
+                    success: function(result) {
+                        debugger;
+                        $("#resultDiv").html(result);
+                        $('#myTable').DataTable();
+                    },
+                    error: function(result) {
+
+                    }
+
+                });
+
+            }
+
+        });
+
+    </script>
+}

@@ -87,6 +87,13 @@
                                 </ul>
                             </li>
                             <li class="menu-has-children">
+                                <a href="#">Driver's Corner</a>
+                                <ul>
+                                    <li>@Html.ActionLink("Assigned Duties", "DriverAssignedList", "Manager")</li>
+                                    <li>@Html.ActionLink("Completed Duties", "DriverDutyCompletedList", "Manager")</li>
+                                </ul>
+                            </li>
+                            <li class="menu-has-children">
                                 <a href="#">Setup</a>
                                 <ul>
                                     <li class="menu-has-children">
@@ -148,6 +155,19 @@
                                 <a href="#">Requisition</a>
                                 <ul>
                                     <li>@Html.ActionLink("My Requisitions", "MyRequisitionList", "Requsition")</li>
+
+                                </ul>
+                            </li>
+
+
+                        }
+                        @if (User.IsInRole(AppEnum.RoleEnum.Driver.ToString()))
+                        {
+                            <li class="menu-has-children">
+                                <a href="#">My Duties</a>
+                                <ul>
+                                    <li>@Html.ActionLink("Upcoming Duties", "MyDutyList", "Driver")</li>
+                                    <li>@Html.ActionLink("Completed Duties", "MyCompletedDuties", "Driver")</li>
 
                                 </ul>
                             </li>

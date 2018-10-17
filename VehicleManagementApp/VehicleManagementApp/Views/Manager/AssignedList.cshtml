@@ -6,8 +6,15 @@
     int sl = 1;
 }
 
-<h2 style="padding-bottom: 30px; text-align: center">Assign Index</h2>
-
+<h2 style="padding-bottom: 30px; text-align: center">Assigned List</h2>
+<div>
+    @if (TempData["msg"] != null)
+    {
+        <div class="alert alert-info">
+            @TempData["msg"]
+        </div>
+    }
+</div>
 <table class="table table-bordered table-striped" id="myTable">
     <thead>
         <tr>
@@ -66,7 +73,7 @@
                 <td>
                     @Html.ActionLink("Print", "Print", new { id = item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are You Sure? You Want To Re-Assign This??')" })
                     @Html.ActionLink("Details", "AssignDetails", new { id = item.Id }, new { @class = "btn btn-primary" })
-                    @Html.ActionLink("Check In", "CheckIn", new { id = item.Id }, new { @class = "btn btn-info", onclick = "return confirm('Are You Sure? You Want To Check In !!')" })
+                    @Html.ActionLink("Check In", "CheckIn_V2", new { id = item.Id }, new { @class = "btn btn-info", onclick = "return confirm('Are You Sure? You Want To Check In !!')" })
                 </td>
             </tr>
         }

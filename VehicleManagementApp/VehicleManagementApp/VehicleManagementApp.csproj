@@ -261,6 +261,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\AssignedListViewModel.cs" />
     <Compile Include="ViewModels\CommentViewModel.cs" />
+    <Compile Include="ViewModels\DriverDutyViewModel.cs" />
     <Compile Include="ViewModels\DriverStatusViewModel.cs" />
     <Compile Include="ViewModels\EditDivisionViewModel.cs" />
     <Compile Include="ViewModels\EditDistrictViewModel.cs" />
@@ -694,7 +695,16 @@
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </Content>
+
     <Content Include="Views\Manager\_CompleteRequsitionPartial.cshtml" />
+
+    <Content Include="Views\Manager\DriverAssignedList.cshtml" />
+    <Content Include="Views\Manager\_DriverDutyListPartial.cshtml" />
+    <Content Include="Views\Manager\DriverDutyCompletedList.cshtml" />
+    <Content Include="Views\Driver\MyDutyList.cshtml" />
+    <Content Include="Views\Driver\AssignDetails.cshtml" />
+    <Content Include="Views\Driver\MyCompletedDuties.cshtml" />
+
     <None Include="Web References\com.onnorokomsms.api2\sendsms.disco" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -823,7 +833,7 @@
     <Content Include="Views\Manager\AssignDriver.cshtml" />
     <Content Include="Views\Manager\AvailableDriver.cshtml" />
     <Content Include="Views\Manager\ReAssign.cshtml" />
-    <Content Include="Views\Manager\CancleIndex.cshtml" />
+    <Content Include="Views\Manager\CancelIndex.cshtml" />
     <Content Include="Views\Driver\Index.cshtml" />
     <Content Include="Views\Driver\Added.cshtml" />
     <Content Include="Views\Driver\Edit.cshtml" />
