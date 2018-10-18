@@ -71,9 +71,9 @@
                     @Html.DisplayFor(modelItem => item.Vehicle.Name)
                 </td>
                 <td>
-                    @Html.ActionLink("Print", "Print_V2", new { id = item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are You Sure? You Want To Re-Assign This??')" })
-                    @Html.ActionLink("Details", "AssignDetails", new { id = item.Id }, new { @class = "btn btn-primary" })
-                    @Html.ActionLink("Check In", "CheckIn_V2", new { id = item.Id }, new { @class = "btn btn-info", onclick = "return confirm('Are You Sure? You Want To Check In !!')" })
+                    @Html.ActionLink("Print", "Print_V2", new { id = item.Id }, new { @class = "btn btn-info" })
+                    @Html.ActionLink("Reassign", "Reassign_V2", new { id = item.Id }, new { @class = "btn btn-success", onclick = "return confirm('Are You Sure? You Want To Re-Assign This Requisition ?')" })
+                    @Html.ActionLink("Check In", "CheckIn_V2", new { id = item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are You Sure? You Want To Check In !!')" })
                 </td>
             </tr>
         }

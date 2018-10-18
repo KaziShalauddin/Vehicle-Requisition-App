@@ -260,6 +260,7 @@
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\AssignedListViewModel.cs" />
+    <Compile Include="ViewModels\RessignViewModel.cs" />
     <Compile Include="ViewModels\CommentViewModel.cs" />
     <Compile Include="ViewModels\DriverDutyViewModel.cs" />
     <Compile Include="ViewModels\DriverStatusViewModel.cs" />
@@ -703,6 +704,7 @@
     <Content Include="Views\Driver\AssignDetails.cshtml" />
     <Content Include="Views\Driver\MyCompletedDuties.cshtml" />
     <Content Include="Views\Manager\Print_V2.cshtml" />
+    <Content Include="Views\Manager\Reassign_V2.cshtml" />
     <None Include="Web References\com.onnorokomsms.api2\sendsms.disco" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
