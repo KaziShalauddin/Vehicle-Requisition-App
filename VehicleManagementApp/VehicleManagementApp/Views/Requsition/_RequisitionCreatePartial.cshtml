@@ -38,7 +38,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.JourneyStartDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.JourneyStartDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.JourneyStartDate, new { htmlAttributes = new { @class = "form-control" , id= "JourneyStartDate" } })
                 @Html.ValidationMessageFor(model => model.JourneyStartDate, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -75,21 +75,9 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" id="btnSubmit" value="Create" class="btn btn-default" />
+                <input type="submit" id="btnSubmit" value="Create" class="btn btn-default" id="btnSubmit" />
             </div>
         </div>
     </div>
-}
-@section Scripts {
-    @*<script src="~/scripts/bootstrap.min.js"></script>*@
-    @*@Scripts.Render("~/bundles/jqueryval")*@
-    <script type="text/javascript">
-       
-    </script>
-
-
-    <script type="text/javascript">
-       
-    </script>
 }
 

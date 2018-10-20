@@ -168,6 +168,23 @@
 @section scripts{
     <script type="text/javascript">
 
+        // Requsition Validation Check start
+        $(document).ready(function () {
+
+            $("#JouneyEndDate").change(function () {
+
+                var startDate = $("#JourneyStartDate").val();
+                var endDate = $("#JouneyEndDate").val();
+
+                if (startDate > endDate) {
+                    alert("End Date Should Be bigger than Start Date");
+                    return;
+                }
+
+            });
+
+        });
+        // Requsition Validation Check end
 
 
         $('#myPartialTable').DataTable();
