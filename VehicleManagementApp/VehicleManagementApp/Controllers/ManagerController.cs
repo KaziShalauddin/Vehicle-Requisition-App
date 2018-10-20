@@ -1250,24 +1250,8 @@ namespace VehicleManagementApp.Controllers
                 Driver = _employeeManager.GetById(driverId),
                 Vehicle = vehicleManager.GetById(vehicleId)
             };
-            //var vehicle = vehicleManager.GetAll();
-            //var requsition = _requisitionManager.GetAll();
-            //var printManager = managerManager.GetById((int)id);
-
+          
             List<ManagerViewModel> managerViewModels = new List<ManagerViewModel>();
-
-
-            //var vehicl = vehicle.FirstOrDefault(c => c.Id == printManager.VehicleId);
-            //var reqs = requsition.FirstOrDefault(c => c.Id == printManager.RequsitionId);
-            //string EmployeName = reqs.Employee.Name;
-            //string employeeNo = reqs.Employee.ContactNo;
-            //string designation = reqs.Employee.Designation.Name;
-            //string to = reqs.To;
-            //DateTime JouneyEnd = reqs.JouneyEnd;
-            //string Description = reqs.Description;
-            //DateTime JourneyStart = reqs.JourneyStart;
-            //string DriverName = printManager.Employee.Name;
-            //string vehicleModel = vehicl.VModel;
 
             var managersVM = new ManagerViewModel
             {
@@ -1439,6 +1423,117 @@ namespace VehicleManagementApp.Controllers
             TempData["msg"] = "Check in operaion failed.";
             return RedirectToAction("AssignedList");
             
+        }
+
+        private bool ForReassign_AddDataToDriverStatusTable(int? employeeId, int? id)
+        {
+            if (employeeId == null || id == null)
+            {
+                return false;
+            }
+            var maxId = driverStatusManager.GetAll().Max(c => c.Id) + 1;
+            var dv = driverStatusManager.Get(c=>c.RequsitionId==id && c.Status=="Assign").FirstOrDefault();
+
+            if (dv == null) return false;
+            dv.Status = "Reassigned - Ref :"+maxId;
+            bool isUpdated = driverStatusManager.Update(dv);
+            return isUpdated;
+        }
+        private bool ForReassign_AddDataToVehicleStatusTable(int? vehicleId, int? id)
+        {
+            if (vehicleId == null || id == null)
+            {
+                return false;
+            }
+            var maxId = vehicleStatusManager.GetAll().Max(c=>c.Id) + 1;
+            var vs = vehicleStatusManager.Get(c => c.RequsitionId == id && c.Status == "Assign").FirstOrDefault();
+
+            if (vs == null) return false;
+            vs.Status = "Reassigned - Ref :" + maxId;
+            bool isUpdated = vehicleStatusManager.Update(vs);
+            return isUpdated;
+        }
+
+        [HttpGet]
+        public ActionResult Reassign_V2(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Requsition requsition = _requisitionManager.GetById((int)id);
+            var presentDriverId =
+                driverStatusManager.Get(c => c.RequsitionId == id && c.Status=="Assign").Select(c=>c.EmployeeId).FirstOrDefault();
+          
+            var availableDriverList = driverStatusManager.Get(c => c.EndTime < requsition.JourneyStart).Where(c=>c.EmployeeId!= presentDriverId).GroupBy(x => x.EmployeeId).Select(x => x.First());
+
+            List<Employee> availableDrivers = new List<Employee>();
+
+            foreach (var driver in availableDriverList)
+            {
+                var driverItem = _employeeManager.GetById(driver.EmployeeId);
+                availableDrivers.Add(driverItem);
+            }
+
+            List<Vehicle> availableVehicles = new List<Vehicle>();
+            var presentVehicleId =
+               vehicleStatusManager.Get(c => c.RequsitionId == id && c.Status == "Assign").Select(c=>c.VehicleId).FirstOrDefault();
+
+         
+            var availableVehicleList = vehicleStatusManager.Get(c => c.EndTime < requsition.JourneyStart).Where(c=>c.VehicleId!= presentVehicleId).GroupBy(x => x.VehicleId).Select(x => x.First());
+            foreach (var vehicle in availableVehicleList)
+            {
+                var vehicleItem = vehicleManager.GetById(vehicle.VehicleId);
+                availableVehicles.Add(vehicleItem);
+            }
+
+            RessignViewModel assignVm = new RessignViewModel
+            {
+                RequsitionId = requsition.Id,
+                Requsition = requsition,
+                PresentDriver = _employeeManager.GetById(presentDriverId),
+                PresentDriverId = presentDriverId,
+                PresentVehicle = vehicleManager.GetById(presentVehicleId),
+                PresentVehicleId = presentVehicleId,
+                Drivers = availableDrivers,
+                Vehicles = availableVehicles
+            };
+
+            ViewBag.Vehicles = new SelectList(availableVehicles, "Id", "Name");
+            return View(assignVm);
+        }
+
+        [HttpPost]
+        public ActionResult Reassign_V2(RessignViewModel assignVm)
+        {
+
+            bool isRequisitionAssigned = RequisitionAssign(assignVm.Id);
+           
+            bool isPresentDriverStatusChanged = ForReassign_AddDataToDriverStatusTable(assignVm.PresentDriverId, assignVm.Id);
+            bool isPresentVehicleStatusChanged = ForReassign_AddDataToVehicleStatusTable(assignVm.PresentVehicleId, assignVm.Id);
+
+            bool isDriverAssigned = AddDataToDriverStatusTable(assignVm.NewDriverId, assignVm.Id);
+            bool isVehicleAssigned = AddDataToVehicleStatusTable(assignVm.NewVehicleId, assignVm.Id);
+            if (isRequisitionAssigned && isPresentDriverStatusChanged && isPresentVehicleStatusChanged && isDriverAssigned && isVehicleAssigned)
+            {
+                TempData["msg"] = "Requisition Ressigned Successfully!";
+
+                //Email Sending Method start
+                //SendingEmailDriver(assignVm.EmployeeId, assignVm.RequsitionId);
+                //SendingEmailEmployee(assignVm.EmployeeId, assignVm.RequsitionId);
+                //Email Sending Method end
+
+                return RedirectToAction("AssignedList");
+            }
+
+            //if (!isRequisitionAssigned && !isDriverAssigned)
+            //{
+            //    TempData["msg"] = "Requisition Not Assigned";
+            //    return View(assignVm);
+            //}
+
+            TempData["msg"] = "Requisition Not Reassigned";
+            return View(assignVm);
         }
     }
 }
