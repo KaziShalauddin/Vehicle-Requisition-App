@@ -1,0 +1,42 @@
+﻿@model IEnumerable<VehicleManagementApp.ViewModels.CommentViewModel>
+
+<style>
+     #hide {
+            margin-left: 80px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 17px;
+     }
+</style>
+
+@if (Model.Any())
+{
+    <div class="row">
+        <div class="col-md-12">
+            @foreach (var item in Model)
+                {
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h5>@Html.Raw(item.UserName) (@item.CommentTime.ToShortTimeString())</h5>
+                            <div class="alert alert-info">
+                                @Html.Raw(item.Comments)
+                            </div>
+                        </div>
+                    </div>
+                }
+        </div>
+    </div>
+}
+
+
+
+<script src="~/scripts/jquery-2.2.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        
+        $("#hide").click(function () {
+            $("#in").show();
+        });
+    })
+</script>

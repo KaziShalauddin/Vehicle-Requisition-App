@@ -9,6 +9,13 @@ namespace VehicleManagementApp.ViewModels
 {
     public class AssignedListViewModel
     {
+        public AssignedListViewModel()
+        {
+            CommentViewModels = new HashSet<CommentViewModel>();
+            
+        }
+
+
         public int Id { get; set; }
 
         [Display(Name = "Requsition")]
@@ -30,5 +37,9 @@ namespace VehicleManagementApp.ViewModels
 
         public string Status { get; set; }
 
+
+        public int CommentViewModelId { get; set; }
+        public CommentViewModel CommentViewModel { get; set; }
+        public virtual IEnumerable<CommentViewModel> CommentViewModels { get; set; }
     }
 }

@@ -3,6 +3,13 @@
 @{
     int sl = 1;
 }
+
+@if (TempData["msg"] != null)
+            {
+    <div class="alert alert-warning">
+        @TempData["msg"]
+    </div>
+}
 <h2 style="padding-bottom: 30px; text-align: center">My Assigned Duty List</h2>
 <table class="table table-bordered table-striped" id="myTable">
     <thead>

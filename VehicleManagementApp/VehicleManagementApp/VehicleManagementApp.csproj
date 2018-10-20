@@ -705,6 +705,8 @@
     <Content Include="Views\Driver\MyCompletedDuties.cshtml" />
     <Content Include="Views\Manager\Print_V2.cshtml" />
     <Content Include="Views\Manager\Reassign_V2.cshtml" />
+    <Content Include="Views\Driver\_CommentList.cshtml" />
+    <Content Include="Views\Driver\_CommentPartial.cshtml" />
     <None Include="Web References\com.onnorokomsms.api2\sendsms.disco" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

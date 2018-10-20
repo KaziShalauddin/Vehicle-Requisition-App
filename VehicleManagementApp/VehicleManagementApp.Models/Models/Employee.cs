@@ -17,6 +17,7 @@ namespace VehicleManagementApp.Models.Models
         public int Id { get; set; }
        
         public string UserId { get; set; }
+        public string UserRole { get; set; }
 
         [StringLength(255)]
         public string Name { get; set; }

@@ -10,7 +10,7 @@ using VehicleManagementApp.Repository.Contracts;
 
 namespace VehicleManagementApp.Models.Models
 {
-    public class Comment : IModel, IDeletable
+    public class NewComment : IModel, IDeletable
     {
         public int Id { get; set; }
         public string Comments { get; set; }
@@ -19,10 +19,16 @@ namespace VehicleManagementApp.Models.Models
         public int? CommntId { get; set; }
         public Comment Commnt { get; set; }
 
-        [ForeignKey("Employee")]
-        public int EmployeeId { get; set; }
-        public virtual Employee Employee { get; set; }
+     
+        public int SenderEmployeeId { get; set; }
+        public virtual Employee SenderEmployee { get; set; }
+    
+        public int ReceiverEmployeeId { get; set; }
+        public virtual Employee ReceiverEmployee { get; set; }
+        public bool IsReceiverSeen { get; set; }
 
+        public DateTime ReceiverSeenTime { get; set; }
+        
         [ForeignKey("Requsition")]
         public int RequsitionId { get; set; }
         public Requsition Requsition { get; set; }
@@ -32,15 +38,6 @@ namespace VehicleManagementApp.Models.Models
         {
             return IsDeleted;
         }
-
-        public int? SenderEmployeeId { get; set; }
-        public virtual Employee SenderEmployee { get; set; }
-
-        public int? ReceiverEmployeeId { get; set; }
-        public virtual Employee ReceiverEmployee { get; set; }
-        public bool IsReceiverSeen { get; set; }
-
-        public DateTime ReceiverSeenTime { get; set; }
     }
 
 

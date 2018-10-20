@@ -1532,5 +1532,86 @@ namespace VehicleManagementApp.Controllers
             TempData["msg"] = "Requisition Not Reassigned";
             return View(assignVm);
         }
+
+        public void ForReassignSendEmailToDriver(int? EmployeeId, int? requsitionId,string cause)
+        {
+            if (EmployeeId == null && requsitionId == null)
+            {
+                return;
+            }
+            var requsition = _requisitionManager.GetById((int)requsitionId);
+            var employee = _employeeManager.GetById((int)EmployeeId);
+            if (employee.Email == null)
+            {
+                return;
+            }
+            var dod = "<span><strong>Employee Name</strong> :" + " " + requsition.Employee.Name + "</span>" + "<br/>"
+                    + "<span> <strong>Employee Number</strong> :" + " " + requsition.Employee.ContactNo + "</span>" + "<br/>"
+                    + "<span> <strong>Department Name</strong> :" + " " + requsition.Employee.Department.Name + "</span>" + "<br/>"
+                    + "<span> <strong>Designation Name</strong> :" + " " + requsition.Employee.Designation.Name + "</span>" + "<br/>";
+
+            var body = dod;
+            var message = new MailMessage();
+            message.To.Add(new MailAddress(employee.Email));  // replace with valid value 
+            message.From = new MailAddress("mohammadziaulm62@gmail.com");  // replace with valid value
+            message.Subject = "For Your Have A New Car Assign";
+            message.Body = body;
+            message.IsBodyHtml = true;
+
+            using (var smtp = new SmtpClient())
+            {
+                var credential = new NetworkCredential
+                {
+                    UserName = "mohammadziaulm62@gmail.com", // replace with valid value
+                    Password = "01915982924" // replace with valid value
+                };
+                smtp.Credentials = credential;
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.EnableSsl = true;
+                smtp.Send(message);
+                return;
+            }
+        }
+
+        public void ForReassignSendEmailToEmployee(int? EmployeeId, int? RequsitionId, string cause)
+        {
+            if (EmployeeId == null && RequsitionId == null)
+            {
+                return;
+            }
+            var requsition = _requisitionManager.GetById((int)RequsitionId);
+            var employee = _employeeManager.GetById((int)EmployeeId);
+            if (employee.Email == null)
+            {
+                return;
+            }
+            var dod = "<span><strong>Driver Name</strong> :" + " " + employee.Name + "</span>" + "<br/>"
+                      + "<span> <strong>Phone Number</strong> :" + " " + employee.ContactNo + "</span>" + "<br/>";
+
+
+            var body = dod;
+            var message = new MailMessage();
+            message.To.Add(new MailAddress(requsition.Employee.Email));  // replace with valid value 
+            message.From = new MailAddress("mohammadziaulm62@gmail.com");  // replace with valid value
+            message.Subject = "Your Requsition Assign Successfully";
+            message.Body = body;
+            message.IsBodyHtml = true;
+
+            using (var smtp = new SmtpClient())
+            {
+                var credential = new NetworkCredential
+                {
+                    UserName = "mohammadziaulm62@gmail.com", // replace with valid value
+                    Password = "01915982924" // replace with valid value
+                };
+                smtp.Credentials = credential;
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.EnableSsl = true;
+                smtp.Send(message);
+                return;
+            }
+        }
     }
 }
