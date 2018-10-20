@@ -161,6 +161,7 @@ namespace VehicleManagementApp.Controllers
         [HttpPost]
         public ActionResult Assign(ManagerViewModel managerViewModel)
         {
+            Vehicle vehicle = new Vehicle();
             Requsition requsition = new Requsition();
             Manager manager = new Manager();
             var requsitions = _requisitionManager.GetById(managerViewModel.RequsitionId);
@@ -172,6 +173,8 @@ namespace VehicleManagementApp.Controllers
             manager.RequsitionId = managerViewModel.RequsitionId;
             manager.EmployeeId = managerViewModel.EmployeeId;
             manager.VehicleId = managerViewModel.VehicleId;
+            
+
             manager.StartDate = startdateTime;
             manager.EndDate = endDateTime;
 

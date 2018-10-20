@@ -113,15 +113,27 @@
     @Html.ActionLink("Back to List", "New")
 </div>
 
-@*@section Scripts{
+@section Scripts{
     
     <script type="text/javascript">
         $(document).ready(function() {
             $("#VehicleId").change(function() {
                 var value = $("#VehicleId").val();
                 alert(value);
+
+                $.ajax({
+                    url: "",
+                    type: "GET",
+                    data: value,
+                    success: function() {
+                        
+                    },
+                    error: function(){
+                    alert("Error");
+                }
+            });
             });
         });
     </script>
-}*@
+}
 
