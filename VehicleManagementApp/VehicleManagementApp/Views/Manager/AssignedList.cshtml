@@ -1,4 +1,6 @@
-﻿@model IEnumerable<VehicleManagementApp.ViewModels.AssignedListViewModel>
+﻿@using VehicleManagementApp.BLL
+@using VehicleManagementApp.BLL.Contracts
+@model IEnumerable<VehicleManagementApp.ViewModels.AssignedListViewModel>
 
 @{
     ViewBag.Title = "AssignIndex";
@@ -39,6 +41,7 @@
                 @Html.DisplayNameFor(model => model.VehicleId)
             </th>
 
+            <th>New Comments</th>
             <th></th>
         </tr>
     </thead>
@@ -69,6 +72,20 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Vehicle.Name)
+                </td>
+                <td>
+                    @{
+                        //ViewBag.UserEmployeeId;
+                        ICommentManager commentManager = new CommentManager();
+                        var newComments = commentManager.Get(c => c.RequsitionId == item.Id).Count(c => c.ReceiverEmployeeId == ViewBag.UserEmployeeId && c.IsReceiverSeen == false);
+
+                    }
+                    <span>
+                        <img src="~/img/f8-01-512.png" alt="new comments" style="height: 10%; ">
+                        <span class="notification">@Html.Raw(newComments)</span>
+                    </span>
+
+                    @Html.ActionLink("Details", "Details_V2", "Requsition", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
                 </td>
                 <td>
                     @Html.ActionLink("Print", "Print_V2", new { id = item.Id }, new { @class = "btn btn-info" })

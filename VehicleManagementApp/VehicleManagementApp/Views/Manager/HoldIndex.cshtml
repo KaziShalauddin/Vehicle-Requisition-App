@@ -1,11 +1,21 @@
-﻿@model IEnumerable<VehicleManagementApp.ViewModels.RequsitionViewModel>
+﻿@using VehicleManagementApp.BLL
+@using VehicleManagementApp.BLL.Contracts
+@model IEnumerable<VehicleManagementApp.ViewModels.RequsitionViewModel>
 
 @{
     ViewBag.Title = "New";
     Layout = "~/Views/Shared/_LayoutManager.cshtml";
     int sl = 1;
 }
-
+<h3 style="text-align: center">Hold Requisitions</h3>
+<br />
+<br />
+@if (TempData["msg"] != null)
+            {
+    <div class="alert alert-warning">
+        @TempData["msg"]
+    </div>
+}
 <table class="table table-bordered table-striped" id="myTable">
     <thead>
         <tr>
@@ -22,6 +32,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.RequsitionNumber)
             </th>
+            <th>New Comments</th>
             <th></th>
         </tr>
     </thead>
@@ -43,8 +54,22 @@
                     @Html.DisplayFor(modelItem => item.RequsitionNumber)
                 </td>
                 <td>
-                    @Html.ActionLink("View", "Details","Requsition", new { id = item.Id }, new { @class = "btn btn-info" })
-                    @Html.ActionLink("Assign", "Assign", new { id = item.Id }, new { @class = "btn btn-primary" })
+                    @{
+                        //ViewBag.UserEmployeeId;
+                        ICommentManager commentManager = new CommentManager();
+                        var newComments = commentManager.Get(c => c.RequsitionId == item.Id).Count(c => c.ReceiverEmployeeId == ViewBag.UserEmployeeId && c.IsReceiverSeen == false);
+
+                    }
+                    <span>
+                        <img src="~/img/f8-01-512.png" alt="new comments" style="height: 10%; ">
+                        <span class="notification">@Html.Raw(newComments)</span>
+                    </span>
+
+                    @Html.ActionLink("Details", "Details_V2", "Requsition", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
+                </td>
+                <td>
+                    @*@Html.ActionLink("View", "Details","Requsition", new { id = item.Id }, new { @class = "btn btn-info" })*@
+                    @Html.ActionLink("Assign", "AdvanceAssign", new { id = item.Id }, new { @class = "btn btn-primary" })
                 </td>
             </tr>
         }

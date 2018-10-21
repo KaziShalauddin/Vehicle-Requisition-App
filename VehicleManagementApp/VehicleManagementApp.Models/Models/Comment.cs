@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -10,8 +11,11 @@ using VehicleManagementApp.Repository.Contracts;
 
 namespace VehicleManagementApp.Models.Models
 {
+    //[Table("Comments")]
     public class Comment : IModel, IDeletable
     {
+        //[Key]
+        //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public string Comments { get; set; }
         public string UserName { get; set; }

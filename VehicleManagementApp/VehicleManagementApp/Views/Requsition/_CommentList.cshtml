@@ -1,13 +1,16 @@
-﻿@model IEnumerable<VehicleManagementApp.ViewModels.CommentViewModel>
+﻿@using Microsoft.AspNet.Identity
+@using VehicleManagementApp.BLL
+@using VehicleManagementApp.BLL.Contracts
+@model IEnumerable<VehicleManagementApp.ViewModels.CommentViewModel>
 
 <style>
-     #hide {
-            margin-left: 80px;
-            border: none;
-            background: none;
-            cursor: pointer;
-            font-size: 17px;
-     }
+    #hide {
+        margin-left: 80px;
+        border: none;
+        background: none;
+        cursor: pointer;
+        font-size: 17px;
+    }
 </style>
 
 @if (Model.Any())
@@ -16,24 +19,94 @@
         <div class="col-md-12">
             @foreach (var item in Model)
                 {
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h5>@Html.Raw(item.UserName) (@item.CommentTime.ToShortTimeString())</h5>
-                            <div class="alert alert-info">
-                                @Html.Raw(item.Comments)
-                            </div>
-                        </div>
+                <div class="row">
+
+                    <div class="col-md-12" style="background-color: lavender; border-radius: 10px;">
+
+                        @{
+                            IEmployeeManager employee = new EmployeeManager();
+                            // var userEmployeeId = employee.Get(c => c.UserId == User.Identity.GetUserId()).Select(c => c.Id).FirstOrDefault();
+                            var commentor = employee.Get(c => c.Id == item.SenderEmployeeId).FirstOrDefault();
+                        }
+
+                        @if (item.ReceiverEmployeeId == ViewBag.UserEmployeeId && item.SenderEmployeeId != ViewBag.UserEmployeeId)
+                        {
+                            <h5>
+                                @if (commentor != null)
+                                {
+                                    @Html.Raw("Comments by: " + commentor.Name)
+                                    @Html.Raw(" ( Designation :" + commentor.Designation.Name + " )")
+
+                                }
+                                <span style="float: right">Time: @item.CommentTime.ToString("dd - MMM - yyyy hh:mm tt")</span>
+                            </h5>
+
+                                <div class="alert alert-info">
+                                    @Html.Raw(item.Comments)
+                                </div>
+                            if (!item.IsReceiverSeen)
+                            {
+                                @Html.ActionLink("Seen", "CommentSeen", new { id = item.Id }, new { @class = "link" })
+                            }
+                            else
+                            {
+                                <h5> Seen at: @item.ReceiverSeenTime.ToString("dd - MMM - yyyy hh:mm tt")</h5>
+                            }
+
+                        }
+
+                        @if (item.SenderEmployeeId == ViewBag.UserEmployeeId && item.ReceiverEmployeeId != ViewBag.UserEmployeeId)
+                        {
+
+                            <h5>
+                                @*@if (commentor != null)
+                                    {
+                                        @Html.Raw(commentor.Name)
+                                        @Html.Raw(" Designation: " + commentor.Designation.Name)
+
+                                    }*@
+                                @Html.Raw("Comments by: me.")
+                                <span style="float: right">Time: @item.CommentTime.ToString("dd - MMM - yyyy hh:mm tt")</span>
+                            </h5>
+
+                                <div class="alert alert-info">
+                                    @Html.Raw(item.Comments)
+                                </div>
+                            if (item.IsReceiverSeen)
+                            {
+                                <h5> Seen at: @item.ReceiverSeenTime.ToString("dd - MMM - yyyy hh:mm tt")</h5>
+                            }
+                            else
+                            {
+                                <h5>Not seen yet.</h5>
+                            }
+
+                        }
+                        @if (item.SenderEmployeeId == ViewBag.UserEmployeeId && item.ReceiverEmployeeId == ViewBag.UserEmployeeId)
+                        {
+
+                            <h5>
+                               @Html.Raw("Comments by: me.")
+                                <span style="float: right">Time: @item.CommentTime.ToString("dd - MMM - yyyy hh:mm tt")</span>
+                            </h5>
+
+                                <div class="alert alert-info">
+                                    @Html.Raw(item.Comments)
+                                </div>
+                           }
                     </div>
-                }
+                    <div class="col-md-12" style="height: 20px"></div>
+                </div>
+                            }
         </div>
     </div>
-}
-
+                            }
 
 
 <script src="~/scripts/jquery-2.2.4.min.js"></script>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
+
         $("#hide").click(function () {
             $("#in").show();
         });

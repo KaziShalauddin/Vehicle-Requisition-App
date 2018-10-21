@@ -1,4 +1,6 @@
 ﻿@using Microsoft.Ajax.Utilities
+@using VehicleManagementApp.BLL
+@using VehicleManagementApp.BLL.Contracts
 @model System.Collections.Generic.IEnumerable<VehicleManagementApp.ViewModels.DriverDutyViewModel>
 @{
     int sl = 1;
@@ -13,68 +15,80 @@
 <h2 style="padding-bottom: 30px; text-align: center">My Assigned Duty List</h2>
 <table class="table table-bordered table-striped" id="myTable">
     <thead>
-    <tr>
-        <td>
-            @Html.Raw("SL")
-        </td>
-        <th>
-            @Html.DisplayNameFor(model => model.RequsitionNumber)
-        </th>
-
-        <th>
-            @Html.DisplayName("From")
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.To)
-        </th>
-
-        <th>
-            @Html.DisplayNameFor(model => model.JourneyStart)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.JouneyEnd)
-        </th>
-        <th>
-            @Html.DisplayName("Vehicle")
-        </th>
-        <th></th>
-    </tr>
-    </thead>
-    <tbody>
-    @foreach (var item in Model)
-    {
         <tr>
             <td>
-                @(sl++)
+                @Html.Raw("SL")
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RequsitionNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.From)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.To)
-            </td>
-            @{
+            <th>
+                @Html.DisplayNameFor(model => model.RequsitionNumber)
+            </th>
 
-                var startdate = item.JourneyStart.ToString("dd - MMM - yyyy hh:mm tt");
-                var enddate = item.JouneyEnd.ToString("dd - MMM - yyyy  hh:mm tt");
-            }
-            <td>
-                @Html.Raw(startdate)
-            </td>
-            <td>
-                @Html.Raw(enddate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Vehicle.Name)
-            </td>
-            <td>
-                @Html.ActionLink("Details", "AssignDetails", new {id = item.Id}, new {@class = "btn btn-info btn-sm"})
-            </td>
+            <th>
+                @Html.DisplayName("From")
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.To)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.JourneyStart)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.JouneyEnd)
+            </th>
+            <th>
+                @Html.DisplayName("Vehicle")
+            </th>
+            <th>
+                @Html.DisplayName("New Comments")
+           </th>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @(sl++)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequsitionNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.From)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.To)
+                </td>
+                @{
+
+                    var startdate = item.JourneyStart.ToString("dd - MMM - yyyy hh:mm tt");
+                    var enddate = item.JouneyEnd.ToString("dd - MMM - yyyy  hh:mm tt");
+                }
+                <td>
+                    @Html.Raw(startdate)
+                </td>
+                <td>
+                    @Html.Raw(enddate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Vehicle.Name)
+                </td>
+                <td>
+                    @{
+                        //ViewBag.UserEmployeeId;
+                        ICommentManager commentManager = new CommentManager();
+                        var newComments = commentManager.Get(c => c.RequsitionId == item.Id).Count(c => c.ReceiverEmployeeId == ViewBag.UserEmployeeId && c.IsReceiverSeen == false);
+
+                    }
+                    <span>
+                        <img src="~/img/f8-01-512.png" alt="new comments" style="height: 10%; ">
+                        <span class="notification">@Html.Raw(newComments)</span>
+                    </span> 
+               
+                    @Html.ActionLink("Details", "AssignDetails", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
+                </td>
+            </tr>
+                        }
     </tbody>
 </table>
-

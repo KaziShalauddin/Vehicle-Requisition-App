@@ -6,8 +6,15 @@
 }
 
 
-<h3>Assigned Requisition Details</h3>
-
+<h3 style="text-align: center">Requisition Details</h3>
+<br/>
+<br/>
+@if (TempData["msg"] != null)
+            {
+    <div class="alert alert-warning">
+        @TempData["msg"]
+    </div>
+}
 <div class="container">
     <div class="row ">
         <table class="table table-hover">
@@ -48,17 +55,49 @@
             </tr>
         </table>
 
-        <table class="table  table-hover">
+        @*<table class="table  table-hover">
             <tr class="card">
                 <th>Vehicle :</th>
                 <td>@Html.DisplayFor(model => model.Vehicle.Name)</td>
             </tr>
-        </table>
+        </table>*@
     </div>
 </div>
 @*<p>
     @Html.ActionLink("Back to List", "DriverMyDutyList")
 </p>*@
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                @if (User.IsInRole(AppEnum.RoleEnum.Employee.ToString()))
+                {
+                    @*@Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })*@
+                    @Html.ActionLink("Delete", "Delete", new { id = Model.Requisition.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are You Sure? You Want To Cancel!')" })
+                    @Html.ActionLink("Print", "Print", new { id = Model.Requisition.Id }, new { @class = "btn btn-success" })
+                    @Html.ActionLink("Back to List", "MyRequisitionList","Requsition", new { id = "", }, new { @class = "btn btn-default" })
+                }
+                else
+                {
+
+                    if (Model.Requisition.Status != "Complete" && Model.Requisition.Status != "Assign")
+                    {
+                        @Html.ActionLink("Assign", "AdvanceAssign", "Manager", new { id = Model.Requisition.Id }, new { @class = "btn btn-info" })
+                        @Html.ActionLink("Print", "Print", "Manager", new { id = Model.Requisition.Id }, new { @class = "btn btn-success" })
+                    }
+
+                    else
+                    {
+                        @Html.ActionLink("Print", "Print_V2", "Manager", new { id = Model.Requisition.Id }, new { @class = "btn btn-success" })
+                    }
+
+                    @Html.ActionLink("Back to List", "Index","Manager", new { id = "", }, new { @class = "btn btn-default" })
+                }
+
+            </p>
+        </div>
+    </div>
+</div>
 <div class="container">
     <div class="row">
         <div class="col-md-12">

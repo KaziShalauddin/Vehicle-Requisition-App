@@ -298,16 +298,18 @@ namespace VehicleManagementApp.Controllers
             return employeeId;
         }
 
-        [Authorize(Roles = "Driver")]
+        //[Authorize(Roles = "Driver")]
         public ActionResult MyDutyList()
         {
-            var employeeId = GetEmployeeId();
+            var userEmployeeId = GetEmployeeId();
+           
+            ViewBag.UserEmployeeId = userEmployeeId;
             List<DriverDutyViewModel> assignedList = new List<DriverDutyViewModel>();
-            if (employeeId != 0)
+            if (userEmployeeId != 0)
             {
                 var vehicle = vehicleManager.GetAll();
                 var vehicleStatus = vehicleStatusManager.Get(c => c.Status == "Assign").OrderByDescending(c => c.Id);
-                var driverStatus = driverStatusManager.Get(c => c.Status == "Assign").Where(e => e.EmployeeId == employeeId).OrderByDescending(c => c.Id);
+                var driverStatus = driverStatusManager.Get(c => c.Status == "Assign").Where(e => e.EmployeeId == userEmployeeId).OrderByDescending(c => c.Id);
                 var requsition = _requisitionManager.Get(c => c.Status == "Assign").OrderByDescending(c => c.Id);
 
                 var driverWithRequisition = from r in requsition
@@ -397,6 +399,7 @@ namespace VehicleManagementApp.Controllers
             }
             Requsition requisition = _requisitionManager.GetById((int)id);
             var userEmployeeId = GetEmployeeId();
+            ViewBag.UserEmployeeId = userEmployeeId;
             var driverId = driverStatusManager.Get(c => c.RequsitionId == id).Select(c => c.EmployeeId).FirstOrDefault();
             if (userEmployeeId != driverId)
             {
@@ -405,7 +408,7 @@ namespace VehicleManagementApp.Controllers
 
             }
             var vehicleId = vehicleStatusManager.Get(c => c.RequsitionId == id).Select(c => c.VehicleId).FirstOrDefault();
-
+            
             AssignedListViewModel assignVm = new AssignedListViewModel
             {
                 Requisition = requisition,
@@ -414,7 +417,6 @@ namespace VehicleManagementApp.Controllers
                 Vehicle = vehicleManager.GetById(vehicleId)
             };
             GetCommentViewModelForInsertComment(requisition, userEmployeeId, assignVm);
-
 
             //Collect the list of comment to display the list under comment
             GetCommentList(requisition, assignVm);
@@ -443,18 +445,24 @@ namespace VehicleManagementApp.Controllers
             var commentListView = commentManager.GetCommentsByRequisition(requisition.Id);
             foreach (var item in commentListView.ToList())
             {
-                commentListViewModel.Add
-                    (
-                        new CommentViewModel
-                        {
-                            RequsitionId = requisition.Id,
-                            Comments = item.Comments,
-                            EmployeeId = item.EmployeeId,
-                            EmployeName = item.Employee.Name,
-                            UserName = item.UserName,
-                            CommentTime = item.CommentTime
-                        }
-                    );
+                var cmnt = new CommentViewModel
+                {
+                    Id = item.Id,
+                    RequsitionId = item.RequsitionId,
+                    EmployeeId = item.EmployeeId,
+                    Comments = item.Comments,
+                    UserName = item.UserName,
+                    CommentTime = item.CommentTime,
+                    IsReceiverSeen = item.IsReceiverSeen,
+                    ReceiverSeenTime = item.ReceiverSeenTime,
+                    SenderEmployee= item.SenderEmployee,
+                    SenderEmployeeId= (int)item.SenderEmployeeId,
+                    ReceiverEmployee = item.ReceiverEmployee,
+                    ReceiverEmployeeId = (int)item.ReceiverEmployeeId,
+                };
+
+
+                commentListViewModel.Add(cmnt);
             }
             assignVm.CommentViewModels = commentListViewModel;
         }
@@ -466,42 +474,68 @@ namespace VehicleManagementApp.Controllers
         public ActionResult CreateComment(CommentViewModel commentViewModel)
         {
 
-            var userId = User.Identity.GetUserId();
+            //var userId = User.Identity.GetUserId();
             var userName = User.Identity.Name;
 
 
-            Comment comment = new Comment();
-            comment.RequsitionId = commentViewModel.RequsitionId;
-            comment.Comments = commentViewModel.Comments;
-            comment.EmployeeId = commentViewModel.EmployeeId;
-            comment.UserName = userName;
-            comment.CommentTime = DateTime.Now;
+            Comment comment = new Comment
+            {
+                RequsitionId = commentViewModel.RequsitionId,
+                Comments = commentViewModel.Comments,
+                EmployeeId = commentViewModel.EmployeeId,
+                SenderEmployeeId = commentViewModel.SenderEmployeeId,
+               // SenderEmployee = _employeeManager.GetById(commentViewModel.SenderEmployeeId),
+                ReceiverEmployeeId = commentViewModel.ReceiverEmployeeId,
+                ReceiverSeenTime= DateTime.Now,
+                //ReceiverEmployee = _employeeManager.GetById(commentViewModel.SenderEmployeeId),
+                UserName = userName,
+                CommentTime = DateTime.Now
+            };
             bool isSaved = commentManager.Add(comment);
 
             List<CommentViewModel> commentListViewModel = new List<CommentViewModel>();
 
             if (isSaved)
             {
+                var userEmployeeId = GetEmployeeId();
+                ViewBag.UserEmployeeId = userEmployeeId;
                 //Collect the list of comment to display the list under comment
                 var commentListView = commentManager.GetCommentsByRequisition(commentViewModel.RequsitionId);
 
                 foreach (var item in commentListView.ToList())
                 {
-                    var cmnt = new CommentViewModel();
-                    cmnt.RequsitionId = item.RequsitionId;
-                    cmnt.EmployeeId = item.EmployeeId;
-                    cmnt.Comments = item.Comments;
-                    cmnt.Employee = item.Employee;
-                    cmnt.Employee = item.Employee;
-                    cmnt.UserName = item.UserName;
-                    cmnt.CommentTime = item.CommentTime;
-                    cmnt.EmployeName = commentViewModel.EmployeName;
+                    var cmnt = new CommentViewModel
+                    {
+
+                        Id = item.Id,
+                        RequsitionId = item.RequsitionId,
+                        EmployeeId = item.EmployeeId,
+                        Comments = item.Comments,
+                        UserName = item.UserName,
+                        CommentTime = item.CommentTime,
+                        IsReceiverSeen = item.IsReceiverSeen,
+                        ReceiverSeenTime = item.ReceiverSeenTime,
+                        SenderEmployee = item.SenderEmployee,
+                        SenderEmployeeId = (int)item.SenderEmployeeId,
+                        ReceiverEmployee = item.ReceiverEmployee,
+                        ReceiverEmployeeId = (int)item.ReceiverEmployeeId,
+                    };
                     commentListViewModel.Add(cmnt);
 
                 }
                 return PartialView("_CommentList", commentListViewModel);
             }
             return PartialView("_CommentList", commentListViewModel);
+        }
+
+        public RedirectToRouteResult CommentSeen(int? id)
+        {
+            var commentSeen = commentManager.GetById((int) id);
+            var requisition =_requisitionManager.GetById(commentSeen.RequsitionId);
+            commentSeen.ReceiverSeenTime = DateTime.Now;
+            commentSeen.IsReceiverSeen = true;
+            commentManager.Update(commentSeen);
+            return RedirectToAction("AssignDetails", new {id= requisition.Id});
         }
     }
 }

@@ -47,14 +47,28 @@ namespace VehicleManagementApp.Controllers
         // GET: Manager
         public ActionResult Index()
         {
+            var userEmployeeId = GetEmployeeId();
+            ViewBag.UserEmployeeId = userEmployeeId;
             return View();
+        }
+        private int GetEmployeeId()
+        {
+            ApplicationUser user =
+                System.Web.HttpContext.Current.GetOwinContext()
+                    .GetUserManager<ApplicationUserManager>()
+                    .FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+
+            var employee = _employeeManager.Get(c => c.IsDriver == false && c.IsDeleted == false && c.UserId == user.Id);
+            var employeeId = employee.Select(e => e.Id).FirstOrDefault();
+            return employeeId;
         }
         public ActionResult New()
         {
             Requsition requsitions = new Requsition();
             var employee = _employeeManager.GetAll();
             var requsition = _requisitionManager.GetAllByNull(requsitions.Status = null).OrderByDescending(c => c.Id);
-
+            var userEmployeeId = GetEmployeeId();
+            ViewBag.UserEmployeeId = userEmployeeId;
             List<RequsitionViewModel> requsitionViewModels = new List<RequsitionViewModel>();
             foreach (var data in requsition)
             {
@@ -1519,8 +1533,9 @@ namespace VehicleManagementApp.Controllers
                 TempData["msg"] = "Requisition Ressigned Successfully!";
 
                 //Email Sending Method start
-                //SendingEmailDriver(assignVm.EmployeeId, assignVm.RequsitionId);
-                //SendingEmailEmployee(assignVm.EmployeeId, assignVm.RequsitionId);
+                //ForReassignSendEmailToDriver(assignVm.NewDriverId, assignVm.RequsitionId);
+                //var requsition = _requisitionManager.GetById(assignVm.RequsitionId);
+                //ForReassignSendEmailToEmployee(requsition.EmployeeId, assignVm.RequsitionId);
                 //Email Sending Method end
 
                 return RedirectToAction("AssignedList");
@@ -1535,8 +1550,8 @@ namespace VehicleManagementApp.Controllers
             TempData["msg"] = "Requisition Not Reassigned";
             return View(assignVm);
         }
-
-        public void ForReassignSendEmailToDriver(int? EmployeeId, int? requsitionId,string cause)
+        //,string cause
+        public void ForReassignSendEmailToDriver(int? EmployeeId, int? requsitionId)
         {
             if (EmployeeId == null && requsitionId == null)
             {
@@ -1548,7 +1563,7 @@ namespace VehicleManagementApp.Controllers
             {
                 return;
             }
-            var dod = "<span><strong>Employee Name</strong> :" + " " + requsition.Employee.Name + "</span>" + "<br/>"
+            var dod = "<span>Hello, Mr." + " " + employee.Name + "," + "<br/>" + "your requisition with Requisition Number:" + requsition.RequsitionNumber + " has been assigned against you. Please contact with :<strong>Employee Name</strong> :" + " " + requsition.Employee.Name + "</span>" + "<br/>"
                     + "<span> <strong>Employee Number</strong> :" + " " + requsition.Employee.ContactNo + "</span>" + "<br/>"
                     + "<span> <strong>Department Name</strong> :" + " " + requsition.Employee.Department.Name + "</span>" + "<br/>"
                     + "<span> <strong>Designation Name</strong> :" + " " + requsition.Employee.Designation.Name + "</span>" + "<br/>";
@@ -1576,8 +1591,8 @@ namespace VehicleManagementApp.Controllers
                 return;
             }
         }
-
-        public void ForReassignSendEmailToEmployee(int? EmployeeId, int? RequsitionId, string cause)
+        //, string cause
+        public void ForReassignSendEmailToEmployee(int? EmployeeId, int? RequsitionId)
         {
             if (EmployeeId == null && RequsitionId == null)
             {
@@ -1589,7 +1604,7 @@ namespace VehicleManagementApp.Controllers
             {
                 return;
             }
-            var dod = "<span><strong>Driver Name</strong> :" + " " + employee.Name + "</span>" + "<br/>"
+            var dod = "<span>Hello, Mr." + " " + requsition.Employee.Name + ","+"<br/>"+"your requisition with Requisition Number:"+requsition.RequsitionNumber+" has been re-assigned due to unavoidable circumstances. Please contact with :<strong>Driver Name</strong> :" + " " + employee.Name + "</span>" + "<br/>"
                       + "<span> <strong>Phone Number</strong> :" + " " + employee.ContactNo + "</span>" + "<br/>";
 
 

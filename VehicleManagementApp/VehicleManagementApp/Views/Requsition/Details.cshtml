@@ -67,7 +67,7 @@
                 {
                     @Html.ActionLink("Assign", "AdvanceAssign", "Manager", new { id = Model.Id }, new { @class = "btn btn-info" })
                     @Html.ActionLink("Print", "Print", new { id = Model.Id }, new { @class = "btn btn-success" })
-                    @Html.ActionLink("Back to List", "Index", new { id = "", }, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Back to List", "Index", "Manager", new { id = "", }, new { @class = "btn btn-default" })
                 }
                
             </p>
