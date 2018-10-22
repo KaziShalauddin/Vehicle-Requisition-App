@@ -2,15 +2,14 @@
 
 @{
     ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_LayoutManager.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
 <h3 style="text-align: center">Assigned Requisition Details</h3>
 
-<br />
-<br />
-
+<br/>
+<br/>
 <div class="row ">
     <table class="table table-hover">
         <tr class="card">
@@ -76,20 +75,9 @@
             <p>
                 @if (User.IsInRole(AppEnum.RoleEnum.Employee.ToString()))
                 {
-                    @*@Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })*@
-                    @Html.ActionLink("Delete", "Delete", new { id = Model.Requisition.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are You Sure? You Want To Cancel!')" })
-                    <span style="width: 20px;"></span>
-                    @Html.ActionLink("Print", "Print", new { id = Model.Requisition.Id }, new { @class = "btn btn-success" })
-                    <span style="width: 20px;"></span>
-                    @Html.ActionLink("Back to List", "Index","Home", new { id = "", }, new { @class = "btn btn-default" })
+                    @Html.ActionLink("Back to List", "MyRequisitionList","Requsition", new { id = "", }, new { @class = "btn btn-default" })
                 }
-                else
-                {
-                    <span style="width: 20px;"></span>
-                    @Html.ActionLink("Print", "Print_V2", new { id = Model.Requisition.Id }, new { @class = "btn btn-success" })
-                    <span style="width: 20px;"></span>
-                     @Html.ActionLink("Back to List", "Index", "Manager",new { id = "", }, new { @class = "btn btn-default" })
-                }
+                
 
             </p>
         </div>

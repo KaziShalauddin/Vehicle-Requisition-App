@@ -810,7 +810,26 @@ namespace VehicleManagementApp.Controllers
             commentSeen.ReceiverSeenTime = DateTime.Now;
             commentSeen.IsReceiverSeen = true;
             commentManager.Update(commentSeen);
-            return RedirectToAction("AssignDetails", new { id = requisition.Id });
+            return RedirectToAction("Details_V2", new { id = requisition.Id });
+        }
+        public ActionResult AssignDetails(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Requsition requisition = _requisitionManager.GetById((int)id);
+            var driverId = driverStatusManager.Get(c => c.RequsitionId == id).Select(c => c.EmployeeId).FirstOrDefault();
+            var vehicleId = vehicleStatusManager.Get(c => c.RequsitionId == id).Select(c => c.VehicleId).FirstOrDefault();
+
+            AssignedListViewModel assignVm = new AssignedListViewModel
+            {
+                Requisition = requisition,
+                Employee = _employeeManager.GetById((int)requisition.EmployeeId),
+                Driver = _employeeManager.GetById(driverId),
+                Vehicle = vehicleManager.GetById(vehicleId)
+            };
+            return View(assignVm);
         }
     }
 }

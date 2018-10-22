@@ -32,8 +32,10 @@ namespace VehicleManagementApp.Controllers
         private IVehicleStatusManager vehicleStatusManager;
         private IVehicleTypeManager vehicleTypeManager;
 
+
+        private ICommentManager commentManager;
         public ManagerController(IRequsitionManager requisition, IEmployeeManager employee, IManagerManager manager,
-            IVehicleManager vehicle, IVehicleTypeManager vehicleType, IDriverStatusManager driverStatus, IVehicleStatusManager vehicleStatus)
+            IVehicleManager vehicle, IVehicleTypeManager vehicleType, IDriverStatusManager driverStatus, IVehicleStatusManager vehicleStatus, ICommentManager comment)
         {
             this._employeeManager = employee;
             this._requisitionManager = requisition;
@@ -42,6 +44,8 @@ namespace VehicleManagementApp.Controllers
             this.driverStatusManager = driverStatus;
             this.vehicleStatusManager = vehicleStatus;
             this.vehicleTypeManager = vehicleType;
+
+            this.commentManager = comment;
         }
 
         // GET: Manager
@@ -49,6 +53,60 @@ namespace VehicleManagementApp.Controllers
         {
             var userEmployeeId = GetEmployeeId();
             ViewBag.UserEmployeeId = userEmployeeId;
+
+          
+            var requsition = _requisitionManager.GetAll().OrderByDescending(c => c.Id);
+           
+           
+           
+            var comments = commentManager.Get(c => c.IsReceiverSeen == false).Where(c=>c.ReceiverEmployeeId== userEmployeeId);
+
+            var commentsWithRequisition = from r in requsition
+                                          join c in comments on r.Id equals c.RequsitionId
+                                               select new
+                                               {
+                                                   r.Id,
+                                                   r.Status,
+                                                   c.SenderEmployee,
+                                                   c.SenderEmployeeId,
+                                                   c.ReceiverEmployeeId,
+                                                   c.ReceiverSeenTime,
+                                                   c.IsReceiverSeen
+                                               };
+            List<CountCommentViewModel> commentsList = new List<CountCommentViewModel>();
+            foreach (var item in commentsWithRequisition)
+            {
+                var comment = new CountCommentViewModel();
+                comment.Id = item.Id;
+                comment.ReceiverEmployeeId = item.ReceiverEmployeeId;
+                comment.Status = item.Status;
+                commentsList.Add(comment);
+            }
+            if (commentsList.Count(c => c.Status == null)==0)
+            {
+                ViewBag.NewRequisitionComments = 0;
+            }
+            if (commentsList.Count(c => c.Status == null) > 0)
+            {
+                ViewBag.NewRequisitionComments = commentsList.Count(c => c.Status == null);
+            }
+            if (commentsList.Count(c => c.Status == "Assign") == 0)
+            {
+                ViewBag.AssignRequisitionComments = 0;
+            }
+            if (commentsList.Count(c => c.Status == "Assign") > 0)
+            {
+                ViewBag.AssignRequisitionComments = commentsList.Count(c => c.Status == "Assign");
+            }
+            if (commentsList.Count(c => c.Status == "Hold") == 0)
+            {
+                ViewBag.HoldRequisitionComments = 0;
+            }
+            if (commentsList.Count(c => c.Status == "Hold") > 0)
+            {
+                ViewBag.HoldRequisitionComments = commentsList.Count(c => c.Status == "Hold");
+            }
+          
             return View();
         }
         private int GetEmployeeId()
@@ -286,6 +344,8 @@ namespace VehicleManagementApp.Controllers
 
         public ActionResult AssignedList()
         {
+            var userEmployeeId = GetEmployeeId();
+            ViewBag.UserEmployeeId = userEmployeeId;
 
             var employee = _employeeManager.GetAll();
             var vehicle = vehicleManager.GetAll();
@@ -1078,7 +1138,8 @@ namespace VehicleManagementApp.Controllers
             Requsition requsitions = new Requsition();
             var employee = _employeeManager.GetAll();
             var requsition = _requisitionManager.GetAllByNull(requsitions.Status = "Hold");
-
+            var userEmployeeId = GetEmployeeId();
+            ViewBag.UserEmployeeId = userEmployeeId;
             List<RequsitionViewModel> requsitionViewModels = new List<RequsitionViewModel>();
             foreach (var data in requsition)
             {

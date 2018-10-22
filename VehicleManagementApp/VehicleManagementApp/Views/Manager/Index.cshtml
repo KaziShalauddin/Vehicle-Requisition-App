@@ -31,22 +31,36 @@
     <div class="row">
         <div class="col-md-12">
             <div class="col-md-6" style="float: left">
-                <div class="card card-actions" style="height: 9rem; width: 18rem;">
+                <div class="card card-actions" style="height: 10rem; width: 18rem;">
                     <div class="card-title" style="text-align: center; font-size: 20px; color: black; padding-top: 40px;">
                         @Html.ActionLink("New Requisitions", "New", "Manager")
                     </div>
                     <div class="card-title" style="text-align: center; font-size: 20px; color: black;">
                         <p class="card-subtitle">Total : @countNew </p>
                     </div>
+                    <div class="card-title" style="text-align: center; font-size: 20px; color: black;">
+                        <span>
+                            @*<img src="~/img/f8-01-512.png" alt="new comments" style="height: 5%; ">*@
+                            <span>New Comments: @Html.Raw(ViewBag.NewRequisitionComments)</span>
+
+                        </span>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6" style="float: left">
-                <div class="card card-actions" style="height: 9rem; width: 18rem;">
+                <div class="card card-actions" style="height: 10rem; width: 18rem;">
                     <div class="card-title" style="text-align: center; font-size: 20px; color: black; padding-top: 40px;">
                         @Html.ActionLink("Hold Requisitions", "HoldIndex", "Manager")
                     </div>
                     <div class="card-title" style="text-align: center; font-size: 20px; color: black;">
                         <p class="card-subtitle">Total : @hold </p>
+                    </div>
+                    <div class="card-title" style="text-align: center; font-size: 20px; color: black;">
+                        <span>
+                            @*<img src="~/img/f8-01-512.png" alt="new comments" style="height: 5%; ">*@
+                            <span>New Comments: @Html.Raw(ViewBag.HoldRequisitionComments)</span>
+
+                        </span>
                     </div>
                 </div>
             </div>
@@ -55,18 +69,25 @@
         <div class="col-md-12">
 
             <div class="col-md-6" style="float: left">
-                <div class="card card-actions" style="height: 9rem; width: 18rem;">
+                <div class="card card-actions" style="height: 10rem; width: 18rem;">
                     <div class="card-title" style="text-align: center; font-size: 20px; color: black; padding-top: 40px;">
                         @Html.ActionLink("Assigned Requisitions", "AssignedList", "Manager")
                     </div>
                     <div class="card-title" style="text-align: center; font-size: 20px; color: black;">
                         <p class="card-subtitle">Total : @countAssign </p>
                     </div>
+                    <div class="card-title" style="text-align: center; font-size: 20px; color: black;">
+                        <span>
+                            @*<img src="~/img/f8-01-512.png" alt="new comments" style="height: 5%; ">*@
+                            <span>New Comments: @Html.Raw(ViewBag.HoldRequisitionComments)</span>
+
+                        </span>
+                    </div>
                 </div>
             </div>
 
             <div class="col-md-6" style="float: left">
-                <div class="card card-actions" style="height: 9rem; width: 18rem;">
+                <div class="card card-actions" style="height: 10rem; width: 18rem;">
                     <div class="card-title" style="text-align: center; font-size: 20px; color: black; padding-top: 40px;">
                         @Html.ActionLink("Complete Requisitions", "CompleteRequsition", "Manager")
                     </div>

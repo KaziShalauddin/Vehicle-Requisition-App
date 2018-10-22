@@ -106,7 +106,7 @@
                     </button>
                     <div class="dropdown-menu" id="dropdownMenu2">
                         @*@Html.ActionLink("Assign", "Assign", new { id = item.Id }, new { @class = "btn btn-success"})*@
-                        @Html.ActionLink("View", "Details", "Requsition", new { id = item.Id }, new { @class = "btn btn-default" })
+                        @*@Html.ActionLink("View", "Details", "Requsition", new { id = item.Id }, new { @class = "btn btn-default" })*@
                         @Html.ActionLink("Hold", "Hold", new { id = item.Id }, new { @class = "btn btn-primary", onclick = "return confirm('Are You Sure? You Want To Hold This')" })
                         @Html.ActionLink("Cancel", "Cancel", new { id = item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are You Sure? You Want To Cancel This !!')" })
                         @Html.ActionLink("Assign", "AdvanceAssign", new { id = item.Id }, new { @class = "btn btn-success" })
