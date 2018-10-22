@@ -76,18 +76,26 @@
     <link rel="stylesheet" href="~/css/owl.carousel.min.css">
     <link rel="stylesheet" href="~/css/normalize.css">
     <link rel="stylesheet" href="~/css/style.css">
-    <link href="~/css/myCustom.css" rel="stylesheet"/>
+    <link href="~/css/myCustom.css" rel="stylesheet" />
 
     <script src="~/js/vendor/modernizr-3.5.0.min.js"></script>
+    <style>
+        .main-menu {
+            padding-top: 20px;
+            padding-left: 50px;
+            padding-right: 50px;
+        }
+    </style>
 </head>
 <body>
     @*<div class="container">*@
     <div class="row">
         <header id="header">
-            <div class="container main-menu">
+            <div class="main-menu">
+
                 <div class="row align-items-center justify-content-between d-flex">
                     <div id="logo">
-                        <a href="@Url.Action("Index","Manager")">
+                        <a href="@Url.Action("Index","Home")">
                             <img src="~/thirdPartyCss/img/Untitled-1 copy.png" alt="" title="" />
                         </a>
                     </div>
@@ -96,12 +104,12 @@
                         <ul class="nav-menu">
 
 
-                            <li class="menu-active">@Html.ActionLink("Home", "Index", "Home")</li>
+
                             @if (User.IsInRole(AppEnum.RoleEnum.Controller.ToString()))
                             {
-
+                                <li class="menu-active">@Html.ActionLink("Dashboard", "Index", "Manager")</li>
                                 <li class="menu-has-children">
-                                    <a href="#">Employee Section</a>
+                                    <a href="#">Employee</a>
                                     <ul>
                                         <li class="menu-has-children">
                                             <a href="#">Employee Register</a>
