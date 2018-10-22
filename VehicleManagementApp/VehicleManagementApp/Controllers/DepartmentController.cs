@@ -108,8 +108,7 @@ namespace VehicleManagementApp.Controllers
                 Name = department.Name,
                 OrganaizationId = department.OrganaizationId
             };
-            ViewBag.OrganaizationId = new SelectList(_organaizationManager.GetAll(), "Id", "Name",
-                department.OrganaizationId);
+            ViewBag.OrganaizationId = new SelectList(_organaizationManager.GetAll(), "Id", "Name", department.OrganaizationId);
             return View(departmentVM);
         }
 

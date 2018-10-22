@@ -16,14 +16,11 @@ namespace VehicleManagementApp.ViewModels
 
         [StringLength(255)]
         [Required]
-        //[Index("IX_DepartmentIdAndName", 2, IsUnique = true)]
         [Remote("IsNameUnique", "Designation", HttpMethod = "POST", AdditionalFields = "DepartmentId", ErrorMessage = "Designation Already Exist, Try Another")]
         public string Name { get; set; }
 
         [Required]
         [Display(Name = "Department")]
-        //[Index("IX_DepartmentIdAndName", 1, IsUnique = true)]
-        //[Remote("IsNameUnique", "Designation", HttpMethod = "POST")]
         public int DepartmentId { get; set; }
         public Department Department { get; set; }
         public IEnumerable<Department> Departments { get; set; } 
