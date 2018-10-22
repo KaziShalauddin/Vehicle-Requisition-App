@@ -1079,7 +1079,7 @@ namespace VehicleManagementApp.Controllers
 
             
             var searchingValue = _requisitionManager.Get(c=>c.Status == "Complete" && c.IsDeleted == false);
-            var designationsId = searchingValue.Where(c => c.Employee.DesignationId == designationId || c.JourneyStart > startTime && c.JouneyEnd< endTime);
+            var designationsId = searchingValue.Where(c => c.JourneyStart > startTime && c.JouneyEnd< endTime);
             
 
             //var selectedValue = searchingValue.Where(c => c.JourneyStart > startTime && c.JouneyEnd < endTime || c.Employee.DesignationId == designationId);
