@@ -504,7 +504,8 @@ namespace VehicleManagementApp.Controllers
                 IsDriver = false,
                 Image = imageData,
                 ImagePath = "~/EmployeeImages/" + model.Name + DateTime.Now,
-                IsDeleted = false
+                IsDeleted = false,
+                UserRole = "Employee"
             };
 
             employeeManager.Add(employee);
@@ -531,7 +532,8 @@ namespace VehicleManagementApp.Controllers
                 IsDriver = true,
                 Image = imageData,
                 ImagePath = "~/EmployeeImages/" + model.Name + DateTime.Now,
-                IsDeleted = false
+                IsDeleted = false,
+                UserRole = "Driver"
             };
 
             employeeManager.Add(employee);

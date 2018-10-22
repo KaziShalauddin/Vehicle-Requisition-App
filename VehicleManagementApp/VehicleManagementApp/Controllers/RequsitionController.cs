@@ -30,13 +30,21 @@ namespace VehicleManagementApp.Controllers
         private IManagerManager _managerManager;
         private IVehicleManager vehicleManager;
         //IRequsitionStatusManager requsitionStatus,
-        public RequsitionController(IRequsitionManager requisition, IEmployeeManager employee,  IManagerManager manager, IVehicleManager vehicle, ICommentManager comment)
+
+        private IDriverStatusManager driverStatusManager;
+        private IVehicleStatusManager vehicleStatusManager;
+
+        public RequsitionController(IRequsitionManager requisition, IEmployeeManager employee,  IManagerManager manager, IVehicleManager vehicle, ICommentManager comment, IDriverStatusManager driverStatus, IVehicleStatusManager vehicleStatus)
         {
             this._requisitionManager = requisition;
             this._employeeManager = employee;
             this.commentManager = comment;
             this._managerManager = manager;
             this.vehicleManager = vehicle;
+
+            this.driverStatusManager = driverStatus;
+            this.vehicleStatusManager = vehicleStatus;
+
         }
         public ActionResult Index()
         {
@@ -641,6 +649,189 @@ namespace VehicleManagementApp.Controllers
             reportViewer.LocalReport.DataSources.Add(rds);
             ViewBag.ReportViewer = reportViewer;
             return View(requsitionViewModels);
+        }
+
+        [Authorize(Roles = "Controller,Employee,Operator")]
+        public ActionResult Details_V2(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Requsition requisition = _requisitionManager.GetById((int)id);
+            var userEmployeeId = GetEmployeeId();
+            ViewBag.UserEmployeeId = userEmployeeId;
+            var driverId = driverStatusManager.Get(c => c.RequsitionId == id).Select(c => c.EmployeeId).FirstOrDefault();
+            if (!User.IsInRole("Controller"))
+            {
+                if (userEmployeeId != requisition.EmployeeId)
+                {
+                    TempData["msg"] = "Sorry, you have no permission to access this type of data!";
+                    return RedirectToAction("MyRequisitionList");
+
+                }
+            }
+           
+            var vehicleId = vehicleStatusManager.Get(c => c.RequsitionId == id).Select(c => c.VehicleId).FirstOrDefault();
+
+            AssignedListViewModel assignVm = new AssignedListViewModel
+            {
+                Requisition = requisition,
+                Employee = _employeeManager.GetById((int)requisition.EmployeeId),
+                Driver = _employeeManager.GetById(driverId),
+                Vehicle = vehicleManager.GetById(vehicleId)
+            };
+            GetCommentViewModelForInsertComment(requisition, userEmployeeId, assignVm);
+
+            //Collect the list of comment to display the list under comment
+            GetCommentList(requisition, assignVm);
+            return View(assignVm);
+        }
+
+        private void GetCommentViewModelForInsertComment(Requsition requisition, int userEmployeeId,
+            AssignedListViewModel assignVm)
+        {
+            int? emplId = requisition.EmployeeId;
+            string employeeNam = requisition.Employee.Name;
+            var comment = new CommentViewModel
+            {
+                EmployeeId = (int)emplId,
+                EmployeName = employeeNam,
+                RequsitionId = requisition.Id,
+                SenderEmployeeId = userEmployeeId,
+                ReceiverEmployees = _employeeManager.Get(c => c.UserRole == "Controller")
+            };
+            assignVm.CommentViewModel = comment;
+        }
+
+        private void GetCommentList(Requsition requisition, AssignedListViewModel assignVm)
+        {
+            List<CommentViewModel> commentListViewModel = new List<CommentViewModel>();
+            var commentListView = commentManager.GetCommentsByRequisition(requisition.Id);
+            foreach (var item in commentListView.ToList())
+            {
+                var cmnt = new CommentViewModel
+                {
+                    Id = item.Id,
+                    RequsitionId = item.RequsitionId,
+                    EmployeeId = item.EmployeeId,
+                    Comments = item.Comments,
+                    UserName = item.UserName,
+                    CommentTime = item.CommentTime,
+                    IsReceiverSeen = item.IsReceiverSeen,
+                    ReceiverSeenTime = item.ReceiverSeenTime,
+                    SenderEmployee = item.SenderEmployee,
+                    SenderEmployeeId = (int)item.SenderEmployeeId,
+                    ReceiverEmployee = item.ReceiverEmployee,
+                    ReceiverEmployeeId = (int)item.ReceiverEmployeeId,
+                };
+
+
+                commentListViewModel.Add(cmnt);
+            }
+            assignVm.CommentViewModels = commentListViewModel;
+        }
+
+
+        [Authorize(Roles = "Controller,Employee,Operator")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateComment_V2(CommentViewModel commentViewModel)
+        {
+
+            //var userId = User.Identity.GetUserId();
+            var userName = User.Identity.Name;
+            if (commentViewModel.ReceiverEmployeeId == null)
+            {
+                var requestor = _requisitionManager.GetById(commentViewModel.RequsitionId);
+                if (requestor.Status == "Assign")
+                {
+                    var driverId = driverStatusManager.Get(c => c.RequsitionId == commentViewModel.RequsitionId).Select(c => c.EmployeeId).FirstOrDefault();
+                    commentViewModel.ReceiverEmployeeId = driverId;
+                }
+                else
+                {
+                    commentViewModel.ReceiverEmployeeId = requestor.EmployeeId;
+                }
+               
+            }
+            Comment comment = new Comment
+            {
+                RequsitionId = commentViewModel.RequsitionId,
+                Comments = commentViewModel.Comments,
+                EmployeeId = commentViewModel.EmployeeId,
+                SenderEmployeeId = commentViewModel.SenderEmployeeId,
+                // SenderEmployee = _employeeManager.GetById(commentViewModel.SenderEmployeeId),
+                ReceiverEmployeeId = commentViewModel.ReceiverEmployeeId,
+                ReceiverSeenTime = DateTime.Now,
+                //ReceiverEmployee = _employeeManager.GetById(commentViewModel.SenderEmployeeId),
+                UserName = userName,
+                CommentTime = DateTime.Now
+            };
+            bool isSaved = commentManager.Add(comment);
+
+            List<CommentViewModel> commentListViewModel = new List<CommentViewModel>();
+
+            if (isSaved)
+            {
+                var userEmployeeId = GetEmployeeId();
+                ViewBag.UserEmployeeId = userEmployeeId;
+                //Collect the list of comment to display the list under comment
+                var commentListView = commentManager.GetCommentsByRequisition(commentViewModel.RequsitionId);
+
+                foreach (var item in commentListView.ToList())
+                {
+                    var cmnt = new CommentViewModel
+                    {
+
+                        Id = item.Id,
+                        RequsitionId = item.RequsitionId,
+                        EmployeeId = item.EmployeeId,
+                        Comments = item.Comments,
+                        UserName = item.UserName,
+                        CommentTime = item.CommentTime,
+                        IsReceiverSeen = item.IsReceiverSeen,
+                        ReceiverSeenTime = item.ReceiverSeenTime,
+                        SenderEmployee = item.SenderEmployee,
+                        SenderEmployeeId = (int)item.SenderEmployeeId,
+                        ReceiverEmployee = item.ReceiverEmployee,
+                        ReceiverEmployeeId = (int)item.ReceiverEmployeeId,
+                    };
+                    commentListViewModel.Add(cmnt);
+
+                }
+                return PartialView("_CommentList", commentListViewModel);
+            }
+            return PartialView("_CommentList", commentListViewModel);
+        }
+
+        public RedirectToRouteResult CommentSeen(int? id)
+        {
+            var commentSeen = commentManager.GetById((int)id);
+            var requisition = _requisitionManager.GetById(commentSeen.RequsitionId);
+            commentSeen.ReceiverSeenTime = DateTime.Now;
+            commentSeen.IsReceiverSeen = true;
+            commentManager.Update(commentSeen);
+            return RedirectToAction("Details_V2", new { id = requisition.Id });
+        }
+        public ActionResult AssignDetails(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Requsition requisition = _requisitionManager.GetById((int)id);
+            var driverId = driverStatusManager.Get(c => c.RequsitionId == id).Select(c => c.EmployeeId).FirstOrDefault();
+            var vehicleId = vehicleStatusManager.Get(c => c.RequsitionId == id).Select(c => c.VehicleId).FirstOrDefault();
+
+            AssignedListViewModel assignVm = new AssignedListViewModel
+            {
+                Requisition = requisition,
+                Employee = _employeeManager.GetById((int)requisition.EmployeeId),
+                Driver = _employeeManager.GetById(driverId),
+                Vehicle = vehicleManager.GetById(vehicleId)
+            };
+            return View(assignVm);
         }
     }
 }

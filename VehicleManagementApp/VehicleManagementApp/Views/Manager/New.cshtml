@@ -1,4 +1,6 @@
-﻿@model IEnumerable<VehicleManagementApp.ViewModels.RequsitionViewModel>
+﻿@using VehicleManagementApp.BLL
+@using VehicleManagementApp.BLL.Contracts
+@model IEnumerable<VehicleManagementApp.ViewModels.RequsitionViewModel>
 
 @{
     ViewBag.Title = "New";
@@ -7,7 +9,14 @@
 }
 
 <h2 style="padding-bottom: 30px; text-align: center">New Requisition</h2>
-
+<div>
+    @if (TempData["msg"] != null)
+    {
+        <div class="alert alert-info">
+            @TempData["msg"]
+        </div>
+    }
+</div>
 <table class="table table-bordered table-striped" id="myTable">
     <thead>
     <tr>
@@ -38,6 +47,9 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.RequsitionNumber)
+        </th>
+        <th>
+            @Html.DisplayName("Comments")
         </th>
         <th></th>
     </tr>
@@ -74,14 +86,27 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.RequsitionNumber)
                 </td>
+                <td>
+                    @{
+                        //ViewBag.UserEmployeeId;
+                        ICommentManager commentManager = new CommentManager();
+                        var newComments = commentManager.Get(c => c.RequsitionId == item.Id).Count(c => c.ReceiverEmployeeId == ViewBag.UserEmployeeId && c.IsReceiverSeen == false);
 
+                    }
+                    <span>
+                        <img src="~/img/f8-01-512.png" alt="new comments" style="height: 10%; ">
+                        <span class="notification">@Html.Raw(newComments)</span>
+                    </span>
+
+                    @Html.ActionLink("Details", "Details_V2", "Requsition", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
+                </td>
                 <td class="dropdown">
                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         button
                     </button>
                     <div class="dropdown-menu" id="dropdownMenu2">
                         @*@Html.ActionLink("Assign", "Assign", new { id = item.Id }, new { @class = "btn btn-success"})*@
-                        @Html.ActionLink("View", "Details", "Requsition", new { id = item.Id }, new { @class = "btn btn-default" })
+                        @*@Html.ActionLink("View", "Details", "Requsition", new { id = item.Id }, new { @class = "btn btn-default" })*@
                         @Html.ActionLink("Hold", "Hold", new { id = item.Id }, new { @class = "btn btn-primary", onclick = "return confirm('Are You Sure? You Want To Hold This')" })
                         @Html.ActionLink("Cancel", "Cancel", new { id = item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are You Sure? You Want To Cancel This !!')" })
                         @Html.ActionLink("Assign", "AdvanceAssign", new { id = item.Id }, new { @class = "btn btn-success" })

@@ -33,6 +33,7 @@ namespace VehicleManagementApp.Repository.DatabaseContext
 
         public DbSet<DriverStatus> DriverStatuses { get; set; }
         public DbSet<VehicleStatus> VehicleStatuses { get; set; }
+       // public DbSet<NewComment> NewComments { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

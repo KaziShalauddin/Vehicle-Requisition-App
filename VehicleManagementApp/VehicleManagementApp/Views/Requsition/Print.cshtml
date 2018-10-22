@@ -1,15 +1,17 @@
 ﻿@model List<VehicleManagementApp.ViewModels.RequsitionViewModel>
 @{
     ViewBag.Title = "Print";
-   Layout = "~/Views/Shared/_LayoutManager.cshtml";
+   Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
 
-<h2>Print</h2>
-
+<h2 style="text-align: center">Not Assigned Requisition Details</h2>
+<br/>
+<br/>
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12" align="center">
+            
             <div class="reportingCls">
                 @if (ViewBag.ReportViewer != null)
                 {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using Microsoft.ReportingServices.ReportProcessing.ReportObjectModel;
@@ -24,5 +25,14 @@ namespace VehicleManagementApp.ViewModels
         public string UserName { get; set; }
         public DateTime CommentTime { get; set; }
 
+        [Display(Name = "To")]
+        public int? ReceiverEmployeeId { get; set; }
+        public Employee ReceiverEmployee { get; set; }
+        public IEnumerable<Employee> ReceiverEmployees { get; set; }
+        public bool IsReceiverSeen { get; set; }
+        public DateTime ReceiverSeenTime { get; set; }
+
+        public int SenderEmployeeId { get; set; }
+        public Employee SenderEmployee { get; set; }
     }
 }

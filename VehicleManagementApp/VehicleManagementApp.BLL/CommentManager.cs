@@ -16,6 +16,10 @@ namespace VehicleManagementApp.BLL
     {
         private ICommentRepository commentRepository;
 
+        public CommentManager():base(new CommentRepository())
+        {
+            this.commentRepository = (CommentRepository)base.BaseRepository;
+        }
 
         public CommentManager(ICommentRepository commentRepository) : base(commentRepository)
         {

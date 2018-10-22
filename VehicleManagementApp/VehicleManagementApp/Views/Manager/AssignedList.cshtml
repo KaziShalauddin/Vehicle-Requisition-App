@@ -1,4 +1,6 @@
-﻿@model IEnumerable<VehicleManagementApp.ViewModels.AssignedListViewModel>
+﻿@using VehicleManagementApp.BLL
+@using VehicleManagementApp.BLL.Contracts
+@model IEnumerable<VehicleManagementApp.ViewModels.AssignedListViewModel>
 
 @{
     ViewBag.Title = "AssignIndex";
@@ -39,6 +41,7 @@
                 @Html.DisplayNameFor(model => model.VehicleId)
             </th>
 
+            <th>New Comments</th>
             <th></th>
         </tr>
     </thead>
@@ -70,17 +73,40 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Vehicle.Name)
                 </td>
+                <td>
+                    @{
+                        //ViewBag.UserEmployeeId;
+                        ICommentManager commentManager = new CommentManager();
+                        var newComments = commentManager.Get(c => c.RequsitionId == item.Id).Count(c => c.ReceiverEmployeeId == ViewBag.UserEmployeeId && c.IsReceiverSeen == false);
+
+                    }
+                    <span>
+                        <img src="~/img/f8-01-512.png" alt="new comments" style="height: 10%;">
+                        <span class="notification">@Html.Raw(newComments)</span>
+                    </span>
+
+                    @Html.ActionLink("Details", "Details_V2", "Requsition", new {id = item.Id}, new {@class = "btn btn-info btn-sm"})
+                </td>
+
                 <td class="dropdown">
                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         button
                     </button>
                     <div class="dropdown-menu" id="dropdownMenu2">
+
+                        @Html.ActionLink("Print", "Print_V2", new {id = item.Id}, new {@class = "btn btn-info"})
+                        @Html.ActionLink("Reassign", "Reassign_V2", new {id = item.Id}, new {@class = "btn btn-success", onclick = "return confirm('Are You Sure? You Want To Re-Assign This Requisition ?')"})
+                        @Html.ActionLink("Check In", "CheckIn_V2", new {id = item.Id}, new {@class = "btn btn-danger", onclick = "return confirm('Are You Sure? You Want To Check In !!')"})
+                        @Html.ActionLink("Details", "Details", new {id = item.Id}, new {@class = "btn btn-default"})
+
+                        @*@Html.ActionLink("Assign Info", "AssignDetails", new { id = item.Id }, new { @class = "btn btn-success"})
                         @Html.ActionLink("Print", "Print_V2", new { id = item.Id }, new { @class = "btn btn-info" })
                         @Html.ActionLink("Reassign", "Reassign_V2", new { id = item.Id }, new { @class = "btn btn-success", onclick = "return confirm('Are You Sure? You Want To Re-Assign This Requisition ?')" })
-                        @Html.ActionLink("Check In", "CheckIn_V2", new { id = item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are You Sure? You Want To Check In !!')" })
-                        @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-default" })
+                        @Html.ActionLink("Check In", "CheckIn_V2", new { id = item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are You Sure? You Want To Check In !!')" })*@
+
                     </div>
                 </td>
+                
             </tr>
         }
     </tbody>

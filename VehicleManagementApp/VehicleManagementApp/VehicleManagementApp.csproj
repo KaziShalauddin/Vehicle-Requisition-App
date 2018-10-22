@@ -260,6 +260,7 @@
     <Compile Include="SqlServerTypes\Loader.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\AssignedListViewModel.cs" />
+    <Compile Include="ViewModels\CountCommentViewModel.cs" />
     <Compile Include="ViewModels\RessignViewModel.cs" />
     <Compile Include="ViewModels\CommentViewModel.cs" />
     <Compile Include="ViewModels\DriverDutyViewModel.cs" />
@@ -471,6 +472,7 @@
     <Content Include="css\jquery-ui.min.css" />
     <Content Include="css\jquery.datetimepicker.min.css" />
     <Content Include="css\main.css" />
+    <Content Include="css\myCustom.css" />
     <Content Include="css\normalize.css" />
     <Content Include="css\owl.carousel.min.css" />
     <Content Include="css\slicknav.css" />
@@ -486,6 +488,7 @@
     <Content Include="Content\DataTables\css\semanticui.scss" />
     <Content Include="img\1.jpg" />
     <Content Include="img\backgroud.jpg" />
+    <Content Include="img\f8-01-512.png" />
     <Content Include="img\img.jpg" />
     <Content Include="img\logo.png" />
     <Content Include="img\maxresdefault.jpg" />
@@ -696,6 +699,8 @@
     <Content Include="Views\DriverStatus\Details.cshtml" />
     <Content Include="Views\DriverStatus\Update.cshtml" />
     <Content Include="Views\DriverStatus\Index.cshtml" />
+    <Content Include="Views\Requsition\_CommentList.cshtml" />
+    <Content Include="Views\Requsition\_CommentPartial.cshtml" />
     <Content Include="Web References\com.onnorokomsms.api2\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -709,9 +714,16 @@
     <Content Include="Views\Driver\MyCompletedDuties.cshtml" />
     <Content Include="Views\Manager\Print_V2.cshtml" />
     <Content Include="Views\Manager\Reassign_V2.cshtml" />
+
     <Content Include="Views\Manager\Calendar.cshtml" />
     <Content Include="Views\Manager\TodayAssignedList.cshtml" />
     <Content Include="Views\Manager\FullAssignList.cshtml" />
+
+    <Content Include="Views\Driver\_CommentList.cshtml" />
+    <Content Include="Views\Driver\_CommentPartial.cshtml" />
+    <Content Include="Views\Requsition\Details_V2.cshtml" />
+    <Content Include="Views\Requsition\AssignDetails.cshtml" />
+
     <None Include="Web References\com.onnorokomsms.api2\sendsms.disco" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -830,8 +842,6 @@
     <Content Include="Views\VehicleType\Edit.cshtml" />
     <Content Include="Views\VehicleType\Index.cshtml" />
     <Content Include="Views\Employee\Details.cshtml" />
-    <Content Include="Views\Requsition\_CommentList.cshtml" />
-    <Content Include="Views\Requsition\_CommentPartial.cshtml" />
     <Content Include="Views\Manager\CheckInConfirm.cshtml" />
     <Content Include="Views\Manager\CompleteRequsition.cshtml" />
     <Content Include="Views\Manager\AssignIndexDetails.cshtml" />

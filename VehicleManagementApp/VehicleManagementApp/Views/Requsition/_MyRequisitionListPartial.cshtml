@@ -65,11 +65,16 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
+            @{
+               
+                var startdate = item.JourneyStart.ToString("dd - MMM - yyyy hh:mm tt");
+                var enddate = item.JouneyEnd.ToString("dd - MMM - yyyy hh:mm tt");
+            }
             <td>
-                @Html.DisplayFor(modelItem => item.JourneyStart)
+               @Html.Raw(startdate)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.JouneyEnd)
+               @Html.Raw(enddate)
             </td>
 
             <td style="color: green; font-weight: bold">
@@ -82,22 +87,56 @@
                     @Html.Raw("Pending")
                 }
             </td>
-            <td>
-                @if (item.Status == "Assign" || item.Status == "Hold")
+            @*<td>
+                @if (item.Status == "Hold")
                 {
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
+                    @Html.ActionLink("Details", "Details_V2", new {id = item.Id}, new {@class = "btn btn-info btn-sm"})
+                }
+                else if (item.Status == "Assign")
+                {
+                    @Html.ActionLink("Assign Info", "AssignDetails", new {id = item.Id}, new {@class = "btn btn-info btn-sm"})
                 }
                 else if (item.Status == "Complete")
                 {
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
+                    @Html.ActionLink("Details", "Details", new {id = item.Id}, new {@class = "btn btn-info btn-sm"})
                 }
                 else if (item.Status == null)
                 {
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
+                    @Html.ActionLink("Details", "Details_V2", new {id = item.Id}, new {@class = "btn btn-info btn-sm"})
                     @Html.ActionLink("Edit", "Edit", new {id = item.Id}, new {@class = "btn btn-primary btn-sm"})
                     @Html.ActionLink("Cancel", "Delete", new {id = item.Id,}, new {@class = "btn btn-danger btn-sm", onclick = "return confirm('Are You Sure? You Want To Cancel!')"})
 
                 }
+            </td>*@
+            <td class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    button
+                </button>
+                <div class="dropdown-menu" id="dropdownMenu2">
+                    @if (item.Status == "Hold")
+                {
+                        @Html.ActionLink("Comment", "Details_V2", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
+                    }
+                    else if (item.Status == "Assign")
+                    {
+                        @Html.ActionLink("Comment", "Details_V2", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
+                        @Html.ActionLink("Assign Info", "AssignDetails", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
+                    }
+                    else if (item.Status == "Complete")
+                    {
+                        @Html.ActionLink("Details", "Details_V2", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
+                    }
+                    else if (item.Status == null)
+                    {
+                        @Html.ActionLink("Details", "Details_V2", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
+                        <span style="width: 20px"></span>
+                         @Html.ActionLink("Edit", "Edit", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })
+                        <span style="width: 20px"></span>
+                         @Html.ActionLink("Cancel", "Delete", new { id = item.Id, }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are You Sure? You Want To Cancel!')" })
+
+                    }
+
+                </div>
             </td>
         </tr>
     }

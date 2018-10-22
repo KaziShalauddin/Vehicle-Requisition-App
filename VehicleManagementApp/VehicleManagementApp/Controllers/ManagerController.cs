@@ -34,10 +34,13 @@ namespace VehicleManagementApp.Controllers
         private IDesignationManager designationManager;
         private IOrganaizationManager organaizationManager;
 
+
+        private ICommentManager commentManager;
         public ManagerController(IRequsitionManager requisition, IEmployeeManager employee, IManagerManager manager,
             IVehicleManager vehicle, IVehicleTypeManager vehicleType, IDriverStatusManager driverStatus, IVehicleStatusManager vehicleStatus,
-            IDesignationManager _designation, IOrganaizationManager organaization)
-        {
+            IDesignationManager _designation, IOrganaizationManager organaization, ICommentManager comment)
+
+         {
             this._employeeManager = employee;
             this._requisitionManager = requisition;
             this.managerManager = manager;
@@ -45,21 +48,94 @@ namespace VehicleManagementApp.Controllers
             this.driverStatusManager = driverStatus;
             this.vehicleStatusManager = vehicleStatus;
             this.vehicleTypeManager = vehicleType;
+
             this.designationManager = _designation;
             this.organaizationManager = organaization;
+
+
+            this.commentManager = comment;
+
         }
 
         // GET: Manager
         public ActionResult Index()
         {
+            var userEmployeeId = GetEmployeeId();
+            ViewBag.UserEmployeeId = userEmployeeId;
+
+          
+            var requsition = _requisitionManager.GetAll().OrderByDescending(c => c.Id);
+           
+           
+           
+            var comments = commentManager.Get(c => c.IsReceiverSeen == false).Where(c=>c.ReceiverEmployeeId== userEmployeeId);
+
+            var commentsWithRequisition = from r in requsition
+                                          join c in comments on r.Id equals c.RequsitionId
+                                               select new
+                                               {
+                                                   r.Id,
+                                                   r.Status,
+                                                   c.SenderEmployee,
+                                                   c.SenderEmployeeId,
+                                                   c.ReceiverEmployeeId,
+                                                   c.ReceiverSeenTime,
+                                                   c.IsReceiverSeen
+                                               };
+            List<CountCommentViewModel> commentsList = new List<CountCommentViewModel>();
+            foreach (var item in commentsWithRequisition)
+            {
+                var comment = new CountCommentViewModel();
+                comment.Id = item.Id;
+                comment.ReceiverEmployeeId = item.ReceiverEmployeeId;
+                comment.Status = item.Status;
+                commentsList.Add(comment);
+            }
+            if (commentsList.Count(c => c.Status == null)==0)
+            {
+                ViewBag.NewRequisitionComments = 0;
+            }
+            if (commentsList.Count(c => c.Status == null) > 0)
+            {
+                ViewBag.NewRequisitionComments = commentsList.Count(c => c.Status == null);
+            }
+            if (commentsList.Count(c => c.Status == "Assign") == 0)
+            {
+                ViewBag.AssignRequisitionComments = 0;
+            }
+            if (commentsList.Count(c => c.Status == "Assign") > 0)
+            {
+                ViewBag.AssignRequisitionComments = commentsList.Count(c => c.Status == "Assign");
+            }
+            if (commentsList.Count(c => c.Status == "Hold") == 0)
+            {
+                ViewBag.HoldRequisitionComments = 0;
+            }
+            if (commentsList.Count(c => c.Status == "Hold") > 0)
+            {
+                ViewBag.HoldRequisitionComments = commentsList.Count(c => c.Status == "Hold");
+            }
+          
             return View();
+        }
+        private int GetEmployeeId()
+        {
+            ApplicationUser user =
+                System.Web.HttpContext.Current.GetOwinContext()
+                    .GetUserManager<ApplicationUserManager>()
+                    .FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+
+            var employee = _employeeManager.Get(c => c.IsDriver == false && c.IsDeleted == false && c.UserId == user.Id);
+            var employeeId = employee.Select(e => e.Id).FirstOrDefault();
+            return employeeId;
         }
         public ActionResult New()
         {
             Requsition requsitions = new Requsition();
             var employee = _employeeManager.GetAll();
             var requsition = _requisitionManager.GetAllByNull(requsitions.Status = null).OrderByDescending(c => c.Id);
-
+            var userEmployeeId = GetEmployeeId();
+            ViewBag.UserEmployeeId = userEmployeeId;
             List<RequsitionViewModel> requsitionViewModels = new List<RequsitionViewModel>();
             foreach (var data in requsition)
             {
@@ -277,6 +353,8 @@ namespace VehicleManagementApp.Controllers
 
         public ActionResult AssignedList()
         {
+            var userEmployeeId = GetEmployeeId();
+            ViewBag.UserEmployeeId = userEmployeeId;
 
             var employee = _employeeManager.GetAll();
             var vehicle = vehicleManager.GetAll();
@@ -1088,7 +1166,8 @@ namespace VehicleManagementApp.Controllers
             Requsition requsitions = new Requsition();
             var employee = _employeeManager.GetAll();
             var requsition = _requisitionManager.GetAllByNull(requsitions.Status = "Hold");
-
+            var userEmployeeId = GetEmployeeId();
+            ViewBag.UserEmployeeId = userEmployeeId;
             List<RequsitionViewModel> requsitionViewModels = new List<RequsitionViewModel>();
             foreach (var data in requsition)
             {
@@ -1543,8 +1622,9 @@ namespace VehicleManagementApp.Controllers
                 TempData["msg"] = "Requisition Ressigned Successfully!";
 
                 //Email Sending Method start
-                //SendingEmailDriver(assignVm.EmployeeId, assignVm.RequsitionId);
-                //SendingEmailEmployee(assignVm.EmployeeId, assignVm.RequsitionId);
+                //ForReassignSendEmailToDriver(assignVm.NewDriverId, assignVm.RequsitionId);
+                //var requsition = _requisitionManager.GetById(assignVm.RequsitionId);
+                //ForReassignSendEmailToEmployee(requsition.EmployeeId, assignVm.RequsitionId);
                 //Email Sending Method end
 
                 return RedirectToAction("AssignedList");
@@ -1559,6 +1639,7 @@ namespace VehicleManagementApp.Controllers
             TempData["msg"] = "Requisition Not Reassigned";
             return View(assignVm);
         }
+
 
         public JsonResult Calendar()
         {
@@ -1595,7 +1676,8 @@ namespace VehicleManagementApp.Controllers
 
         public ActionResult FullAssignList()
         {
-            var searchingValue = _requisitionManager.Get(c => c.Status == "Assign" && c.IsDeleted == false).OrderByDescending(c=>c.Id);
+            var searchingValue =
+                _requisitionManager.Get(c => c.Status == "Assign" && c.IsDeleted == false).OrderByDescending(c => c.Id);
 
             List<RequsitionViewModel> requsitionViewModels = new List<RequsitionViewModel>();
             foreach (var item in searchingValue)
@@ -1614,6 +1696,89 @@ namespace VehicleManagementApp.Controllers
                 requsitionViewModels.Add(requisitionVM);
             }
             return View(requsitionViewModels);
+        }
+
+        //,string cause
+        public void ForReassignSendEmailToDriver(int? EmployeeId, int? requsitionId)
+        {
+            if (EmployeeId == null && requsitionId == null)
+            {
+                return;
+            }
+            var requsition = _requisitionManager.GetById((int)requsitionId);
+            var employee = _employeeManager.GetById((int)EmployeeId);
+            if (employee.Email == null)
+            {
+                return;
+            }
+            var dod = "<span>Hello, Mr." + " " + employee.Name + "," + "<br/>" + "your requisition with Requisition Number:" + requsition.RequsitionNumber + " has been assigned against you. Please contact with :<strong>Employee Name</strong> :" + " " + requsition.Employee.Name + "</span>" + "<br/>"
+                    + "<span> <strong>Employee Number</strong> :" + " " + requsition.Employee.ContactNo + "</span>" + "<br/>"
+                    + "<span> <strong>Department Name</strong> :" + " " + requsition.Employee.Department.Name + "</span>" + "<br/>"
+                    + "<span> <strong>Designation Name</strong> :" + " " + requsition.Employee.Designation.Name + "</span>" + "<br/>";
+
+            var body = dod;
+            var message = new MailMessage();
+            message.To.Add(new MailAddress(employee.Email));  // replace with valid value 
+            message.From = new MailAddress("mohammadziaulm62@gmail.com");  // replace with valid value
+            message.Subject = "For Your Have A New Car Assign";
+            message.Body = body;
+            message.IsBodyHtml = true;
+
+            using (var smtp = new SmtpClient())
+            {
+                var credential = new NetworkCredential
+                {
+                    UserName = "mohammadziaulm62@gmail.com", // replace with valid value
+                    Password = "01915982924" // replace with valid value
+                };
+                smtp.Credentials = credential;
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.EnableSsl = true;
+                smtp.Send(message);
+                return;
+            }
+        }
+        //, string cause
+        public void ForReassignSendEmailToEmployee(int? EmployeeId, int? RequsitionId)
+        {
+            if (EmployeeId == null && RequsitionId == null)
+            {
+                return;
+            }
+            var requsition = _requisitionManager.GetById((int)RequsitionId);
+            var employee = _employeeManager.GetById((int)EmployeeId);
+            if (employee.Email == null)
+            {
+                return;
+            }
+            var dod = "<span>Hello, Mr." + " " + requsition.Employee.Name + ","+"<br/>"+"your requisition with Requisition Number:"+requsition.RequsitionNumber+" has been re-assigned due to unavoidable circumstances. Please contact with :<strong>Driver Name</strong> :" + " " + employee.Name + "</span>" + "<br/>"
+                      + "<span> <strong>Phone Number</strong> :" + " " + employee.ContactNo + "</span>" + "<br/>";
+
+
+            var body = dod;
+            var message = new MailMessage();
+            message.To.Add(new MailAddress(requsition.Employee.Email));  // replace with valid value 
+            message.From = new MailAddress("mohammadziaulm62@gmail.com");  // replace with valid value
+            message.Subject = "Your Requsition Assign Successfully";
+            message.Body = body;
+            message.IsBodyHtml = true;
+
+            using (var smtp = new SmtpClient())
+            {
+                var credential = new NetworkCredential
+                {
+                    UserName = "mohammadziaulm62@gmail.com", // replace with valid value
+                    Password = "01915982924" // replace with valid value
+                };
+                smtp.Credentials = credential;
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.EnableSsl = true;
+                smtp.Send(message);
+                return;
+            }
+
         }
     }
 }

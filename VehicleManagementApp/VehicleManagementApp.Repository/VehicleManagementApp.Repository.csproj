@@ -49,6 +49,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\201810201313064_CommentsTable_Modified.cs" />
+    <Compile Include="Migrations\201810201313064_CommentsTable_Modified.Designer.cs">
+      <DependentUpon>201810201313064_CommentsTable_Modified.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810201431059_EmployeeTable_Modified_UserRoleAdded.cs" />
+    <Compile Include="Migrations\201810201431059_EmployeeTable_Modified_UserRoleAdded.Designer.cs">
+      <DependentUpon>201810201431059_EmployeeTable_Modified_UserRoleAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewCommentRepository.cs" />
     <Compile Include="CommentRepository.cs" />
     <Compile Include="DatabaseContext\VehicleDatabaseContext.cs" />
     <Compile Include="DesignationRepository.cs" />
@@ -205,6 +214,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810160724420_CommentTableUserIdRemove.resx">
       <DependentUpon>201810160724420_CommentTableUserIdRemove.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810201313064_CommentsTable_Modified.resx">
+      <DependentUpon>201810201313064_CommentsTable_Modified.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810201431059_EmployeeTable_Modified_UserRoleAdded.resx">
+      <DependentUpon>201810201431059_EmployeeTable_Modified_UserRoleAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
