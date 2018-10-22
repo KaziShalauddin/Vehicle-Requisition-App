@@ -1,4 +1,4 @@
-﻿@model VehicleManagementApp.ViewModels.ManagerViewModel
+﻿@model VehicleManagementApp.ViewModels.RequsitionViewModel
 
 @{
     ViewBag.Title = "View";
@@ -6,51 +6,51 @@
 }
 <link rel="stylesheet" href="~/css/style.css">
 <link href="~/css/ssss.css" rel="stylesheet" />
-<h2>Complete Requisition Details</h2>
+<h2>Requisition Details</h2>
 <hr />
 <div class="jumbotron">
     <table class="details_view">
         <tr>
             <td class="title_name">@Html.Raw("Department")</td>
-            <td>@Html.DisplayFor(model => model.Requsition.Employee.Department.Name)</td>
+            <td>@Html.DisplayFor(model => model.DepartmentName)</td>
         </tr>
         <tr>
             <td class="title_name">@Html.Raw("Employee Name")</td>
-            <td>@Html.DisplayFor(model => model.Requsition.Employee.Name)</td>
+            <td>@Html.DisplayFor(model => model.EmployeeName)</td>
         </tr>
         <tr>
             <td class="title_name">@Html.Raw("Designation")</td>
-            <td>@Html.DisplayFor(model => model.Requsition.Employee.Designation.Name)</td>
+            <td>@Html.DisplayFor(model => model.DesignationName)</td>
         </tr>
         <tr>
             <td class="title_name">@Html.Raw("Employee Contact")</td>
-            <td>@Html.DisplayFor(model => model.Requsition.Employee.ContactNo)</td>
+            <td>@Html.DisplayFor(model => model.EmployeeNo)</td>
         </tr>
         <tr>
-            <td class="title_name">@Html.DisplayNameFor(model => model.Requsition.Form)</td>
-            <td>@Html.DisplayFor(model => model.Requsition.Form)</td>
+            <td class="title_name">@Html.DisplayNameFor(model => model.Form)</td>
+            <td>@Html.DisplayFor(model => model.Form)</td>
         </tr>
         <tr>
-            <td class="title_name">@Html.DisplayNameFor(model => model.Requsition.To)</td>
-            <td>@Html.DisplayFor(model => model.Requsition.To)</td>
+            <td class="title_name">@Html.DisplayNameFor(model => model.To)</td>
+            <td>@Html.DisplayFor(model => model.To)</td>
         </tr>
         <tr>
-            <td class="title_name">@Html.DisplayNameFor(model => model.Requsition.Description)</td>
-            <td>@Html.DisplayFor(model => model.Requsition.Description)</td>
+            <td class="title_name">@Html.DisplayNameFor(model => model.Description)</td>
+            <td>@Html.DisplayFor(model => model.Description)</td>
         </tr>
         <tr>
-            <td class="title_name">@Html.DisplayNameFor(model => model.Requsition.RequsitionNumber)</td>
-            <td>@Html.DisplayFor(model => model.Requsition.RequsitionNumber)</td>
+            <td class="title_name">@Html.DisplayNameFor(model => model.RequsitionNumber)</td>
+            <td>@Html.DisplayFor(model => model.RequsitionNumber)</td>
         </tr>
         <tr>
-            <td class="title_name">@Html.DisplayNameFor(model => model.Requsition.JourneyStart)</td>
-            <td>@Html.DisplayFor(model => model.Requsition.JourneyStart)</td>
+            <td class="title_name">@Html.DisplayNameFor(model => model.JourneyStart)</td>
+            <td>@Html.DisplayFor(model => model.StartTime)</td>
         </tr>
         <tr>
-            <td class="title_name">@Html.DisplayNameFor(model => model.Requsition.JouneyEnd)</td>
-            <td>@Html.DisplayFor(model => model.Requsition.JouneyEnd)</td>
+            <td class="title_name">@Html.DisplayNameFor(model => model.JouneyEnd)</td>
+            <td>@Html.DisplayFor(model => model.EndTime)</td>
         </tr>
-        <tr>
+        @*<tr>
             <td class="title_name">@Html.Raw("Driver Name")</td>
             <td>@Html.DisplayFor(model => model.Employee.Name)</td>
         </tr>
@@ -64,7 +64,7 @@
                 <span>Brand Name :</span> @Html.DisplayFor(model => model.Vehicle.VehicleName),  <span>Model Number :</span> @Html.DisplayFor(model => model.Vehicle.VModel),
                 <span>Registration Number :</span> @Html.DisplayFor(model => model.Vehicle.VRegistrationNo)
             </td>
-        </tr>
+        </tr>*@
         <tr>
 
             <td style="padding-top: 20px"></td>

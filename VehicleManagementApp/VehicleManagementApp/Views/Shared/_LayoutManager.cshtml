@@ -76,8 +76,10 @@
     <link rel="stylesheet" href="~/css/owl.carousel.min.css">
     <link rel="stylesheet" href="~/css/normalize.css">
     <link rel="stylesheet" href="~/css/style.css">
-    <link href="~/css/myCustom.css" rel="stylesheet" />
+    <link href="~/thirdPartyCss/css/fullcalendar.min.css" rel="stylesheet" />
+    <link href="~/thirdPartyCss/css/fullcalendar.print.min.css" rel="stylesheet"/>
 
+    <link href="~/css/myCustom.css" rel="stylesheet"/>
     <script src="~/js/vendor/modernizr-3.5.0.min.js"></script>
     <style>
         .main-menu {
@@ -271,16 +273,25 @@
                                     <p>Cancelled Requsition</p>
                                 </a>
                             </li>
-                            <li class="nav-item ">
-                                @*<a class="nav-link" href="@Url.Action("AssignIndex", "Manager")">
 
-                                        <p>Assigned Requisitions ( @countAssign )</p>
-                                    </a>*@
+                            @*<li class="nav-item ">
                                 <a class="nav-link" href="@Url.Action("AssignedList", "Manager")">
-
                                     <p>Assigned Requisitions ( @countAssign )</p>
                                 </a>
+                            </li>*@
+
+                            <li class="nav-item ">
+                                <a class="nav-link" href="@Url.Action("TodayAssignedList", "Manager")">
+                                    <p>Today Assign List ()</p>
+                                </a>
                             </li>
+
+                            <li class="nav-item ">
+                                <a class="nav-link" href="@Url.Action("FullAssignList", "Manager")">
+                                    <p>Full Assign List ()</p>
+                                </a>
+                            </li>
+
                             <li class="nav-item ">
                                 <a class="nav-link" href="@Url.Action("CompleteRequsition", "Manager")">
 
@@ -290,23 +301,10 @@
 
                             <li class="nav-item ">
                                 <a class="nav-link" href="@Url.Action("DriverList", "Employee")">
-
                                     <p>Total Driver (@totaldrivercount)</p>
                                 </a>
                             </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="@Url.Action("AvailableDriver", "Manager")">
 
-                                    <p>Available Driver (@freedrivercount)</p>
-                                </a>
-                            </li>
-
-                            <li class="nav-item ">
-                                <a class="nav-link" href="@Url.Action("AssignDriver", "Manager")">
-
-                                    <p>Assign Driver (@assigndrivercount)</p>
-                                </a>
-                            </li>
 
                             <li class="nav-item ">
                                 <a class="nav-link" href="@Url.Action("Car", "Manager")">
@@ -314,18 +312,7 @@
                                     <p>Total Vehicles( @totalVehicle )</p>
                                 </a>
                             </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="@Url.Action("AssignCar", "Manager")">
 
-                                    <p>Assigned Vehicles( @totalAssignedCar )</p>
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link" href="@Url.Action("NonAssignCar", "Manager")">
-
-                                    <p>Available Vehicles( @totalFreeCar )</p>
-                                </a>
-                            </li>
 
                             <li class="nav-item ">
                                 <a class="nav-link" href="">
@@ -482,6 +469,10 @@
 
     <script src="~/thirdPartyCss/js/material-dashboard.min.js?v=2.1.0" type="text/javascript"></script>
     <script src="~/thirdPartyCss/js/demo.js"></script>
+
+
+    <script src="~/thirdPartyCss/js/fullcalendar.min.js"></script>
+    <script src="~/thirdPartyCss/js/moment.min.js"></script>
 
     <script src="~/scripts/jquery.unobtrusive-ajax.js"></script>
 

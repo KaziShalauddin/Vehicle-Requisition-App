@@ -102,19 +102,21 @@ namespace VehicleManagementApp.Controllers
                 return HttpNotFound();
             }
             Designation designation = _designationManager.GetById((int) id);
-            DesignationViewModel designationVM = new DesignationViewModel();
-            designationVM.Id = designation.Id;
-            designationVM.Name = designation.Name;
-            designationVM.Departments = _departmenManager.GetAll();
-            //designationVM.DepartmentId = designation.DepartmentId;
-            //ViewBag.DesignationId = new SelectList(_departmenManager.GetAll(),"Id","Name", designation.DepartmentId);
+
+            EditDesignationViewModel designationVM = new EditDesignationViewModel()
+            {
+                Id = designation.Id,
+                Name = designation.Name,
+                DepartmentId = (int)designation.DepartmentId
+            };
+            ViewBag.DepartmentId = new SelectList(_departmenManager.GetAll(),"Id","Name", designation.DepartmentId);
             //return View(designationVM);
             return View(designationVM);
         }
 
         // POST: Designation/Edit/5
         [HttpPost]
-        public ActionResult Edit(DesignationViewModel designationVM)
+        public ActionResult Edit(EditDesignationViewModel designationVM)
         {
             try
             {

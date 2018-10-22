@@ -20,5 +20,6 @@ namespace VehicleManagementApp.ViewModels
         public Designation Designation { get; set; }
         public IEnumerable<ManagerViewModel> ManagerViewModels { get; set; }
         public IEnumerable<RequsitionViewModel> RequsitionViewModels { get; set; }
+        public IEnumerable<Designation> Designations { get; set; }
     }
 }

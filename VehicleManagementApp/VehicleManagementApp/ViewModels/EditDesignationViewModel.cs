@@ -17,6 +17,10 @@ namespace VehicleManagementApp.ViewModels
         [Required]
         public string Name { get; set; }
 
+        public int DepartmentId { get; set; }
+        public Department Department { get; set; }
+        public IEnumerable<Department> Departments { get; set; }
+
         [Display(Name = "Organaization")]
         public int OrganaizationId { get; set; }
         public Organaization Organaization { get; set; }

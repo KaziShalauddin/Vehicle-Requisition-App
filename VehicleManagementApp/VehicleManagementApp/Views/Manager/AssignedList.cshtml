@@ -87,15 +87,23 @@
 
                     @Html.ActionLink("Details", "Details_V2", "Requsition", new {id = item.Id}, new {@class = "btn btn-info btn-sm"})
                 </td>
+
                 <td class="dropdown">
                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         button
                     </button>
                     <div class="dropdown-menu" id="dropdownMenu2">
-                        @Html.ActionLink("Assign Info", "AssignDetails", new { id = item.Id }, new { @class = "btn btn-success"})
+
+                        @Html.ActionLink("Print", "Print_V2", new {id = item.Id}, new {@class = "btn btn-info"})
+                        @Html.ActionLink("Reassign", "Reassign_V2", new {id = item.Id}, new {@class = "btn btn-success", onclick = "return confirm('Are You Sure? You Want To Re-Assign This Requisition ?')"})
+                        @Html.ActionLink("Check In", "CheckIn_V2", new {id = item.Id}, new {@class = "btn btn-danger", onclick = "return confirm('Are You Sure? You Want To Check In !!')"})
+                        @Html.ActionLink("Details", "Details", new {id = item.Id}, new {@class = "btn btn-default"})
+
+                        @*@Html.ActionLink("Assign Info", "AssignDetails", new { id = item.Id }, new { @class = "btn btn-success"})
                         @Html.ActionLink("Print", "Print_V2", new { id = item.Id }, new { @class = "btn btn-info" })
                         @Html.ActionLink("Reassign", "Reassign_V2", new { id = item.Id }, new { @class = "btn btn-success", onclick = "return confirm('Are You Sure? You Want To Re-Assign This Requisition ?')" })
-                        @Html.ActionLink("Check In", "CheckIn_V2", new { id = item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are You Sure? You Want To Check In !!')" })
+                        @Html.ActionLink("Check In", "CheckIn_V2", new { id = item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are You Sure? You Want To Check In !!')" })*@
+
                     </div>
                 </td>
                 
@@ -103,10 +111,3 @@
         }
     </tbody>
 </table>
-@section scripts{
-    @*<script type="text/javascript">
-        $('#mytable .customerIDCell').each(function () {
-            alert($(this).html());
-        });
-    </script>*@
-}

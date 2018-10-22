@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -649,6 +650,7 @@ namespace VehicleManagementApp.Controllers
             ViewBag.ReportViewer = reportViewer;
             return View(requsitionViewModels);
         }
+
         [Authorize(Roles = "Controller,Employee,Operator")]
         public ActionResult Details_V2(int? id)
         {

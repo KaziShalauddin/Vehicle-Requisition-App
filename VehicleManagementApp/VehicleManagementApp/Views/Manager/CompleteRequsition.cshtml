@@ -11,15 +11,21 @@
     <div class="row">
         <div class="col-md-12">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <label>Start Date</label>
                     @Html.EditorFor(model => model.Startdate, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     @Html.Label("End Date")
                     @Html.EditorFor(model => model.EndDate, new {htmlAttributes = new {@class = "form-control"}})
                 </div>
-                <div class="col-md-4 pull-right">
+
+                <div class="col-md-3">
+                    @Html.Label("Designation")
+                    @Html.DropDownListFor(model => model.DesignationId, new SelectList(Model.Designations, "Id", "Name"),"Select Designation",  new { @class = "form-control" } )
+                </div>
+
+                <div class="col-md-3">
                     <input type="button" value="Search" class="btn btn-default" id="btnSubmit" style="margin-top: 25px;" />
                 </div>
             </div>
@@ -38,21 +44,25 @@
             event.preventDefault();
             var _Startdate = $('#Startdate').val();
             var _EndDate = $('#EndDate').val();
+            var designationId = $("#DesignationId").val();
+
             if (_Startdate > _EndDate) {
                 alert("End Date Must be Bigger than Start Date");
                 return;
             }
             if (_Startdate == '') {
                 alert("Please Select Start Date.");
+                return;
             }
             if (_EndDate == '') {
                 alert("Please Select End Date.");
+                return;
             }
 
             if (_Startdate != '' && _EndDate != '') {
                 $.ajax({
                     url: '@(Url.Action("CompleteRequsition"))',
-                    data: { Startdate: _Startdate, EndDate: _EndDate },
+                    data: { Startdate: _Startdate, EndDate: _EndDate, DesignationId: designationId },
                     type: "POST",
                     success: function (result) {
 
@@ -69,6 +79,7 @@
             }
 
         });
+
 
     </script>
 }
