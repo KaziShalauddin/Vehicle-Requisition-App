@@ -234,7 +234,45 @@ body{
 }
 
 /*navbar end*/
-
+.spancls {
+	color: red;
+	margin-left: -103px;
+	font-size: 20px;
+}
+.deptcls {
+    color: red;
+	margin-left: 43px;
+	font-size: 20px;
+}
+.dessicls {
+    color: red;
+	margin-left: -47px;
+	font-size: 20px;
+}
+.desicls {
+    color: red;
+	margin-left: -103px;
+	font-size: 20px;
+}
+.divisioncls {
+    color: red;
+	margin-left: -27px;
+	font-size: 20px;
+}
+.namecls {
+    color: red;
+	margin-left: -94px;
+	font-size: 20px;
+}
+.distrcls {
+    color: red;
+	margin-left: -79px;
+	font-size: 20px;
+}
+.reqst{
+    color: red;
+	font-size: 20px;
+}
 
 /*about us start*/
 .about{}

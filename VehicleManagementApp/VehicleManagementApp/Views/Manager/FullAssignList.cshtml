@@ -1,20 +1,10 @@
-﻿@model IEnumerable<VehicleManagementApp.ViewModels.AssignedListViewModel>
-
+﻿@model IEnumerable<VehicleManagementApp.ViewModels.RequsitionViewModel>
 @{
-    ViewBag.Title = "AssignIndex";
+    ViewBag.Title = "TodayAssignedList";
     Layout = "~/Views/Shared/_LayoutManager.cshtml";
     int sl = 1;
 }
 
-<h2 style="padding-bottom: 30px; text-align: center">Assigned List</h2>
-<div>
-    @if (TempData["msg"] != null)
-    {
-        <div class="alert alert-info">
-            @TempData["msg"]
-        </div>
-    }
-</div>
 <table class="table table-bordered table-striped" id="myTable">
     <thead>
         <tr>
@@ -27,16 +17,16 @@
             <th>
                 @Html.Raw("Employee Info")
             </th>
+
             <th>
-                @Html.DisplayName("Driver Info")
+                @Html.Raw("Requsition Place")
 
             </th>
             <th>
-                @Html.Raw("Requsition Info")
-
+                @Html.Raw("Journey Start")
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.VehicleId)
+                @Html.Raw("Journey End")
             </th>
 
             <th></th>
@@ -50,25 +40,24 @@
                     @(sl++)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Requisition.RequsitionNumber)
+                    @Html.DisplayFor(modelItem => item.RequsitionNumber)
                 </td>
                 <td>
                     Name: @Html.DisplayFor(modelItem => item.Employee.Name)
 
                     Contact No.: @Html.DisplayFor(modelItem => item.Employee.ContactNo)
                 </td>
-                <td>
-                    <span> Name:     @Html.DisplayFor(modelItem => item.Driver.Name)</span>
 
-                    <span> Contact No.:  @Html.DisplayFor(modelItem => item.Driver.ContactNo)</span>
-                </td>
                 <td>
-                    From :   @Html.DisplayFor(modelItem => item.Requisition.Form)
+                    From :   @Html.DisplayFor(modelItem => item.Form)
                     <br />
-                    To : @Html.DisplayFor(modelItem => item.Requisition.To)
+                    To : @Html.DisplayFor(modelItem => item.To)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Vehicle.Name)
+                    @Html.DisplayFor(modelItem => item.StartTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndTime)
                 </td>
                 <td class="dropdown">
                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -85,3 +74,4 @@
         }
     </tbody>
 </table>
+

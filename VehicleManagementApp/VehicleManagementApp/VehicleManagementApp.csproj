@@ -634,6 +634,8 @@
     <Content Include="thirdPartyCss\css\bootstrap\bootstrap.css" />
     <Content Include="thirdPartyCss\css\demo.css" />
     <Content Include="thirdPartyCss\css\font-awesome.min.css" />
+    <Content Include="thirdPartyCss\css\fullcalendar.min.css" />
+    <Content Include="thirdPartyCss\css\fullcalendar.print.min.css" />
     <Content Include="thirdPartyCss\css\hexagons.min.css" />
     <Content Include="thirdPartyCss\css\linearicons.css" />
     <Content Include="thirdPartyCss\css\magnific-popup.css" />
@@ -666,6 +668,7 @@
     <Content Include="thirdPartyCss\js\core\popper.min.js" />
     <Content Include="thirdPartyCss\js\demo.js" />
     <Content Include="thirdPartyCss\js\easing.min.js" />
+    <Content Include="thirdPartyCss\js\fullcalendar.min.js" />
     <Content Include="thirdPartyCss\js\hexagons.min.js" />
     <Content Include="thirdPartyCss\js\hoverIntent.js" />
     <Content Include="thirdPartyCss\js\jquery.ajaxchimp.min.js" />
@@ -677,6 +680,7 @@
     <Content Include="thirdPartyCss\js\main.js" />
     <Content Include="thirdPartyCss\js\material-dashboard.js" />
     <Content Include="thirdPartyCss\js\material-dashboard.min.js" />
+    <Content Include="thirdPartyCss\js\moment.min.js" />
     <Content Include="thirdPartyCss\js\owl.carousel.min.js" />
     <Content Include="thirdPartyCss\js\parallax.min.js" />
     <Content Include="thirdPartyCss\js\plugins\bootstrap-notify.js" />
@@ -705,8 +709,13 @@
     <Content Include="Views\Driver\MyCompletedDuties.cshtml" />
     <Content Include="Views\Manager\Print_V2.cshtml" />
     <Content Include="Views\Manager\Reassign_V2.cshtml" />
+    <Content Include="Views\Manager\Calendar.cshtml" />
+    <Content Include="Views\Manager\TodayAssignedList.cshtml" />
+    <Content Include="Views\Manager\FullAssignList.cshtml" />
     <None Include="Web References\com.onnorokomsms.api2\sendsms.disco" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

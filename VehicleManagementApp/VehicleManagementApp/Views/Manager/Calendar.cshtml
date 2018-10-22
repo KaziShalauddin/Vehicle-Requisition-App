@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewBag.Title = "Calendar";
+    Layout = "~/Views/Shared/_LayoutManager.cshtml";
+}
+
+<h2>Calendar</h2>
+<div class="row">
+    <div class="col-md-12">
+        <div id="calender"></div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            debugger;
+
+            var events = [];
+
+            $.ajax({
+
+                url: "/Manager/Calendar",
+                type: "GET",
+                dataType: "JSON",
+                success: function(data) {
+                    $.each(data, function (i, v) {
+                        debugger;
+                        events.push({
+                            title: v.Subject,
+                            description: v.Description,
+                            start: moment(v.Start),
+                            end: v.End != null ? moment(v.End) : null,
+                            color: v.ThemeColor,
+                            allDay: v.IsFullDay
+                        });
+                    });
+
+                    generateCalender(events);
+                },
+                error: function() {
+                    alert("Faild");
+                }
+            });
+
+            function generateCalender(events) {
+                $('#calender').fullCalendar().val();
+                $('#calender').fullCalendar({
+                    contentHeight: 500,
+                    defaultDate: new Date(),
+                    timeFormat: 'h(:mm)a',
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,basicWeek,basicDay,agenda'
+                    },
+                    eventLimit: true,
+                    eventColor: '#378006',
+                    events: events
+                });
+            }
+        });
+
+</script>
+}

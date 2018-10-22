@@ -26,7 +26,7 @@
                     @Html.ValidationSummary(true, "", new {@class = "text-danger"})
 
                     <div class="form-group">
-                        @Html.Label("Department", htmlAttributes: new {@class = "control-label col-md-2"})
+                        @Html.Label("Department", htmlAttributes: new { @class = "control-label col-md-2" })<span class="dessicls">*</span>
                         <div class="col-md-10">
                             @Html.DropDownListFor(model => model.DepartmentId, new SelectList(Model.Departments, "Id", "Name"), "Select Department", new {@class = "form-control", onchange = "DropDownValueChanged()"})
                             @Html.ValidationMessageFor(model => model.DepartmentId, "", new {@class = "text-danger"})
@@ -34,7 +34,7 @@
                     </div>
 
                     <div class="form-group">
-                        @Html.LabelFor(model => model.Name, htmlAttributes: new {@class = "control-label col-md-2"})
+                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })<span class="desicls">*</span>
                         <div class="col-md-10">
                             @Html.EditorFor(model => model.Name, new {htmlAttributes = new {@class = "form-control"}})
                             @Html.ValidationMessageFor(model => model.Name, "", new {@class = "text-danger"})

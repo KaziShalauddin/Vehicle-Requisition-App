@@ -19,7 +19,7 @@ namespace VehicleManagementApp.ViewModels
         [Required]
         public string To { get; set; }
 
-        [Required]
+        //[Required]
         public string Description { get; set; }
 
         [Required]

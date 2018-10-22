@@ -175,5 +175,7 @@ namespace VehicleManagementApp.Controllers
             var department = _departmentManager.GetAll();
             return Json(department, JsonRequestBehavior.AllowGet);
         }
+
+       
     }
 }

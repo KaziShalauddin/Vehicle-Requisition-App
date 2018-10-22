@@ -31,9 +31,12 @@ namespace VehicleManagementApp.Controllers
         private IDriverStatusManager driverStatusManager;
         private IVehicleStatusManager vehicleStatusManager;
         private IVehicleTypeManager vehicleTypeManager;
+        private IDesignationManager designationManager;
+        private IOrganaizationManager organaizationManager;
 
         public ManagerController(IRequsitionManager requisition, IEmployeeManager employee, IManagerManager manager,
-            IVehicleManager vehicle, IVehicleTypeManager vehicleType, IDriverStatusManager driverStatus, IVehicleStatusManager vehicleStatus)
+            IVehicleManager vehicle, IVehicleTypeManager vehicleType, IDriverStatusManager driverStatus, IVehicleStatusManager vehicleStatus,
+            IDesignationManager _designation, IOrganaizationManager organaization)
         {
             this._employeeManager = employee;
             this._requisitionManager = requisition;
@@ -42,6 +45,8 @@ namespace VehicleManagementApp.Controllers
             this.driverStatusManager = driverStatus;
             this.vehicleStatusManager = vehicleStatus;
             this.vehicleTypeManager = vehicleType;
+            this.designationManager = _designation;
+            this.organaizationManager = organaization;
         }
 
         // GET: Manager
@@ -393,7 +398,7 @@ namespace VehicleManagementApp.Controllers
                 //SendingEmailEmployee(assignVm.EmployeeId, assignVm.RequsitionId);
                 //Email Sending Method end
 
-                return RedirectToAction("New");
+                return RedirectToAction("TodayAssignedList");
             }
 
             //if (!isRequisitionAssigned && !isDriverAssigned)
@@ -705,20 +710,29 @@ namespace VehicleManagementApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var manager = managerManager.GetById((int)id);
-            var requsition = _requisitionManager.GetAll();
+            var requsitionDetails = _requisitionManager.GetById((int)id);
+            var startTime = requsitionDetails.JourneyStart.ToString("f");
+            var endTime = requsitionDetails.JouneyEnd.ToString("f");
             var employee = _employeeManager.GetAll();
             var vehicle = vehicleManager.GetAll();
-
-            ManagerViewModel requisitionVm = new ManagerViewModel()
+            RequsitionViewModel requsitionViewModel = new RequsitionViewModel()
             {
-                Id = manager.Id,
-                Requsition = requsition.FirstOrDefault(c => c.Id == manager.RequsitionId),
-                Vehicle = vehicle.FirstOrDefault(c => c.Id == manager.VehicleId),
-                Employee = employee.FirstOrDefault(x => x.Id == manager.EmployeeId)
+                Id = requsitionDetails.Id,
+                DepartmentName = requsitionDetails.Employee.Department.Name,
+                EmployeeName = requsitionDetails.Employee.Name,
+                DesignationName = requsitionDetails.Employee.Department.Name,
+                EmployeeNo = requsitionDetails.Employee.ContactNo,
+                Form = requsitionDetails.Form,
+                To = requsitionDetails.To,
+                Description = requsitionDetails.Description,
+                StartTime = startTime,
+                EndTime = endTime,
+                JouneyEnd = requsitionDetails.JouneyEnd,
+                RequsitionNumber = requsitionDetails.RequsitionNumber
             };
 
-            return View(requisitionVm);
+
+            return View(requsitionViewModel);
         }
         public ActionResult RequsitionEmployeeName(int? id)
         {
@@ -944,7 +958,9 @@ namespace VehicleManagementApp.Controllers
 
             var searchingValue = _requisitionManager.Get(c => c.Status == "Complete" && c.IsDeleted == false);
             string todays = DateTime.Today.ToShortDateString();
-            var todayRequsition = searchingValue.Where(c => c.JourneyStart.ToShortDateString() == todays);
+            var todayRequsition = searchingValue.Where(c => c.JouneyEnd.ToShortDateString() == todays);
+
+
 
             var employee = _employeeManager.Get(c => c.IsDriver == true && c.IsDeleted == false);
             var vehicle = vehicleManager.GetAll();
@@ -969,6 +985,9 @@ namespace VehicleManagementApp.Controllers
             }
             filteringSearchViewModel.RequsitionViewModels = requsitionViewModels;
 
+            var designation = designationManager.GetAll();
+            filteringSearchViewModel.Designations = designation;
+
             return View(filteringSearchViewModel);
         }
 
@@ -978,12 +997,17 @@ namespace VehicleManagementApp.Controllers
 
             var startTime = filteringSearchViewModels.Startdate;
             var endTime = filteringSearchViewModels.EndDate;
+            int designationId = filteringSearchViewModels.DesignationId;
 
+            
             var searchingValue = _requisitionManager.Get(c=>c.Status == "Complete" && c.IsDeleted == false);
-            var selectedValue = searchingValue.Where(c => c.JourneyStart > startTime && c.JouneyEnd < endTime);
+            var designationsId = searchingValue.Where(c => c.Employee.DesignationId == designationId || c.JourneyStart > startTime && c.JouneyEnd< endTime);
+            
+
+            //var selectedValue = searchingValue.Where(c => c.JourneyStart > startTime && c.JouneyEnd < endTime || c.Employee.DesignationId == designationId);
 
             List<RequsitionViewModel> requsitionViewModels = new List<RequsitionViewModel>();
-            foreach (var item in selectedValue)
+            foreach (var item in designationsId)
             {
                 var requisitionVM = new RequsitionViewModel();
                 requisitionVM.Id = item.Id;
@@ -1534,6 +1558,62 @@ namespace VehicleManagementApp.Controllers
 
             TempData["msg"] = "Requisition Not Reassigned";
             return View(assignVm);
+        }
+
+        public JsonResult Calendar()
+        {
+            var data = organaizationManager.GetAll();
+            return Json(data, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult TodayAssignedList()
+        {
+            var searchingValue = _requisitionManager.Get(c => c.Status == "Assign" && c.IsDeleted == false).OrderByDescending(c => c.Id);
+            string todays = DateTime.Today.ToShortDateString();
+            var todayAssignRequsition = searchingValue.Where(c => c.JouneyEnd.ToShortDateString() == todays);
+
+            
+
+            List<RequsitionViewModel> requsitionViewModels = new List<RequsitionViewModel>();
+            foreach (var item in todayAssignRequsition)
+            {
+                var requisitionVM = new RequsitionViewModel();
+                requisitionVM.Id = item.Id;
+                requisitionVM.Employee = item.Employee;
+                requisitionVM.Form = item.Form;
+                requisitionVM.To = item.To;
+                requisitionVM.StartTime = item.JourneyStart.ToString("f");
+                requisitionVM.EndTime = item.JouneyEnd.ToString("f");
+                requisitionVM.RequsitionNumber = item.RequsitionNumber;
+                requisitionVM.Description = item.Description;
+                requisitionVM.JourneyStart = item.JourneyStart;
+                requisitionVM.JouneyEnd = item.JouneyEnd;
+                requsitionViewModels.Add(requisitionVM);
+            }
+            return View(requsitionViewModels);
+        }
+
+        public ActionResult FullAssignList()
+        {
+            var searchingValue = _requisitionManager.Get(c => c.Status == "Assign" && c.IsDeleted == false).OrderByDescending(c=>c.Id);
+
+            List<RequsitionViewModel> requsitionViewModels = new List<RequsitionViewModel>();
+            foreach (var item in searchingValue)
+            {
+                var requisitionVM = new RequsitionViewModel();
+                requisitionVM.Id = item.Id;
+                requisitionVM.Employee = item.Employee;
+                requisitionVM.Form = item.Form;
+                requisitionVM.To = item.To;
+                requisitionVM.StartTime = item.JourneyStart.ToString("f");
+                requisitionVM.EndTime = item.JouneyEnd.ToString("f");
+                requisitionVM.RequsitionNumber = item.RequsitionNumber;
+                requisitionVM.Description = item.Description;
+                requisitionVM.JourneyStart = item.JourneyStart;
+                requisitionVM.JouneyEnd = item.JouneyEnd;
+                requsitionViewModels.Add(requisitionVM);
+            }
+            return View(requsitionViewModels);
         }
     }
 }

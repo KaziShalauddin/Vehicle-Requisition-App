@@ -74,5 +74,6 @@ namespace VehicleManagementApp.ViewModels
         public IEnumerable<RequsitionViewModel> RequsitionViewModels { get; set; }
         public ReplayCommentViewModel ReplayCommentViewModel { get; set; }
         public virtual IEnumerable<ReplayCommentViewModel> ReplayCommentViewModels { get; set; }
+        public IEnumerable<Designation> Designations { get; set; } 
     }
 }
