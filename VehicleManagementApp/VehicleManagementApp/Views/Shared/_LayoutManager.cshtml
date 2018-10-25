@@ -85,7 +85,14 @@
         .main-menu {
             padding-top: 20px;
             padding-left: 50px;
-            padding-right: 50px;
+            padding-right: 100px;
+        }
+        .goog-te-banner-frame.skiptranslate {
+            display: none !important;
+        }
+
+        body {
+            top: 0px !important;
         }
     </style>
 </head>
@@ -225,7 +232,7 @@
                             {
                                 @Html.ActionLink("Login", "Login", "Account")
                             }
-
+                            <li id="google_translate_element"></li> 
                         </ul>
 
 
@@ -233,7 +240,7 @@
                         <!-- #nav-menu-container -->
 
                     </nav>
-
+                 
                 </div>
             </div>
         </header><!-- #header -->
@@ -255,22 +262,23 @@
                                         <p>Dashboard</p>
                                     </a>
                                 </li>*@
+                          
                             <li class="nav-item ">
                                 <a class="nav-link" href="@Url.Action("New", "Manager")">
                                     @*@Html.ActionLink("New Requisition(" + countNew + ")", "New", "Manager")*@
-                                    <p>New Requisitions ( @countNew )</p>
+                                    <p>New Requisition List ( @countNew )</p>
                                 </a>
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link" href="@Url.Action("HoldIndex", "Manager")">
 
-                                    <p>Hold Requsition(@hold)</p>
+                                    <p>Hold Requisition List(@hold)</p>
                                 </a>
                             </li>
                             <li class="nav-item ">
                                 <a class="nav-link" href="@Url.Action("CancelIndex", "Manager")">
 
-                                    <p>Cancelled Requsition</p>
+                                    <p>Cancelled Requisition List </p>
                                 </a>
                             </li>
 
@@ -320,7 +328,7 @@
                                     <p>Notifications</p>
                                 </a>
                             </li>
-
+                         
                         </ul>
                     </div>
                 </div>
@@ -481,8 +489,15 @@
         <script src="~/js/jquery.fitvids.js"></script>
         <script src="~/js/main.js"></script>*@
 
+    
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({ pageLanguage: 'en', includedLanguages: 'bn,en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE }, 'google_translate_element');
+    }
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-
+        
     <script type="text/javascript">
         $(document).ready(function () {
             $('#myTable').DataTable();
