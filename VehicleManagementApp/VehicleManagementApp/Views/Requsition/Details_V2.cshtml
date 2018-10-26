@@ -75,7 +75,7 @@
                     @*@Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })*@
                     @Html.ActionLink("Cancel", "Delete", new { id = Model.Requisition.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are You Sure? You Want To Cancel!')" })
                    <span style="width: 20px;"></span>
-                     @Html.ActionLink("Print", "Print", new { id = Model.Requisition.Id }, new { @class = "btn btn-success" })
+                     @Html.ActionLink("Print", "Print","Requsition", new { id = Model.Requisition.Id }, new { @class = "btn btn-success" })
                     <span style="width: 20px;"></span>
                      @Html.ActionLink("Back to List", "MyRequisitionList","Requsition", new { id = "", }, new { @class = "btn btn-default" })
                 }

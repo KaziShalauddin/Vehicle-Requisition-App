@@ -1,4 +1,5 @@
 ﻿@using System.Web.UI.WebControls
+@using Microsoft.AspNet.Identity
 
 <!DOCTYPE html>
 <html lang="zxx" class="no-js">
@@ -38,7 +39,19 @@
     <link rel="stylesheet" href="~/css/owl.carousel.min.css">
     <link rel="stylesheet" href="~/css/normalize.css">
     <link rel="stylesheet" href="~/css/style.css">
-
+    <style>
+        .main-menu {
+            padding-top: 20px;
+            padding-left: 50px;
+            padding-right: 50px;
+        }
+        .goog-te-banner-frame.skiptranslate {
+            display: none !important;
+        }
+        body {
+            top: 0px !important;
+        }
+    </style>
     @RenderSection("styles", required: false)
     @*<link href="~/css/jquery.datetimepicker.min.css" rel="stylesheet" />*@
     <script src="~/js/vendor/modernizr-3.5.0.min.js"></script>
@@ -46,7 +59,7 @@
 <body>
 
     <header id="header">
-        <div class="container main-menu">
+        <div class="main-menu">
             <div class="row align-items-center justify-content-between d-flex">
                 <div id="logo">
                     <a href="@Url.Action("Index","Home")">
@@ -58,12 +71,12 @@
                     <ul class="nav-menu">
 
 
-                        <li class="menu-active">@Html.ActionLink("Home", "Index", "Home")</li>
+                        @*<li class="menu-active">@Html.ActionLink("Home", "Index", "Home")</li>*@
                         @if (User.IsInRole(AppEnum.RoleEnum.Controller.ToString()))
                         {
-                            
+                            <li class="menu-active">@Html.ActionLink("Dashboard", "Index", "Manager")</li>
                             <li class="menu-has-children">
-                                <a href="#">Employee Section</a>
+                                <a href="#">Employee</a>
                                 <ul>
                                     <li class="menu-has-children">
                                         <a href="#">Employee Register</a>
@@ -128,6 +141,7 @@
                         }
                         @if (User.IsInRole(AppEnum.RoleEnum.Operator.ToString()))
                         {
+
                             <li class="menu-has-children">
                                 <a href="#">Employee Register</a>
                                 <ul>
@@ -136,21 +150,20 @@
 
                                 </ul>
                             </li>
-                                        <li class="menu-has-children">
-                                            <a href="#">Employee List</a>
-                                            <ul>
-                                                <li>@Html.ActionLink("Drivers", "Index", "Driver")</li>
-                                                <li>@Html.ActionLink("Employees", "Index", "Employee")</li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu-has-children">
-                                            <a href="#">Requisition</a>
-                                            <ul>
-                                                <li>@Html.ActionLink("My Requisitions", "MyRequisitionList", "Requsition")</li>
+                            <li class="menu-has-children">
+                                <a href="#">Employee List</a>
+                                <ul>
+                                    <li>@Html.ActionLink("Drivers", "Index", "Driver")</li>
+                                    <li>@Html.ActionLink("Employees", "Index", "Employee")</li>
+                                </ul>
+                            </li>
+                            <li class="menu-has-children">
+                                <a href="#">Requisition</a>
+                                <ul>
+                                    <li>@Html.ActionLink("My Requisitions", "MyRequisitionList", "Requsition")</li>
 
-                                            </ul>
-                                        </li>
-
+                                </ul>
+                            </li>
 
                         }
                         @if (User.IsInRole(AppEnum.RoleEnum.Employee.ToString()))
@@ -162,7 +175,7 @@
 
                                 </ul>
                             </li>
-
+                          
 
                         }
                         @if (User.IsInRole(AppEnum.RoleEnum.Driver.ToString()))
@@ -181,21 +194,21 @@
                         <li>
                             @if (Request.IsAuthenticated)
                             {
-
-                                @*<img src="@Url.Action("UserPhotos", "Home")" class="img-circle" style="height: 20px; width: 40px;" />*@
+                                @*@if((User.Identity.GetUserId())*@
+                                <img src="@Url.Action("UserPhotos", "Home")" class="img-circle" style="height: 20px; width: 40px;" />
                             <li class="menu-has-children">
                                 <a href="#">Sign Out</a>
                                 <ul>@Html.Partial("_LoginPartial")</ul>
                             </li>
-                            }
-                            else
-                            {
-                                @Html.ActionLink("Login", "Login", "Account")
-                            }
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Login", "Login", "Account")
+                        }
 
 
                             </li>
-
+                            <li id="google_translate_element"></li>
                         </ul>
 
 
@@ -254,6 +267,12 @@
             <script src="~/js/main.js"></script>*@
 
 
+        <script type="text/javascript">
+            function googleTranslateElementInit() {
+                new google.translate.TranslateElement({ pageLanguage: 'en', includedLanguages: 'bn,en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE }, 'google_translate_element');
+            }
+        </script>
+        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
         <script type="text/javascript">
 
