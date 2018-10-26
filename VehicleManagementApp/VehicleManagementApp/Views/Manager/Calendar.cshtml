@@ -29,12 +29,12 @@
                     $.each(data, function (i, v) {
                         debugger;
                         events.push({
-                            title: v.Subject,
+                            from: v.Form,
+                            to: v.To,
                             description: v.Description,
-                            start: moment(v.Start),
-                            end: v.End != null ? moment(v.End) : null,
-                            color: v.ThemeColor,
-                            allDay: v.IsFullDay
+                            start: moment(v.JourneyStart),
+                            end: v.End != null ? moment(v.JouneyEnd) : null,
+                            requisitionNumber: v.RequsitionNumber
                         });
                     });
 
