@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -608,6 +609,7 @@
     <None Include="scripts\jquery-2.2.4.intellisense.js" />
     <Content Include="scripts\jquery-2.2.4.js" />
     <Content Include="scripts\jquery-2.2.4.min.js" />
+    <Content Include="scripts\jquery-ui.js" />
     <Content Include="scripts\jquery.datetimepicker.full.min.js" />
     <Content Include="scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="scripts\jquery.unobtrusive-ajax.min.js" />
@@ -714,16 +716,20 @@
     <Content Include="Views\Driver\MyCompletedDuties.cshtml" />
     <Content Include="Views\Manager\Print_V2.cshtml" />
     <Content Include="Views\Manager\Reassign_V2.cshtml" />
-
     <Content Include="Views\Manager\Calendar.cshtml" />
     <Content Include="Views\Manager\TodayAssignedList.cshtml" />
     <Content Include="Views\Manager\FullAssignList.cshtml" />
-
     <Content Include="Views\Driver\_CommentList.cshtml" />
     <Content Include="Views\Driver\_CommentPartial.cshtml" />
     <Content Include="Views\Requsition\Details_V2.cshtml" />
     <Content Include="Views\Requsition\AssignDetails.cshtml" />
-
+    <Content Include="Views\Home\Dashboard.cshtml" />
+    <Content Include="Views\Home\NewList.cshtml" />
+    <Content Include="Views\Home\HoldList.cshtml" />
+    <Content Include="Views\Home\AssignedList.cshtml" />
+    <Content Include="Views\Home\CompleteRequsition.cshtml" />
+    <Content Include="Views\Home\_CompleteRequsitionPartial.cshtml" />
+    <Content Include="Views\Home\_MyRequisitionListPartial.cshtml" />
     <None Include="Web References\com.onnorokomsms.api2\sendsms.disco" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

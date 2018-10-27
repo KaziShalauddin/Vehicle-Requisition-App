@@ -3,26 +3,45 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_layoutManager.cshtml";
+    Layout = "~/Views/Shared/_layout.cshtml";
     IRequsitionManager managers = new RequsitionManager();
-    var managerNew = managers.Get(c => c.Status == null && c.IsDeleted == false);
+    var managerNew = managers.Get(c => c.Status == null && c.IsDeleted == false).Where(c=>c.EmployeeId == ViewBag.UserEmployeeId).ToList();
     var countNew = managerNew.Count;
-    var managerAssign = managers.Get(c => c.Status == "Assign" && c.IsDeleted == false);
-    var managerComplete = managers.Get(c => c.Status == "Complete" && c.IsDeleted == false);
-    var managerHold = managers.Get(c => c.Status == "Hold" && c.IsDeleted == false);
+    var managerAssign = managers.Get(c => c.Status == "Assign" && c.IsDeleted == false).Where(c => c.EmployeeId == ViewBag.UserEmployeeId).ToList();
+    var managerComplete = managers.Get(c => c.Status == "Complete" && c.IsDeleted == false).Where(c => c.EmployeeId == ViewBag.UserEmployeeId).ToList();
+    var managerHold = managers.Get(c => c.Status == "Hold" && c.IsDeleted == false).Where(c => c.EmployeeId == ViewBag.UserEmployeeId).ToList();
     var hold = managerHold.Count;
     var countAssign = managerAssign.Count;
     var countComplete = managerComplete.Count;
 }
 <div class="container">
-  
+    @*<div class="row">
+            <div class="col-md-12" style="background-color: lightpink; height: 450px">
+                <h6 style="padding-top: 150px; text-align: center; font-size: 30px;">
+                    Wellcome
+                    <br/>
+                    To
+                    <br/>
+                    Manager Dashboad
+                </h6>
+            </div>
+
+        </div>*@
+    <div>
+        @if (TempData["msg"] != null)
+        {
+            <div class="alert alert-info">
+                @TempData["msg"]
+            </div>
+        }
+    </div>
     <div class="row col-md-12"></div>
     <div class="row">
         <div class="col-md-12">
             <div class="col-md-6" style="float: left">
                 <div class="card card-actions" style="height: 10rem; width: 18rem;">
                     <div class="card-title" style="text-align: center; font-size: 20px; color: black; padding-top: 40px;">
-                        @Html.ActionLink("New Requisition List", "New", "Manager")
+                        @Html.ActionLink("New Requisition List", "NewList", "Home")
                     </div>
                     <div class="card-title" style="text-align: center; font-size: 20px; color: black;">
                         <p class="card-subtitle">Total : @countNew </p>
@@ -39,7 +58,7 @@
             <div class="col-md-6" style="float: left">
                 <div class="card card-actions" style="height: 10rem; width: 18rem;">
                     <div class="card-title" style="text-align: center; font-size: 20px; color: black; padding-top: 40px;">
-                        @Html.ActionLink("Hold Requisition List", "HoldIndex", "Manager")
+                        @Html.ActionLink("Hold Requisition List", "HoldList", "Home")
                     </div>
                     <div class="card-title" style="text-align: center; font-size: 20px; color: black;">
                         <p class="card-subtitle">Total : @hold </p>
@@ -54,13 +73,15 @@
                 </div>
             </div>
         </div>
-
+        @*<div class="row">
+           
+        </div>*@
         <div class="col-md-12">
-
+            <div class="col-md-12" style="height: 5rem;"></div>
             <div class="col-md-6" style="float: left">
                 <div class="card card-actions" style="height: 10rem; width: 18rem;">
                     <div class="card-title" style="text-align: center; font-size: 20px; color: black; padding-top: 40px;">
-                        @Html.ActionLink("Assigned Requisition List", "FullAssignList", "Manager")
+                        @Html.ActionLink("Assigned Requisition List", "AssignedList", "Home")
                     </div>
                     <div class="card-title" style="text-align: center; font-size: 20px; color: black;">
                         <p class="card-subtitle">Total : @countAssign </p>
@@ -78,7 +99,7 @@
             <div class="col-md-6" style="float: left">
                 <div class="card card-actions" style="height: 10rem; width: 18rem;">
                     <div class="card-title" style="text-align: center; font-size: 20px; color: black; padding-top: 40px;">
-                        @Html.ActionLink("Completed Requisition List", "CompleteRequsition", "Manager")
+                        @Html.ActionLink("Completed Requisition List", "CompleteRequsition", "Home")
                     </div>
                     <div class="card-title" style="text-align: center; font-size: 20px; color: black;">
                         <p class="card-subtitle">Total : @countComplete </p>
