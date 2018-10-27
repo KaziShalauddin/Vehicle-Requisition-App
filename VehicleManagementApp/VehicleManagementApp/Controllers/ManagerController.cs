@@ -1788,5 +1788,10 @@ namespace VehicleManagementApp.Controllers
             }
 
         }
+
+        public ActionResult Test()
+        {
+            return View();
+        }
     }
 }
