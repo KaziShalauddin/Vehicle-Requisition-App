@@ -1643,8 +1643,16 @@ namespace VehicleManagementApp.Controllers
 
         public JsonResult Calendar()
         {
-            var data = organaizationManager.GetAll();
-            return Json(data, JsonRequestBehavior.AllowGet);
+            var data = _requisitionManager.GetAll();
+            return Json(data.Select(e => new
+            {
+                from = e.Form,
+                to = e.To,
+                description = e.Description,
+                start = e.JourneyStart,
+                end = e.JouneyEnd,
+                requisitionNumber = e.RequsitionNumber
+            }), JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult TodayAssignedList()
@@ -1779,6 +1787,11 @@ namespace VehicleManagementApp.Controllers
                 return;
             }
 
+        }
+
+        public ActionResult Test()
+        {
+            return View();
         }
     }
 }

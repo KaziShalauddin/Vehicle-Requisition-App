@@ -77,7 +77,7 @@
                         @if (User.IsInRole(AppEnum.RoleEnum.Controller.ToString()))
                         {
                             <li class="menu-active">@Html.ActionLink("Dashboard", "Index", "Manager")</li>
-                            <li class="menu-has-children">
+                            @*<li class="menu-has-children">
                                 <a href="#">Employee</a>
                                 <ul>
                                     <li class="menu-has-children">
@@ -96,7 +96,7 @@
                                         </ul>
                                     </li>
                                 </ul>
-                            </li>
+                            </li>*@
                             <li class="menu-has-children">
                                 <a href="#">Requisition</a>
                                 <ul>
@@ -105,14 +105,14 @@
                                     <li>@Html.ActionLink("My Requisitions", "MyRequisitionList", "Requsition")</li>
                                 </ul>
                             </li>
-                            <li class="menu-has-children">
+                            @*<li class="menu-has-children">
                                 <a href="#">Driver's Corner</a>
                                 <ul>
                                     <li>@Html.ActionLink("Assigned Duties", "DriverAssignedList", "Manager")</li>
                                     <li>@Html.ActionLink("Completed Duties", "DriverDutyCompletedList", "Manager")</li>
                                 </ul>
-                            </li>
-                            <li class="menu-has-children">
+                            </li>*@
+                            @*<li class="menu-has-children">
                                 <a href="#">Setup</a>
                                 <ul>
                                     <li class="menu-has-children">
@@ -139,7 +139,7 @@
                                         </ul>
                                     </li>
                                 </ul>
-                            </li>
+                            </li>*@
                         }
                         @if (User.IsInRole(AppEnum.RoleEnum.Operator.ToString()))
                         {
@@ -184,6 +184,7 @@
 
 
                         }
+
                         @if (User.IsInRole(AppEnum.RoleEnum.Driver.ToString()))
                         {
                             <li class="menu-has-children">
@@ -191,17 +192,13 @@
                                 <ul>
                                     <li>@Html.ActionLink("Upcoming Duties", "MyDutyList", "Driver")</li>
                                     <li>@Html.ActionLink("Completed Duties", "MyCompletedDuties", "Driver")</li>
-
                                 </ul>
                             </li>
-
-
                         }
 
-                        @if (Request.IsAuthenticated)
-                        {
-                            @*@if((User.Identity.GetUserId())*@
-
+                        <li>
+                            @if (Request.IsAuthenticated)
+                            {
                             <li class="menu-has-children">
                                 <img src="@Url.Action("UserPhotos", "Home")" class="img-circle" style="height: 20px; width: 40px;" />
                                 <a href="#">Sign Out</a>

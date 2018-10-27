@@ -2,7 +2,7 @@
 
 @{
     ViewBag.Title = "Details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_ManagerLayout.cshtml";
 }
 
 <link href="~/css/ssss.css" rel="stylesheet" />
@@ -13,7 +13,7 @@
             <div class="jumbotron">
                 <table class="details_view">
                     <tr>
-                        <td class="title_name">Department Name :</td>
+                        <td class="title_name">Vehicle Type Name :</td>
                         <td>@Html.DisplayFor(model => model.TypeName)</td>
                     </tr>
                 </table>
