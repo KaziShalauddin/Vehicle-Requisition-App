@@ -1294,7 +1294,6 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Shared\_LayoutManager.cshtml" />
     <Content Include="thirdPartyCss\css\bootstrap.map" />
     <Content Include="thirdPartyCss\css\material-dashboard.css.map" />
     <Content Include="thirdPartyCss\fonts\fontawesome-webfont.eot" />
