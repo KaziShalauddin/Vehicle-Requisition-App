@@ -86,7 +86,8 @@ namespace VehicleManagementApp.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    return returnUrl != null ? RedirectToLocal(returnUrl) : RedirectToAction("Dashboard", "Home");
+
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -441,7 +442,7 @@ namespace VehicleManagementApp.Controllers
         IDistrictManager districtManager = new DistrictManager();
         IThanaManager thanaManager = new ThanaManager();
 
-       IDriverStatusManager driverStatusManager=new DriverStatusManager();
+        IDriverStatusManager driverStatusManager = new DriverStatusManager();
 
         private void GetDropDownsValues(EmployeeRegisterWithRoleViewModel model)
         {
@@ -455,7 +456,7 @@ namespace VehicleManagementApp.Controllers
             ViewBag.Departments = departments;
             ViewBag.Divisions = divisions;
 
-           
+
             model.Designations = designations;
             model.Districts = districts;
             model.Thanas = thanas;
@@ -572,10 +573,10 @@ namespace VehicleManagementApp.Controllers
             var departments = departmentManager.GetAll();
             var divisions = divisionManager.GetAll();
 
-            EmployeeRegisterWithRoleViewModel model=new EmployeeRegisterWithRoleViewModel();
-            model.Designations=new List<Designation>();
-            model.Districts=new List<District>();
-            model.Thanas=new List<Thana>();
+            EmployeeRegisterWithRoleViewModel model = new EmployeeRegisterWithRoleViewModel();
+            model.Designations = new List<Designation>();
+            model.Districts = new List<District>();
+            model.Thanas = new List<Thana>();
 
 
             ViewBag.Departments = departments;
@@ -610,7 +611,7 @@ namespace VehicleManagementApp.Controllers
                 HttpPostedFileBase imgFile = Request.Files["UserPhoto"];
                 if (imgFile != null && imgFile.ContentLength > 0)
                 {
-                    var fileName= GetFileNameToSave(imgName + DateTime.Now);
+                    var fileName = GetFileNameToSave(imgName + DateTime.Now);
                     imgFile.SaveAs(Server.MapPath("~/EmployeeImages/" + fileName));
                     //imgFile.SaveAs(Server.MapPath(Path.Combine()));
 
@@ -635,14 +636,15 @@ namespace VehicleManagementApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult EmployeeRegisterWithRole([Bind(Exclude = "UserPhoto")]EmployeeRegisterWithRoleViewModel model)
         {
-          
+
             // ModelState.Remove("UserPhoto");
             if (ModelState.IsValid)
             {
                 var imageData = GetImageData(model.Name);
-                if (HasFile(imageData)){
+                if (HasFile(imageData))
+                {
                     // To convert the user uploaded Photo as Byte Array before save to DB
-                    
+
                     var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
                     user.Id = Guid.NewGuid().ToString();
                     var password = "1234";
@@ -698,7 +700,7 @@ namespace VehicleManagementApp.Controllers
                 return Json(result, JsonRequestBehavior.AllowGet);
             }
             return Json(true, JsonRequestBehavior.AllowGet);
-           
+
         }
         [AllowAnonymous]
         public JsonResult UserAlreadyExists(string userName)
@@ -717,7 +719,7 @@ namespace VehicleManagementApp.Controllers
             return Json("User Name Already Exist, Try Another!", JsonRequestBehavior.AllowGet);
         }
 
-        
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

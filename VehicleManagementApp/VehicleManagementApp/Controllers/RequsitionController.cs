@@ -453,10 +453,11 @@ namespace VehicleManagementApp.Controllers
                 {
                     requestForEmployeeId = (int)requisitionVm.EmployeeId;
                 }
+                DateTime journyStartDate = (DateTime)requisitionVm.JourneyStartDate;
 
-
-                var journeyStart = requisitionVm.JourneyStartDate.Date + requisitionVm.JourneyStartTime.TimeOfDay;
-                var jouneyEnd = requisitionVm.JouneyEndDate.Date + requisitionVm.JouneyEndTime.TimeOfDay;
+                var journeyStart = journyStartDate.Date + requisitionVm.JourneyStartTime.TimeOfDay;
+                DateTime jouneyEndDate = (DateTime)requisitionVm.JouneyEndDate;
+                var jouneyEnd = jouneyEndDate.Date + requisitionVm.JouneyEndTime.TimeOfDay;
 
 
 
@@ -512,10 +513,11 @@ namespace VehicleManagementApp.Controllers
                 {
                     requestForEmployeeId = (int)requisitionVm.EmployeeId;
                 }
+                DateTime journyStartDate = (DateTime)requisitionVm.JourneyStartDate;
+                var journeyStart = journyStartDate.Date + requisitionVm.JourneyStartTime.TimeOfDay;
 
-
-                var journeyStart = requisitionVm.JourneyStartDate.Date + requisitionVm.JourneyStartTime.TimeOfDay;
-                var jouneyEnd = requisitionVm.JouneyEndDate.Date + requisitionVm.JouneyEndTime.TimeOfDay;
+                DateTime jouneyEndDate = (DateTime)requisitionVm.JouneyEndDate;
+                var jouneyEnd = jouneyEndDate.Date + requisitionVm.JouneyEndTime.TimeOfDay;
                
                 
 
@@ -664,10 +666,10 @@ namespace VehicleManagementApp.Controllers
             var driverId = driverStatusManager.Get(c => c.RequsitionId == id).Select(c => c.EmployeeId).FirstOrDefault();
             if (!User.IsInRole("Controller"))
             {
-                if (userEmployeeId != requisition.EmployeeId)
+                if (requisition.EmployeeId != userEmployeeId && requisition.RequestedBy != userEmployeeId)
                 {
                     TempData["msg"] = "Sorry, you have no permission to access this type of data!";
-                    return RedirectToAction("MyRequisitionList");
+                    return RedirectToAction("Dashboard","Home");
 
                 }
             }

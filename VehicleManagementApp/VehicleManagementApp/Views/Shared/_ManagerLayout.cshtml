@@ -66,7 +66,7 @@
     <meta name="description" content="Premium Quality and Responsive UI for Dashboard.">
     <meta name="author" content="ThemePixels">
 
-    <title>Babglades Computer Councile</title>
+    <title>Bangladesh Computer Councile</title>
 
     <!-- vendor css -->
 
@@ -78,7 +78,7 @@
     <link href="~/DashboardDesign/lib/jquery-switchbutton/jquery.switchButton.css" rel="stylesheet">
     <link href="~/DashboardDesign/lib/rickshaw/rickshaw.min.css" rel="stylesheet">
     <link href="~/DashboardDesign/lib/chartist/chartist.css" rel="stylesheet">
-
+    <link href="~/css/myCustom.css" rel="stylesheet" />
     <!-- Bracket CSS -->
     <link rel="stylesheet" href="~/DashboardDesign/css/animate.css">
     <link rel="stylesheet" href="~/DashboardDesign/css/bracket.css">
@@ -103,9 +103,9 @@
 <body>
 
     <!-- ########## START: LEFT PANEL ########## -->
-    <div class="br-logo"><a href="@Url.Action("Index","Home")"><span>[</span>BCC<span>]</span></a></div>
+    <div class="br-logo" style="background:#abd7fb !important "><a href="@Url.Action("Index","Home")"><span>[</span><img src="~/thirdPartyCss/img/Untitled-1 copy.png" style="width: 90%" alt="" title="" /><span>]</span></a></div>
     <div class="br-sideleft overflow-y-auto">
-        <label class="sidebar-label pd-x-15 mg-t-20">Navigation</label>    
+        <label class="sidebar-label pd-x-15 mg-t-20">Navigation</label>
         <div class="br-sideleft-menu">
             <a href="@Url.Action("Index","Manager")" class="br-menu-link active">
                 <div class="br-menu-item">
@@ -187,34 +187,37 @@
             </ul>
 
 
-            <a href="@Url.Action("DriverList", "Employee")" class="br-menu-link">
+            <a href="@Url.Action("Car", "Manager")" class="br-menu-link">
                 <div class="br-menu-item">
                     <i class="fa fa-car" aria-hidden="true"></i>
                     <span class="menu-item-label">Total Vehicle</span>
                 </div><!-- menu-item -->
             </a><!-- br-menu-link -->
 
-            <a href="@Url.Action("Car", "Manager")" class="br-menu-link">
+            <a href="@Url.Action("DriverList", "Employee")" class="br-menu-link">
                 <div class="br-menu-item">
                     <i class="fa fa-male" aria-hidden="true"></i>
                     <span class="menu-item-label">Total Driver</span>
                 </div><!-- menu-item -->
             </a><!-- br-menu-link -->
-        
+
         </div><!-- br-sideleft-menu -->
     </div><!-- info-lst -->
     <!-- ########## END: LEFT PANEL ########## -->
     <!-- ########## START: HEAD PANEL ########## -->
-    <div class="br-header">
+    <div class="br-header" style="background:#abd7fb !important ">
         <div class="br-header-left">
             <div class="navicon-left hidden-md-down"><a id="btnLeftMenu" href=""><i class="icon ion-navicon-round"></i></a></div>
-            <div class="navicon-left hidden-lg-up"><a id="btnLeftMenuMobile" href=""><i class="icon ion-navicon-round"></i></a></div>
-            <div class="input-group hidden-xs-down wd-170 transition">
-                <input id="searchbox" type="text" class="form-control" placeholder="Search">
-                <span class="input-group-btn">
-                    <button class="btn btn-secondary" type="button"><i class="fa fa-search"></i></button>
-                </span>
-            </div><!-- input-group -->
+            <div class="navicon-left hidden-lg-up">
+                <a id="btnLeftMenuMobile" href=""><i class="icon ion-navicon-round"></i></a>
+
+            </div>
+            @*<div class="input-group hidden-xs-down wd-170 transition">
+                    <input id="searchbox" type="text" class="form-control" placeholder="Search">
+                    <span class="input-group-btn">
+                        <button class="btn btn-secondary" type="button"><i class="fa fa-search"></i></button>
+                    </span>
+                </div>*@<!-- input-group -->
         </div><!-- br-header-left -->
 
 
@@ -370,12 +373,12 @@
 
             <!-- language -->
             @*<div class="language">
-                <select>
-                    <option>Language</option>
-                    <option>Bangla</option>
-                    <option>English</option>
-                </select>
-            </div>*@
+                    <select>
+                        <option>Language</option>
+                        <option>Bangla</option>
+                        <option>English</option>
+                    </select>
+                </div>*@
             <!-- language -->
 
             <div class="navicon-right">
@@ -785,7 +788,7 @@
     <!-- ########## START: MAIN PANEL ########## -->
     <div class="br-mainpanel">
         <div class="pd-30">
-            
+
         </div><!-- d-flex -->
 
         <div class="br-pagebody mg-t-5 pd-x-30">
@@ -807,72 +810,72 @@
                     <a target="_blank" class="pd-x-5" href="https://twitter.com/home?status=Bracket,%20your%20best%20choice%20for%20premium%20quality%20admin%20template%20from%20Bootstrap.%20Get%20it%20now%20at%20http%3A//themepixels.me/bracket/intro"><i class="fa fa-twitter tx-20"></i></a>
                 </div>
             </footer>
-            </div><!-- br-mainpanel -->
-        </div>
-        <!-- ########## END: MAIN PANEL ########## -->
+        </div><!-- br-mainpanel -->
+    </div>
+    <!-- ########## END: MAIN PANEL ########## -->
 
-        <script src="~/DashboardDesign/lib/jquery/jquery.js"></script>
-        <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-hover-dropdown/2.2.1/bootstrap-hover-dropdown.js"></script>
-        <script src="~/DashboardDesign/lib/popper.js/popper.js"></script>
-        <script src="~/DashboardDesign/lib/bootstrap/bootstrap.js"></script>
-        <script src="~/DashboardDesign/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
-        <script src="~/DashboardDesign/lib/moment/moment.js"></script>
-        <script src="~/DashboardDesign/lib/jquery-ui/jquery-ui.js"></script>
-        <script src="~/DashboardDesign/lib/jquery-switchbutton/jquery.switchButton.js"></script>
-        <script src="~/DashboardDesign/lib/peity/jquery.peity.js"></script>
-        <script src="~/DashboardDesign/lib/chartist/chartist.js"></script>
-        <script src="~/DashboardDesign/lib/jquery.sparkline.bower/jquery.sparkline.min.js"></script>
-        <script src="~/DashboardDesign/lib/d3/d3.js"></script>
-        <script src="~/DashboardDesign/lib/rickshaw/rickshaw.min.js"></script>
+    <script src="~/DashboardDesign/lib/jquery/jquery.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-hover-dropdown/2.2.1/bootstrap-hover-dropdown.js"></script>
+    <script src="~/DashboardDesign/lib/popper.js/popper.js"></script>
+    <script src="~/DashboardDesign/lib/bootstrap/bootstrap.js"></script>
+    <script src="~/DashboardDesign/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
+    <script src="~/DashboardDesign/lib/moment/moment.js"></script>
+    <script src="~/DashboardDesign/lib/jquery-ui/jquery-ui.js"></script>
+    <script src="~/DashboardDesign/lib/jquery-switchbutton/jquery.switchButton.js"></script>
+    <script src="~/DashboardDesign/lib/peity/jquery.peity.js"></script>
+    <script src="~/DashboardDesign/lib/chartist/chartist.js"></script>
+    <script src="~/DashboardDesign/lib/jquery.sparkline.bower/jquery.sparkline.min.js"></script>
+    <script src="~/DashboardDesign/lib/d3/d3.js"></script>
+    <script src="~/DashboardDesign/lib/rickshaw/rickshaw.min.js"></script>
 
 
-        <script src="~/DashboardDesign/js/bracket.js"></script>
-        <script src="~/DashboardDesign/js/ResizeSensor.js"></script>
-        <script src="~/DashboardDesign/js/dashboard.js"></script>
+    <script src="~/DashboardDesign/js/bracket.js"></script>
+    <script src="~/DashboardDesign/js/ResizeSensor.js"></script>
+    <script src="~/DashboardDesign/js/dashboard.js"></script>
 
-        <script type="text/javascript">
-                function googleTranslateElementInit() {
-                    new google.translate.TranslateElement({ pageLanguage: 'en', includedLanguages: 'bn,en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE }, 'google_translate_element');
-                }
-        </script>
-        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({ pageLanguage: 'en', includedLanguages: 'bn,en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-        @RenderSection("scripts", false)
+    @RenderSection("scripts", false)
 
-        <script>
+    <script>
 
-	$(document).ready( function () {
-		$('#myTable').DataTable();
-		$('#chartLine1').hide();
-	} );
-
-      $(function() {
-          'use strict';
-
-        // FOR DEMO ONLY
-        // menu collapsed by default during first page load or refresh with screen
-        // having a size between 992px and 1299px. This is intended on this page only
-        // for better viewing of widgets demo.
-        $(window).resize(function(){
-          minimizeMenu();
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+            $('#chartLine1').hide();
         });
 
-        minimizeMenu();
+        $(function () {
+            'use strict';
 
-        function minimizeMenu() {
-          if(window.matchMedia('(min-width: 992px)').matches && window.matchMedia('(max-width: 1299px)').matches) {
-            // show only the icons and hide left menu label by default
-            $('.menu-item-label,.menu-item-arrow').addClass('op-lg-0-force d-lg-none');
-            $('body').addClass('collapsed-menu');
-            $('.show-sub + .br-menu-sub').slideUp();
-          } else if(window.matchMedia('(min-width: 1300px)').matches && !$('body').hasClass('collapsed-menu')) {
-            $('.menu-item-label,.menu-item-arrow').removeClass('op-lg-0-force d-lg-none');
-            $('body').removeClass('collapsed-menu');
-            $('.show-sub + .br-menu-sub').slideDown();
-          }
-        }
-      });
-        </script>
+            // FOR DEMO ONLY
+            // menu collapsed by default during first page load or refresh with screen
+            // having a size between 992px and 1299px. This is intended on this page only
+            // for better viewing of widgets demo.
+            $(window).resize(function () {
+                minimizeMenu();
+            });
+
+            minimizeMenu();
+
+            function minimizeMenu() {
+                if (window.matchMedia('(min-width: 992px)').matches && window.matchMedia('(max-width: 1299px)').matches) {
+                    // show only the icons and hide left menu label by default
+                    $('.menu-item-label,.menu-item-arrow').addClass('op-lg-0-force d-lg-none');
+                    $('body').addClass('collapsed-menu');
+                    $('.show-sub + .br-menu-sub').slideUp();
+                } else if (window.matchMedia('(min-width: 1300px)').matches && !$('body').hasClass('collapsed-menu')) {
+                    $('.menu-item-label,.menu-item-arrow').removeClass('op-lg-0-force d-lg-none');
+                    $('body').removeClass('collapsed-menu');
+                    $('.show-sub + .br-menu-sub').slideDown();
+                }
+            }
+        });
+    </script>
 </body>
 </html>

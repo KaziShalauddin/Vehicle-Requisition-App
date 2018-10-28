@@ -1,0 +1,74 @@
+﻿@using Microsoft.Ajax.Utilities
+@model IEnumerable<VehicleManagementApp.ViewModels.RequsitionViewModel>
+@{
+    int sl = 1;
+}
+
+<table class="table table-bordered table-striped" id="myTable">
+    <thead>
+    <tr>
+        <th>@Html.Raw("SL")</th>
+        <th>
+            @Html.Raw("Employee Name")
+        </th>
+        <th>
+            @Html.Raw("Starting Place")
+        </th>
+        <th>
+            @Html.Raw("Destination Place")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JourneyStart)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JouneyEnd)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@(sl++)</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Employee.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Form)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.To)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JourneyStart)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JouneyEnd)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details_V2","Requsition", new {id = item.Id}, new {@class = "btn btn-info"})
+                @Html.ActionLink("Delete", "Delete", new {id = item.Id}, new {@class = "btn btn-danger", onclick = "return confirm('Are You Sure? You Want Delete !!')"})
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@section scripts
+{
+    <script src="~/scripts/DataTables/jquery.dataTables.min.js"></script>
+    <script src="~/scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#myTable').DataTable();
+        });
+    </script>
+}
+

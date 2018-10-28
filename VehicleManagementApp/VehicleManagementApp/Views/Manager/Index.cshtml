@@ -12,6 +12,8 @@
     var countAssign = managerAssign.Count;
     var countComplete = managerComplete.Count;
 }
+
+@*<img src="~/img/f8-01-512.png" alt="new comments" style="height: 5%; ">*@
 <div class="row row-sm">
     <div class="col-sm-6 col-xl-3">
         <div class="bg-teal rounded overflow-hidden">
@@ -21,6 +23,7 @@
                     <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">@Html.ActionLink("New Requisition List", "New", "Manager")</p>
                     <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">Total : @countNew</p>
                     <span class="tx-11 tx-roboto tx-white-6">New Comments: @Html.Raw(ViewBag.NewRequisitionComments)</span>
+
                 </div>
             </div>
         </div>

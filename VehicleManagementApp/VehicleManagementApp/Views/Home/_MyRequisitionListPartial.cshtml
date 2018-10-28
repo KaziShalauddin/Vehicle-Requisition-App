@@ -1,0 +1,104 @@
+﻿@using Microsoft.Ajax.Utilities
+@using VehicleManagementApp.BLL
+@using VehicleManagementApp.BLL.Contracts
+@model System.Collections.Generic.IEnumerable<VehicleManagementApp.ViewModels.MyRequsitionListViewModel>
+@{
+    int sl = 1;
+}
+<table class="table table-bordered table-striped" id="myTable">
+    <thead>
+        <tr>
+            <td>
+                @Html.Raw("SL")
+            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.RequestType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmployeeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RequestedBy)
+            </th>
+            <th>
+                @Html.DisplayName("From")
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.To)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.JourneyStart)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.JouneyEnd)
+            </th>
+
+            <th>
+                @Html.DisplayName("Comments")
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @(sl++)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequestType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmployeeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequestedBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Form)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.To)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                @{
+
+                    var startdate = item.JourneyStart.ToString("dd - MMM - yyyy hh:mm tt");
+                    var enddate = item.JouneyEnd.ToString("dd - MMM - yyyy hh:mm tt");
+                }
+                <td>
+                    @Html.Raw(startdate)
+                </td>
+                <td>
+                    @Html.Raw(enddate)
+                </td>
+
+                <td>
+                    @{
+                        ICommentManager commentManager = new CommentManager();
+                        var newComments = commentManager.Get(c => c.RequsitionId == item.Id).Count(c => c.ReceiverEmployeeId == ViewBag.UserEmployeeId && c.IsReceiverSeen == false);
+
+                    }
+                    <span>
+                        <img src="~/img/f8-01-512.png" alt="new comments" style="height: 10%; ">
+                        <span class="notification">@Html.Raw(newComments)</span>
+                    </span>
+
+                    @Html.ActionLink("Details", "Details_V2", "Requsition", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit","Requsition", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })
+                    <span style="width: 20px"></span>
+                    @Html.ActionLink("Cancel", "Delete","Requsition", new { id = item.Id, }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are You Sure? You Want To Cancel!')" })
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

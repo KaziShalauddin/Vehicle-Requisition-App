@@ -1,0 +1,77 @@
+﻿@model IEnumerable<VehicleManagementApp.ViewModels.RequsitionViewModel>
+@{
+    ViewBag.Title = "TodayAssignedList";
+    Layout = "~/Views/Shared/_LayoutManager.cshtml";
+    int sl = 1;
+}
+
+<table class="table table-bordered table-striped" id="myTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.Raw("SL")
+            </th>
+            <th>
+                @Html.Raw("Requisition No.")
+            </th>
+            <th>
+                @Html.Raw("Employee Info")
+            </th>
+
+            <th>
+                @Html.Raw("Requsition Place")
+
+            </th>
+            <th>
+                @Html.Raw("Journey Start")
+            </th>
+            <th>
+                @Html.Raw("Journey End")
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @(sl++)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequsitionNumber)
+                </td>
+                <td>
+                    Name: @Html.DisplayFor(modelItem => item.Employee.Name)
+
+                    Contact No.: @Html.DisplayFor(modelItem => item.Employee.ContactNo)
+                </td>
+
+                <td>
+                    From :   @Html.DisplayFor(modelItem => item.Form)
+                    <br />
+                    To : @Html.DisplayFor(modelItem => item.To)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndTime)
+                </td>
+                <td class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        button
+                    </button>
+                    <div class="dropdown-menu" id="dropdownMenu2">
+                        @Html.ActionLink("Print", "Print_V2", new { id = item.Id }, new { @class = "btn btn-info" })
+                        @Html.ActionLink("Reassign", "Reassign_V2", new { id = item.Id }, new { @class = "btn btn-success", onclick = "return confirm('Are You Sure? You Want To Re-Assign This Requisition ?')" })
+                        @Html.ActionLink("Check In", "CheckIn_V2", new { id = item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are You Sure? You Want To Check In !!')" })
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-default" })
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

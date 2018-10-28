@@ -45,9 +45,11 @@
             padding-left: 50px;
             padding-right: 50px;
         }
+
         .goog-te-banner-frame.skiptranslate {
             display: none !important;
         }
+
         body {
             top: 0px !important;
         }
@@ -168,6 +170,10 @@
                         }
                         @if (User.IsInRole(AppEnum.RoleEnum.Employee.ToString()))
                         {
+
+
+                            <li>@Html.ActionLink("My Dashboard", "Dashboard", "Home")</li>
+
                             <li class="menu-has-children">
                                 <a href="#">Requisition</a>
                                 <ul>
@@ -175,7 +181,7 @@
 
                                 </ul>
                             </li>
-                          
+
 
                         }
 
@@ -193,9 +199,8 @@
                         <li>
                             @if (Request.IsAuthenticated)
                             {
-                                @*@if((User.Identity.GetUserId())*@
-                                <img src="@Url.Action("UserPhotos", "Home")" class="img-circle" style="height: 20px; width: 40px;" />
                             <li class="menu-has-children">
+                                <img src="@Url.Action("UserPhotos", "Home")" class="img-circle" style="height: 20px; width: 40px;" />
                                 <a href="#">Sign Out</a>
                                 <ul>@Html.Partial("_LoginPartial")</ul>
                             </li>
@@ -206,84 +211,85 @@
                         }
 
 
-                            </li>
-                            <li id="google_translate_element"></li>
-                        </ul>
+
+                        <li id="google_translate_element"></li>
+                    </ul>
 
 
 
-                        <!-- #nav-menu-container -->
+                    <!-- #nav-menu-container -->
 
-                    </nav>
+                </nav>
 
-                </div>
-            </div>
-
-        </header><!-- #header -->
-        @*Start Render Body*@
-
-        <div class="section-gap">
-            <div class="row" style="padding-left: 100px; padding-right: 100px; padding-top: 50px;">
-
-                <div class="slider_section">
-                    @RenderBody()
-                </div>
             </div>
         </div>
 
+    </header><!-- #header -->
+    @*Start Render Body*@
 
-        @*End Render Body*@
+    <div class="section-gap">
+        <div class="row" style="padding-left: 100px; padding-right: 100px; padding-top: 50px;">
 
-        <script src="~/thirdPartyCss/js/vendor/jquery-2.2.4.min.js"></script>
-        <script src="~/scripts/jquery.validate.js"></script>
-        <script src="~/scripts/jquery.validate.unobtrusive.js"></script>
-        <script src="~/scripts/DataTables/jquery.dataTables.min.js"></script>
-        @*<script src="~/scripts/jquery.datetimepicker.full.min.js"></script>*@
-        <script src="~/js/plugins.js"></script>
-        <script src="~/js/bootstrap.min.js"></script>
-        <script src="~/js/jquery.slicknav.min.js"></script>
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="~/thirdPartyCss/js/vendor/bootstrap.min.js"></script>
-        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
-        <script src="~/thirdPartyCss/js/easing.min.js"></script>
-        <script src="~/thirdPartyCss/js/hoverIntent.js"></script>
-        <script src="~/thirdPartyCss/js/superfish.min.js"></script>
-        <script src="~/thirdPartyCss/js/jquery.ajaxchimp.min.js"></script>
-        <script src="~/thirdPartyCss/js/jquery.magnific-popup.min.js"></script>
-        <script src="~/thirdPartyCss/js/owl.carousel.min.js"></script>
-        <script src="~/thirdPartyCss/js/hexagons.min.js"></script>
-        <script src="~/thirdPartyCss/js/jquery.nice-select.min.js"></script>
-        <script src="~/thirdPartyCss/js/jquery.counterup.min.js"></script>
-        <script src="~/thirdPartyCss/js/waypoints.min.js"></script>
-        <script src="~/thirdPartyCss/js/mail-script.js"></script>
-        <script src="~/thirdPartyCss/js/main.js"></script>
-        <script src="~/scripts/jquery.unobtrusive-ajax.js"></script>
-
-        @*<script src="~/js/owl.carousel.min.js"></script>
-            <script src="~/js/wow.min.js"></script>
-            <script src="~/js/jquery.fitvids.js"></script>
-            <script src="~/js/main.js"></script>*@
+            <div class="slider_section">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
 
 
-        <script type="text/javascript">
-            function googleTranslateElementInit() {
-                new google.translate.TranslateElement({ pageLanguage: 'en', includedLanguages: 'bn,en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE }, 'google_translate_element');
-            }
-        </script>
-        <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    @*End Render Body*@
+    
+    <script src="~/thirdPartyCss/js/vendor/jquery-2.2.4.min.js"></script>
+    <script src="~/scripts/jquery.validate.js"></script>
+    <script src="~/scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/scripts/DataTables/jquery.dataTables.min.js"></script>
+    @*<script src="~/scripts/jquery.datetimepicker.full.min.js"></script>*@
+    <script src="~/scripts/jquery-ui.js"></script>
+    <script src="~/js/plugins.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/jquery.slicknav.min.js"></script>
 
-        <script type="text/javascript">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="~/thirdPartyCss/js/vendor/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
+    <script src="~/thirdPartyCss/js/easing.min.js"></script>
+    <script src="~/thirdPartyCss/js/hoverIntent.js"></script>
+    <script src="~/thirdPartyCss/js/superfish.min.js"></script>
+    <script src="~/thirdPartyCss/js/jquery.ajaxchimp.min.js"></script>
+    <script src="~/thirdPartyCss/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/thirdPartyCss/js/owl.carousel.min.js"></script>
+    <script src="~/thirdPartyCss/js/hexagons.min.js"></script>
+    <script src="~/thirdPartyCss/js/jquery.nice-select.min.js"></script>
+    <script src="~/thirdPartyCss/js/jquery.counterup.min.js"></script>
+    <script src="~/thirdPartyCss/js/waypoints.min.js"></script>
+    <script src="~/thirdPartyCss/js/mail-script.js"></script>
+    <script src="~/thirdPartyCss/js/main.js"></script>
+    <script src="~/scripts/jquery.unobtrusive-ajax.js"></script>
 
-            $(document).ready(function () {
-
-                $('#myTable').DataTable();
-
-            });
-        </script>
-
-        @RenderSection("scripts", required: false)
+    @*<script src="~/js/owl.carousel.min.js"></script>
+        <script src="~/js/wow.min.js"></script>
+        <script src="~/js/jquery.fitvids.js"></script>
+        <script src="~/js/main.js"></script>*@
 
 
-    </body>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({ pageLanguage: 'en', includedLanguages: 'bn,en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#myTable').DataTable();
+
+        });
+    </script>
+
+    @RenderSection("scripts", required: false)
+
+
+</body>
 </html>
