@@ -5,7 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     int sl = 1;
 }
-
+<br />
+<h2 style="padding-bottom: 30px; text-align: center">Completed Requisitions List</h2>
+<br />
 @using (Html.BeginForm())
 {
     <div class="row">
@@ -32,7 +34,7 @@
         </div>
     </div>
 }
-
+<div class="row" style="height: 30px"></div>
 <div id="resultDiv">
     @Html.Partial("_CompleteRequsitionPartial", Model.RequsitionViewModels)
 </div>

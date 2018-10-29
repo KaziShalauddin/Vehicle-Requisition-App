@@ -177,15 +177,23 @@ article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, s
 }
 
 body {
-  margin: 0;
+  /*margin: 0;
   font-family: "Roboto", "Helvetica Neue", Arial, sans-serif;
   font-size: 0.875rem;
   font-weight: normal;
   line-height: 1.5;
   color: #868ba1;
-  background-color: #E9ECEF;
+  background-color: #E9ECEF;*/
+   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.428571429;
+  color: #333333;
+  background-color: #ffffff;
 }
-
+.table-bordered {
+            border: 1px solid #dda0dd;
+            margin-bottom: 15px;
+        }
 /*language css start*/
 .language{
 	margin-right: 9px;
@@ -346,9 +354,9 @@ textarea {
   touch-action: manipulation;
 }
 
-table {
+/*table {
   border-collapse: collapse;
-}
+}*/
 
 caption {
   padding-top: 0.75rem;
@@ -358,9 +366,9 @@ caption {
   caption-side: bottom;
 }
 
-th {
+/*th {
   text-align: left;
-}
+}*/
 
 label {
   display: inline-block;
@@ -1355,7 +1363,7 @@ pre code {
     order: 12;
   }
 }
-.table {
+/*.table {
   width: 100%;
   max-width: 100%;
   margin-bottom: 1rem;
@@ -1384,11 +1392,11 @@ pre code {
 }
 
 .table-bordered {
-  border: 1px solid #dee2e6;
+  border: 1px solid #dda0dd;
 }
 .table-bordered th,
 .table-bordered td {
-  border: 1px solid #dee2e6;
+  border: 1px solid #dda0dd;
 }
 .table-bordered thead th,
 .table-bordered thead td {
@@ -1549,14 +1557,14 @@ pre code {
   border-color: #32383e;
 }
 .table-inverse.table-bordered {
-  border: 0;
+  border: 0 solid #dda0dd;
 }
 .table-inverse.table-striped tbody tr:nth-of-type(odd) {
   background-color: rgba(255, 255, 255, 0.05);
 }
 .table-inverse.table-hover tbody tr:hover {
   background-color: rgba(255, 255, 255, 0.075);
-}
+}*/
 
 @media (max-width: 991px) {
   .table-responsive {
@@ -1566,7 +1574,7 @@ pre code {
     -ms-overflow-style: -ms-autohiding-scrollbar;
   }
   .table-responsive.table-bordered {
-    border: 0;
+    border: 0 solid #dda0dd;
   }
 }
 
@@ -3836,7 +3844,7 @@ tbody.collapse.show {
 .jumbotron {
   padding: 2rem 1rem;
   margin-bottom: 2rem;
-  background-color: #d0dae4;
+  background-color: #bee5eb;
   border-radius: 0.3rem;
 }
 @media (min-width: 576px) {
@@ -8913,6 +8921,7 @@ a:active {
 
 .list-group-striped .list-group-item:nth-child(even) {
   background-color: #f8f9fa;
+    border:1px solid #dda0dd;
 }
 
 .iconwrap {
@@ -10164,7 +10173,7 @@ textarea.parsley-error:active {
 /* ------------------------------------------- */
 /* ############### 3.13 Tables ############### */
 /* ------------------------------------------- */
-.table {
+/*.table {
   border-collapse: separate;
   border-spacing: 0;
 }
@@ -10548,7 +10557,7 @@ textarea.parsley-error:active {
 .table-light > thead > tr > th,
 .table-light > thead > tr > td {
   color: #343a40;
-}
+}*/
 
 /* -------------------------------------------- */
 /* ############### 3.15 Widgets ############### */
@@ -11529,7 +11538,7 @@ textarea.parsley-error:active {
 /* ---------------------------------------------- */
 /* ############### 4.3 DataTables ############### */
 /* ---------------------------------------------- */
-table.dataTable {
+/*table.dataTable {
   border: 1px solid #dee2e6;
   margin-bottom: 15px;
 }
@@ -11610,10 +11619,10 @@ table.dataTable.no-footer {
 .dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:focus {
   background-color: #e9ecef;
   color: #adb5bd !important;
-}
+}*/
 
 /* ############### RTL SUPPORT ############### */
-.rtl table.dataTable thead th.sorting::after, .rtl table.dataTable thead th.sorting_asc::after, .rtl table.dataTable thead th.sorting_desc::after, .rtl table.dataTable thead td.sorting::after, .rtl table.dataTable thead td.sorting_asc::after, .rtl table.dataTable thead td.sorting_desc::after {
+/*.rtl table.dataTable thead th.sorting::after, .rtl table.dataTable thead th.sorting_asc::after, .rtl table.dataTable thead th.sorting_desc::after, .rtl table.dataTable thead td.sorting::after, .rtl table.dataTable thead td.sorting_asc::after, .rtl table.dataTable thead td.sorting_desc::after {
   right: auto;
   left: 8px;
 }
@@ -11628,7 +11637,7 @@ table.dataTable.no-footer {
 .rtl .dataTables_filter {
   padding-right: 0;
   padding-left: 5px;
-}
+}*/
 
 /* ---------------------------------------- */
 /* ############### 4.4 Flot ############### */
@@ -13471,7 +13480,7 @@ textarea.parsley-success:focus {
   padding: 0 15px;
   height: 40px;
   letter-spacing: 0.2px;
-  font-size: .85rem;
+  
 }
 
 .menu-item-icon {

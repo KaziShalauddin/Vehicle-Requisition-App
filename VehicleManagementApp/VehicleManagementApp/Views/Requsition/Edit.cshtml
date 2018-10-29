@@ -1,32 +1,54 @@
-﻿@model VehicleManagementApp.ViewModels.RequsitionViewModel
+﻿@using VehicleManagementApp.BLL
+@using VehicleManagementApp.BLL.Contracts
+@model VehicleManagementApp.ViewModels.EditRequisitionViewModel
 
 @{
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var employees = ViewBag.Employees;
 }
 
 <h2>Edit Requsition</h2>
-<hr/>
+<hr />
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
-
-
         <div class="form-group">
-            @Html.LabelFor(model => model.EmployeeId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("EmployeeId", null , "Employe Name", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.EmployeeId, "", new { @class = "text-danger" })
+            <div class="row col-md-12">
+                @Html.LabelFor(model => model.RequestType, htmlAttributes: new { @class = "control-label col-md-4" })<span class="reqst">*</span>
+                <div class="col-md-7">
+                    @Html.DropDownListFor(model => model.RequestType, new SelectList(Model.RequestTypes, "Text", "Text"), new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.RequestType, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
-
-
+        <div class="form-group">
+            <div class="row col-md-12">
+                @Html.LabelFor(model => model.RequestForOther, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-7 ">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.RequestForOther)
+                        @Html.ValidationMessageFor(model => model.RequestForOther, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group" id="EmployeeDiv">
+            <div class="row col-md-12">
+                @Html.LabelFor(model => model.EmployeeId, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-7">
+                    @Html.DropDownListFor(model => model.EmployeeId, new SelectList(employees, "Id", "Name"), "--Select Employee--", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.EmployeeId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.Form, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -51,39 +73,185 @@
                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
             </div>
         </div>
+        @{
+            IRequsitionManager requisitionManager = new RequsitionManager();
+            var requsition = requisitionManager.GetById(Model.Id);
+            var startdate = requsition.JourneyStart.ToString("dd - MMM - yyyy hh:mm tt");
+            var enddate = requsition.JouneyEnd.ToString("dd - MMM - yyyy hh:mm tt");
+        }
+        
+        <div class="form-group">
+            <div class="row col-md-12">
+                @Html.Label("Previous Journey Start", htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-7">
+                    @Html.Label(startdate, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+        </div>
+
 
         <div class="form-group">
-            @Html.LabelFor(model => model.JourneyStart, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.JourneyStart, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.JourneyStart, "", new { @class = "text-danger" })
+            <div class="row col-md-12">
+                @Html.Label("New Journey Start Date", htmlAttributes: new { @class = "control-label col-md-4" })<span class="reqst">*</span>
+                <div class="col-md-7">
+                    @Html.EditorFor(model => model.JourneyStartDate, new { htmlAttributes = new { @class = "form-control", placeholder = "Journey Start Date", @readonly = "true" } })
+                    @Html.ValidationMessageFor(model => model.JourneyStartDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row col-md-12">
+                @Html.Label("New Journey Start Time", htmlAttributes: new { @class = "control-label col-md-4" })<span class="reqst">*</span>
+                <div class="col-md-7">
+                    @Html.EditorFor(model => model.JourneyStartTime, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.JourneyStartTime, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row col-md-12">
+                @Html.Label("Previous Jouney End", htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-7">
+                    @Html.Label(enddate, new { htmlAttributes = new { @class = "form-control" } })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row col-md-12">
+                @Html.Label("New Journey End Date", htmlAttributes: new { @class = "control-label col-md-4" })<span class="reqst">*</span>
+                <div class="col-md-7">
+                    @Html.EditorFor(model => model.JouneyEndDate, new { htmlAttributes = new { @class = "form-control", placeholder = "Journey End Date", @readonly = "true" } })
+                    @Html.ValidationMessageFor(model => model.JouneyEndDate, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.JouneyEnd, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.JouneyEnd, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.JouneyEnd, "", new { @class = "text-danger" })
+            <div class="row col-md-12">
+                @Html.Label("New Journey End Time", htmlAttributes: new { @class = "control-label col-md-4" })<span class="reqst">*</span>
+                <div class="col-md-7">
+                    @Html.EditorFor(model => model.JouneyEndTime, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.JouneyEndTime, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
 
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.EmployeeId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.EmployeeId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.EmployeeId, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-default" onclick="myFunction()" />
+                @Html.ActionLink("Dashboard", "Dashboard", "Home", new { id = "" }, new { @class = "btn btn-secondary" })
             </div>
+
+
         </div>
     </div>
+            }
+
+@section scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('input[type=datetime]').datepicker({
+                dateFormat: "dd/M/yy",
+                changeMonth: true,
+                changeYear: true,
+                //yearRange: "-2:+0",
+                minDate: 0,
+                maxDate: "+12M +10D"
+            });
+
+        });
+        //$("#JouneyEndDate").rules('add', { greaterThan: "#JourneyStartDate" });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#EmployeeDiv").hide();
+            $("#resultDiv").hide();
+
+        });
+
+
+        $("#RequestForOther").change(function () {
+
+
+            if ($("#RequestForOther").is(":checked")) {
+                $("#EmployeeDiv").show();
+                $("#EmployeeId option:selected").text("--Select Employee--");
+                $("#EmployeeId").addClass(required = true);
+
+
+            } else {
+                $("#EmployeeDiv").hide();
+                $("#EmployeeId").addClass(required = false);
+
+
+            }
+        });
+
+    </script>
+
+    <script>
+
+
+
+        var startDate;
+        var endDate;
+        var startTime;
+        var endtTime;
+        $("#JouneyEndDate").change(function () {
+            debugger;
+            startDate = $("#JourneyStartDate").val();
+            endDate = $("#JouneyEndDate").val();
+
+            if (startDate > endDate) {
+                alert("End Date Should Be Greater Than Start Date");
+                //$("#JouneyEndDate").clear();
+            }
+
+        });
+        $("#JouneyEndTime").change(function () {
+
+            startDate = $("#JourneyStartDate").val();
+            endDate = $("#JouneyEndDate").val();
+            startTime = $("#JourneyStartTime").val();
+            endtTime = $("#JouneyEndTime").val();
+
+            if (startDate === endDate) {
+                if (startTime > endtTime)
+                    alert("End Time Should Be Greater Than Start Time");
+                // event.preventDefault();
+                //return false;
+            }
+
+            //return true;
+
+        });
+        function myFunction() {
+            debugger;
+            var formIsValid = true;
+            if (startDate > endDate) {
+                alert("End Date Should Be Greater Than Start Date");
+                //$("#JouneyEndDate").val = '';
+                formIsValid = false;
+
+
+            }
+            if (startDate === endDate) {
+                if (startTime > endtTime) {
+                    alert("End Time Should Be Greater Than Start Time");
+                    formIsValid = false;
+                }
+            }
+
+            if (formIsValid == false) {
+                event.preventDefault();
+            }
+
+        }
+
+    </script>
+
 }
 
-<div>
-    @Html.ActionLink("Back to List", "MyRequisitionList")
-</div>
+

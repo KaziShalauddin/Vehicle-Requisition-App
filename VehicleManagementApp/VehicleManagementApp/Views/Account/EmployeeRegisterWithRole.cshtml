@@ -1,7 +1,7 @@
 ﻿@model VehicleManagementApp.Models.EmployeeRegisterWithRoleViewModel
 @{
     ViewBag.Title = "Employee Register";
-    //Layout = "~/Views/Shared/_ManagerLayout.cshtml";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
     var departments = ViewBag.Departments;
 
 
@@ -10,6 +10,8 @@
 
 }
 @section styles{
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
     <style>
         .not-active {
             pointer-events: none;
@@ -90,7 +92,7 @@
             <div class="col-md-6 ">
 
                 <div class="form-group">
-                    @Html.Label("User Photo", new {@class = "col-md-4 control-label"})
+                    @Html.Label("User Photo")
                     <div id="imgPreview" class="thumbnail" style="display: block">
                         <img class="img-responsive" id="targetImg" style="height: 300px; width: 350px"/>
                         <div class="caption">

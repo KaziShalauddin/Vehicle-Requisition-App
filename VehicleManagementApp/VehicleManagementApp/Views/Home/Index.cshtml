@@ -1,5 +1,7 @@
 ﻿@{
+    Layout = "~/Views/Shared/_Layout_Previous.cshtml";
     ViewBag.Title = "Home Page";
+
 }
 
 
@@ -14,7 +16,7 @@
             <p class="text-white">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et <br> dolore magna aliqua. Ut enim ad minim.  sed do eiusmod tempor incididunt.
             </p>
-            <a href="#" class="primary-btn header-btn text-uppercase">Get Started</a>
+            <a href="@Url.Action("Login","Account")" class="primary-btn header-btn text-uppercase">Get Started</a>
         </div>
         @*</div>*@
     </div>

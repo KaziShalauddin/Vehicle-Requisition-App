@@ -1,0 +1,21 @@
+﻿@model List<VehicleManagementApp.ViewModels.ManagerViewModel>
+
+@{
+    ViewBag.Title = "Print";
+    Layout = "~/Views/Shared/_LayoutManager.cshtml";
+}
+
+<h2>Print</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="reportingCls">
+                @if (ViewBag.ReportViewer != null)
+                {
+                    Html.RenderPartial("_loadReport");
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -338,39 +338,76 @@ namespace VehicleManagementApp.Controllers
                 return HttpNotFound();
             }
             Requsition requisition = _requisitionManager.GetById((int)id);
-            RequsitionViewModel requisitionView = new RequsitionViewModel();
+            var userEmployeeId = GetEmployeeId();
+            ViewBag.UserEmployeeId = userEmployeeId;
+            EditRequisitionViewModel EditRequsition = new EditRequisitionViewModel();
+            EditRequsition.Id = requisition.Id;
+            EditRequsition.Form = requisition.Form;
+            EditRequsition.To = requisition.To;
+            EditRequsition.Description = requisition.Description;
+            EditRequsition.JourneyStart = requisition.JourneyStart;
+            EditRequsition.JourneyEnd = requisition.JouneyEnd;
+            EditRequsition.EmployeeId = (int)requisition.EmployeeId;
 
-            requisitionView.Id = requisition.Id;
-            requisitionView.Form = requisition.Form;
-            requisitionView.To = requisition.To;
-            requisitionView.Description = requisition.Description;
-            requisitionView.JourneyStart = requisition.JourneyStart;
-            requisitionView.JouneyEnd = requisition.JouneyEnd;
-            requisitionView.EmployeeId = (int)requisition.EmployeeId;
+            EditRequsition.RequestTypes = GetRequisitionTypes();
+            EditRequsition.RequestType = requisition.RequestType;
+            var employees = _employeeManager.Get(c => c.IsDriver == false && c.IsDeleted == false && c.Id != userEmployeeId);
+            ViewBag.Employees = employees.ToList();
 
-            ViewBag.EmployeeId = new SelectList(_employeeManager.GetAll(), "Id", "Name", requisition.EmployeeId);
-
-            return View(requisitionView);
+            return View(EditRequsition);
         }
 
         // POST: Requsition/Edit/5
         [HttpPost]
-        public ActionResult Edit(RequsitionViewModel requisitionVm)
+        public ActionResult Edit(EditRequisitionViewModel requisitionVm)
         {
             try
             {
-                Requsition reqiusition = new Requsition();
-                reqiusition.Id = requisitionVm.Id;
-                reqiusition.Form = requisitionVm.Form;
-                reqiusition.To = requisitionVm.To;
-                reqiusition.Description = requisitionVm.Description;
-                reqiusition.JourneyStart = requisitionVm.JourneyStart;
-                reqiusition.JouneyEnd = requisitionVm.JouneyEnd;
-                reqiusition.EmployeeId = requisitionVm.EmployeeId;
+               
+                if (ModelState.IsValid)
+                {
+                    int requestForEmployeeId;
+                    if (requisitionVm.RequestForOther == false)
+                    {
+                        requestForEmployeeId = GetEmployeeId();
 
-                _requisitionManager.Update(reqiusition);
+                    }
+                    else
+                    {
+                        requestForEmployeeId = (int)requisitionVm.EmployeeId;
+                    }
 
-                return RedirectToAction("Index");
+                    DateTime journyStartDate = (DateTime)requisitionVm.JourneyStartDate;
+
+                    var journeyStart = journyStartDate.Date + requisitionVm.JourneyStartTime.TimeOfDay;
+                    DateTime jouneyEndDate = (DateTime)requisitionVm.JouneyEndDate;
+                    var jouneyEnd = jouneyEndDate.Date + requisitionVm.JouneyEndTime.TimeOfDay;
+
+
+                    Requsition requisition = _requisitionManager.GetById((int)requisitionVm.Id);
+                    requisition.Form = requisitionVm.Form;
+                    requisition.To = requisitionVm.To;
+                    
+                    requisition.Description = requisitionVm.Description;
+                    requisition.JourneyStart = journeyStart;
+                    requisition.JouneyEnd = jouneyEnd;
+                    requisition.EmployeeId = requestForEmployeeId;
+
+                    requisition.RequestedBy = GetEmployeeId();
+                    requisition.RequestType = requisitionVm.RequestType;
+
+                    bool isUpdated = _requisitionManager.Update(requisition);
+                    if (isUpdated)
+                    {
+                        TempData["msg"] = "Requisition Updated Successfully";
+
+                    }
+                    else
+                    {
+                        TempData["msg"] = "Requisition Not Updated !";
+                    }
+                }
+                return RedirectToAction("Dashboard","Home");
             }
             catch
             {
@@ -663,7 +700,7 @@ namespace VehicleManagementApp.Controllers
             Requsition requisition = _requisitionManager.GetById((int)id);
             var userEmployeeId = GetEmployeeId();
             ViewBag.UserEmployeeId = userEmployeeId;
-            var driverId = driverStatusManager.Get(c => c.RequsitionId == id).Select(c => c.EmployeeId).FirstOrDefault();
+           
             if (!User.IsInRole("Controller"))
             {
                 if (requisition.EmployeeId != userEmployeeId && requisition.RequestedBy != userEmployeeId)
@@ -673,7 +710,7 @@ namespace VehicleManagementApp.Controllers
 
                 }
             }
-           
+            var driverId = driverStatusManager.Get(c => c.RequsitionId == id).Select(c => c.EmployeeId).FirstOrDefault();
             var vehicleId = vehicleStatusManager.Get(c => c.RequsitionId == id).Select(c => c.VehicleId).FirstOrDefault();
 
             AssignedListViewModel assignVm = new AssignedListViewModel
@@ -690,8 +727,7 @@ namespace VehicleManagementApp.Controllers
             return View(assignVm);
         }
 
-        private void GetCommentViewModelForInsertComment(Requsition requisition, int userEmployeeId,
-            AssignedListViewModel assignVm)
+        private void GetCommentViewModelForInsertComment(Requsition requisition, int userEmployeeId,AssignedListViewModel assignVm)
         {
             int? emplId = requisition.EmployeeId;
             string employeeNam = requisition.Employee.Name;
@@ -834,6 +870,55 @@ namespace VehicleManagementApp.Controllers
                 Vehicle = vehicleManager.GetById(vehicleId)
             };
             return View(assignVm);
+        }
+        public ActionResult Print_V2(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Requsition requisition = _requisitionManager.GetById((int)id);
+            var driverId = driverStatusManager.Get(c => c.RequsitionId == id).Select(c => c.EmployeeId).FirstOrDefault();
+            var vehicleId = vehicleStatusManager.Get(c => c.RequsitionId == id).Select(c => c.VehicleId).FirstOrDefault();
+
+            AssignedListViewModel assignVm = new AssignedListViewModel
+            {
+                Requisition = requisition,
+                Employee = _employeeManager.GetById((int)requisition.EmployeeId),
+                Driver = _employeeManager.GetById(driverId),
+                Vehicle = vehicleManager.GetById(vehicleId)
+            };
+
+            List<ManagerViewModel> managerViewModels = new List<ManagerViewModel>();
+
+            var managersVM = new ManagerViewModel
+            {
+                Id = assignVm.Id,
+                EmployeeName = assignVm.Employee.Name,
+                EmployeNumber = assignVm.Employee.ContactNo,
+                JourneyEnd = assignVm.Requisition.JouneyEnd,
+                To = assignVm.Requisition.To,
+                Description = assignVm.Requisition.Description,
+                JourneyStart = assignVm.Requisition.JourneyStart,
+                DriverName = assignVm.Driver.Name,
+                VehicleModel = assignVm.Vehicle.Name,
+                Designation = assignVm.Employee.Designation.Name
+            };
+
+            managerViewModels.Add(managersVM);
+            string reportpath = Request.MapPath(Request.ApplicationPath) + @"Report\AssignRequsition\RequsitionAssignRDLC.rdlc";
+            var reportViewer = new ReportViewer()
+            {
+                KeepSessionAlive = true,
+                SizeToReportContent = true,
+                Width = Unit.Percentage(100),
+                ProcessingMode = ProcessingMode.Local
+            };
+            reportViewer.LocalReport.ReportPath = reportpath;
+            ReportDataSource rds = new ReportDataSource("AssignRequsition", managerViewModels);
+            reportViewer.LocalReport.DataSources.Add(rds);
+            ViewBag.ReportViewer = reportViewer;
+            return View(managerViewModels);
         }
     }
 }

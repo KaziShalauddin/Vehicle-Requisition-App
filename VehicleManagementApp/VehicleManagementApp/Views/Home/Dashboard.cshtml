@@ -3,9 +3,10 @@
 
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_layout.cshtml";
+    //Layout = "~/Views/Shared/_Layout_Previous.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     IRequsitionManager managers = new RequsitionManager();
-    var managerNew = managers.Get(c => c.Status == null && c.IsDeleted == false).Where(c=>c.EmployeeId == ViewBag.UserEmployeeId).ToList();
+    var managerNew = managers.Get(c => c.Status == null && c.IsDeleted == false).Where(c => c.EmployeeId == ViewBag.UserEmployeeId).ToList();
     var countNew = managerNew.Count;
     var managerAssign = managers.Get(c => c.Status == "Assign" && c.IsDeleted == false).Where(c => c.EmployeeId == ViewBag.UserEmployeeId).ToList();
     var managerComplete = managers.Get(c => c.Status == "Complete" && c.IsDeleted == false).Where(c => c.EmployeeId == ViewBag.UserEmployeeId).ToList();
@@ -14,98 +15,512 @@
     var countAssign = managerAssign.Count;
     var countComplete = managerComplete.Count;
 }
-<div class="container">
-    @*<div class="row">
-            <div class="col-md-12" style="background-color: lightpink; height: 450px">
-                <h6 style="padding-top: 150px; text-align: center; font-size: 30px;">
-                    Wellcome
-                    <br/>
-                    To
-                    <br/>
-                    Manager Dashboad
-                </h6>
-            </div>
 
-        </div>*@
-    <div>
-        @if (TempData["msg"] != null)
-        {
-            <div class="alert alert-info">
-                @TempData["msg"]
-            </div>
+@section styles{
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">*@
+    <style>
+        a {
+            text-decoration: none;
         }
-    </div>
-    <div class="row col-md-12"></div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="col-md-6" style="float: left">
-                <div class="card card-actions" style="height: 10rem; width: 18rem;">
-                    <div class="card-title" style="text-align: center; font-size: 20px; color: black; padding-top: 40px;">
-                        @Html.ActionLink("New Requisition List", "NewList", "Home")
-                    </div>
-                    <div class="card-title" style="text-align: center; font-size: 20px; color: black;">
-                        <p class="card-subtitle">Total : @countNew </p>
-                    </div>
-                    <div class="card-title" style="text-align: center; font-size: 20px; color: black;">
-                        <span>
-                            @*<img src="~/img/f8-01-512.png" alt="new comments" style="height: 5%; ">*@
-                            <span>New Comments: @Html.Raw(ViewBag.NewRequisitionComments)</span>
 
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6" style="float: left">
-                <div class="card card-actions" style="height: 10rem; width: 18rem;">
-                    <div class="card-title" style="text-align: center; font-size: 20px; color: black; padding-top: 40px;">
-                        @Html.ActionLink("Hold Requisition List", "HoldList", "Home")
-                    </div>
-                    <div class="card-title" style="text-align: center; font-size: 20px; color: black;">
-                        <p class="card-subtitle">Total : @hold </p>
-                    </div>
-                    <div class="card-title" style="text-align: center; font-size: 20px; color: black;">
-                        <span>
-                            @*<img src="~/img/f8-01-512.png" alt="new comments" style="height: 5%; ">*@
-                            <span>New Comments: @Html.Raw(ViewBag.HoldRequisitionComments)</span>
+            a:hover {
+                text-decoration: none;
+            }
 
-                        </span>
-                    </div>
-                </div>
-            </div>
+        .not-active {
+            pointer-events: none;
+            cursor: default;
+            text-decoration: none;
+            color: black;
+        }
+
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        a.custom-card,
+        a.custom-card:hover {
+            color: inherit;
+        }
+    </style>
+    <style>
+        /*.nv {
+            padding-left: 0;
+            margin-bottom: 0;
+            list-style: none;
+           background-color: #eeeeee;
+        }
+
+            .nv:before,
+            .nv:after {
+                display: table;
+                content: " ";
+            }
+
+            .nv:after {
+                clear: both;
+            }
+
+            .nv:before,
+            .nv:after {
+                display: table;
+                content: " ";
+            }
+
+            .nv:after {
+                clear: both;
+            }
+
+            .nv > li {
+                position: relative;
+                display: block;
+            }
+
+                .nv > li > a {
+                    position: relative;
+                    display: block;
+                    padding: 10px 15px;
+                }
+
+                    .nv > li > a:hover,
+                    .nv > li > a:focus {
+                        text-decoration: none;
+                        background-color: #eeeeee;
+                    }
+
+                .nv > li.disabled > a {
+                    color: #999999;
+                }
+
+                    .nv > li.disabled > a:hover,
+                    .nv > li.disabled > a:focus {
+                        color: #999999;
+                        text-decoration: none;
+                        cursor: not-allowed;
+                        background-color: transparent;
+                    }
+
+            .nv .open > a,
+            .nv .open > a:hover,
+            .nv .open > a:focus {
+                background-color: #eeeeee;
+                border-color: #428bca;
+            }
+
+            .nv .nv-divider {
+                height: 1px;
+                margin: 9px 0;
+                overflow: hidden;
+                background-color: #e5e5e5;
+            }
+
+            .nv > li > a > img {
+                max-width: none;
+            }
+
+        .nv-tabs {
+            border-bottom: 1px solid #dddddd;
+        }
+
+            .nv-tabs > li {
+                float: left;
+                margin-bottom: -1px;
+            }
+
+                .nv-tabs > li > a {
+                    margin-right: 2px;
+                    line-height: 1.428571429;
+                    border: 1px solid transparent;
+                    border-radius: 4px 4px 0 0;
+                      color: #555555;
+                }
+
+                    .nv-tabs > li > a:hover {
+                        border-color: #eeeeee #eeeeee #dddddd;
+                    }
+
+                .nv-tabs > li.active > a,
+                .nv-tabs > li.active > a:hover,
+                .nv-tabs > li.active > a:focus {
+                    color: #555555;
+                    cursor: default;
+                    background-color: #ffffff;
+                    border: 1px solid #dddddd;
+                    border-bottom-color: transparent;
+                }
+
+            .nv-tabs.nv-justified {
+                width: 100%;
+                border-bottom: 0;
+            }
+
+                .nv-tabs.nv-justified > li {
+                    float: none;
+                }
+
+                    .nv-tabs.nv-justified > li > a {
+                        text-align: center;
+                    }
+
+        @@media (min-width: 768px) {
+            .nv-tabs.nv-justified > li {
+                display: table-cell;
+                width: 1%;
+            }
+        }
+
+        .nv-tabs.nv-justified > li > a {
+            margin-right: 0;
+            border-bottom: 1px solid #dddddd;
+        }
+
+        .nv-tabs.nv-justified > .active > a {
+            border-bottom-color: #ffffff;
+        }
+
+        .nv-pills > li {
+            float: left;
+        }
+
+            .nv-pills > li > a {
+                border-radius: 5px;
+            }
+
+            .nv-pills > li + li {
+                margin-left: 2px;
+            }
+
+            .nv-pills > li.active > a,
+            .nv-pills > li.active > a:hover,
+            .nv-pills > li.active > a:focus {
+                color: #ffffff;
+                background-color: #428bca;
+            }
+
+        .nv-stacked > li {
+            float: none;
+        }
+
+            .nv-stacked > li + li {
+                margin-top: 2px;
+                margin-left: 0;
+            }
+
+        .nv-justified {
+            width: 100%;
+        }
+
+            .nv-justified > li {
+                float: none;
+            }
+
+                .nv-justified > li > a {
+                    text-align: center;
+                }
+
+        @@media (min-width: 768px) {
+            .nv-justified > li {
+                display: table-cell;
+                width: 1%;
+            }
+        }
+
+        .nv-tabs-justified {
+            border-bottom: 0;
+        }
+
+            .nv-tabs-justified > li > a {
+                margin-right: 0;
+                border-bottom: 1px solid #dddddd;
+            }
+
+            .nv-tabs-justified > .active > a {
+                border-bottom-color: #ffffff;
+            }*/
+    </style>
+}
+
+<div>
+    @if (TempData["msg"] != null)
+            {
+        <div class="alert alert-info">
+            @TempData["msg"]
         </div>
-        @*<div class="row">
-           
-        </div>*@
-        <div class="col-md-12">
-            <div class="col-md-12" style="height: 5rem;"></div>
-            <div class="col-md-6" style="float: left">
-                <div class="card card-actions" style="height: 10rem; width: 18rem;">
-                    <div class="card-title" style="text-align: center; font-size: 20px; color: black; padding-top: 40px;">
-                        @Html.ActionLink("Assigned Requisition List", "AssignedList", "Home")
-                    </div>
-                    <div class="card-title" style="text-align: center; font-size: 20px; color: black;">
-                        <p class="card-subtitle">Total : @countAssign </p>
-                    </div>
-                    <div class="card-title" style="text-align: center; font-size: 20px; color: black;">
-                        <span>
-                            @*<img src="~/img/f8-01-512.png" alt="new comments" style="height: 5%; ">*@
-                            <span>New Comments: @Html.Raw(ViewBag.HoldRequisitionComments)</span>
-
-                        </span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6" style="float: left">
-                <div class="card card-actions" style="height: 10rem; width: 18rem;">
-                    <div class="card-title" style="text-align: center; font-size: 20px; color: black; padding-top: 40px;">
-                        @Html.ActionLink("Completed Requisition List", "CompleteRequsition", "Home")
-                    </div>
-                    <div class="card-title" style="text-align: center; font-size: 20px; color: black;">
-                        <p class="card-subtitle">Total : @countComplete </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    }
 </div>
+
+@if (User.IsInRole(AppEnum.RoleEnum.Employee.ToString()))
+{
+    <div class="container">
+
+        <br />
+        <br />
+        @*<ul class="nav nav-tabs" style="font-size:  20px; ">
+                <li class="active"><a data-toggle="tab" href="#tabs-2"></a></li>
+
+
+
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane active" id="tabs-2">*@
+        <div class="row row-sm">
+            <div class="col-md-12" style="height: 30px"></div>
+            <div class="col-sm-6 col-xl-3">
+                <div class="bg-teal rounded overflow-hidden">
+                    <a href="@Url.Action("NewList", "Home")" class="custom-card">
+                        <div class="pd-25 d-flex align-items-center">
+
+                            <i class="ion ion-earth tx-60 lh-0 tx-white op-7"></i>
+                            <div class="mg-l-20">
+                                <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">New Requisition List</p>
+                                <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">Total : @countNew</p>
+                                <span class="tx-11 tx-roboto tx-white-6">New Comments: @Html.Raw(ViewBag.NewRequisitionComments)</span>
+
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div><!-- col-3 -->
+            <div class="col-sm-6 col-xl-3 mg-t-20 mg-sm-t-0">
+                <div class="bg-danger rounded overflow-hidden">
+                    <a href="@Url.Action("HoldList", "Home")" class="custom-card">
+                        <div class="pd-25 d-flex align-items-center">
+                            <i class="ion ion-bag tx-60 lh-0 tx-white op-7"></i>
+                            <div class="mg-l-20">
+                                <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">Hold Requisition List</p>
+                                <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">Total : @hold </p>
+                                <span class="tx-11 tx-roboto tx-white-6">New Comments: @Html.Raw(ViewBag.HoldRequisitionComments)</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div><!-- col-3 -->
+            <div class="col-sm-6 col-xl-3 mg-t-20 mg-xl-t-0">
+                <div class="bg-primary rounded overflow-hidden">
+                    <a href="@Url.Action("AssignedList", "Home")" class="custom-card">
+                        <div class="pd-25 d-flex align-items-center">
+                            <i class="ion ion-monitor tx-60 lh-0 tx-white op-7"></i>
+                            <div class="mg-l-20">
+                                <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">Assigned Requisition List</p>
+                                <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">Total : @countAssign </p>
+                                <span class="tx-11 tx-roboto tx-white-6">New Comments: @Html.Raw(ViewBag.HoldRequisitionComments)</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+            </div><!-- col-3 -->
+            <div class="col-sm-6 col-xl-3 mg-t-20 mg-xl-t-0">
+                <div class="bg-br-primary rounded overflow-hidden">
+                    <a href="@Url.Action("CompleteRequsition", "Home")" class="custom-card">
+                        <div class="pd-25 d-flex align-items-center">
+                            <i class="ion ion-clock tx-60 lh-0 tx-white op-7"></i>
+                            <div class="mg-l-20">
+                                <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">Completed Requisition List</p>
+                                <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">Total : @countComplete</p>
+                                <span class="tx-11 tx-roboto tx-white-6">65.45% on average time</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div><!-- col-3 -->
+        </div>
+    </div>
+            @*</div>
+                </div>*@
+
+}
+@if (User.IsInRole(AppEnum.RoleEnum.Controller.ToString()))
+            { <div class="container">
+
+        <br />
+        <br />
+
+
+        <ul class="nav nav-tabs" style="font-size:  20px; ">
+            <li class="active"><a data-toggle="tab" href="#tabs-2">Admin Panel</a></li>
+            <li><a data-toggle="tab" href="#tabs-1">Personal Panel</a></li>
+
+
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane active" id="tabs-2">
+                <div class="row row-sm">
+                    <div class="col-md-12" style="height: 30px"></div>
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="bg-teal rounded overflow-hidden">
+                            <a href="@Url.Action("New", "Manager")" class="custom-card">
+                                <div class="pd-25 d-flex align-items-center">
+
+                                    <i class="ion ion-earth tx-60 lh-0 tx-white op-7"></i>
+                                    <div class="mg-l-20">
+                                        <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">New Requisition List</p>
+                                        <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">Total : @countNew</p>
+                                        <span class="tx-11 tx-roboto tx-white-6">New Comments: @Html.Raw(ViewBag.NewRequisitionComments)</span>
+
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div><!-- col-3 -->
+                    <div class="col-sm-6 col-xl-3 mg-t-20 mg-sm-t-0">
+                        <div class="bg-danger rounded overflow-hidden">
+                            <a href="@Url.Action("HoldIndex", "Manager")" class="custom-card">
+                                <div class="pd-25 d-flex align-items-center">
+                                    <i class="ion ion-bag tx-60 lh-0 tx-white op-7"></i>
+                                    <div class="mg-l-20">
+                                        <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">Hold Requisition List</p>
+                                        <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">Total : @hold </p>
+                                        <span class="tx-11 tx-roboto tx-white-6">New Comments: @Html.Raw(ViewBag.HoldRequisitionComments)</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div><!-- col-3 -->
+                    <div class="col-sm-6 col-xl-3 mg-t-20 mg-xl-t-0">
+                        <div class="bg-primary rounded overflow-hidden">
+                            <a href="@Url.Action("FullAssignList", "Manager")" class="custom-card">
+                                <div class="pd-25 d-flex align-items-center">
+                                    <i class="ion ion-monitor tx-60 lh-0 tx-white op-7"></i>
+                                    <div class="mg-l-20">
+                                        <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">Assigned Requisition List</p>
+                                        <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">Total : @countAssign </p>
+                                        <span class="tx-11 tx-roboto tx-white-6">New Comments: @Html.Raw(ViewBag.HoldRequisitionComments)</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                    </div><!-- col-3 -->
+                    <div class="col-sm-6 col-xl-3 mg-t-20 mg-xl-t-0">
+                        <div class="bg-br-primary rounded overflow-hidden">
+                            <a href="@Url.Action("CompleteRequsition", "Manager")" class="custom-card">
+                                <div class="pd-25 d-flex align-items-center">
+                                    <i class="ion ion-clock tx-60 lh-0 tx-white op-7"></i>
+                                    <div class="mg-l-20">
+                                        <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">Completed Requisition List</p>
+                                        <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">Total : @countComplete</p>
+                                        <span class="tx-11 tx-roboto tx-white-6">65.45% on average time</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div><!-- col-3 -->
+                </div>
+            </div>
+
+            <div class="tab-pane" id="tabs-1">
+                <div class="row row-sm">
+                    <div class="col-md-12" style="height: 30px"></div>
+                    <div class="col-sm-6 col-xl-3">
+                        <div class="bg-teal rounded overflow-hidden">
+                            <a href="@Url.Action("NewList", "Home")" class="custom-card">
+                                <div class="pd-25 d-flex align-items-center">
+
+                                    <i class="ion ion-earth tx-60 lh-0 tx-white op-7"></i>
+                                    <div class="mg-l-20">
+                                        <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">New Requisition List</p>
+                                        <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">Total : @countNew</p>
+                                        <span class="tx-11 tx-roboto tx-white-6">New Comments: @Html.Raw(ViewBag.NewRequisitionComments)</span>
+
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div><!-- col-3 -->
+                    <div class="col-sm-6 col-xl-3 mg-t-20 mg-sm-t-0">
+                        <div class="bg-danger rounded overflow-hidden">
+                            <a href="@Url.Action("HoldList", "Home")" class="custom-card">
+                                <div class="pd-25 d-flex align-items-center">
+                                    <i class="ion ion-bag tx-60 lh-0 tx-white op-7"></i>
+                                    <div class="mg-l-20">
+                                        <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">Hold Requisition List</p>
+                                        <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">Total : @hold </p>
+                                        <span class="tx-11 tx-roboto tx-white-6">New Comments: @Html.Raw(ViewBag.HoldRequisitionComments)</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div><!-- col-3 -->
+                    <div class="col-sm-6 col-xl-3 mg-t-20 mg-xl-t-0">
+                        <div class="bg-primary rounded overflow-hidden">
+                            <a href="@Url.Action("AssignedList", "Home")" class="custom-card">
+                                <div class="pd-25 d-flex align-items-center">
+                                    <i class="ion ion-monitor tx-60 lh-0 tx-white op-7"></i>
+                                    <div class="mg-l-20">
+                                        <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">Assigned Requisition List</p>
+                                        <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">Total : @countAssign </p>
+                                        <span class="tx-11 tx-roboto tx-white-6">New Comments: @Html.Raw(ViewBag.HoldRequisitionComments)</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                    </div><!-- col-3 -->
+                    <div class="col-sm-6 col-xl-3 mg-t-20 mg-xl-t-0">
+                        <div class="bg-br-primary rounded overflow-hidden">
+                            <a href="@Url.Action("CompleteRequsition", "Home")" class="custom-card">
+                                <div class="pd-25 d-flex align-items-center">
+                                    <i class="ion ion-clock tx-60 lh-0 tx-white op-7"></i>
+                                    <div class="mg-l-20">
+                                        <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">Completed Requisition List</p>
+                                        <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">Total : @countComplete</p>
+                                        <span class="tx-11 tx-roboto tx-white-6">65.45% on average time</span>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div><!-- col-3 -->
+                </div>
+            </div>
+
+
+        </div>
+        @*</div>*@
+        <div class="col-md-12" style="height: 30px"></div>
+    </div>
+}
+@section scripts{
+    @*<script src="~/js/bootstrap.min.js"></script>*@
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>*@
+    @*<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>*@
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //$("#tabs-2").addClass("not-active");
+            //$("#tabs-3").addClass("not-active");
+
+        });
+
+        //$(function () {
+
+        //    $("#defaultTab").tabs({
+
+
+        //    });
+
+        //});
+
+        $("#btnNext01").on("click", function () {
+            $(this).removeClass("active");
+            $("#tabs-2").addClass("active");
+        });
+        $("#btnNext02").on("click", function () {
+            $(this).removeClass("active");
+            $("#tabs-3").addClass("active");
+        });
+        //$(".nav li").on("click", function () {
+        //    $(".nav li").removeClass("active");
+        //    $(this).addClass("active");
+        //});
+        $('.btnNext').click(function () {
+            $('.nav-tabs > .active').next('li').find('a').trigger('click');
+        });
+
+        $('.btnPrevious').click(function () {
+            $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+        });
+    </script>
+}

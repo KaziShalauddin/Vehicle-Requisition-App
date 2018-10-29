@@ -102,7 +102,7 @@ namespace VehicleManagementApp.Controllers
             var employeeId = employee.Select(e => e.Id).FirstOrDefault();
             return employeeId;
         }
-        [Authorize(Roles = "Employee")]
+        [Authorize]
         public ActionResult Dashboard()
         {
             var userEmployeeId = GetEmployeeId();
@@ -411,11 +411,12 @@ namespace VehicleManagementApp.Controllers
         [HttpPost]
         public ActionResult SearchCompleteRequsition(FilteringSearchViewModel filteringSearchViewModels)
         {
-
+            var userEmployeeId = GetEmployeeId();
+            ViewBag.UserEmployeeId = userEmployeeId;
             var startTime = filteringSearchViewModels.Startdate;
             var endTime = filteringSearchViewModels.EndDate;
 
-            var searchingValue = _requisitionManager.Get(c => c.Status == "Complete" && c.IsDeleted == false);
+            var searchingValue = _requisitionManager.Get(c => c.Status == "Complete" && c.IsDeleted == false).Where(r => r.RequestedBy == userEmployeeId || r.EmployeeId == userEmployeeId);
             var completeRequsitionList = searchingValue.Where(c => c.JourneyStart >= startTime && c.JouneyEnd <= endTime);
 
             List<RequsitionViewModel> requsitionViewModels = new List<RequsitionViewModel>();
