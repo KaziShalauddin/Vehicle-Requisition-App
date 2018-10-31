@@ -1268,8 +1268,6 @@
     <Content Include="Views\Home\_MyRequisitionListPartial.cshtml" />
     <Content Include="Views\Shared\_ManagerLayout.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Shared\_LayoutHomeIndex.cshtml" />
-    <Content Include="Views\Shared\_FrontLayout.cshtml" />
     <Content Include="Views\Requsition\Print_V2.cshtml" />
     <None Include="Web References\com.onnorokomsms.api2\sendsms.disco" />
     <Content Include="Web.config">

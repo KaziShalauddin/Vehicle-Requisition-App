@@ -634,7 +634,7 @@ namespace VehicleManagementApp.Controllers
                     .GetUserManager<ApplicationUserManager>()
                     .FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
 
-            var employee = _employeeManager.Get(c => c.IsDriver == false && c.IsDeleted == false && c.UserId == user.Id);
+            var employee = _employeeManager.Get(c => c.IsDeleted == false && c.UserId == user.Id);
             var employeeId = employee.Select(e => e.Id).FirstOrDefault();
             return employeeId;
         }
@@ -690,7 +690,7 @@ namespace VehicleManagementApp.Controllers
             return View(requsitionViewModels);
         }
 
-        [Authorize(Roles = "Controller,Employee,Operator")]
+        [Authorize(Roles = "Controller,Employee,Operator,Driver")]
         public ActionResult Details_V2(int? id)
         {
             if (id == null)
@@ -700,17 +700,17 @@ namespace VehicleManagementApp.Controllers
             Requsition requisition = _requisitionManager.GetById((int)id);
             var userEmployeeId = GetEmployeeId();
             ViewBag.UserEmployeeId = userEmployeeId;
-           
+            var driverId = driverStatusManager.Get(c => c.RequsitionId == id).Select(c => c.EmployeeId).FirstOrDefault();
             if (!User.IsInRole("Controller"))
             {
-                if (requisition.EmployeeId != userEmployeeId && requisition.RequestedBy != userEmployeeId)
+                if (requisition.EmployeeId != userEmployeeId && requisition.RequestedBy != userEmployeeId && driverId!= userEmployeeId)
                 {
                     TempData["msg"] = "Sorry, you have no permission to access this type of data!";
                     return RedirectToAction("Dashboard","Home");
 
                 }
             }
-            var driverId = driverStatusManager.Get(c => c.RequsitionId == id).Select(c => c.EmployeeId).FirstOrDefault();
+            //var driverId = driverStatusManager.Get(c => c.RequsitionId == id).Select(c => c.EmployeeId).FirstOrDefault();
             var vehicleId = vehicleStatusManager.Get(c => c.RequsitionId == id).Select(c => c.VehicleId).FirstOrDefault();
 
             AssignedListViewModel assignVm = new AssignedListViewModel
@@ -745,7 +745,7 @@ namespace VehicleManagementApp.Controllers
         private void GetCommentList(Requsition requisition, AssignedListViewModel assignVm)
         {
             List<CommentViewModel> commentListViewModel = new List<CommentViewModel>();
-            var commentListView = commentManager.GetCommentsByRequisition(requisition.Id);
+            var commentListView = commentManager.GetCommentsByRequisition(requisition.Id).Where(c=>c.ReceiverEmployeeId==GetEmployeeId()||c.SenderEmployeeId==GetEmployeeId());
             foreach (var item in commentListView.ToList())
             {
                 var cmnt = new CommentViewModel
@@ -759,19 +759,17 @@ namespace VehicleManagementApp.Controllers
                     IsReceiverSeen = item.IsReceiverSeen,
                     ReceiverSeenTime = item.ReceiverSeenTime,
                     SenderEmployee = item.SenderEmployee,
-                    SenderEmployeeId = (int)item.SenderEmployeeId,
+                    SenderEmployeeId = (int) item.SenderEmployeeId,
                     ReceiverEmployee = item.ReceiverEmployee,
-                    ReceiverEmployeeId = (int)item.ReceiverEmployeeId,
+                    ReceiverEmployeeId = (int) item.ReceiverEmployeeId
                 };
-
-
                 commentListViewModel.Add(cmnt);
             }
             assignVm.CommentViewModels = commentListViewModel;
         }
 
 
-        [Authorize(Roles = "Controller,Employee,Operator")]
+        [Authorize(Roles = "Controller,Employee,Operator,Driver")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CreateComment_V2(CommentViewModel commentViewModel)
@@ -781,18 +779,70 @@ namespace VehicleManagementApp.Controllers
             var userName = User.Identity.Name;
             if (commentViewModel.ReceiverEmployeeId == null)
             {
-                var requestor = _requisitionManager.GetById(commentViewModel.RequsitionId);
-                if (requestor.Status == "Assign")
+                var requisition = _requisitionManager.GetById(commentViewModel.RequsitionId);
+                
+
+                if (requisition.Status == "Assign")
                 {
                     var driverId = driverStatusManager.Get(c => c.RequsitionId == commentViewModel.RequsitionId).Select(c => c.EmployeeId).FirstOrDefault();
-                    commentViewModel.ReceiverEmployeeId = driverId;
+                    if (User.IsInRole("Controller"))
+                    {
+                        if (commentViewModel.ReceiverForControllerComment == "Employee")
+                        {
+                            commentViewModel.ReceiverEmployeeId = requisition.EmployeeId;
+                        }
+                        if (commentViewModel.ReceiverForControllerComment == "Driver")
+                        {
+                            commentViewModel.ReceiverEmployeeId = driverId;
+                        }
+                        else
+                        {
+                            commentViewModel.ReceiverEmployeeId = requisition.EmployeeId;
+                        }
+
+                    }
+
+                    if (!User.IsInRole("Controller"))
+                    {
+                        if (driverId == GetEmployeeId())
+                        {
+                            commentViewModel.SenderEmployeeId = driverId;
+                            commentViewModel.ReceiverEmployeeId = requisition.EmployeeId;
+                        }
+
+                        else
+                        {
+                            commentViewModel.ReceiverEmployeeId = driverId;
+                        }
+                    }
+
                 }
-                else
-                {
-                    commentViewModel.ReceiverEmployeeId = requestor.EmployeeId;
-                }
+                
                
             }
+            //if (User.IsInRole("Controller"))
+            //{
+            //    var requisition = _requisitionManager.GetById(commentViewModel.RequsitionId);
+
+            //    if (requisition.Status == "Assign")
+            //    {
+            //        var driverId = driverStatusManager.Get(c => c.RequsitionId == commentViewModel.RequsitionId).Select(c => c.EmployeeId).FirstOrDefault();
+                  
+            //        if (commentViewModel.ReceiverForControllerComment == "Employee")
+            //        {
+            //            commentViewModel.ReceiverEmployeeId = requisition.EmployeeId;
+            //        }
+            //        if (commentViewModel.ReceiverForControllerComment == "Driver")
+            //        {
+            //            commentViewModel.ReceiverEmployeeId = driverId;
+            //        }
+            //    }
+            //    else
+            //    {
+            //        commentViewModel.ReceiverEmployeeId = requisition.EmployeeId;
+            //    }
+
+            //}
             Comment comment = new Comment
             {
                 RequsitionId = commentViewModel.RequsitionId,

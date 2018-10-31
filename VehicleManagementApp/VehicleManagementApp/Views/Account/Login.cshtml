@@ -2,6 +2,7 @@
 @model LoginViewModel
 @{
     ViewBag.Title = "Log in form";
+    Layout = "~/Views/Shared/_Layout_Previous.cshtml";
 }
 
 
@@ -11,12 +12,17 @@
 
 
 <div class="container">
+    <br />
+    <br/>
+    <br />
+    <br />
+    <br />
     <div class="row">
         <div class="col-md-8" style="padding-left: 100px">
             <h2>@ViewBag.Title.</h2>
+            <br />
+            <br />
 
-            <br />
-            <br />
             <section id="loginForm">
                 @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {

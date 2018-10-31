@@ -137,7 +137,7 @@
                 }
                 @if (User.IsInRole(AppEnum.RoleEnum.Controller.ToString()))
                 {
-                    if (Model.Requisition.Status != "Complete" || Model.Requisition.Status != "Assign")
+                    if (Model.Requisition.Status != "Complete" && Model.Requisition.Status != "Assign")
                     {
                         @Html.ActionLink("Edit", "Edit", new { id = Model.Requisition.Id }, new { @class = "btn btn-primary", onclick = "return confirm('Are You Sure? You Want To Edit!')" })
                         <span style="width: 30px;"></span>
@@ -189,6 +189,8 @@
         function handeCommentAddedComplete() {
 
             $("#Comments").val("");
+            $('#EmployeeReceiver').attr('checked', false);
+            $('#DriverReceiver').attr('checked', false);
         }
     </script>
 }

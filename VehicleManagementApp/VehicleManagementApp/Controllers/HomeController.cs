@@ -13,6 +13,7 @@ using VehicleManagementApp.ViewModels;
 
 namespace VehicleManagementApp.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
     
@@ -27,24 +28,26 @@ namespace VehicleManagementApp.Controllers
             this.commentManager = comment;
 
         }
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View();
         }
-
+        [AllowAnonymous]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
 
             return View();
         }
-
+        [AllowAnonymous]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
 
             return View();
         }
+
         public FileContentResult UserPhotos()
         {
             if (User.Identity.IsAuthenticated)
@@ -102,7 +105,7 @@ namespace VehicleManagementApp.Controllers
             var employeeId = employee.Select(e => e.Id).FirstOrDefault();
             return employeeId;
         }
-        [Authorize]
+        //[Authorize]
         public ActionResult Dashboard()
         {
             var userEmployeeId = GetEmployeeId();
@@ -271,8 +274,8 @@ namespace VehicleManagementApp.Controllers
         public ActionResult MyJsonCreate(MyRequsitionCreateViewModel requisitionVm)
         {
             //newDateTime = date.Date + time.TimeOfDay;
-
-            List<MyRequsitionListViewModel> requsitionViewList;
+            TempData["msg"] = null;
+            List <MyRequsitionListViewModel> requsitionViewList;
             if (ModelState.IsValid)
             {
                 int requestForEmployeeId;
