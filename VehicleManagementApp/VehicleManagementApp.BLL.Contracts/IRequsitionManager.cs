@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VehicleManagementApp.Models.Models;
 
+
 namespace VehicleManagementApp.BLL.Contracts
 {
     public interface IRequsitionManager:IManager<Requsition>

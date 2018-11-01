@@ -1,40 +1,4 @@
-﻿@using System.Collections
-@using System.Web.Services.Description
-@using VehicleManagementApp.BLL
-@using VehicleManagementApp.BLL.Contracts
-@{
-    IRequsitionManager managers = new RequsitionManager();
-    IVehicleManager vehicle = new VehicleManager();
-    IEmployeeManager employee = new EmployeeManager();
-
-    var totalDriver = employee.Get(c => c.IsDriver == true);
-    var availableDriver = employee.Get(c => c.Status == "NULL" || c.Status == null && c.IsDriver == true);
-    var assignDriver = employee.Get(c => c.Status == "Assigned");
-
-    var totalVehicle = vehicle.GetAll().Count();
-    var assignVehicle = vehicle.Get(c => c.Status == "Assigned");
-    var freeVehicle = vehicle.Get(c => c.Status == null);
-
-    var managerNew = managers.Get(c => c.Status == null && c.IsDeleted == false);
-    var managerOnprogess = managers.Get(c => c.Status == "Seen" && c.IsDeleted == false);
-    var managerAssign = managers.Get(c => c.Status == "Assign" && c.IsDeleted == false);
-    var managerComplete = managers.Get(c => c.Status == "Complete" && c.IsDeleted == false);
-    var managerHold = managers.Get(c => c.Status == "Hold" && c.IsDeleted == false);
-    var hold = managerHold.Count;
-    var countNew = managerNew.Count;
-    var countSeed = managerOnprogess.Count;
-    var countAssign = managerAssign.Count;
-    var countComplete = managerComplete.Count;
-    var totalAssignedCar = assignVehicle.Count;
-    var totalFreeCar = freeVehicle.Count;
-
-    var totaldrivercount = totalDriver.Count;
-    var assigndrivercount = assignDriver.Count;
-    var freedrivercount = availableDriver.Count;
-
-}
-
-
+﻿
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,7 +34,7 @@
 
     <!-- vendor css -->
 
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-submenu/3.0.1/css/bootstrap-submenu.min.css" />
+
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css" />
     <link href="~/DashboardDesign/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="~/DashboardDesign/lib/Ionicons/css/ionicons.css" rel="stylesheet">
@@ -123,7 +87,6 @@
             </a><!-- br-menu-link -->
             <ul class="br-menu-sub nav flex-column">
                 <li class="nav-item"><a href="@Url.Action("New", "Manager")" class="nav-link">New Requisition</a></li>
-                @*<li class="nav-item"><a href="@Url.Action("MyRequisitionList", "Requsition")" class="nav-link">My Requisition</a></li>*@
                 <li class="nav-item"><a href="@Url.Action("HoldIndex","Manager")" class="nav-link">Hold Requisition List</a></li>
                 <li class="nav-item"><a href="@Url.Action("CancelIndex","Manager")" class="nav-link">Cancle Requisition List</a></li>
                 <li class="nav-item"><a href="@Url.Action("CompleteRequsition", "Manager")" class="nav-link">Complete Requisition</a></li>
@@ -306,12 +269,21 @@
                             <label class="tx-12 tx-info tx-uppercase tx-semibold tx-spacing-2 mg-b-0">Notifications</label>
                             <a href="" class="tx-11">Mark All as Read</a>
                         </div><!-- d-flex -->
-
+                    
                         <div class="media-list">
                             <!-- loop starts here -->
                             <a href="" class="media-list-link read">
                                 <div class="media pd-x-20 pd-y-15">
-                                    <img src="http://via.placeholder.com/280x280" class="wd-40 rounded-circle" alt="">
+                                    <img src="" class="wd-40 rounded-circle" alt="">
+                                    <div class="media-body">
+                                        <p class="tx-13 mg-b-0 tx-gray-700"><strong class="tx-medium tx-gray-800">Suzzeth Bungaos</strong> tagged you and 18 others in a post.</p>
+                                        <span class="tx-12">October 03, 2017 8:45am</span>
+                                    </div>
+                                </div><!-- media -->
+                            </a>
+                            <a href="" class="media-list-link read">
+                                <div class="media pd-x-20 pd-y-15">
+                                    <img src="" class="wd-40 rounded-circle" alt="">
                                     <div class="media-body">
                                         <p class="tx-13 mg-b-0 tx-gray-700"><strong class="tx-medium tx-gray-800">Suzzeth Bungaos</strong> tagged you and 18 others in a post.</p>
                                         <span class="tx-12">October 03, 2017 8:45am</span>
@@ -370,17 +342,6 @@
                     </div><!-- dropdown-menu -->
                 </div><!-- dropdown -->
             </nav>
-
-            <!-- language -->
-            @*<div class="language">
-                    <select>
-                        <option>Language</option>
-                        <option>Bangla</option>
-                        <option>English</option>
-                    </select>
-                </div>*@
-            <!-- language -->
-
             <div class="navicon-right">
                 <a id="btnRightMenu" href="" class="pos-relative">
                     <i class="icon ion-ios-chatboxes-outline"></i>

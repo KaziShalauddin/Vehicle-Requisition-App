@@ -994,6 +994,14 @@
     <Content Include="DashboardDesign\lib\summernote\summernote.css" />
     <Content Include="DashboardDesign\lib\summernote\summernote.js" />
     <Content Include="DashboardDesign\lib\summernote\summernote.min.js" />
+    <Content Include="EmployeeImages\2018-02-27 %287%29.png" />
+    <Content Include="EmployeeImages\2018-02-27.png" />
+    <Content Include="EmployeeImages\2018-10-02.png" />
+    <Content Include="EmployeeImages\31949707_454045388365492_2564075474049302528_n.jpg" />
+    <Content Include="EmployeeImages\41858695_2122848301060336_2557616672164806656_n.jpg" />
+    <Content Include="EmployeeImages\front_img_1_003.png" />
+    <Content Include="EmployeeImages\Md. Kazi Shalauddin1092018 64723 AM.jpg" />
+    <Content Include="EmployeeImages\Unity Problem.JPG" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -1133,6 +1141,12 @@
     <Content Include="DashboardDesign\lib\summernote\font\summernote.eot" />
     <Content Include="DashboardDesign\lib\summernote\font\summernote.ttf" />
     <Content Include="DashboardDesign\lib\summernote\font\summernote.woff" />
+    <Content Include="EmployeeImages\Jahan Islam10122018 110439 AM" />
+    <Content Include="EmployeeImages\Mr. Tata10102018 34855 PM" />
+    <Content Include="EmployeeImages\Mr. Tata10102018 35602 PM" />
+    <Content Include="EmployeeImages\Rofik Islam10122018 110311 AM" />
+    <Content Include="EmployeeImages\test10242018 113211 PM" />
+    <Content Include="EmployeeImages\Ziaul Talukder10162018 20832 PM" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -1258,7 +1272,6 @@
     <Content Include="Views\Driver\_CommentPartial.cshtml" />
     <Content Include="Views\Requsition\Details_V2.cshtml" />
     <Content Include="Views\Requsition\AssignDetails.cshtml" />
-
     <Content Include="Views\Home\Dashboard.cshtml" />
     <Content Include="Views\Home\NewList.cshtml" />
     <Content Include="Views\Home\HoldList.cshtml" />
@@ -1266,9 +1279,7 @@
     <Content Include="Views\Home\CompleteRequsition.cshtml" />
     <Content Include="Views\Home\_CompleteRequsitionPartial.cshtml" />
     <Content Include="Views\Home\_MyRequisitionListPartial.cshtml" />
-
     <Content Include="Views\Shared\_ManagerLayout.cshtml" />
-
     <None Include="Web References\com.onnorokomsms.api2\sendsms.disco" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -1416,7 +1427,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="EmployeeImages\" />
     <Folder Include="Views\Comment\" />
   </ItemGroup>
   <ItemGroup>
