@@ -240,6 +240,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\HtmlHelperExtensions.cs" />
     <Compile Include="Migrations\201809240448277_InitialCreate.cs" />
     <Compile Include="Migrations\201809240448277_InitialCreate.Designer.cs">
       <DependentUpon>201809240448277_InitialCreate.cs</DependentUpon>
@@ -1035,6 +1036,10 @@
     <Content Include="ReportViewerWebForm.aspx" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
+    <Content Include="scripts\app.build.js" />
+    <Content Include="scripts\app\common.js" />
+    <Content Include="scripts\app\main\about.js" />
+    <Content Include="scripts\app\main\index.js" />
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />
     <Content Include="scripts\DataTables\autoFill.bootstrap.js" />
@@ -1154,7 +1159,10 @@
     <Content Include="scripts\jquery.validate.min.js" />
     <Content Include="scripts\jquery.validate.unobtrusive.js" />
     <Content Include="scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="scripts\main.js" />
     <Content Include="scripts\modernizr-2.6.2.js" />
+    <Content Include="r.js" />
+    <Content Include="scripts\require.js" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

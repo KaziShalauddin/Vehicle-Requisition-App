@@ -24,16 +24,16 @@
             text-decoration: none;
         }
 
-            a:hover {
-                text-decoration: none;
-            }
+        a:hover {
+            text-decoration: none;
+        }
 
-        .not-active {
+        /*.not-active {
             pointer-events: none;
             cursor: default;
             text-decoration: none;
             color: black;
-        }
+        }*/
 
         input[type=number]::-webkit-inner-spin-button,
         input[type=number]::-webkit-outer-spin-button {
@@ -45,202 +45,16 @@
         a.custom-card:hover {
             color: inherit;
         }
+        .tab-content.tab-content-alt {
+        border-right: 1px solid #ddd;
+        border-left: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+        border-top-color:transparent;
+        border-radius: 0px;
+    }
     </style>
-    <style>
-        /*.nv {
-            padding-left: 0;
-            margin-bottom: 0;
-            list-style: none;
-           background-color: #eeeeee;
-        }
 
-            .nv:before,
-            .nv:after {
-                display: table;
-                content: " ";
-            }
-
-            .nv:after {
-                clear: both;
-            }
-
-            .nv:before,
-            .nv:after {
-                display: table;
-                content: " ";
-            }
-
-            .nv:after {
-                clear: both;
-            }
-
-            .nv > li {
-                position: relative;
-                display: block;
-            }
-
-                .nv > li > a {
-                    position: relative;
-                    display: block;
-                    padding: 10px 15px;
-                }
-
-                    .nv > li > a:hover,
-                    .nv > li > a:focus {
-                        text-decoration: none;
-                        background-color: #eeeeee;
-                    }
-
-                .nv > li.disabled > a {
-                    color: #999999;
-                }
-
-                    .nv > li.disabled > a:hover,
-                    .nv > li.disabled > a:focus {
-                        color: #999999;
-                        text-decoration: none;
-                        cursor: not-allowed;
-                        background-color: transparent;
-                    }
-
-            .nv .open > a,
-            .nv .open > a:hover,
-            .nv .open > a:focus {
-                background-color: #eeeeee;
-                border-color: #428bca;
-            }
-
-            .nv .nv-divider {
-                height: 1px;
-                margin: 9px 0;
-                overflow: hidden;
-                background-color: #e5e5e5;
-            }
-
-            .nv > li > a > img {
-                max-width: none;
-            }
-
-        .nv-tabs {
-            border-bottom: 1px solid #dddddd;
-        }
-
-            .nv-tabs > li {
-                float: left;
-                margin-bottom: -1px;
-            }
-
-                .nv-tabs > li > a {
-                    margin-right: 2px;
-                    line-height: 1.428571429;
-                    border: 1px solid transparent;
-                    border-radius: 4px 4px 0 0;
-                      color: #555555;
-                }
-
-                    .nv-tabs > li > a:hover {
-                        border-color: #eeeeee #eeeeee #dddddd;
-                    }
-
-                .nv-tabs > li.active > a,
-                .nv-tabs > li.active > a:hover,
-                .nv-tabs > li.active > a:focus {
-                    color: #555555;
-                    cursor: default;
-                    background-color: #ffffff;
-                    border: 1px solid #dddddd;
-                    border-bottom-color: transparent;
-                }
-
-            .nv-tabs.nv-justified {
-                width: 100%;
-                border-bottom: 0;
-            }
-
-                .nv-tabs.nv-justified > li {
-                    float: none;
-                }
-
-                    .nv-tabs.nv-justified > li > a {
-                        text-align: center;
-                    }
-
-        @@media (min-width: 768px) {
-            .nv-tabs.nv-justified > li {
-                display: table-cell;
-                width: 1%;
-            }
-        }
-
-        .nv-tabs.nv-justified > li > a {
-            margin-right: 0;
-            border-bottom: 1px solid #dddddd;
-        }
-
-        .nv-tabs.nv-justified > .active > a {
-            border-bottom-color: #ffffff;
-        }
-
-        .nv-pills > li {
-            float: left;
-        }
-
-            .nv-pills > li > a {
-                border-radius: 5px;
-            }
-
-            .nv-pills > li + li {
-                margin-left: 2px;
-            }
-
-            .nv-pills > li.active > a,
-            .nv-pills > li.active > a:hover,
-            .nv-pills > li.active > a:focus {
-                color: #ffffff;
-                background-color: #428bca;
-            }
-
-        .nv-stacked > li {
-            float: none;
-        }
-
-            .nv-stacked > li + li {
-                margin-top: 2px;
-                margin-left: 0;
-            }
-
-        .nv-justified {
-            width: 100%;
-        }
-
-            .nv-justified > li {
-                float: none;
-            }
-
-                .nv-justified > li > a {
-                    text-align: center;
-                }
-
-        @@media (min-width: 768px) {
-            .nv-justified > li {
-                display: table-cell;
-                width: 1%;
-            }
-        }
-
-        .nv-tabs-justified {
-            border-bottom: 0;
-        }
-
-            .nv-tabs-justified > li > a {
-                margin-right: 0;
-                border-bottom: 1px solid #dddddd;
-            }
-
-            .nv-tabs-justified > .active > a {
-                border-bottom-color: #ffffff;
-            }*/
-    </style>
+  
 }
 
 <div>
@@ -321,7 +135,7 @@
                             <div class="mg-l-20">
                                 <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">Completed Requisition List</p>
                                 <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">Total : @countComplete</p>
-                                <span class="tx-11 tx-roboto tx-white-6">65.45% on average time</span>
+                                <span class="tx-11 tx-roboto tx-white-6"style="color: transparent">Comments </span>
                             </div>
                         </div>
                     </a>
@@ -346,9 +160,9 @@
 
 
         </ul>
-        <div class="tab-content">
+        <div class="tab-content tab-content-alt" >
             <div class="tab-pane active" id="tabs-2">
-                <div class="row row-sm">
+                <div class="row d-md-table-row" >
                     <div class="col-md-12" style="height: 30px"></div>
                     <div class="col-sm-6 col-xl-3">
                         <div class="bg-teal rounded overflow-hidden">
@@ -366,7 +180,7 @@
                             </a>
                         </div>
                     </div><!-- col-3 -->
-                    <div class="col-sm-6 col-xl-3 mg-t-20 mg-sm-t-0">
+                    <div class="col-sm-6 col-xl-3">
                         <div class="bg-danger rounded overflow-hidden">
                             <a href="@Url.Action("HoldIndex", "Manager")" class="custom-card">
                                 <div class="pd-25 d-flex align-items-center">
@@ -380,7 +194,7 @@
                             </a>
                         </div>
                     </div><!-- col-3 -->
-                    <div class="col-sm-6 col-xl-3 mg-t-20 mg-xl-t-0">
+                    <div class="col-sm-6 col-xl-3">
                         <div class="bg-primary rounded overflow-hidden">
                             <a href="@Url.Action("FullAssignList", "Manager")" class="custom-card">
                                 <div class="pd-25 d-flex align-items-center">
@@ -395,7 +209,7 @@
                         </div>
 
                     </div><!-- col-3 -->
-                    <div class="col-sm-6 col-xl-3 mg-t-20 mg-xl-t-0">
+                    <div class="col-sm-6 col-xl-3">
                         <div class="bg-br-primary rounded overflow-hidden">
                             <a href="@Url.Action("CompleteRequsition", "Manager")" class="custom-card">
                                 <div class="pd-25 d-flex align-items-center">
@@ -403,17 +217,18 @@
                                     <div class="mg-l-20">
                                         <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">Completed Requisition List</p>
                                         <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">Total : @countComplete</p>
-                                        <span class="tx-11 tx-roboto tx-white-6">65.45% on average time</span>
+                                        <span class="tx-11 tx-roboto tx-white-6" style="color: transparent">Comments  </span>
                                     </div>
                                 </div>
                             </a>
                         </div>
                     </div><!-- col-3 -->
+                    
                 </div>
             </div>
 
             <div class="tab-pane" id="tabs-1">
-                <div class="row row-sm">
+                <div class="row d-md-table-row">
                     <div class="col-md-12" style="height: 30px"></div>
                     <div class="col-sm-6 col-xl-3">
                         <div class="bg-teal rounded overflow-hidden">
@@ -422,7 +237,7 @@
 
                                     <i class="ion ion-earth tx-60 lh-0 tx-white op-7"></i>
                                     <div class="mg-l-20">
-                                        <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">New Requisition List</p>
+                                        <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">My New Requisition List</p>
                                         <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">Total : @countNew</p>
                                         <span class="tx-11 tx-roboto tx-white-6">New Comments: @Html.Raw(ViewBag.NewRequisitionComments)</span>
 
@@ -437,7 +252,7 @@
                                 <div class="pd-25 d-flex align-items-center">
                                     <i class="ion ion-bag tx-60 lh-0 tx-white op-7"></i>
                                     <div class="mg-l-20">
-                                        <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">Hold Requisition List</p>
+                                        <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">My Hold Requisition List</p>
                                         <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">Total : @hold </p>
                                         <span class="tx-11 tx-roboto tx-white-6">New Comments: @Html.Raw(ViewBag.HoldRequisitionComments)</span>
                                     </div>
@@ -451,7 +266,7 @@
                                 <div class="pd-25 d-flex align-items-center">
                                     <i class="ion ion-monitor tx-60 lh-0 tx-white op-7"></i>
                                     <div class="mg-l-20">
-                                        <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">Assigned Requisition List</p>
+                                        <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">My Assigned Requisition List</p>
                                         <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">Total : @countAssign </p>
                                         <span class="tx-11 tx-roboto tx-white-6">New Comments: @Html.Raw(ViewBag.HoldRequisitionComments)</span>
                                     </div>
@@ -466,9 +281,9 @@
                                 <div class="pd-25 d-flex align-items-center">
                                     <i class="ion ion-clock tx-60 lh-0 tx-white op-7"></i>
                                     <div class="mg-l-20">
-                                        <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">Completed Requisition List</p>
+                                        <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">My Completed Requisition List</p>
                                         <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">Total : @countComplete</p>
-                                        <span class="tx-11 tx-roboto tx-white-6">65.45% on average time</span>
+                                        <span class="tx-11 tx-roboto tx-white-6"style="color: transparent">Comments </span>
                                     </div>
                                 </div>
                             </a>
@@ -477,7 +292,7 @@
                 </div>
             </div>
 
-
+            <div class="col-md-12" style="height: 30px"></div>
         </div>
         @*</div>*@
         <div class="col-md-12" style="height: 30px"></div>
@@ -486,7 +301,7 @@
 @section scripts{
     @*<script src="~/js/bootstrap.min.js"></script>*@
     @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>*@
-    @*<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>*@
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             //$("#tabs-2").addClass("not-active");
@@ -511,10 +326,11 @@
             $(this).removeClass("active");
             $("#tabs-3").addClass("active");
         });
-        //$(".nav li").on("click", function () {
-        //    $(".nav li").removeClass("active");
-        //    $(this).addClass("active");
-        //});
+        $(".nav li").on("click", function () {
+            debugger;
+            $(".nav li").removeClass("active");
+            $(this).addClass("active");
+        });
         $('.btnNext').click(function () {
             $('.nav-tabs > .active').next('li').find('a').trigger('click');
         });
