@@ -9,15 +9,16 @@ using VehicleManagementApp.BLL.Contracts;
 using VehicleManagementApp.Models.Models;
 using VehicleManagementApp.Repository;
 using VehicleManagementApp.Repository.Contracts;
+using VehicleManagementApp.Repository.DatabaseContext;
 using VehicleManagementApp.Repository.Repository;
+
 
 namespace VehicleManagementApp.BLL
 {
     public class RequsitionManager:Manager<Requsition>,IRequsitionManager
     {
         private IRequsitionRepository _requsition;
-
-        public RequsitionManager(IRequsitionRepository requsition):base(requsition)
+        public RequsitionManager(IRequsitionRepository requsition) : base(requsition)
         {
             _requsition = requsition;
         }
@@ -32,11 +33,12 @@ namespace VehicleManagementApp.BLL
             var requsition = _requsition.Get(c=>c.Status == Status);
             return requsition;
         }
-
         public ICollection<Requsition> GetAllByNull(string Status)
         {
             var requsition = _requsition.Get(c => c.Status == Status);
             return requsition;
         }
+
+        
     }
 }

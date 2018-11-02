@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VehicleManagementApp.Models.Models;
 
+
 namespace VehicleManagementApp.Repository.Contracts
 {
     public interface IRequsitionRepository:IRepository<Requsition>

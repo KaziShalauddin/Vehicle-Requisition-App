@@ -6,6 +6,7 @@
         @Html.AntiForgeryToken()
 
         <li><i class="icon ion-ios-person"></i>Hello @User.Identity.GetUserName() !</li>
+        <li><a href="@Url.Action("ChangePassword","Manage")"><i class="icon ion-key"></i>Change Password</a></li>
         <li><a href="javascript:document.getElementById('logoutForm').submit()"><i class="icon ion-power"></i>Sign Out</a></li>
 
     }

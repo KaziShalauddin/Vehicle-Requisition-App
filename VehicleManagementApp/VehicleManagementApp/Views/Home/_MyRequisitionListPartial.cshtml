@@ -5,102 +5,140 @@
 @{
     int sl = 1;
 }
-<table class="table table-bordered table-striped" id="myTable">
-    <thead>
-        <tr>
-            <td>
-                @Html.Raw("SL")
-            </td>
-            <th>
-                @Html.DisplayNameFor(model => model.RequestType)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EmployeeName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RequestedBy)
-            </th>
-            <th>
-                @Html.DisplayName("From")
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.To)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.JourneyStart)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.JouneyEnd)
-            </th>
 
-            <th>
-                @Html.DisplayName("Comments")
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @(sl++)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RequestType)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EmployeeName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RequestedBy)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Form)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.To)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                @{
+@section styles{
+    
+<link href="~/AllDataTables/datatables/CssFile/css/responsive.bootstrap4.min.css" rel="stylesheet" />
+<link href="~/AllDataTables/datatables/CssFile/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
+<link href="~/AllDataTables/datatables/CssFile/css/buttons.bootstrap4.min.css" rel="stylesheet" />
+<link href="~/AllDataTables/bootstrap/style.css" rel="stylesheet" />
+<link href="~/AllDataTables/bootstrap/icons.css" rel="stylesheet" />
+}
 
-                    var startdate = item.JourneyStart.ToString("dd - MMM - yyyy hh:mm tt");
-                    var enddate = item.JouneyEnd.ToString("dd - MMM - yyyy hh:mm tt");
-                }
-                <td>
-                    @Html.Raw(startdate)
-                </td>
-                <td>
-                    @Html.Raw(enddate)
-                </td>
+<div class="row">
+    <div class="col-12">
+        <div class="card-m-b-30">
+            <div class="card-body">
+                <table class="table table-striped table-bordered" style="cellspacing: 0; width: 100%;" id="datatable-buttons">
+                    <thead>
+                        <tr>
+                            <td>
+                                @Html.Raw("SL")
+                            </td>
+                            <th>
+                                @Html.DisplayNameFor(model => model.RequestType)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.EmployeeName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.RequestedBy)
+                            </th>
+                            <th>
+                                @Html.DisplayName("From")
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.To)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Description)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.JourneyStart)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.JouneyEnd)
+                            </th>
 
-                <td>
-                    @{
-                        ICommentManager commentManager = new CommentManager();
-                        var newComments = commentManager.Get(c => c.RequsitionId == item.Id).Count(c => c.ReceiverEmployeeId == ViewBag.UserEmployeeId && c.IsReceiverSeen == false);
+                            <th>
+                                @Html.DisplayName("Comments")
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @(sl++)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.RequestType)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EmployeeName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.RequestedBy)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Form)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.To)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>
+                                @{
 
-                    }
-                    <span>
-                        <img src="~/img/f8-01-512.png" alt="new comments" style="height: 10%;">
-                        <span class="notification">@Html.Raw(newComments)</span>
-                    </span>
+                                    var startdate = item.JourneyStart.ToString("dd - MMM - yyyy hh:mm tt");
+                                    var enddate = item.JouneyEnd.ToString("dd - MMM - yyyy hh:mm tt");
+                                }
+                                <td>
+                                    @Html.Raw(startdate)
+                                </td>
+                                <td>
+                                    @Html.Raw(enddate)
+                                </td>
 
-                    @Html.ActionLink("Details", "Details_V2", "Requsition", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", "Requsition", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })
-                    <span style="width: 20px"></span>
-                    @Html.ActionLink("Cancel", "Delete", "Requsition", new { id = item.Id, }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are You Sure? You Want To Cancel!')" })
+                                <td>
+                                    @{
+                                        ICommentManager commentManager = new CommentManager();
+                                        var newComments = commentManager.Get(c => c.RequsitionId == item.Id).Count(c => c.ReceiverEmployeeId == ViewBag.UserEmployeeId && c.IsReceiverSeen == false);
 
-                </td>
-                
-            </tr>
-           
-                        }
-    </tbody>
-</table>
+                                    }
+                                    <span>
+                                        <img src="~/img/f8-01-512.png" alt="new comments" style="height: 10%;">
+                                        <span class="notification">@Html.Raw(newComments)</span>
+                                    </span>
+
+                                    @Html.ActionLink("Details", "Details_V2", "Requsition", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", "Requsition", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })
+                                    <span style="width: 20px"></span>
+                                    @Html.ActionLink("Cancel", "Delete", "Requsition", new { id = item.Id, }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are You Sure? You Want To Cancel!')" })
+
+                                </td>
+
+                            </tr>
+
+                                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    
+    <script src="~/AllDataTables/datatables/JsFile/vfs_fonts.js"></script>
+    <script src="~/AllDataTables/datatables/JsFile/responsive.bootstrap4.min.js"></script>
+    <script src="~/AllDataTables/datatables/JsFile/pdfmake.min.js"></script>
+    <script src="~/AllDataTables/datatables/JsFile/jszip.min.js"></script>
+    <script src="~/AllDataTables/datatables/JsFile/jquery.dataTables.min.js"></script>
+    <script src="~/AllDataTables/datatables/JsFile/dataTables.responsive.min.js"></script>
+    <script src="~/AllDataTables/datatables/JsFile/dataTables.buttons.min.js"></script>
+    <script src="~/AllDataTables/datatables/JsFile/dataTables.bootstrap4.min.js"></script>
+    <script src="~/AllDataTables/datatables/JsFile/buttons.print.min.js"></script>
+    <script src="~/AllDataTables/datatables/JsFile/buttons.html5.min.js"></script>
+    <script src="~/AllDataTables/datatables/JsFile/buttons.colVis.min.js"></script>
+    <script src="~/AllDataTables/datatables/JsFile/buttons.bootstrap4.min.js"></script>
+    <script src="~/AllDataTables/js/waves.js"></script>
+    <script src="~/AllDataTables/js/popper.min.js"></script>
+    <script src="~/AllDataTables/datatables_init_js/datatables.init.js"></script>
+    <script src="~/AllDataTables/app_js/app.js"></script>
+}    

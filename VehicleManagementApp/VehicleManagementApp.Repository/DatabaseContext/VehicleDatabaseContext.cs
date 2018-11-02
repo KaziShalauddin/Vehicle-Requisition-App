@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using VehicleManagementApp.Models.Models;
 using VehicleManagementApp.Models.ReportViewModel;
 
+
 namespace VehicleManagementApp.Repository.DatabaseContext
 {
     public class VehicleDatabaseContext : DbContext
@@ -83,6 +84,8 @@ namespace VehicleManagementApp.Repository.DatabaseContext
         {
             return new VehicleDatabaseContext();
         }
+
+
 
         public IQueryable<RequsitionAssignReportViewModel> GetRequsitionAssignSummary()
         {

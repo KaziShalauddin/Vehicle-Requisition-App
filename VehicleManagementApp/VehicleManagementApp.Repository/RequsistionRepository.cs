@@ -6,12 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 using VehicleManagementApp.Models.Models;
 using VehicleManagementApp.Repository.Contracts;
+using VehicleManagementApp.Repository.DatabaseContext;
 using VehicleManagementApp.Repository.Repository;
+
 
 namespace VehicleManagementApp.Repository
 {
     public class RequsistionRepository:DeletableRepository<Requsition>,IRequsitionRepository
     {
-        
+
     }
 }

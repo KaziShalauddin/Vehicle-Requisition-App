@@ -108,6 +108,7 @@ namespace VehicleManagementApp
             //container.RegisterType<IdentityDbContext>(new HierarchicalLifetimeManager());
 
             container.RegisterType<AccountController>();
+            container.RegisterType<ManageController>(new InjectionConstructor());
             container.RegisterType<ApplicationUserManager>();
             container.RegisterType<IUserStore<ApplicationUser>, UserStore<ApplicationUser>>();
             container.RegisterType<UserManager<ApplicationUser>>();

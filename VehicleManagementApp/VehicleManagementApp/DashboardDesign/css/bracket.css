@@ -11573,6 +11573,7 @@ table.dataTable thead th.sorting_desc::after, table.dataTable thead td.sorting_d
 }
 table.dataTable tbody th, table.dataTable tbody td {
   padding: 0.75rem;
+    color: #000000;
 }
 table.dataTable.row-border tbody th, table.dataTable.row-border tbody td, table.dataTable.display tbody th, table.dataTable.display tbody td {
   border-top-color: #dee2e6;
