@@ -44,6 +44,12 @@
         .jumbotron {
             font-size: 14px !important;
         }
+         .ui-select-choices {
+        position: fixed;
+        top: auto;
+        left: auto;
+        width: inherit;
+      }
     </style>
 }
 <h2> @ViewBag.Title</h2>
@@ -74,7 +80,7 @@
 
 
         <form>
-            <div class="container">
+            <div class="container" >
 
                 <br />
                 <br />
@@ -82,8 +88,8 @@
 
                 <ul class="nav nav-tabs" id="myTab" style="font-size:  20px; ">
                     <li id="liTabs-3" class="active"><a data-toggle="tab" href="#tabs-3">Personal Information</a></li>
-                    <li id="liTabs-2"><a data-toggle="tab" href="#tabs-2">Official Information</a></li>
-                    <li id="liTabs-1"><a data-toggle="tab" href="#tabs-1">Present Address</a></li>
+                    <li id="liTabs-2" ><a data-toggle="tab" href="#tabs-2">Official Information</a></li>
+                    <li id="liTabs-1" ><a data-toggle="tab" href="#tabs-1">Present Address</a></li>
 
 
                 </ul>
@@ -92,220 +98,231 @@
 
                         <div class="col-md-12" style="height: 30px"></div>
                         <div class="col-md-12">
-                            <div class="col-md-6">
-                                <div class="jumbotron">
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        <div class="col-md-10">
-                                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <div class="col-md-12" style="height: 30px"></div>
+                                    <div class="jumbotron">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Name, htmlAttributes: new {@class = "control-label col-md-4"})
+                                            <div class="col-md-7">
+                                                @Html.EditorFor(model => model.Name, new {htmlAttributes = new {@class = "form-control"}})
+                                                @Html.ValidationMessageFor(model => model.Name, "", new {@class = "text-danger"})
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        <div class="col-md-10">
-                                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.Email, htmlAttributes: new {@class = "control-label col-md-4"})
+                                            <div class="col-md-7">
+                                                @Html.EditorFor(model => model.Email, new {htmlAttributes = new {@class = "form-control"}})
+                                                @Html.ValidationMessageFor(model => model.Email, "", new {@class = "text-danger"})
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.ContactNo, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        <div class="col-md-10">
-                                            @Html.EditorFor(model => model.ContactNo, null, new { htmlAttributes = new { @type = "number", @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.ContactNo, "", new { @class = "text-danger" })
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.ContactNo, htmlAttributes: new {@class = "control-label col-md-4"})
+                                            <div class="col-md-7">
+                                                @Html.EditorFor(model => model.ContactNo, null, new {htmlAttributes = new {@type = "number", @class = "form-control"}})
+                                                @Html.ValidationMessageFor(model => model.ContactNo, "", new {@class = "text-danger"})
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6 ">
+                                <div class="col-md-6 ">
 
-                                <div class="form-group">
-                                    @Html.Label("User Photo")
-                                    <div id="imgPreview" class="thumbnail" style="display: block">
-                                        <img class="img-responsive" id="targetImg" style="height: 300px; width: 350px" />
-                                        <div class="caption">
-                                            <a href="#" id="clearPreview" onclick="ClearPreview()"><i class="glyphicon glyphicon-trash"></i></a>
-                                            <span id="description"></span>
+                                    <div class="form-group" style="padding-right: 20%;">
+                                        @Html.Label("User Photo")
+                                        <div id="imgPreview" class="thumbnail" style="display: block">
+                                            <img class="img-responsive" id="targetImg" style="height: 300px; width: 350px"/>
+                                            <div class="caption">
+                                                <a href="#" id="clearPreview" onclick="ClearPreview()"><i class="glyphicon glyphicon-trash"></i></a>
+                                                <span id="description"></span>
+                                            </div>
+                                            @*<a href="#" class="btn btn-default" onclick="Uploadimage()">Upload</a>*@
                                         </div>
-                                        @*<a href="#" class="btn btn-default" onclick="Uploadimage()">Upload</a>*@
+
+
+
                                     </div>
 
-                                   
-
                                 </div>
-
                             </div>
-
                         </div>
                         <div class="col-md-12">
-                            <div class="btn btn-primary ">
-                                <div class="col-md-10">
-                                    <input type="file" name="UserPhoto" id="fileUpload" onclick="FileUpload()" accept=".png,.jpg,.jpeg,.gif,.tif" />
+                            <div class="row">
+                                <div class="col-md-6"></div>
+                                <div class="col-md-6">
+
+                                    <div class="btn btn-primary ">
+
+                                        <input type="file" name="UserPhoto" id="fileUpload" onclick="FileUpload()" accept=".png,.jpg,.jpeg,.gif,.tif"/>
+
+                                    </div>
+                                    <a style="float: right; margin-left: 5%" id="btnNext01" class="btn btn-info btnNext"> Next </a>
                                 </div>
                             </div>
-                            <a style="float: right" id="btnNext01" class="btn btn-info btnNext"> Next </a>
-
                         </div>
-
+                        <div class="col-md-12" style="height: 30px"></div>
 
                     </div>
 
                     <div class="tab-pane" id="tabs-2">
                         <div class="col-md-12" style="height: 30px"></div>
-                        <div class="row d-md-table-row">
-                            <div class="col-md-6">
-                                <div class="jumbotron ">
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.DepartmentId, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        <div class="col-md-10">
-                                            @Html.DropDownListFor(model => model.DepartmentId, new SelectList(departments, "Id", "Name"), "Select Department", new { @class = "form-control" })
-                                            @Html.ValidationMessageFor(model => model.DepartmentId, "", new { @class = "text-danger" })
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="jumbotron ">
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.DepartmentId, htmlAttributes: new {@class = "control-label col-md-3"})
+                                            <div class="col-md-7">
+                                                @Html.DropDownListFor(model => model.DepartmentId, new SelectList(departments, "Id", "Name"), "Select Department", new {@class = "form-control", @style = "height: auto;" })
+                                                @Html.ValidationMessageFor(model => model.DepartmentId, "", new {@class = "text-danger"})
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="form-group">
-                                        @Html.LabelFor(model => model.DesignationId, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        <div class="col-md-10">
-                                            @if (Model.Designations.Any())
+                                        <div class="form-group">
+                                            @Html.LabelFor(model => model.DesignationId, htmlAttributes: new {@class = "control-label col-md-3"})
+                                            <div class="col-md-7">
+                                                @if (Model.Designations.Any())
                                             {
-                                                @Html.DropDownListFor(model => model.DesignationId, new SelectList(Model.Designations, "Id", "Name"), "Select Designation", new { @class = "form-control" })
+                                                    @Html.DropDownListFor(model => model.DesignationId, new SelectList(Model.Designations, "Id", "Name"), "Select Designation", new {@class = "form-control", @style = "height: auto;" })
                                             }
-                                            @if (!Model.Designations.Any())
+                                                @if (!Model.Designations.Any())
                                             {
-                                                @Html.DropDownListFor(model => model.DesignationId, null, new { @class = "form-control" })
+                                                    @Html.DropDownListFor(model => model.DesignationId, null, new {@class = "form-control", @style = "height: auto;" })
                                             }
 
-                                            @Html.ValidationMessageFor(model => model.DesignationId, "", new { @class = "text-danger" })
+                                                @Html.ValidationMessageFor(model => model.DesignationId, "", new {@class = "text-danger"})
 
 
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6 ">
-                                <div class="jumbotron ">
-                                    <div class="form-group">
-                                        @Html.Label("UserName", htmlAttributes: new { @class = "control-label col-md-2" })
-                                        <div class="col-md-10">
-                                            @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                                <div class="col-md-6 ">
+                                    <div class="jumbotron ">
+                                        <div class="form-group">
+                                            @Html.Label("User Name ", htmlAttributes: new {@class = "col-md-4"})
+                                            <div class="col-md-7">
+                                                @Html.EditorFor(model => model.UserName, new {htmlAttributes = new {@class = "form-control"}})
+                                                @Html.ValidationMessageFor(model => model.UserName, "", new {@class = "text-danger"})
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div>
-                                            <span>User Name Suggestion:  </span>
-                                            <span id="userNameSuggestion">Give employee name and contact no. first!</span>
-                                            <input type="checkbox" id="chkUserName" /> Use it.<br>
+                                        <div class="form-group">
+                                            <div >
+                                                <span>User Name Suggestion:  </span>
+                                                <span id="userNameSuggestion">Give employee name and contact no. first!</span>
+                                                <input type="checkbox" id="chkUserName" /> Use it.<br>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div style="color: Red !important">
-                                        <span>Default Password :  </span>
-                                        <span><b>1234</b>  </span>
-                                    </div>
-                                    <div class="form-group">
-                                        <fieldset data-role="controlgroup">
-                                            <legend>Choose User Role:</legend>
-
-                                            <input type="radio" name="role" id="radioEmployeeRole" value="Employee" />Employee<br>
-
-                                            <input type="radio" name="role" id="radioOperatorRole" value="Operator" />Operator<br>
-
-                                            <input type="radio" name="role" id="radioDriverRole" value="Driver" />Driver<br>
-                                        </fieldset>
-
-
-                                    </div>
-                                    <div class="form-group" id="licenseDiv">
-                                        @Html.LabelFor(model => model.LicenceNo, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        <div class="col-md-10">
-                                            @Html.EditorFor(model => model.LicenceNo, null, new { htmlAttributes = new { @type = "number", @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.LicenceNo, "", new { @class = "text-danger" })
+                                        <div style="color: Red !important">
+                                            <span>Default Password :  </span>
+                                            <span><b>1234</b>  </span>
                                         </div>
+                                        <div class="form-group">
+                                            <fieldset data-role="controlgroup">
+                                                <legend>Choose User Role:</legend>
+
+                                                <input type="radio" name="role" id="radioEmployeeRole" value="Employee" /> <label for="radioEmployeeRole">  Employee  </label> <span style="width: 20%">    </span>
+
+                                                <input type="radio" name="role" id="radioOperatorRole" value="Operator" /><label for="radioOperatorRole">  Operator  </label> <span style="width: 20%">    </span>
+
+                                                <input type="radio" name="role" id="radioDriverRole" value="Driver" />  <label for="radioDriverRole">  Driver  </label> 
+                                            </fieldset>
+
+                                         
+
+
+
+                                        </div>
+                                        <div class="form-group" id="licenseDiv">
+                                            @Html.LabelFor(model => model.LicenceNo, htmlAttributes: new {@class = "control-label col-md-3"})
+                                            <div class="col-md-7">
+                                                @Html.EditorFor(model => model.LicenceNo, null, new {htmlAttributes = new {@type = "number", @class = "form-control"}})
+                                                @Html.ValidationMessageFor(model => model.LicenceNo, "", new {@class = "text-danger"})
+                                            </div>
+                                        </div>
+
+
                                     </div>
+
+                                    <a style="float: right; margin-left: 20px;" id="btnNext02" class="btn btn-info btnNext">Next</a>
+
+
+                                    <a style="float: right; margin-left: 20px;" class="btn btn-info btnPrevious" id="btnPrevious01">Previous</a>
 
 
                                 </div>
-
-                                <a style="float: right; margin-left: 20px;" id="btnNext02" class="btn btn-info btnNext">Next</a>
-
-
-                                <a style="float: right; margin-left: 20px;" class="btn btn-info btnPrevious">Previous</a>
-
-
                             </div>
-
                         </div>
 
                     </div>
 
-                <div class="tab-pane" id="tabs-1">
-                    <div class="col-md-12" style="height: 30%"></div>
-                    <div class="col-md-12">
+                    <div class="tab-pane" id="tabs-1">
+                        <div class="col-md-12" style="height: 30%"></div>
+                        <div class="col-md-12">
 
-                        <div class="row row-alt">
-                            <div class="col-md-12 jumbotron">
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.DivisionId, htmlAttributes: new {@class = "control-label col-md-2"})
-                                    <div class="col-md-10">
-                                        @Html.DropDownListFor(model => model.DivisionId, new SelectList(divisions, "Id", "Name"), "Select Division", new {@class = "form-control", id = "DivisionDD2"})
-                                        @Html.ValidationMessageFor(model => model.DivisionId, "", new {@class = "text-danger"})
+                            <div class="row row-alt">
+                                <div class="col-md-12 jumbotron">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.DivisionId, htmlAttributes: new {@class = "control-label col-md-2"})
+                                        <div class="col-md-10">
+                                            @Html.DropDownListFor(model => model.DivisionId, new SelectList(divisions, "Id", "Name"), "Select Division", new {@class = "form-control", id = "DivisionDD2", @style = "height: auto;" })
+                                            @Html.ValidationMessageFor(model => model.DivisionId, "", new {@class = "text-danger"})
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.DistrictId, htmlAttributes: new {@class = "control-label col-md-2"})
-                                    <div class="col-md-10">
-                                        @if (Model.Districts.Any())
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.DistrictId, htmlAttributes: new {@class = "control-label col-md-2"})
+                                        <div class="col-md-10">
+                                            @if (Model.Districts.Any())
                                         {
-                                            @Html.DropDownListFor(model => model.DistrictId, new SelectList(Model.Districts, "Id", "Name"), "Select District", new {@class = "form-control"})
+                                            @Html.DropDownListFor(model => model.DistrictId, new SelectList(Model.Districts, "Id", "Name"), "Select District", new {@class = "form-control",@style = "height: auto;" })
                                         }
-                                        @if (!Model.Districts.Any())
+                                            @if (!Model.Districts.Any())
                                         {
-                                            @Html.DropDownListFor(model => model.DistrictId, null, new {@class = "form-control", id = "DistrictDD2"})
+                                            @Html.DropDownListFor(model => model.DistrictId, null, new {@class = "form-control", id = "DistrictDD2", @style = "height: auto;" })
                                         }
 
-                                        @Html.ValidationMessageFor(model => model.DistrictId, "", new {@class = "text-danger"})
+                                            @Html.ValidationMessageFor(model => model.DistrictId, "", new {@class = "text-danger"})
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group">
-                                    @Html.LabelFor(model => model.ThanaId, htmlAttributes: new {@class = "control-label col-md-2"})
-                                    <div class="col-md-10">
-                                        @if (Model.Thanas.Any())
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.ThanaId, htmlAttributes: new {@class = "control-label col-md-2"})
+                                        <div class="col-md-10" >
+                                            @if (Model.Thanas.Any())
                                         {
-                                            @Html.DropDownListFor(model => model.ThanaId, new SelectList(Model.Thanas, "Id", "Name"), "Select Thana", new {@class = "form-control"})
+                                            @Html.DropDownListFor(model => model.ThanaId, new SelectList(Model.Thanas, "Id", "Name"), "Select Thana", new { @class = "form-control", @style = "height: auto;" })
                                         }
-                                        @if (!Model.Thanas.Any())
+                                            @if (!Model.Thanas.Any())
                                         {
-                                            @Html.DropDownListFor(model => model.ThanaId, null, new {@class = "form-control", id = "thanaDD2"})
+                                            @Html.DropDownListFor(model => model.ThanaId, null, new {@class = "form-control", id = "thanaDD2", @style = "height: auto;" })
                                         }
 
-                                        @Html.ValidationMessageFor(model => model.ThanaId, "", new {@class = "text-danger"})
+                                            @Html.ValidationMessageFor(model => model.ThanaId, "", new {@class = "text-danger"})
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group">
-                                    <label class="control-label col-md-2">Address</label>
+                                    <div class="form-group">
+                                        <label class="control-label col-md-2">Address</label>
 
-                                    <div class="col-md-10">
-                                        @Html.EditorFor(model => model.Address1, new {htmlAttributes = new {@class = "form-control"}})
-                                        @Html.ValidationMessageFor(model => model.Address1, "", new {@class = "text-danger"})
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.Address1, new {htmlAttributes = new {@class = "form-control"}})
+                                            @Html.ValidationMessageFor(model => model.Address1, "", new {@class = "text-danger"})
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <input type="submit" class="btn btn-default" value="Register"/>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input type="submit" class="btn btn-default" value="Register" />
 
-                            </div>
-                            <div class="col-md-6">
-                                <a style="float: right; font-size: 20px" class="btn btn-info btnPrevious">Previous</a>
+                              
+                                    <a style="float: right; margin-left: 20px;" class="btn btn-info btnPrevious" id="btnPrevious02">Previous</a>
 
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
                     <div class="col-md-12" style="height: 30px"></div>
                 </div>
                 @*</div>*@
@@ -334,10 +351,10 @@
     </script>
 
     <script>
-        jQuery(function($) {
+        jQuery(function ($) {
             // Your jQuery code here, using the $
 
-            $("#DepartmentId").change(function() {
+            $("#DepartmentId").change(function () {
                 debugger;
                 var selectedDepartmentId = $("#DepartmentId").val();
                 var jsonData = { departmentId: selectedDepartmentId };
@@ -347,18 +364,18 @@
                     url: "/Designation/GetByDepartments",
                     data: jsonData,
                     type: "POST",
-                    success: function(response) {
+                    success: function (response) {
                         debugger;
                         //event.preventDefault();
                         $("#DesignationId").empty();
                         var options = "<option >Select...</option>";
                         $.each(response,
-                            function(key, designation) {
+                            function (key, designation) {
                                 options += "<option value='" + designation.Id + "'>" + designation.Name + "</option>";
                             });
                         $("#DesignationId").append(options);
                     },
-                    error: function(response) {
+                    error: function (response) {
 
                     }
 
@@ -366,7 +383,7 @@
 
             });
             // permanent address
-            $("#DivisionDD1").change(function() {
+            $("#DivisionDD1").change(function () {
                 debugger;
                 var permanentDivisionId = $("#DivisionDD1").val();
                 var permanentTargetId = "#DistrictDD1";
@@ -374,7 +391,7 @@
             });
 
             //permanent thana
-            $("#DistrictDD1").change(function() {
+            $("#DistrictDD1").change(function () {
                 debugger;
                 var permanentDistrictId = $("#DistrictDD1").val();
                 var permanentTargetId = "#thanaDD1";
@@ -382,7 +399,7 @@
             });
 
             // present address
-            $("#DivisionDD2").change(function() {
+            $("#DivisionDD2").change(function () {
                 debugger;
                 var selectedDivisionId = $("#DivisionDD2").val();
                 var targetid = "#DistrictDD2";
@@ -392,7 +409,7 @@
 
 
             // thana present
-            $("#DistrictDD2").change(function() {
+            $("#DistrictDD2").change(function () {
                 debugger;
                 var selectedthanaId = $("#DistrictDD2").val();
                 var targetid = "#thanaDD2";
@@ -407,17 +424,17 @@
                     url: "/district/GetByDivision",
                     data: jsonData,
                     type: "POST",
-                    success: function(response) {
+                    success: function (response) {
                         $(permanentTargetId).empty();
 
                         var options = "<option>Select.....</option>";
                         $.each(response,
-                            function(key, district) {
+                            function (key, district) {
                                 options += "<option value='" + district.Id + "'>" + district.Name + "</option>";
                             });
                         $(permanentTargetId).append(options);
                     },
-                    error: function(response) {
+                    error: function (response) {
 
                     }
                 });
@@ -430,16 +447,16 @@
                     url: "/Thana/GetByDistrict",
                     data: jsonData,
                     type: "POST",
-                    success: function(response) {
+                    success: function (response) {
                         $(permanentTargetId).empty();
                         var options = "<option>Select.....</option>";
                         $.each(response,
-                            function(key, thana) {
+                            function (key, thana) {
                                 options += "<option value='" + thana.Id + "'>" + thana.Name + "</option>";
                             });
                         $(permanentTargetId).append(options);
                     },
-                    error: function(response) {
+                    error: function (response) {
 
                     }
                 });
@@ -452,17 +469,17 @@
                     url: "/district/GetByDivision",
                     data: jsonData,
                     type: "POST",
-                    success: function(response) {
+                    success: function (response) {
                         $(targetid).empty();
 
                         var options = "<option>Select.....</option>";
                         $.each(response,
-                            function(key, district) {
+                            function (key, district) {
                                 options += "<option value='" + district.Id + "'>" + district.Name + "</option>";
                             });
                         $(targetid).append(options);
                     },
-                    error: function(response) {
+                    error: function (response) {
 
                     }
                 });
@@ -475,17 +492,17 @@
                     url: "/Thana/GetByDistrict",
                     data: jsonData,
                     type: "POST",
-                    success: function(response) {
+                    success: function (response) {
                         $(targetid).empty();
 
                         var options = "<option>Select.....</option>";
                         $.each(response,
-                            function(key, district) {
+                            function (key, district) {
                                 options += "<option value='" + district.Id + "'>" + district.Name + "</option>";
                             });
                         $(targetid).append(options);
                     },
-                    error: function(response) {
+                    error: function (response) {
 
                     }
                 });
@@ -495,10 +512,7 @@
 
     </script>
     <script type="text/javascript">
-        //$(document).ready(function () {
-        //    $("#tabs-2").addClass("not-active");
-        //    $("#tabs-3").addClass("not-active");
-        //});
+
 
         //$(function () {
 
@@ -508,66 +522,109 @@
         //    });
 
         //});
-        jQuery(function($) {
+        jQuery(function ($) {
             //$("#btnNext01").on("click", function() {
             //    debugger;
             //    event.preventDefault();
             //    $("#tabs-2").addClass("active");
             //    $(this).removeClass("active");
-               
+
             //});
+            $(document).ready(function () {
+                $("#liTabs-1").addClass("not-active !important");
+                $("#liTabs-2").addClass("not-active !important");
+                $("#liTabs-3").addClass("not-active !important");
+            });
             $('#btnNext01').on('click', function () {
                 debugger;
                 //e.preventDefault();
                 //$('#myTab a[href="#tabs-2"]').show();
                 $("#liTabs-3").removeClass("active");
                 $("#tabs-3").removeClass("active");
-                
+
                 $("#liTabs-2").addClass("active");
                 $("#tabs-2").addClass("active");
-               
-                ////debugger;
-               //$(this).removeClass("active");
-               // $('.nav-tabs > .active').next('li').find('a').trigger('click');
-               
-               
-            });
 
+                ////debugger;
+                //$(this).removeClass("active");
+                // $('.nav-tabs > .active').next('li').find('a').trigger('click');
+
+
+            });
+            $("#btnNext02").on("click", function () {
+                $("#liTabs-2").removeClass("active");
+                $("#tabs-2").removeClass("active");
+
+                $("#liTabs-1").addClass("active");
+                $("#tabs-1").addClass("active");
+            });
+            $("#btnPrevious01").on("click", function () {
+                $("#liTabs-2").removeClass("active");
+                $("#tabs-2").removeClass("active");
+
+                $("#liTabs-3").addClass("active");
+                $("#tabs-3").addClass("active");
+            });
+            $("#btnPrevious02").on("click", function () {
+
+                $("#liTabs-1").removeClass("active");
+                $("#tabs-1").removeClass("active");
+
+                $("#liTabs-2").addClass("active");
+                $("#tabs-2").addClass("active");
+            });
+            //$(function () {
+            //    $('.list_tabs .tab').click(function () {
+            //        var href = $(this).find('a').attr('href');
+            //        $(this).parents().siblings(".content_menu").children().hide();
+            //        $(this).parents().siblings(".content_menu").children(href).show();
+
+            //    });
+            //});
             //$('#btnNext01').click(function () {
             //    debugger;
             //    var selected = $("#myTab").tabs("option", "selected");
             //    $("#myTab").tabs("option", "selected", selected + 1);
             //});
 
-            $("#btnNext02").on("click", function() {
-                debugger;
-                $(this).removeClass("active");
-                debugger;
-                $("#tabs-3").addClass("active");
-            });
-            $(".nav li").on("click", function() {
-                
-                $(this).addClass("active");
-                $(".nav li").removeClass("active");
+          
+            //$(".nav li a").on("click", function () {
 
-                
-            });
+            //    debugger;
+            //    $(".nav li").removeClass("active");
+            //    $(this).parent().addClass('active');
+            //    var currentTab = $(this).attr('href');
+            //    //$('#myTab > div').hide();
+            //    $(currentTab).show();
+
+            //});
+            //$('#tabs ul li a').click(function () {
+            //    debugger;
+            //    $('#tabs ul li').removeClass('active');
+            //    $(this).parent().addClass('active');
+            //    var currentTab = $(this).attr('href');
+            //    $('#tabs > div').hide();
+            //    // a > were missing
+            //    $(currentTab).show();
+            //    //return false;
+            //});
+
             //$('.btnNext').click(function() {
             //    debugger;
             //    $('.nav-tabs > .active').next('li').find('a').trigger('click');
             //});
 
-            $('.btnPrevious').click(function() {
-                debugger;
-                $('.nav-tabs > .active').prev('li').find('a').trigger('click');
-            });
+            //$('.btnPrevious').click(function () {
+            //    debugger;
+            //    $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+            //});
         });
     </script>
 
     <script type="text/javascript">
-        jQuery(function($) {
+        jQuery(function ($) {
             // Your jQuery code here, using the $
-            $(document).ready(function() {
+            $(document).ready(function () {
 
                 $('#radioEmployeeRole').attr('checked', true);
                 $('#licenseDiv').hide();
@@ -575,8 +632,8 @@
 
             });
         });
-        jQuery(function($) {
-            $("#fileUpload").change(function() {
+        jQuery(function ($) {
+            $("#fileUpload").change(function () {
                 debugger;
                 var file = this.files;
 
@@ -586,16 +643,16 @@
 
             });
 
-            var ReadImage = function(file) {
+            var ReadImage = function (file) {
 
                 var reader = new FileReader;
                 var image = new Image;
 
                 reader.readAsDataURL(file);
-                reader.onload = function(_file) {
+                reader.onload = function (_file) {
 
                     image.src = _file.target.result;
-                    image.onload = function() {
+                    image.onload = function () {
 
                         var height = this.height;
                         var width = this.width;
@@ -609,7 +666,7 @@
                     };
                 };
             };
-            $("#clearPreview").click(function() {
+            $("#clearPreview").click(function () {
                 $("#fileUpload").val('');
                 $("#description").text('');
                 $("#imgPreview").hide();
@@ -618,8 +675,8 @@
         });
     </script>
     <script type="text/javascript">
-        jQuery(function($) {
-            $('#radioEmployeeRole').change(function() {
+        jQuery(function ($) {
+            $('#radioEmployeeRole').change(function () {
                 debugger;
                 if ($('#radioEmployeeRole').is(':checked')) {
 
@@ -632,7 +689,7 @@
                     $('#Role').val('Employee');
                 }
             });
-            $('#radioOperatorRole').change(function() {
+            $('#radioOperatorRole').change(function () {
                 debugger;
                 if ($('#radioOperatorRole').is(':checked')) {
 
@@ -647,7 +704,7 @@
 
                 }
             });
-            $('#radioDriverRole').change(function() {
+            $('#radioDriverRole').change(function () {
                 debugger;
                 if ($('#radioDriverRole').is(':checked')) {
 
@@ -660,7 +717,7 @@
                     $('#LicenceNo').attr('required', true);
                 }
             });
-            $('#chkUserName').change(function() {
+            $('#chkUserName').change(function () {
                 if ($('#chkUserName').is(':checked')) {
 
                     $('#UserName').val($("#userNameSuggestion").html());
@@ -669,7 +726,7 @@
                 }
 
             });
-            $('#btnNext01').click(function() {
+            $('#btnNext01').click(function () {
 
                 var _name = $('#Name').val();
                 var _contactNo = $('#ContactNo').val();
@@ -680,12 +737,12 @@
                         type: "Post",
                         //cache: false,
 
-                        success: function(result) {
+                        success: function (result) {
 
 
                             $("#userNameSuggestion").html(result);
                         },
-                        error: function() {
+                        error: function () {
 
                         }
 
