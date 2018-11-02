@@ -240,6 +240,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\HtmlHelperExtensions.cs" />
     <Compile Include="Migrations\201809240448277_InitialCreate.cs" />
     <Compile Include="Migrations\201809240448277_InitialCreate.Designer.cs">
       <DependentUpon>201809240448277_InitialCreate.cs</DependentUpon>
@@ -303,6 +304,34 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AllDataTables\app_js\app.js" />
+    <Content Include="AllDataTables\bootstrap\bootstrap.min.css" />
+    <Content Include="AllDataTables\bootstrap\icons.css" />
+    <Content Include="AllDataTables\bootstrap\style.css" />
+    <Content Include="AllDataTables\datatables\CssFile\css\buttons.bootstrap4.min.css" />
+    <Content Include="AllDataTables\datatables\CssFile\css\dataTables.bootstrap4.min.css" />
+    <Content Include="AllDataTables\datatables\CssFile\css\responsive.bootstrap4.min.css" />
+    <Content Include="AllDataTables\datatables\JsFile\buttons.bootstrap4.min.js" />
+    <Content Include="AllDataTables\datatables\JsFile\buttons.colVis.min.js" />
+    <Content Include="AllDataTables\datatables\JsFile\buttons.html5.min.js" />
+    <Content Include="AllDataTables\datatables\JsFile\buttons.print.min.js" />
+    <Content Include="AllDataTables\datatables\JsFile\dataTables.bootstrap4.min.js" />
+    <Content Include="AllDataTables\datatables\JsFile\dataTables.buttons.min.js" />
+    <Content Include="AllDataTables\datatables\JsFile\dataTables.responsive.min.js" />
+    <Content Include="AllDataTables\datatables\JsFile\jquery.dataTables.min.js" />
+    <Content Include="AllDataTables\datatables\JsFile\jszip.min.js" />
+    <Content Include="AllDataTables\datatables\JsFile\pdfmake.min.js" />
+    <Content Include="AllDataTables\datatables\JsFile\responsive.bootstrap4.min.js" />
+    <Content Include="AllDataTables\datatables\JsFile\vfs_fonts.js" />
+    <Content Include="AllDataTables\datatables_init_js\datatables.init.js" />
+    <Content Include="AllDataTables\js\bootstrap.min.js" />
+    <Content Include="AllDataTables\js\jquery.min.js" />
+    <Content Include="AllDataTables\js\jquery.nicescroll.js" />
+    <Content Include="AllDataTables\js\jquery.scrollTo.min.js" />
+    <Content Include="AllDataTables\js\jquery.slimscroll.js" />
+    <Content Include="AllDataTables\js\modernizr.min.js" />
+    <Content Include="AllDataTables\js\popper.min.js" />
+    <Content Include="AllDataTables\js\waves.js" />
     <Content Include="Client Scripts\mvcfoolproof.unobtrusive.js" />
     <Content Include="Client Scripts\mvcfoolproof.unobtrusive.min.js" />
     <Content Include="Client Scripts\MvcFoolproofJQueryValidation.js" />
@@ -1043,6 +1072,10 @@
     <Content Include="ReportViewerWebForm.aspx" />
     <Content Include="scripts\ai.0.22.9-build00167.js" />
     <Content Include="scripts\ai.0.22.9-build00167.min.js" />
+    <Content Include="scripts\app.build.js" />
+    <Content Include="scripts\app\common.js" />
+    <Content Include="scripts\app\main\about.js" />
+    <Content Include="scripts\app\main\index.js" />
     <Content Include="scripts\bootstrap.js" />
     <Content Include="scripts\bootstrap.min.js" />
     <Content Include="scripts\DataTables\autoFill.bootstrap.js" />
@@ -1168,7 +1201,10 @@
     <Content Include="scripts\jquery.validate.min.js" />
     <Content Include="scripts\jquery.validate.unobtrusive.js" />
     <Content Include="scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="scripts\main.js" />
     <Content Include="scripts\modernizr-2.6.2.js" />
+    <Content Include="r.js" />
+    <Content Include="scripts\require.js" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -1435,6 +1471,7 @@
     <None Include="Web References\com.onnorokomsms.api2\sendsms.wsdl" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="AllDataTables\datatables\CssFile\js\" />
     <Folder Include="App_Data\" />
     <Folder Include="Views\Comment\" />
   </ItemGroup>
