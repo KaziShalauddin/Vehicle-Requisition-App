@@ -2,7 +2,7 @@
 @model VehicleManagementApp.ViewModels.FilteringSearchViewModel
 @{
     ViewBag.Title = "CheckOut";
-    Layout = "~/Views/Shared/_ManagerLayout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     int sl = 1;
 }
 
@@ -32,7 +32,7 @@
         </div>
     </div>
 }
-
+<div class="row" style="height: 30px"></div>
 <div id="resultDiv">
     @Html.Partial("_CompleteRequsitionPartial", Model.RequsitionViewModels)
 </div>

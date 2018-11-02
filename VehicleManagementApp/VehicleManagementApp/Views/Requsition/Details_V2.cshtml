@@ -1,14 +1,20 @@
-﻿@model VehicleManagementApp.ViewModels.AssignedListViewModel
+﻿@using VehicleManagementApp.BLL
+@using VehicleManagementApp.BLL.Contracts
+@model VehicleManagementApp.ViewModels.AssignedListViewModel
 
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    //IDriverStatusManager driverStatusManager = new DriverStatusManager();
+    //IVehicleStatusManager vehicleStatusManager = new VehicleStatusManager();
+    //IEmployeeManager employeeManager = new EmployeeManager();
+    //IVehicleManager vehicleManager = new VehicleManager();
 }
 
 
 <h3 style="text-align: center">Requisition Details</h3>
-<br/>
-<br/>
+<br />
+<br />
 @if (TempData["msg"] != null)
             {
     <div class="alert alert-warning">
@@ -44,8 +50,8 @@
                     <br />
                     @{
 
-                    var startdate = Model.Requisition.JourneyStart.ToString("dd - MMM - yyyy hh:mm tt");
-                    var enddate = Model.Requisition.JouneyEnd.ToString("dd - MMM - yyyy  hh:mm tt");
+                        var startdate = Model.Requisition.JourneyStart.ToString("dd - MMM - yyyy hh:mm tt");
+                        var enddate = Model.Requisition.JouneyEnd.ToString("dd - MMM - yyyy  hh:mm tt");
                     }
                     Journey Start: @Html.Raw(startdate)
 
@@ -54,49 +60,107 @@
                 </td>
             </tr>
         </table>
+        @if (Model.Requisition.Status == "Assign")
+        {
+            <table class="table table-hover">
+                <tr class="card">
+                    <th>Assigned Driver Info</th>
+                    <td>
+                        Driver Name: @Html.DisplayFor(model => model.Driver.Name)
+                        <br />
+                        Phone No: @Html.DisplayFor(model => model.Driver.ContactNo)
+                    </td>
+                </tr>
+            </table>
 
-        @*<table class="table  table-hover">
-            <tr class="card">
-                <th>Vehicle :</th>
-                <td>@Html.DisplayFor(model => model.Vehicle.Name)</td>
-            </tr>
-        </table>*@
+            <table class="table table-hover">
+                <tr class="card">
+                    <th>Assigned Vehicle Info</th>
+                    <td>
+                        Brand : @Html.DisplayFor(model => model.Vehicle.VehicleName)
+                        <br />
+                        Registration No.: @Html.DisplayFor(model => model.Vehicle.VehicleName)
+                        <br />
+                        Detailed Name: @Html.DisplayFor(model => model.Vehicle.VehicleName)
+                    </td>
+                </tr>
+            </table>
+        }
+        @if (Model.Requisition.Status == "Complete")
+        {
+            <table class="table table-hover">
+                    <tr class="card">
+                        <th>Assigned Driver Info</th>
+                        <td>
+                            Driver Name: @Html.DisplayFor(model => model.Driver.Name)
+                            <br />
+                            Phone No: @Html.DisplayFor(model => model.Driver.ContactNo)
+                        </td>
+                    </tr>
+                </table>
+           <table class="table table-hover">
+                    <tr class="card">
+                        <th>Assigned Vehicle Info</th>
+                        <td>
+                            Brand : @Html.DisplayFor(model => model.Vehicle.VehicleName)
+                            <br />
+                            Registration No.: @Html.DisplayFor(model => model.Vehicle.VehicleName)
+                            <br />
+                            Detailed Name: @Html.DisplayFor(model => model.Vehicle.VehicleName)
+                        </td>
+                    </tr>
+                </table>
+           }
+
     </div>
 </div>
-@*<p>
-    @Html.ActionLink("Back to List", "DriverMyDutyList")
-</p>*@
+
 <div class="container">
     <div class="row">
         <div class="col-md-12">
             <p>
                 @if (User.IsInRole(AppEnum.RoleEnum.Employee.ToString()))
                 {
-                    @*@Html.ActionLink("Edit", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })*@
-                    @Html.ActionLink("Cancel", "Delete", new { id = Model.Requisition.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are You Sure? You Want To Cancel!')" })
-                   <span style="width: 20px;"></span>
-                     @Html.ActionLink("Print", "Print","Requsition", new { id = Model.Requisition.Id }, new { @class = "btn btn-success" })
-                    <span style="width: 20px;"></span>
-                     @Html.ActionLink("Dashboard", "Dashboard","Home", new { id = "", }, new { @class = "btn btn-default" })
-                }
-                else
-                {
-
-                    if (Model.Requisition.Status != "Complete" && Model.Requisition.Status != "Assign")
+                    if (Model.Requisition.Status != "Complete" || Model.Requisition.Status != "Assign")
                     {
-                        @Html.ActionLink("Assign", "AdvanceAssign", "Manager", new { id = Model.Requisition.Id }, new { @class = "btn btn-info" })
+                        @Html.ActionLink("Edit", "Edit", new { id = Model.Requisition.Id }, new { @class = "btn btn-primary", onclick = "return confirm('Are You Sure? You Want To Cancel!')" })
                         <span style="width: 20px;"></span>
-                         @Html.ActionLink("Print", "Print", "Requsition", new { id = Model.Requisition.Id }, new { @class = "btn btn-success" })
+                        @Html.ActionLink("Cancel", "Delete", new { id = Model.Requisition.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are You Sure? You Want To Cancel!')" })
+                        <span style="width: 20px;"></span>
+                        @Html.ActionLink("Print", "Print", "Requsition", new { id = Model.Requisition.Id }, new { @class = "btn btn-success" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Print", "Print_V2", "Requsition", new { id = Model.Requisition.Id }, new { @class = "btn btn-success" })
                     }
 
+                }
+                @if (User.IsInRole(AppEnum.RoleEnum.Controller.ToString()))
+                {
+                    if (Model.Requisition.Status != "Complete" && Model.Requisition.Status != "Assign")
+                    {
+                        @Html.ActionLink("Edit", "Edit", new { id = Model.Requisition.Id }, new { @class = "btn btn-primary", onclick = "return confirm('Are You Sure? You Want To Edit!')" })
+                        <span style="width: 30px;"></span>
+                        @Html.ActionLink("Cancel", "Delete", new { id = Model.Requisition.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are You Sure? You Want To Cancel!')" })
+                        <span style="width: 30px;"></span>
+                        @Html.ActionLink("Assign", "AdvanceAssign", "Manager", new { id = Model.Requisition.Id }, new { @class = "btn btn-info" })
+                        <span style="width: 30px;"></span>
+                        @Html.ActionLink("Print", "Print", "Requsition", new { id = Model.Requisition.Id }, new { @class = "btn btn-success" })
+                    }
+                    if ( Model.Requisition.Status == "Assign")
+                    {                      
+                        @Html.ActionLink("Reassign", "Reassign_V2", "Manager", new { id = Model.Requisition.Id }, new { @class = "btn btn-info" })
+                        <span style="width: 30px;"></span>
+                        @Html.ActionLink("Print", "Print_V2", "Manager", new { id = Model.Requisition.Id }, new { @class = "btn btn-success" })
+                    }
                     else
                     {
                         @Html.ActionLink("Print", "Print_V2", "Manager", new { id = Model.Requisition.Id }, new { @class = "btn btn-success" })
                     }
-                    <span style="width: 20px;"></span>
-                    @Html.ActionLink("Dashboard", "Dashboard", "Home", new { id = "", }, new { @class = "btn btn-default" })
-                }
 
+                }
+                <span style="width: 30px;"></span>
+                @Html.ActionLink("Dashboard", "Dashboard", "Home", new { id = "" }, new { @class = "btn btn-secondary" })
             </p>
         </div>
     </div>
@@ -121,47 +185,49 @@
 
 @section scripts{
     <script>
-        
+
         function handeCommentAddedComplete() {
-           
+
             $("#Comments").val("");
+            $('#EmployeeReceiver').attr('checked', false);
+            $('#DriverReceiver').attr('checked', false);
         }
     </script>
 }
 
 @*@section scripts{
-    <script type="text/javascript">
+        <script type="text/javascript">
 
-        //event.preventDefault();
-        //data.serialize();
-        $('#btnComment').click(function (event) {
-            var comments = $("#Comments").val();
-            var requsitionId = $("#RequsitionId").val();
-            var employeeId = $("#EmployeeId").val();
-            var employeName = $("#EmployeName").val();
-            
-            if (comments != '') {
-                debugger;
-                $.ajax({
-                    url: '@(Url.Action("CreateComment"))',
-                    data:{comments,requsitionId,employeeId,employeName},
-                  
-                    type: "POST",
-                    success: function (result) {
+            //event.preventDefault();
+            //data.serialize();
+            $('#btnComment').click(function (event) {
+                var comments = $("#Comments").val();
+                var requsitionId = $("#RequsitionId").val();
+                var employeeId = $("#EmployeeId").val();
+                var employeName = $("#EmployeName").val();
 
-                        $("#commentListReplace").empty();
-                        $("#commentListReplace").html(result);
-                        
-                    },
-                    error: function(result) {
+                if (comments != '') {
+                    debugger;
+                    $.ajax({
+                        url: '@(Url.Action("CreateComment"))',
+                        data:{comments,requsitionId,employeeId,employeName},
 
-                    }
+                        type: "POST",
+                        success: function (result) {
 
-                });
+                            $("#commentListReplace").empty();
+                            $("#commentListReplace").html(result);
 
-            }
+                        },
+                        error: function(result) {
 
-        });
+                        }
 
-    </script>
-}*@
+                    });
+
+                }
+
+            });
+
+        </script>
+    }*@

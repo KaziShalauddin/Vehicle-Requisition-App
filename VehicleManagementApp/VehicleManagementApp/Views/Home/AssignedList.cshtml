@@ -1,9 +1,14 @@
-﻿@model IEnumerable<VehicleManagementApp.ViewModels.RequsitionViewModel>
+﻿@using VehicleManagementApp.BLL
+@using VehicleManagementApp.BLL.Contracts
+@model IEnumerable<VehicleManagementApp.ViewModels.RequsitionViewModel>
 @{
     ViewBag.Title = "TodayAssignedList";
-    Layout = "~/Views/Shared/_LayoutManager.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     int sl = 1;
 }
+<br/>
+<h2 style="padding-bottom: 30px; text-align: center">Assigned Requisitions List</h2>
+<br />
 
 <table class="table table-bordered table-striped" id="myTable">
     <thead>
@@ -19,7 +24,7 @@
             </th>
 
             <th>
-                @Html.Raw("Requsition Place")
+                @Html.Raw("Requsition Info")
 
             </th>
             <th>
@@ -28,8 +33,10 @@
             <th>
                 @Html.Raw("Journey End")
             </th>
+            <th>
+                @Html.DisplayName("Comments")
+            </th>
 
-            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -59,18 +66,22 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.EndTime)
                 </td>
-                <td class="dropdown">
-                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        button
-                    </button>
-                    <div class="dropdown-menu" id="dropdownMenu2">
-                        @Html.ActionLink("Print", "Print_V2", new { id = item.Id }, new { @class = "btn btn-info" })
-                        @Html.ActionLink("Reassign", "Reassign_V2", new { id = item.Id }, new { @class = "btn btn-success", onclick = "return confirm('Are You Sure? You Want To Re-Assign This Requisition ?')" })
-                        @Html.ActionLink("Check In", "CheckIn_V2", new { id = item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are You Sure? You Want To Check In !!')" })
-                        @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-default" })
-                    </div>
+                <td>
+                    @{
+                        ICommentManager commentManager = new CommentManager();
+                        var newComments = commentManager.Get(c => c.RequsitionId == item.Id).Count(c => c.ReceiverEmployeeId == ViewBag.UserEmployeeId && c.IsReceiverSeen == false);
+
+                    }
+                    <span>
+                        <img src="~/img/f8-01-512.png" alt="new comments" style="height: 10%; ">
+                        <span class="notification">@Html.Raw(newComments)</span>
+                    </span>
+
+                    @Html.ActionLink("Details", "Details_V2", "Requsition", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
                 </td>
+                
             </tr>
+            
         }
     </tbody>
 </table>

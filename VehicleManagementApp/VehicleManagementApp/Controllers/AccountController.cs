@@ -86,7 +86,8 @@ namespace VehicleManagementApp.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return returnUrl != null ? RedirectToLocal(returnUrl) : RedirectToAction("Dashboard", "Home");
+                    //return returnUrl != null ? RedirectToLocal(returnUrl) : RedirectToAction("Dashboard", "Home");
+                    return RedirectToAction("Dashboard", "Home");
 
                 case SignInStatus.LockedOut:
                     return View("Lockout");

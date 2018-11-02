@@ -195,14 +195,14 @@ sup {
 }
 
 a {
-  color: #007bff;
+  /*color: #007bff;*/
   text-decoration: none;
   background-color: transparent;
   -webkit-text-decoration-skip: objects;
 }
 
 a:hover {
-  color: #0056b3;
+  color: #66cdaa;
   text-decoration: underline;
 }
 
@@ -1414,13 +1414,14 @@ pre code {
   max-width: 100%;
   margin-bottom: 1rem;
   background-color: transparent;
+    border: 1px solid #6495ed;
 }
 
 .table th,
 .table td {
   padding: 0.75rem;
   vertical-align: top;
-  border-top: 1px solid #dee2e6;
+  border-top: 1px solid #6495ed;
 }
 
 .table thead th {
@@ -1442,12 +1443,12 @@ pre code {
 }
 
 .table-bordered {
-  border: 1px solid #dee2e6;
+  border: 1px solid #6495ed;
 }
 
 .table-bordered th,
 .table-bordered td {
-  border: 1px solid #dee2e6;
+  border: 1px solid #a6abb3;
 }
 
 .table-bordered thead th,

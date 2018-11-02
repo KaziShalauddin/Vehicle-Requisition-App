@@ -262,6 +262,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\AssignedListViewModel.cs" />
     <Compile Include="ViewModels\CountCommentViewModel.cs" />
+    <Compile Include="ViewModels\EditRequisitionViewModel.cs" />
     <Compile Include="ViewModels\RessignViewModel.cs" />
     <Compile Include="ViewModels\CommentViewModel.cs" />
     <Compile Include="ViewModels\DriverDutyViewModel.cs" />
@@ -1280,6 +1281,10 @@
     <Content Include="Views\Home\_CompleteRequsitionPartial.cshtml" />
     <Content Include="Views\Home\_MyRequisitionListPartial.cshtml" />
     <Content Include="Views\Shared\_ManagerLayout.cshtml" />
+
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Requsition\Print_V2.cshtml" />
+
     <None Include="Web References\com.onnorokomsms.api2\sendsms.disco" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -1316,7 +1321,11 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+
     <Content Include="Views\Shared\_Layout.cshtml" />
+
+    <Content Include="Views\Shared\_Layout_Previous.cshtml" />
+
     <Content Include="thirdPartyCss\css\bootstrap.map" />
     <Content Include="thirdPartyCss\css\material-dashboard.css.map" />
     <Content Include="thirdPartyCss\fonts\fontawesome-webfont.eot" />

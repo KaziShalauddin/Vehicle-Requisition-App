@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-
+    <link rel="shortcut icon" href="~/thirdPartyCss/img/bcc_logo.png">
     <!-- Twitter -->
     <meta name="twitter:site" content="themepixels">
     <meta name="twitter:creator" content="themepixels">
@@ -35,7 +35,10 @@
     <!-- vendor css -->
 
 
+
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-submenu/3.0.1/css/bootstrap-submenu.min.css" />
+    <link href="~/Content/DataTables/css/dataTables.jqueryui.css" rel="stylesheet" />
     <link href="~/DashboardDesign/lib/font-awesome/css/font-awesome.css" rel="stylesheet">
     <link href="~/DashboardDesign/lib/Ionicons/css/ionicons.css" rel="stylesheet">
     <link href="~/DashboardDesign/lib/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
@@ -43,9 +46,14 @@
     <link href="~/DashboardDesign/lib/rickshaw/rickshaw.min.css" rel="stylesheet">
     <link href="~/DashboardDesign/lib/chartist/chartist.css" rel="stylesheet">
     <link href="~/css/myCustom.css" rel="stylesheet" />
+    @*<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.css" />*@
+
     <!-- Bracket CSS -->
+    <link rel="stylesheet" href="~/thirdPartyCss/css/bootstrap.css">
     <link rel="stylesheet" href="~/DashboardDesign/css/animate.css">
     <link rel="stylesheet" href="~/DashboardDesign/css/bracket.css">
+
+
     <style>
         .main-menu {
             padding-top: 20px;
@@ -325,23 +333,51 @@
                     </div><!-- dropdown-menu -->
                 </div><!-- dropdown -->
                 <div class="dropdown">
-                    <a href="" class="nav-link nav-link-profile" data-toggle="dropdown">
-                        <span class="logged-name hidden-md-down">Katherine</span>
-                        <img src="http://via.placeholder.com/64x64" class="wd-32 rounded-circle" alt="">
-                        <span class="square-10 bg-success"></span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-header wd-200">
-                        <ul class="list-unstyled user-profile-nav">
-                            <li><a href=""><i class="icon ion-ios-person"></i> Edit Profile</a></li>
-                            <li><a href=""><i class="icon ion-ios-gear"></i> Settings</a></li>
-                            <li><a href=""><i class="icon ion-ios-download"></i> Downloads</a></li>
-                            <li><a href=""><i class="icon ion-ios-star"></i> Favorites</a></li>
-                            <li><a href=""><i class="icon ion-ios-folder"></i> Collections</a></li>
-                            <li><a href=""><i class="icon ion-power"></i> Sign Out</a></li>
-                        </ul>
-                    </div><!-- dropdown-menu -->
+
+                    @if (Request.IsAuthenticated)
+                    {
+                        <a href="" class="nav-link nav-link-profile" data-toggle="dropdown">
+                            <span class="logged-name hidden-md-down" style="font-size: 18px">@User.Identity.Name</span>
+                            <img src="@Url.Action("UserPhotos", "Home")" class="wd-32 rounded-circle" alt="" />
+                            @*<span class="square-10 bg-success"></span>*@
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-header wd-200">
+                            @if (Request.IsAuthenticated)
+                            {
+
+                                <ul class="list-unstyled user-profile-nav">@Html.Partial("_LoginPartial")</ul>
+                            }
+                            @*<ul class="list-unstyled user-profile-nav">
+
+
+                                    <li><a href=""><i class="icon ion-ios-person"></i> Edit Profile</a></li>
+                                    <li><a href=""><i class="icon ion-ios-gear"></i> Settings</a></li>
+                                    <li><a href=""><i class="icon ion-ios-download"></i> Downloads</a></li>
+                                    <li><a href=""><i class="icon ion-ios-star"></i> Favorites</a></li>
+                                    <li><a href=""><i class="icon ion-ios-folder"></i> Collections</a></li>
+                                    <li><a href=""><i class="icon ion-power"></i> Sign Out</a></li>
+                                </ul>*@
+
+                        </div>
+
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Login", "Login", "Account")
+                    }
+                    <!-- dropdown-menu -->
                 </div><!-- dropdown -->
             </nav>
+
+
+            <!-- language -->
+            <div class="language" id="google_translate_element">
+
+            </div>
+            <!-- language -->
+
+
             <div class="navicon-right">
                 <a id="btnRightMenu" href="" class="pos-relative">
                     <i class="icon ion-ios-chatboxes-outline"></i>
@@ -776,7 +812,8 @@
     <!-- ########## END: MAIN PANEL ########## -->
 
     <script src="~/DashboardDesign/lib/jquery/jquery.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>
+    @*<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.18/datatables.min.js"></script>*@
+    <script src="~/scripts/DataTables/jquery.dataTables.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-hover-dropdown/2.2.1/bootstrap-hover-dropdown.js"></script>
     <script src="~/DashboardDesign/lib/popper.js/popper.js"></script>
     <script src="~/DashboardDesign/lib/bootstrap/bootstrap.js"></script>

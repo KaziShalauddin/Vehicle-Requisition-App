@@ -237,8 +237,9 @@ namespace VehicleManagementApp.Controllers
                 if (user != null)
                 {
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    TempData["msg"] = "Password Change Successfully";
                 }
-                return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
+                return RedirectToAction("ChangePassword");
             }
             AddErrors(result);
             return View(model);

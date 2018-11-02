@@ -1,7 +1,7 @@
 ﻿@using VehicleManagementApp.BLL
 @using VehicleManagementApp.BLL.Contracts
 @{
-    Layout = "~/Views/Shared/_ManagerLayout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
     IRequsitionManager managers = new RequsitionManager();
     var managerNew = managers.Get(c => c.Status == null && c.IsDeleted == false);
     var countNew = managerNew.Count;
@@ -12,56 +12,86 @@
     var countAssign = managerAssign.Count;
     var countComplete = managerComplete.Count;
 }
+@section styles{
+    <style>
+        .not-active {
+            pointer-events: none;
+            cursor: default;
+            text-decoration: none;
+            color: black;
+        }
 
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        a.custom-card,
+        a.custom-card:hover {
+            color: inherit;
+        }
+    </style>
+}
 @*<img src="~/img/f8-01-512.png" alt="new comments" style="height: 5%; ">*@
 <div class="row row-sm">
     <div class="col-sm-6 col-xl-3">
         <div class="bg-teal rounded overflow-hidden">
-            <div class="pd-25 d-flex align-items-center">
-                <i class="ion ion-earth tx-60 lh-0 tx-white op-7"></i>
-                <div class="mg-l-20">
-                    <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">@Html.ActionLink("New Requisition List", "New", "Manager")</p>
-                    <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">Total : @countNew</p>
-                    <span class="tx-11 tx-roboto tx-white-6">New Comments: @Html.Raw(ViewBag.NewRequisitionComments)</span>
+            <a href="@Url.Action("New", "Manager")" class="custom-card">
+                <div class="pd-25 d-flex align-items-center">
 
+                    <i class="ion ion-earth tx-60 lh-0 tx-white op-7"></i>
+                    <div class="mg-l-20">
+                        <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">New Requisition List</p>
+                        <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">Total : @countNew</p>
+                        <span class="tx-11 tx-roboto tx-white-6">New Comments: @Html.Raw(ViewBag.NewRequisitionComments)</span>
+
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
     </div><!-- col-3 -->
     <div class="col-sm-6 col-xl-3 mg-t-20 mg-sm-t-0">
         <div class="bg-danger rounded overflow-hidden">
-            <div class="pd-25 d-flex align-items-center">
-                <i class="ion ion-bag tx-60 lh-0 tx-white op-7"></i>
-                <div class="mg-l-20">
-                    <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">@Html.ActionLink("Hold Requisition List", "HoldIndex", "Manager")</p>
-                    <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">Total : @hold  </p>
-                    <span class="tx-11 tx-roboto tx-white-6">New Comments: @Html.Raw(ViewBag.HoldRequisitionComments)</span>
+            <a href="@Url.Action("HoldIndex", "Manager")" class="custom-card">
+                <div class="pd-25 d-flex align-items-center">
+                    <i class="ion ion-bag tx-60 lh-0 tx-white op-7"></i>
+                    <div class="mg-l-20">
+                        <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">Hold Requisition List</p>
+                        <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">Total : @hold </p>
+                        <span class="tx-11 tx-roboto tx-white-6">New Comments: @Html.Raw(ViewBag.HoldRequisitionComments)</span>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
     </div><!-- col-3 -->
     <div class="col-sm-6 col-xl-3 mg-t-20 mg-xl-t-0">
         <div class="bg-primary rounded overflow-hidden">
-            <div class="pd-25 d-flex align-items-center">
-                <i class="ion ion-monitor tx-60 lh-0 tx-white op-7"></i>
-                <div class="mg-l-20">
-                    <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">@Html.ActionLink("Assigned Requisition List", "FullAssignList", "Manager")</p>
-                    <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">Total : @countAssign </p>
-                    <span class="tx-11 tx-roboto tx-white-6">New Comments: @Html.Raw(ViewBag.HoldRequisitionComments)</span>
+            <a href="@Url.Action("FullAssignList", "Manager")" class="custom-card">
+                <div class="pd-25 d-flex align-items-center">
+                    <i class="ion ion-monitor tx-60 lh-0 tx-white op-7"></i>
+                    <div class="mg-l-20">
+                        <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">Assigned Requisition</p>
+                        <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">Total : @countAssign </p>
+                        <span class="tx-11 tx-roboto tx-white-6">New Comments: @Html.Raw(ViewBag.HoldRequisitionComments)</span>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
+
     </div><!-- col-3 -->
     <div class="col-sm-6 col-xl-3 mg-t-20 mg-xl-t-0">
         <div class="bg-br-primary rounded overflow-hidden">
-            <div class="pd-25 d-flex align-items-center">
-                <i class="ion ion-clock tx-60 lh-0 tx-white op-7"></i>
-                <div class="mg-l-20">
-                    <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">@Html.ActionLink("Completed Requisition List", "CompleteRequsition", "Manager")</p>
-                    <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">Total : @countComplete</p>
-                    <span class="tx-11 tx-roboto tx-white-6">65.45% on average time</span>
+            <a href="@Url.Action("CompleteRequsition", "Manager")" class="custom-card">
+                <div class="pd-25 d-flex align-items-center">
+                    <i class="ion ion-clock tx-60 lh-0 tx-white op-7"></i>
+                    <div class="mg-l-20">
+                        <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">Completed Requisition</p>
+                        <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">Total : @countComplete</p>
+                        <span class="tx-11 tx-roboto tx-white-6">65.45% on average time</span>
+                    </div>
                 </div>
-            </div>
-        </div>
+            </a>
+</div>
     </div><!-- col-3 -->
 </div><!-- row -->

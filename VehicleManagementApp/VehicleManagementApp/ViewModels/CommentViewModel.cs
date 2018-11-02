@@ -34,5 +34,9 @@ namespace VehicleManagementApp.ViewModels
 
         public int SenderEmployeeId { get; set; }
         public Employee SenderEmployee { get; set; }
+
+       
+        public string ReceiverForControllerComment { get; set; }
+       
     }
 }
