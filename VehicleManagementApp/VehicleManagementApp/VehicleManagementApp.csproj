@@ -304,6 +304,34 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AllDataTables\app_js\app.js" />
+    <Content Include="AllDataTables\bootstrap\bootstrap.min.css" />
+    <Content Include="AllDataTables\bootstrap\icons.css" />
+    <Content Include="AllDataTables\bootstrap\style.css" />
+    <Content Include="AllDataTables\datatables\CssFile\css\buttons.bootstrap4.min.css" />
+    <Content Include="AllDataTables\datatables\CssFile\css\dataTables.bootstrap4.min.css" />
+    <Content Include="AllDataTables\datatables\CssFile\css\responsive.bootstrap4.min.css" />
+    <Content Include="AllDataTables\datatables\JsFile\buttons.bootstrap4.min.js" />
+    <Content Include="AllDataTables\datatables\JsFile\buttons.colVis.min.js" />
+    <Content Include="AllDataTables\datatables\JsFile\buttons.html5.min.js" />
+    <Content Include="AllDataTables\datatables\JsFile\buttons.print.min.js" />
+    <Content Include="AllDataTables\datatables\JsFile\dataTables.bootstrap4.min.js" />
+    <Content Include="AllDataTables\datatables\JsFile\dataTables.buttons.min.js" />
+    <Content Include="AllDataTables\datatables\JsFile\dataTables.responsive.min.js" />
+    <Content Include="AllDataTables\datatables\JsFile\jquery.dataTables.min.js" />
+    <Content Include="AllDataTables\datatables\JsFile\jszip.min.js" />
+    <Content Include="AllDataTables\datatables\JsFile\pdfmake.min.js" />
+    <Content Include="AllDataTables\datatables\JsFile\responsive.bootstrap4.min.js" />
+    <Content Include="AllDataTables\datatables\JsFile\vfs_fonts.js" />
+    <Content Include="AllDataTables\datatables_init_js\datatables.init.js" />
+    <Content Include="AllDataTables\js\bootstrap.min.js" />
+    <Content Include="AllDataTables\js\jquery.min.js" />
+    <Content Include="AllDataTables\js\jquery.nicescroll.js" />
+    <Content Include="AllDataTables\js\jquery.scrollTo.min.js" />
+    <Content Include="AllDataTables\js\jquery.slimscroll.js" />
+    <Content Include="AllDataTables\js\modernizr.min.js" />
+    <Content Include="AllDataTables\js\popper.min.js" />
+    <Content Include="AllDataTables\js\waves.js" />
     <Content Include="Client Scripts\mvcfoolproof.unobtrusive.js" />
     <Content Include="Client Scripts\mvcfoolproof.unobtrusive.min.js" />
     <Content Include="Client Scripts\MvcFoolproofJQueryValidation.js" />
@@ -1423,6 +1451,7 @@
     <None Include="Web References\com.onnorokomsms.api2\sendsms.wsdl" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="AllDataTables\datatables\CssFile\js\" />
     <Folder Include="App_Data\" />
     <Folder Include="EmployeeImages\" />
     <Folder Include="Views\Comment\" />
