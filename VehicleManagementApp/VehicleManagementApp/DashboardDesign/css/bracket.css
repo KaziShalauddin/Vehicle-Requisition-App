@@ -14879,7 +14879,18 @@ textarea.parsley-success:focus {
 .bg-purple {
   background-color: #6f42c1;
 }
-
+.bg-admin-1 {
+  background-color: #55a6f8;
+}
+.bg-admin-2 {
+  background-color: #f7786b;
+}
+.bg-admin-3 {
+  background-color: #82b74b;
+}
+.bg-admin-4 {
+  background-color: #6b5b95;
+}
 .bg-pink {
   background-color: #e83e8c;
 }

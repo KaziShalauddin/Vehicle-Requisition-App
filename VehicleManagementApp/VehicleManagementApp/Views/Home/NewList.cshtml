@@ -41,13 +41,12 @@
     }*/
 </style>
 }
-@using (Ajax.BeginForm("MyJsonCreate", "Home", null, new AjaxOptions
-{
-    HttpMethod = "POST",
-    InsertionMode = InsertionMode.Replace,
-    UpdateTargetId = "requisitionListDiv",
-    OnComplete = "RequestSuccess"
-}))
+@using (Ajax.BeginForm("MyJsonCreate", "Home", null,  new AjaxOptions{
+    HttpMethod = "POST",InsertionMode = InsertionMode.Replace,UpdateTargetId = "requisitionListDiv",
+    //OnComplete = "RequestSuccess",
+    OnSuccess = "RequestSuccess", OnFailure = "Showfail"
+},
+    new { id = "requisitionForm" }))
 
 
 {
@@ -199,14 +198,14 @@
 </div>*@
 
 <div id="requisitionListDiv">
-    <div>
-        @if (TempData["msg"] != null)
+    @*<div>
+        @if (ViewBag.Message != null)
         {
             <div class="alert alert-info">
-                @TempData["msg"]
+                ViewBag.Message
             </div>
         }
-    </div>
+    </div>*@
 
     @Html.Partial("_MyRequisitionListPartial", Model.RequsitionViewModels)
 
@@ -255,7 +254,7 @@
 
         function AddNewRequisition() {
             //$("#resultDiv").hide();
-            //$("#resultDiv").html().clear();
+           // $("#resultDiv").html().clear();
             $("#EmployeeDiv").hide();
             $("#EmployeeId option:selected").text("--Select Employee--");
 
@@ -266,10 +265,10 @@
         var endDate;
         var startTime;
         var endtTime;
-      
-      
+
+
         $("#JouneyEndDate").change(function () {
-           
+
             startDate = $("#JourneyStartDate").val();
             startDate = new Date(startDate);
 
@@ -277,19 +276,19 @@
             endDate = new Date(endDate);
             //alert(startDate);
             //alert(endDate);
-            
+
             if (startDate > endDate) {
                 alert("End Date Should Be Greater Than Start Date");
-               
+
                 //$("#JouneyEndDate").clear();
             }
             //if (startDate < endDate) {
             //    alert("startDate < endDate");
-                
+
             //}
             //if (startDate == endDate) {
             //    alert("startDate = endDate");
-            //   
+            //
             //}
         });
         $("#JouneyEndTime").change(function () {
@@ -312,7 +311,7 @@
 
         function myFunction() {
             debugger;
-           
+
             startDate = $("#JourneyStartDate").val();
             startDate = new Date(startDate);
 
@@ -327,7 +326,7 @@
 
 
             }
-            if (startDate == endDate) {
+            if (startDate.getDate() === endDate.getDate()) {
                 if (startTime > endtTime) {
                     alert("End Time Should Be Greater Than Start Time");
                     formIsValid = false;
@@ -342,11 +341,31 @@
         function RequestSuccess() {
             debugger;
             $("#MyModal").modal("hide");
-            var msg = '@TempData["msg"]';
-            //$('#resultDiv').show();
-            //$('#resultDiv').html(msg);
-            //alert(msg);
+           
+            @*var msg = @ViewBag.Message;*@
+           
+            //$('#requisitionForm').reset();
+
+            ////$('#resultDiv').show();
+            ////$('#resultDiv').html(msg);
+            var msg = "Request Submitted successfully!";
+            alert(msg);
             this.reset();
+            //$("#EmployeeDiv").hide();
+            $('#myTable').DataTable();
+        }
+        function Showfail() {
+            debugger;
+            //$("#MyModal").modal("hide");
+           
+           @*var msg = @ViewBag.Message;*@
+            //$('#requisitionForm').reset();
+
+            ////$('#resultDiv').show();
+            ////$('#resultDiv').html(msg);
+            var msg = "Request Submission failed!";
+           alert(msg);
+            //this.reset();
             //$("#EmployeeDiv").hide();
             $('#myTable').DataTable();
         }

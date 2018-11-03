@@ -6,7 +6,9 @@
     //Layout = "~/Views/Shared/_Layout_Previous.cshtml";
     Layout = "~/Views/Shared/_Layout.cshtml";
     IRequsitionManager managers = new RequsitionManager();
-    var managerNew = managers.Get(c => c.Status == null && c.IsDeleted == false).Where(c => c.EmployeeId == ViewBag.UserEmployeeId).ToList();
+    // r => r.RequestedBy == employeeId || r.EmployeeId == employeeId && r.Status == null
+    var managerNew = managers.Get(c => c.Status == null && c.IsDeleted == false).Where(c =>  c.EmployeeId == ViewBag.UserEmployeeId).ToList();
+
     var countNew = managerNew.Count;
     var managerAssign = managers.Get(c => c.Status == "Assign" && c.IsDeleted == false).Where(c => c.EmployeeId == ViewBag.UserEmployeeId).ToList();
     var managerComplete = managers.Get(c => c.Status == "Complete" && c.IsDeleted == false).Where(c => c.EmployeeId == ViewBag.UserEmployeeId).ToList();
@@ -14,6 +16,12 @@
     var hold = managerHold.Count;
     var countAssign = managerAssign.Count;
     var countComplete = managerComplete.Count;
+    // Requisition count for Controller
+    var newRequest = managers.Get(c => c.Status == null && c.IsDeleted == false).ToList().Count;
+    var assignRequest = managers.Get(c => c.Status == "Assign" && c.IsDeleted == false).ToList().Count;
+    var completeRequest = managers.Get(c => c.Status == "Complete" && c.IsDeleted == false).ToList().Count;
+    var holdRequest = managers.Get(c => c.Status == "Hold" && c.IsDeleted == false).ToList().Count;
+
 }
 
 @section styles{
@@ -165,14 +173,14 @@
                 <div class="row d-md-table-row" >
                     <div class="col-md-12" style="height: 30px"></div>
                     <div class="col-sm-6 col-xl-3">
-                        <div class="bg-teal rounded overflow-hidden">
+                        <div class="bg-admin-1 rounded overflow-hidden">
                             <a href="@Url.Action("New", "Manager")" class="custom-card">
                                 <div class="pd-25 d-flex align-items-center">
 
                                     <i class="ion ion-earth tx-60 lh-0 tx-white op-7"></i>
                                     <div class="mg-l-20">
                                         <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">New Requisition List</p>
-                                        <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">Total : @countNew</p>
+                                        <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">Total : @newRequest</p>
                                         <span class="tx-11 tx-roboto tx-white-6">New Comments: @Html.Raw(ViewBag.NewRequisitionComments)</span>
 
                                     </div>
@@ -181,13 +189,13 @@
                         </div>
                     </div><!-- col-3 -->
                     <div class="col-sm-6 col-xl-3">
-                        <div class="bg-danger rounded overflow-hidden">
+                        <div class="bg-admin-2 rounded overflow-hidden">
                             <a href="@Url.Action("HoldIndex", "Manager")" class="custom-card">
                                 <div class="pd-25 d-flex align-items-center">
                                     <i class="ion ion-bag tx-60 lh-0 tx-white op-7"></i>
                                     <div class="mg-l-20">
                                         <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">Hold Requisition List</p>
-                                        <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">Total : @hold </p>
+                                        <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">Total : @holdRequest </p>
                                         <span class="tx-11 tx-roboto tx-white-6">New Comments: @Html.Raw(ViewBag.HoldRequisitionComments)</span>
                                     </div>
                                 </div>
@@ -195,13 +203,13 @@
                         </div>
                     </div><!-- col-3 -->
                     <div class="col-sm-6 col-xl-3">
-                        <div class="bg-primary rounded overflow-hidden">
+                        <div class="bg-admin-3 rounded overflow-hidden" >
                             <a href="@Url.Action("FullAssignList", "Manager")" class="custom-card">
                                 <div class="pd-25 d-flex align-items-center">
                                     <i class="ion ion-monitor tx-60 lh-0 tx-white op-7"></i>
                                     <div class="mg-l-20">
                                         <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">Assigned Requisition</p>
-                                        <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">Total : @countAssign </p>
+                                        <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">Total : @assignRequest </p>
                                         <span class="tx-11 tx-roboto tx-white-6">New Comments: @Html.Raw(ViewBag.HoldRequisitionComments)</span>
                                     </div>
                                 </div>
@@ -210,13 +218,13 @@
 
                     </div><!-- col-3 -->
                     <div class="col-sm-6 col-xl-3">
-                        <div class="bg-br-primary rounded overflow-hidden">
+                        <div class="bg-admin-4 rounded overflow-hidden">
                             <a href="@Url.Action("CompleteRequsition", "Manager")" class="custom-card">
                                 <div class="pd-25 d-flex align-items-center">
                                     <i class="ion ion-clock tx-60 lh-0 tx-white op-7"></i>
                                     <div class="mg-l-20">
                                         <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">Completed Requisition</p>
-                                        <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">Total : @countComplete</p>
+                                        <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">Total : @completeRequest</p>
                                         <span class="tx-11 tx-roboto tx-white-6" style="color: transparent">Comments  </span>
                                     </div>
                                 </div>
@@ -239,7 +247,7 @@
                                     <div class="mg-l-20">
                                         <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">My New Requisition List</p>
                                         <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">Total : @countNew</p>
-                                        <span class="tx-11 tx-roboto tx-white-6">New Comments: @Html.Raw(ViewBag.NewRequisitionComments)</span>
+                                        <span class="tx-11 tx-roboto tx-white-6">New Comments: @Html.Raw(ViewBag.MyNewRequisitionComments)</span>
 
                                     </div>
                                 </div>
@@ -254,7 +262,7 @@
                                     <div class="mg-l-20">
                                         <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">My Hold Requisition List</p>
                                         <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">Total : @hold </p>
-                                        <span class="tx-11 tx-roboto tx-white-6">New Comments: @Html.Raw(ViewBag.HoldRequisitionComments)</span>
+                                        <span class="tx-11 tx-roboto tx-white-6">New Comments: @Html.Raw(ViewBag.MyHoldRequisitionComments)</span>
                                     </div>
                                 </div>
                             </a>
@@ -268,7 +276,7 @@
                                     <div class="mg-l-20">
                                         <p class="tx-10 tx-spacing-1 tx-mont tx-medium tx-uppercase tx-white-8 mg-b-10">My Assigned Requisition List</p>
                                         <p class="tx-24 tx-white tx-lato tx-bold mg-b-2 lh-1">Total : @countAssign </p>
-                                        <span class="tx-11 tx-roboto tx-white-6">New Comments: @Html.Raw(ViewBag.HoldRequisitionComments)</span>
+                                        <span class="tx-11 tx-roboto tx-white-6">New Comments: @Html.Raw(ViewBag.MyAssignRequisitionComments)</span>
                                     </div>
                                 </div>
                             </a>
@@ -301,42 +309,16 @@
 @section scripts{
     @*<script src="~/js/bootstrap.min.js"></script>*@
     @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>*@
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    @*<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>*@
     <script type="text/javascript">
-        $(document).ready(function () {
-            //$("#tabs-2").addClass("not-active");
-            //$("#tabs-3").addClass("not-active");
-
-        });
-
-        //$(function () {
-
-        //    $("#defaultTab").tabs({
-
-
-        //    });
-
+        //$('#tabs-menu-box a').click(function (e) {
+        //    //$('#tabs-menu-box').removeClass('active');
+        //    debugger;
+        //    e.preventDefault();
+        //    $(this).tab('show');
+        //    $(this).addClass('active');
         //});
 
-        $("#btnNext01").on("click", function () {
-            $(this).removeClass("active");
-            $("#tabs-2").addClass("active");
-        });
-        $("#btnNext02").on("click", function () {
-            $(this).removeClass("active");
-            $("#tabs-3").addClass("active");
-        });
-        $(".nav li").on("click", function () {
-            debugger;
-            $(".nav li").removeClass("active");
-            $(this).addClass("active");
-        });
-        $('.btnNext').click(function () {
-            $('.nav-tabs > .active').next('li').find('a').trigger('click');
-        });
-
-        $('.btnPrevious').click(function () {
-            $('.nav-tabs > .active').prev('li').find('a').trigger('click');
-        });
+      
     </script>
 }

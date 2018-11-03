@@ -1,10 +1,12 @@
 ﻿@using Newtonsoft.Json
+@using VehicleManagementApp.BLL
+@using VehicleManagementApp.BLL.Contracts
 @model VehicleManagementApp.ViewModels.CommentViewModel
 
 <div class="row">
     <div class="col-md-12">
         <div>
-            @using (Ajax.BeginForm("CreateComment_V2", "Requsition", null, new AjaxOptions {HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "commentListReplace", OnComplete = "handeCommentAddedComplete"}))
+            @using (Ajax.BeginForm("CreateComment_V2", "Requsition", null, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "commentListReplace", OnComplete = "handeCommentAddedComplete" }))
             {
                 @Html.AntiForgeryToken()
                 @Html.HiddenFor(m => m.RequsitionId)
@@ -13,13 +15,50 @@
                 @Html.HiddenFor(m => m.SenderEmployeeId)
                 if (!User.IsInRole("Controller"))
                 {
+
                     <div class="form-group">
-                        @Html.LabelFor(model => model.ReceiverEmployeeId, htmlAttributes: new {@class = "control-label col-md-2"})
+                        @Html.LabelFor(model => model.ReceiverEmployeeId, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-6">
-                            @Html.DropDownListFor(model => model.ReceiverEmployeeId, new SelectList(Model.ReceiverEmployees, "Id", "Name"), "Select Receiver", new {htmlAttributes = new {@class = "form-control", required = "required"}})
+                            Controller: @Html.DropDownListFor(model => model.ReceiverEmployeeId, new SelectList(Model.ReceiverEmployees, "Id", "Name"), "Select Receiver", new {htmlAttributes = new {@class = "form-control", required = "required"}})
                             @Html.ValidationMessageFor(model => model.ReceiverEmployeeId, "", new {@class = "text-danger"})
                         </div>
+                        @{
+                            IRequsitionManager requsitionManager = new RequsitionManager();
+                            // var userEmployeeId = employee.Get(c => c.UserId == User.Identity.GetUserId()).Select(c => c.Id).FirstOrDefault();
+                            var requsition = requsitionManager.Get(c => c.Id == Model.RequsitionId).FirstOrDefault();
+                        }
+                        @if (requsition != null && requsition.Status == "Assign" && User.IsInRole("Driver"))
+                        {
+                           <label style="color: red"> If you do not select any controller, then by default this comments will be received by employee. </label>
+                        }
+                        
+                         @if (requsition != null && requsition.Status == "Assign" && User.IsInRole("Employee"))
+                         {
+                            <label style="color: red"> If you do not select any controller, then by default this comments will be received by assigned driver. </label>
+                         }
+                        @*<fieldset data-role="controlgroup">
+                                @{
+                                    IRequsitionManager requsitionManager = new RequsitionManager();
+                                    // var userEmployeeId = employee.Get(c => c.UserId == User.Identity.GetUserId()).Select(c => c.Id).FirstOrDefault();
+                                    var requsition = requsitionManager.Get(c => c.Id == Model.RequsitionId).FirstOrDefault();
+                                }
+
+
+                                @if (User.IsInRole("Driver"))
+                                {
+                                    <label style="float: left"><input type="checkbox" name="ReceiverForControllerComment" id="EmployeeReceiver" value="Employee" />Employee</label><span style="width: 40px;">    </span>
+                                }
+
+                                @if (requsition != null && requsition.Status == "Assign" && User.IsInRole("Employee"))
+                                {
+                                    <label> <input type="checkbox" name="ReceiverForControllerComment" id="DriverReceiver" value="Driver" />Driver</label>
+                                }
+
+
+                            </fieldset>*@
+
                     </div>
+
                 }
                 if (User.IsInRole("Controller"))
                 {
@@ -27,27 +66,36 @@
                         <fieldset data-role="controlgroup">
                             <legend>
                                 To :
-                                <label><input type="checkbox" name="ReceiverForControllerComment" id="EmployeeReceiver" value="Employee"/>Employee</label><span style="width: 40px;">    </span>
-                                <label> <input type="checkbox" name="ReceiverForControllerComment" id="DriverReceiver" value="Driver"/>Driver</label>
+                                <label><input type="checkbox" name="ReceiverForControllerComment" id="EmployeeReceiver" value="Employee" />Employee</label><span style="width: 40px;">    </span>
+                                @{
+                                    IRequsitionManager requsitionManager = new RequsitionManager();
+                                    // var userEmployeeId = employee.Get(c => c.UserId == User.Identity.GetUserId()).Select(c => c.Id).FirstOrDefault();
+                                    var requsition = requsitionManager.Get(c => c.Id == Model.RequsitionId).FirstOrDefault();
+                                }
+                                @if (requsition != null && requsition.Status == "Assign")
+                                {
+                                    <label> <input type="checkbox" name="ReceiverForControllerComment" id="DriverReceiver" value="Driver" />Driver</label>
+                                }
+
                             </legend>
                         </fieldset>
                     </div>
-                }
-                <div class="form-group">
-                    <label class="control-label col-md-4">Comment</label>
-                    <div class="col-md-12">
-                        @Html.EditorFor(model => model.Comments, new {htmlAttributes = new {@class = "form-control"}})
-                        @Html.ValidationMessageFor(model => model.Comments, "", new {@class = "text-danger"})
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="col-md-4">
-                        <br/>
-                        @*onclick="ClearCheckBox()"*@
-                        <input type="submit" value="Post Comment" class="btn btn-default"  />
-                    </div>
-                </div>
-            }
+                                    }
+                                    <div class="form-group">
+                                        <label class="control-label col-md-4">Comment</label>
+                                        <div class="col-md-12">
+                                            @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control" } })
+                                            @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                                        <div class="form-group">
+                                                            <div class="col-md-4">
+                                                                <br />
+                                                                @*onclick="ClearCheckBox()"*@
+                                                                <input type="submit" value="Post Comment" class="btn btn-default" />
+                                                            </div>
+                                                        </div>
+                                    }
         </div>
 
     </div>
@@ -57,17 +105,17 @@
         $('input[type="checkbox"]').not(this).prop('checked', false);
     });
     $('#EmployeeReceiver').change(function () {
-        
+
         if ($('#EmployeeReceiver').is(':checked')) {
 
             $('#EmployeeReceiver').attr('checked', true);
             $('#DriverReceiver').attr('checked', false);
-          
+
             $('#ReceiverForControllerComment').val('Employee');
         }
     });
     $('#DriverReceiver').change(function () {
-       
+
         if ($('#DriverReceiver').is(':checked')) {
 
             $('#DriverReceiver').attr('checked', true);
@@ -78,7 +126,7 @@
     });
     //function ClearCheckBox() {
     //    debugger;
-        
-        
+
+
     //};
 </script>

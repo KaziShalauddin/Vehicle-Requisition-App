@@ -89,16 +89,16 @@
         @if (Model.Requisition.Status == "Complete")
         {
             <table class="table table-hover">
-                    <tr class="card">
-                        <th>Assigned Driver Info</th>
-                        <td>
-                            Driver Name: @Html.DisplayFor(model => model.Driver.Name)
-                            <br />
-                            Phone No: @Html.DisplayFor(model => model.Driver.ContactNo)
-                        </td>
-                    </tr>
-                </table>
-           <table class="table table-hover">
+                <tr class="card">
+                    <th>Assigned Driver Info</th>
+                    <td>
+                        Driver Name: @Html.DisplayFor(model => model.Driver.Name)
+                        <br />
+                        Phone No: @Html.DisplayFor(model => model.Driver.ContactNo)
+                    </td>
+                </tr>
+            </table>
+                <table class="table table-hover">
                     <tr class="card">
                         <th>Assigned Vehicle Info</th>
                         <td>
@@ -110,7 +110,7 @@
                         </td>
                     </tr>
                 </table>
-           }
+        }
 
     </div>
 </div>
@@ -141,19 +141,19 @@
                     {
                         @Html.ActionLink("Edit", "Edit", new { id = Model.Requisition.Id }, new { @class = "btn btn-primary", onclick = "return confirm('Are You Sure? You Want To Edit!')" })
                         <span style="width: 30px;"></span>
-                        @Html.ActionLink("Cancel", "Delete", new { id = Model.Requisition.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are You Sure? You Want To Cancel!')" })
-                        <span style="width: 30px;"></span>
+                        @*@Html.ActionLink("Cancel", "Delete", new { id = Model.Requisition.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are You Sure? You Want To Cancel!')" })
+                        <span style="width: 30px;"></span>*@
                         @Html.ActionLink("Assign", "AdvanceAssign", "Manager", new { id = Model.Requisition.Id }, new { @class = "btn btn-info" })
                         <span style="width: 30px;"></span>
                         @Html.ActionLink("Print", "Print", "Requsition", new { id = Model.Requisition.Id }, new { @class = "btn btn-success" })
                     }
-                    if ( Model.Requisition.Status == "Assign")
-                    {                      
+                    if (Model.Requisition.Status == "Assign")
+                    {
                         @Html.ActionLink("Reassign", "Reassign_V2", "Manager", new { id = Model.Requisition.Id }, new { @class = "btn btn-info" })
                         <span style="width: 30px;"></span>
                         @Html.ActionLink("Print", "Print_V2", "Manager", new { id = Model.Requisition.Id }, new { @class = "btn btn-success" })
                     }
-                    else
+                    if (Model.Requisition.Status == "Complete")
                     {
                         @Html.ActionLink("Print", "Print_V2", "Manager", new { id = Model.Requisition.Id }, new { @class = "btn btn-success" })
                     }
@@ -175,9 +175,12 @@
                 <div>
                     @*@Html.Partial("_ReplayCommentPartial", Model.CommentViewModel)*@
                 </div>
-                <div>
-                    @Html.Partial("_CommentPartial", Model.CommentViewModel)
-                </div>
+                @if(Model.Requisition.Status != "Complete")
+                {
+                    <div>
+                        @Html.Partial("_CommentPartial", Model.CommentViewModel)
+                    </div>
+                }
             </div>
         </div>
     </div>

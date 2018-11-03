@@ -113,8 +113,9 @@ namespace VehicleManagementApp.Controllers
 
 
             var requsition = _requisitionManager.GetAll().OrderByDescending(c => c.Id);
+           
 
-
+            GetMyRequisitionComments(userEmployeeId);
 
             var comments = commentManager.Get(c => c.IsReceiverSeen == false).Where(c => c.ReceiverEmployeeId == userEmployeeId);
 
@@ -131,6 +132,7 @@ namespace VehicleManagementApp.Controllers
                                               c.IsReceiverSeen
                                           };
             List<CountCommentViewModel> commentsList = new List<CountCommentViewModel>();
+
             foreach (var item in commentsWithRequisition)
             {
                 var comment = new CountCommentViewModel();
@@ -167,6 +169,59 @@ namespace VehicleManagementApp.Controllers
             return View();
         }
 
+        private void GetMyRequisitionComments(int userEmployeeId)
+        {
+            var myRequsition = _requisitionManager.Get(c => c.EmployeeId == userEmployeeId).OrderByDescending(c => c.Id);
+            var comments = commentManager.Get(c => c.IsReceiverSeen == false).Where(c => c.ReceiverEmployeeId == userEmployeeId);
+
+            var commentsWithRequisition = from r in myRequsition
+                                          join c in comments on r.Id equals c.RequsitionId
+                                          select new
+                                          {
+                                              r.Id,
+                                              r.Status,
+                                              c.SenderEmployee,
+                                              c.SenderEmployeeId,
+                                              c.ReceiverEmployeeId,
+                                              c.ReceiverSeenTime,
+                                              c.IsReceiverSeen
+                                          };
+            List<CountCommentViewModel> myUnseenCommentsList = new List<CountCommentViewModel>();
+
+            foreach (var item in commentsWithRequisition)
+            {
+                var comment = new CountCommentViewModel();
+                comment.Id = item.Id;
+                comment.ReceiverEmployeeId = item.ReceiverEmployeeId;
+                comment.Status = item.Status;
+                myUnseenCommentsList.Add(comment);
+            }
+            if (myUnseenCommentsList.Count(c => c.Status == null) == 0)
+            {
+                ViewBag.MyNewRequisitionComments = 0;
+            }
+            if (myUnseenCommentsList.Count(c => c.Status == null) > 0)
+            {
+                ViewBag.MyNewRequisitionComments = myUnseenCommentsList.Count(c => c.Status == null);
+            }
+            if (myUnseenCommentsList.Count(c => c.Status == "Assign") == 0)
+            {
+                ViewBag.MyAssignRequisitionComments = 0;
+            }
+            if (myUnseenCommentsList.Count(c => c.Status == "Assign") > 0)
+            {
+                ViewBag.MyAssignRequisitionComments = myUnseenCommentsList.Count(c => c.Status == "Assign");
+            }
+            if (myUnseenCommentsList.Count(c => c.Status == "Hold") == 0)
+            {
+                ViewBag.MyHoldRequisitionComments = 0;
+            }
+            if (myUnseenCommentsList.Count(c => c.Status == "Hold") > 0)
+            {
+                ViewBag.MyHoldRequisitionComments = myUnseenCommentsList.Count(c => c.Status == "Hold");
+            }
+        }
+
         public List<SelectListItem> GetRequisitionTypes()
         {
             return new List<SelectListItem>(){
@@ -183,8 +238,8 @@ namespace VehicleManagementApp.Controllers
         private List<MyRequsitionListViewModel> MyRequisitionListView()
         {
             var employeeId = GetEmployeeId();
-
-            var allRequisitions = _requisitionManager.Get(r => r.RequestedBy == employeeId || r.EmployeeId == employeeId && r.Status == null).OrderByDescending(c => c.Id);
+           // r.RequestedBy == employeeId ||
+           var allRequisitions = _requisitionManager.Get(r =>r.EmployeeId == employeeId && r.Status == null).OrderByDescending(c => c.Id);
             
 
             List<MyRequsitionListViewModel> requisitionViewList = new List<MyRequsitionListViewModel>();
@@ -274,8 +329,9 @@ namespace VehicleManagementApp.Controllers
         public ActionResult MyJsonCreate(MyRequsitionCreateViewModel requisitionVm)
         {
             //newDateTime = date.Date + time.TimeOfDay;
-            TempData["msg"] = null;
-            List <MyRequsitionListViewModel> requsitionViewList;
+            //TempData["msg"] = null;
+            ViewBag.Message = null;
+            List<MyRequsitionListViewModel> requsitionViewList;
             if (ModelState.IsValid)
             {
                 int requestForEmployeeId;
@@ -311,18 +367,21 @@ namespace VehicleManagementApp.Controllers
                 bool isSaved = _requisitionManager.Add(requisition);
                 if (isSaved)
                 {
-                    TempData["msg"] = "Requisition Send Successfully";
+                    //TempData["msg"] = "Requisition Send Successfully";
+                    ViewBag.Message = "Requisition Send Successfully";
 
                 }
                 else
                 {
-                    TempData["msg"] = "Requisition not Send !";
+                    //TempData["msg"] = "Requisition not Send !";
+                    ViewBag.Message = "Requisition not Send !";
                 }
 
                 requsitionViewList = MyRequisitionListView();
                 return PartialView("_MyRequisitionListPartial", requsitionViewList);
             }
-            TempData["msg"] = "Requisition not Send !";
+            //TempData["msg"] = "Requisition not Send !";
+            ViewBag.Message = "Requisition not Send !";
             requsitionViewList = MyRequisitionListView();
             return PartialView("_MyRequisitionListPartial", requsitionViewList);
 

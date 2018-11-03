@@ -801,50 +801,58 @@ namespace VehicleManagementApp.Controllers
                         }
 
                     }
-
                     if (!User.IsInRole("Controller"))
                     {
-                        if (driverId == GetEmployeeId())
+                        if (driverId==GetEmployeeId())
                         {
-                            commentViewModel.SenderEmployeeId = driverId;
                             commentViewModel.ReceiverEmployeeId = requisition.EmployeeId;
                         }
-
                         else
                         {
                             commentViewModel.ReceiverEmployeeId = driverId;
                         }
+
+                    }
+                    //if (User.IsInRole("Employee"))
+                    //{
+                    //    commentViewModel.ReceiverEmployeeId = commentViewModel.ReceiverForControllerComment == "Driver" ? driverId : GetEmployeeId();
+                    //}
+                    //if (User.IsInRole("Driver"))
+                    //{
+                    //    commentViewModel.ReceiverEmployeeId = commentViewModel.ReceiverForControllerComment == "Employee" ? requisition.EmployeeId : driverId;
+                    //}
+
+                }
+                if (requisition.Status == null)
+                {
+                   
+                    if (User.IsInRole("Controller"))
+                    {
+                        if (commentViewModel.ReceiverForControllerComment == "Employee")
+                        {
+                            commentViewModel.ReceiverEmployeeId = requisition.EmployeeId;
+                        }
+                        else
+                        {
+                            commentViewModel.IsReceiverSeen = true;
+                            commentViewModel.ReceiverEmployeeId = GetEmployeeId();
+                        }
+
+                    }
+                    if (!User.IsInRole("Controller"))
+                    {
+                            commentViewModel.IsReceiverSeen = true;
+                            commentViewModel.ReceiverEmployeeId = GetEmployeeId();
+                        
                     }
 
                 }
-                
-               
+
             }
-            //if (User.IsInRole("Controller"))
-            //{
-            //    var requisition = _requisitionManager.GetById(commentViewModel.RequsitionId);
-
-            //    if (requisition.Status == "Assign")
-            //    {
-            //        var driverId = driverStatusManager.Get(c => c.RequsitionId == commentViewModel.RequsitionId).Select(c => c.EmployeeId).FirstOrDefault();
-                  
-            //        if (commentViewModel.ReceiverForControllerComment == "Employee")
-            //        {
-            //            commentViewModel.ReceiverEmployeeId = requisition.EmployeeId;
-            //        }
-            //        if (commentViewModel.ReceiverForControllerComment == "Driver")
-            //        {
-            //            commentViewModel.ReceiverEmployeeId = driverId;
-            //        }
-            //    }
-            //    else
-            //    {
-            //        commentViewModel.ReceiverEmployeeId = requisition.EmployeeId;
-            //    }
-
-            //}
+          
             Comment comment = new Comment
             {
+                IsReceiverSeen = commentViewModel.IsReceiverSeen,
                 RequsitionId = commentViewModel.RequsitionId,
                 Comments = commentViewModel.Comments,
                 EmployeeId = commentViewModel.EmployeeId,
@@ -869,22 +877,22 @@ namespace VehicleManagementApp.Controllers
 
                 foreach (var item in commentListView.ToList())
                 {
-                    var cmnt = new CommentViewModel
-                    {
+                    var cmnt = new CommentViewModel();
+                    //{
 
-                        Id = item.Id,
-                        RequsitionId = item.RequsitionId,
-                        EmployeeId = item.EmployeeId,
-                        Comments = item.Comments,
-                        UserName = item.UserName,
-                        CommentTime = item.CommentTime,
-                        IsReceiverSeen = item.IsReceiverSeen,
-                        ReceiverSeenTime = item.ReceiverSeenTime,
-                        SenderEmployee = item.SenderEmployee,
-                        SenderEmployeeId = (int)item.SenderEmployeeId,
-                        ReceiverEmployee = item.ReceiverEmployee,
-                        ReceiverEmployeeId = (int)item.ReceiverEmployeeId,
-                    };
+                    cmnt.Id = item.Id;
+                    cmnt.RequsitionId = item.RequsitionId;
+                    cmnt.EmployeeId = item.EmployeeId;
+                    cmnt.Comments = item.Comments;
+                    cmnt.UserName = item.UserName;
+                    cmnt.CommentTime = item.CommentTime;
+                    cmnt.IsReceiverSeen = item.IsReceiverSeen;
+                    cmnt.ReceiverSeenTime = item.ReceiverSeenTime;
+                    cmnt.SenderEmployee = item.SenderEmployee;
+                    cmnt.SenderEmployeeId = (int) item.SenderEmployeeId;
+                    cmnt.ReceiverEmployee = item.ReceiverEmployee;
+                    cmnt.ReceiverEmployeeId = (int) item.ReceiverEmployeeId;
+                    //};
                     commentListViewModel.Add(cmnt);
 
                 }

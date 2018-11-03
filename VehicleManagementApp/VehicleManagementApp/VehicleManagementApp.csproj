@@ -1289,6 +1289,7 @@
     <Content Include="Views\DriverStatus\Index.cshtml" />
     <Content Include="Views\Requsition\_CommentList.cshtml" />
     <Content Include="Views\Requsition\_CommentPartial.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Web References\com.onnorokomsms.api2\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
@@ -1317,10 +1318,8 @@
     <Content Include="Views\Home\_CompleteRequsitionPartial.cshtml" />
     <Content Include="Views\Home\_MyRequisitionListPartial.cshtml" />
     <Content Include="Views\Shared\_ManagerLayout.cshtml" />
-
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Requsition\Print_V2.cshtml" />
-
     <None Include="Web References\com.onnorokomsms.api2\sendsms.disco" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -1357,11 +1356,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-
-    <Content Include="Views\Shared\_Layout.cshtml" />
-
     <Content Include="Views\Shared\_Layout_Previous.cshtml" />
-
     <Content Include="thirdPartyCss\css\bootstrap.map" />
     <Content Include="thirdPartyCss\css\material-dashboard.css.map" />
     <Content Include="thirdPartyCss\fonts\fontawesome-webfont.eot" />
