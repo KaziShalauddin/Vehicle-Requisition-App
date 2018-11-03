@@ -1289,7 +1289,6 @@
     <Content Include="Views\DriverStatus\Index.cshtml" />
     <Content Include="Views\Requsition\_CommentList.cshtml" />
     <Content Include="Views\Requsition\_CommentPartial.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Web References\com.onnorokomsms.api2\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
