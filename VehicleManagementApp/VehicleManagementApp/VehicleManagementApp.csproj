@@ -1317,8 +1317,8 @@
     <Content Include="Views\Home\_CompleteRequsitionPartial.cshtml" />
     <Content Include="Views\Home\_MyRequisitionListPartial.cshtml" />
     <Content Include="Views\Shared\_ManagerLayout.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Requsition\Print_V2.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
     <None Include="Web References\com.onnorokomsms.api2\sendsms.disco" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
