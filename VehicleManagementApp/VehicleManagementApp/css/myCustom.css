@@ -1,5 +1,5 @@
 ﻿
-/*.notification {
+.notification {
     position: relative;
     top: 5px;
     border: 1px solid #FFF;
@@ -13,26 +13,10 @@
     border-radius: 10px;
     text-align: center;
     line-height: 19px;
-    vertical-align: top;
-   
-}*/
-.notification {
-    position: relative;
-    top: 5%;
-    border: 1px solid #FFF;
-    right: 10px;
-    font-size: 6px;
-    background: #f44336;
-    color: #FFFFFF;
-    min-width: 20%;
-    padding: 0px 5px;
-    height: 10px;
-    border-radius: 10px;
-    text-align: center;
-    line-height: 1%;
     vertical-align: middle;
    
 }
+
 
 .nav {
   padding-left: 0;
