@@ -3,52 +3,86 @@
     ViewBag.Title = "Calendar";
     Layout = "~/Views/Shared/_ManagerLayout.cshtml";
 }
+@*<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />*@
+@*<link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print" />*@
+@section styles{
+     <!-- Font Awesome -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
 
-<h2>Calendar</h2>
+<!-- qTip -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.css" />
+
+<!-- Full Calendar -->
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.9.1/fullcalendar.min.css" />
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.9.1/fullcalendar.print.css" media="print" />
+
+}
+<h2 style="padding-left:20%">Assigned Requisitions Calendar</h2>
+<br/>
+<br/>
+<br/>
 <div class="row">
     <div class="col-md-12">
-        <div id="calender"></div>
+        <div id="calender" style="width: 80%; display: inline-block;" ></div>
     </div>
+    <br/>
 </div>
-
+@*<input type="button" value="Load Requisition Calender" onclick="LoadRequisitions()"/>*@
 @section scripts
 {
-    <script type="text/javascript">
-        $(document).ready(function () {
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>*@
+    <!-- Include moment-->
+    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 
+    <!-- qTip -->
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.js"></script>
+
+    <!-- Full Calendar -->
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/fullcalendar/2.9.1/fullcalendar.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            //function LoadRequisitions () {
             debugger;
 
-            var events = [];
-
             $.ajax({
-
-                url: "/Manager/Calendar",
+                url: "/Manager/GetCalendar",
                 type: "GET",
                 dataType: "JSON",
                 success: function(data) {
-                    $.each(data, function (i, v) {
-                        debugger;
+                    var events = [];
+                    debugger;
+                    $.each(data, function(i, v) {
+
                         events.push({
-                            from: v.Form,
-                            to: v.To,
-                            description: v.Description,
-                            start: moment(v.JourneyStart),
-                            end: v.End != null ? moment(v.JouneyEnd) : null,
-                            requisitionNumber: v.RequsitionNumber
+                            title: v.Title,
+                            from: v.StartFrom,
+                            to: v.EndTo,
+                            description: v.Desc,
+                            //start: moment(v.Start_Date).format("L LTS"),
+                            start: moment(v.Start_Date), color: "#b5e7a0", textcolor: "black",
+                            //start: new Date(v.JourneyStart),
+                            end: moment(v.End_Date),
+                            //end: v.JouneyEnd != null ? new Date(v.JouneyEnd) : null
+                            employeeName:v.EmployeeName,
+                            designation: v.Designation,
+                            type: v.Type
+
                         });
                     });
 
                     generateCalender(events);
+
                 },
                 error: function() {
-                    alert("Faild");
+                    alert("Failed");
                 }
             });
 
             function generateCalender(events) {
-                $('#calender').fullCalendar().val();
+                ////$('#calender').fullCalendar('destroy');
                 $('#calender').fullCalendar({
-                    contentHeight: 500,
+                    contentHeight: 600,
                     defaultDate: new Date(),
                     timeFormat: 'h(:mm)a',
                     header: {
@@ -56,12 +90,35 @@
                         center: 'title',
                         right: 'month,basicWeek,basicDay,agenda'
                     },
-                    eventLimit: true,
+
+                    eventRender: function (event, element) {
+                        ////var eventStart = moment(event.start);
+                        ////var eventEnd = event.end === null ? eventStart : moment(event.end);
+                        ////////var diffInDays = eventEnd.diff(eventStart, 'days');
+                        ////$("td[data-date='" + eventStart.format('YYYY-MM-DD') + "']").css('background-color','pink');
+                        //////for(var i = 1; i < diffInDays; i++) {
+                        //////    eventStart.add(1,'day');
+                        ////$("td[data-date='" + eventEnd.format('YYYY-MM-DD') + "']").css('background-color', 'yellow');
+                        //////}
+                    
+                        element.qtip(
+                        {
+                            content: 'Desc. : ' + event.description
+                                + '<br /> Journey : ' + event.from + ' To ' + event.to
+                                + '<br /> Start : ' + event.start.format("DD/MM/YYYY LT")
+                                + '<br /> End : ' + event.end.format("DD/MM/YYYY LT")
+                                + '<br /> Employee Name : ' + event.employeeName
+                                + '<br /> Designation : ' + event.designation
+                                + '<br /> Type : ' + event.type
+                        });
+                    },
+                    eventLimit: false,
                     eventColor: '#378006',
                     events: events
                 });
             }
+            
         });
 
-</script>
-}
+    </script>
+    }

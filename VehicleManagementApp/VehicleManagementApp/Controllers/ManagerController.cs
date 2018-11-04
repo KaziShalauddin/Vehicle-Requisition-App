@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -1640,23 +1641,54 @@ namespace VehicleManagementApp.Controllers
             return View(assignVm);
         }
 
-
-        public JsonResult Calendar()
+        public ActionResult Calendar()
         {
-            var data = _requisitionManager.GetAll();
-            return Json(data.Select(e => new
+            return View();
+        }
+
+        public JsonResult GetCalendar()
+        {
+            //var requisitions = _requisitionManager.Get(c => c.Status == "Assign").ToList();
+            //return new JsonResult { Data = requisitions, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            //var requisitions = _requisitionManager.Get(c => c.Status == "Assign").AsEnumerable().Select(e => new
+            //     {
+            //         id = e.Id,
+            //         title = e.RequsitionNumber,
+            //         description = e.Description,
+            //         start = e.JourneyStart.ToString("dd - MMM - yyyy hh:mm tt"),
+            //         end = e.JouneyEnd.ToString("dd - MMM - yyyy hh:mm tt")
+
+            //     });
+            //var requisitions = _requisitionManager.Get(c => c.Status == "Assign").AsEnumerable().Select(e => new
+            //{
+            //    e.Id,
+            //    e.RequsitionNumber,
+            //   e.Description,
+            //    start =e.JourneyStart.ToString("O"),
+            //    //end = e.JouneyEnd
+
+            //});.Get(c => c.Status == "Assign")
+            var requisitions = _requisitionManager.Get(c => c.Status == "Assign").AsEnumerable().Select(e => new
             {
-                from = e.Form,
-                to = e.To,
-                description = e.Description,
-                start = e.JourneyStart,
-                end = e.JouneyEnd,
-                requisitionNumber = e.RequsitionNumber
-            }), JsonRequestBehavior.AllowGet);
+                Title = e.RequsitionNumber,
+                StartFrom = e.Form,
+                EndTo = e.To,
+                Type = e.RequestType,
+                Desc = e.Description,
+                EmployeeName =e.Employee.Name,
+                Designation=e.Employee.Designation.Name,
+                Employee=e.Employee.Name,
+                Start_Date = e.JourneyStart.ToString("s"),
+                End_Date = e.JouneyEnd.ToString("s")
+
+            });
+            return Json ( requisitions,  JsonRequestBehavior.AllowGet );
         }
 
         public ActionResult TodayAssignedList()
         {
+            var userEmployeeId = GetEmployeeId();
+            ViewBag.UserEmployeeId = userEmployeeId;
             var searchingValue = _requisitionManager.Get(c => c.Status == "Assign" && c.IsDeleted == false).OrderByDescending(c => c.Id);
             string todays = DateTime.Today.ToShortDateString();
             var todayAssignRequsition = searchingValue.Where(c => c.JouneyEnd.ToShortDateString() == todays);
@@ -1684,6 +1716,8 @@ namespace VehicleManagementApp.Controllers
 
         public ActionResult FullAssignList()
         {
+            var userEmployeeId = GetEmployeeId();
+            ViewBag.UserEmployeeId = userEmployeeId;
             var searchingValue =
                 _requisitionManager.Get(c => c.Status == "Assign" && c.IsDeleted == false).OrderByDescending(c => c.Id);
 

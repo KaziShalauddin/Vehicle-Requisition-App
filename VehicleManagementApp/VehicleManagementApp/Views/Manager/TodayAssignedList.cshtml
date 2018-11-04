@@ -1,10 +1,15 @@
-﻿@model IEnumerable<VehicleManagementApp.ViewModels.RequsitionViewModel>
+﻿@using VehicleManagementApp.BLL
+@using VehicleManagementApp.BLL.Contracts
+@model IEnumerable<VehicleManagementApp.ViewModels.RequsitionViewModel>
 @{
     ViewBag.Title = "TodayAssignedList";
     Layout = "~/Views/Shared/_Layout.cshtml";
     int sl = 1;
 }
-
+<h2 style="text-align:center">Today's Assigned Requisitions</h2>
+<br/>
+<br/>
+<br/>
 <table class="table table-bordered table-striped" id="myTable">
     <thead>
         <tr>
@@ -28,7 +33,9 @@
             <th>
                 @Html.Raw("Journey End")
             </th>
-
+            <th>
+                @Html.DisplayName("Comments")
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -58,6 +65,20 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.EndTime)
+                </td>
+                <td>
+                    @{
+                        //ViewBag.UserEmployeeId;
+                        ICommentManager commentManager = new CommentManager();
+                        var newComments = commentManager.Get(c => c.RequsitionId == item.Id).Count(c => c.ReceiverEmployeeId == ViewBag.UserEmployeeId && c.IsReceiverSeen == false);
+
+                    }
+                    <span>
+                        <img src="~/img/f8-01-512.png" alt="new comments" style="height: 10%; ">
+                        <span class="notification">@Html.Raw(newComments)</span>
+                    </span>
+
+                    @Html.ActionLink("Details", "Details_V2", "Requsition", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
                 </td>
                 <td class="dropdown">
                     <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

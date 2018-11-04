@@ -1205,6 +1205,7 @@
     <Content Include="scripts\modernizr-2.6.2.js" />
     <Content Include="r.js" />
     <Content Include="scripts\require.js" />
+    <Content Include="scripts\script-custom-calendar.js" />
     <Content Include="SqlServerTypes\readme.htm" />
     <Content Include="SqlServerTypes\x64\msvcr120.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
