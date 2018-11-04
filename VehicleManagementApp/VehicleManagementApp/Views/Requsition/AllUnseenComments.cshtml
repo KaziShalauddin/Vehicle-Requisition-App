@@ -1,0 +1,83 @@
+﻿@using VehicleManagementApp.BLL
+@using VehicleManagementApp.BLL.Contracts
+@model IEnumerable<VehicleManagementApp.ViewModels.CommentViewModel>
+
+@{
+    ViewBag.Title = "New";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int sl = 1;
+}
+
+<h2 style="padding-bottom: 30px; text-align: center">New Comments</h2>
+<div>
+    @if (TempData["msg"] != null)
+    {
+        <div class="alert alert-info">
+            @TempData["msg"]
+        </div>
+    }
+</div>
+<table class="table table-bordered table-striped" id="myTable">
+    <thead>
+        <tr>
+            <th>@Html.Raw("SL")</th>
+            <th>
+                @Html.DisplayName("Requisition Number")
+            </th>
+            <th>
+                @Html.DisplayName("Department")
+            </th>
+            <th>
+                @Html.DisplayName("Employee Name")
+            </th>
+            <th>
+                @Html.DisplayName("Designation")
+            </th>
+            <th>
+                @Html.DisplayName("Comments")
+            </th>
+           
+            <th>
+                @Html.DisplayName("Comments Time")
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@(sl++)</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Requsition.RequsitionNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SenderEmployee.Department.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SenderEmployee.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SenderEmployee.Designation.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comments)
+                </td>
+                @{
+
+                    var commentTime = item.CommentTime.ToString("dd - MMM - yyyy hh:mm tt");
+                    
+                }
+                <td>
+                    @Html.Raw(commentTime)
+                </td>
+               
+                <td>
+                   @Html.ActionLink("Details", "Details_V2", "Requsition", new { id = item.RequsitionId }, new { @class = "btn btn-info btn-sm" })
+                </td>
+               
+
+            </tr>
+                        }
+    </tbody>
+</table>

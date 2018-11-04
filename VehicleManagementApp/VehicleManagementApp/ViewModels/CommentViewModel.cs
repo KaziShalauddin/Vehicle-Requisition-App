@@ -15,6 +15,7 @@ namespace VehicleManagementApp.ViewModels
         public int? CommntId { get; set; }
         public Comment Commnt { get; set; }
         public int RequsitionId { get; set; }
+        public Requsition Requsition { get; set; }
         public RequsitionViewModel RequsitionViewModel { get; set; }
         public int EmployeeId { get; set; }
         public Employee Employee { get; set; }

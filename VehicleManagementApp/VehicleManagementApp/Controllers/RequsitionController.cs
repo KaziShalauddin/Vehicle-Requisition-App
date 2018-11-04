@@ -978,5 +978,34 @@ namespace VehicleManagementApp.Controllers
             ViewBag.ReportViewer = reportViewer;
             return View(managerViewModels);
         }
+
+        public ActionResult AllUnseenComments()
+        {
+           
+            List<CommentViewModel> commentListViewModel = new List<CommentViewModel>();
+            var commentListView = commentManager.Get(c=>c.IsReceiverSeen==false).Where(c => c.ReceiverEmployeeId == GetEmployeeId());
+            foreach (var item in commentListView.ToList())
+            {
+                var cmnt = new CommentViewModel
+                {
+                    Id = item.Id,
+                    RequsitionId = item.RequsitionId,
+                    Requsition = _requisitionManager.GetById(item.RequsitionId) ,
+                    EmployeeId = item.EmployeeId,
+                    Comments = item.Comments,
+                    //UserName = item.UserName,
+                    CommentTime = item.CommentTime,
+                    //IsReceiverSeen = item.IsReceiverSeen,
+                    //ReceiverSeenTime = item.ReceiverSeenTime,
+                    SenderEmployee = item.SenderEmployee,
+                    //SenderEmployeeId = (int)item.SenderEmployeeId,
+                    //ReceiverEmployee = item.ReceiverEmployee,
+                    //ReceiverEmployeeId = (int)item.ReceiverEmployeeId
+                };
+                commentListViewModel.Add(cmnt);
+            }
+            //assignVm.CommentViewModels = commentListViewModel;
+            return View(commentListViewModel);
+        }
     }
 }

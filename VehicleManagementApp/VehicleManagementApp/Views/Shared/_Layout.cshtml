@@ -1,7 +1,10 @@
 ﻿@using System.Collections
 @using System.Web.Services.Description
+@using Microsoft.AspNet.Identity
+@using Microsoft.AspNet.Identity.Owin
 @using VehicleManagementApp.BLL
 @using VehicleManagementApp.BLL.Contracts
+@using VehicleManagementApp.Models
 @{
     IRequsitionManager managers = new RequsitionManager();
     IVehicleManager vehicle = new VehicleManager();
@@ -31,6 +34,19 @@
     var totaldrivercount = totalDriver.Count;
     var assigndrivercount = assignDriver.Count;
     var freedrivercount = availableDriver.Count;
+    ApplicationUser user =
+               System.Web.HttpContext.Current.GetOwinContext()
+                   .GetUserManager<ApplicationUserManager>()
+                   .FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+
+
+    var userEmployee = employee.Get(e => e.UserId==user.Id).FirstOrDefault();
+
+
+
+    ICommentManager commentManager = new CommentManager();
+    var totalNewComments = commentManager.GetAll().Count(c => c.ReceiverEmployeeId == userEmployee.Id && c.IsReceiverSeen == false);
+
 
 }
 
@@ -89,7 +105,8 @@
     <link rel="stylesheet" href="~/DashboardDesign/css/animate.css">
     <link rel="stylesheet" href="~/DashboardDesign/css/bracket.css">
   
-    
+
+    @*<link href="~/css/myCustom.css" rel="stylesheet" />*@
 
     <style>
         .main-menu {
@@ -499,14 +516,23 @@
                             </div><!-- media-list -->
                         </div><!-- dropdown-menu -->
                     </div><!-- dropdown -->
+                    <a href="@Url.Action("AllUnseenComments", "Requsition")" class="nav-link pd-x-7 pos-relative">
+                       
+                        <!-- start: if statement -->
+                        <span>
+                            <i class="icon ion-ios-bell-outline tx-24"><span class="notification">@Html.Raw(totalNewComments)</span></i>
+                            
+                        </span>
+                        <!-- end: if statement -->
+                    </a>
                     <div class="dropdown">
-                        <a href="" class="nav-link pd-x-7 pos-relative" data-toggle="dropdown">
+                        @*<a href="" class="nav-link pd-x-7 pos-relative" data-toggle="dropdown">
                             <i class="icon ion-ios-bell-outline tx-24"></i>
                             <!-- start: if statement -->
                             <span class="square-8 bg-danger pos-absolute t-15 r-5 rounded-circle"></span>
                             <!-- end: if statement -->
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-header wd-300 pd-0-force">
+                        </a>*@
+                        @*<div class="dropdown-menu dropdown-menu-header wd-300 pd-0-force">
                             <div class="d-flex align-items-center justify-content-between pd-y-10 pd-x-20 bd-b bd-gray-200">
                                 <label class="tx-12 tx-info tx-uppercase tx-semibold tx-spacing-2 mg-b-0">Notifications</label>
                                 <a href="" class="tx-11">Mark All as Read</a>
@@ -555,7 +581,7 @@
                                     <a href="" class="tx-12"><i class="fa fa-angle-down mg-r-5"></i> Show All Notifications</a>
                                 </div>
                             </div><!-- media-list -->
-                        </div><!-- dropdown-menu -->
+                        </div>*@<!-- dropdown-menu -->
                     </div><!-- dropdown -->
                     <div class="dropdown">
 
