@@ -12,6 +12,9 @@ namespace VehicleManagementApp.ViewModels
         public int Id { get; set; }
 
         public string Status { get; set; }
+        public bool IsDriverChanged { get; set; }
+        public bool IsVehicleChanged { get; set; }
+        public bool IsBothChanged { get; set; }
 
         [Display(Name = "Requsition")]
         public int RequsitionId { get; set; }
@@ -29,14 +32,14 @@ namespace VehicleManagementApp.ViewModels
         public Vehicle PresentVehicle { get; set; }
 
         [Display(Name = "New Vehicle")]
-        public int NewVehicleId { get; set; }
+        public int? NewVehicleId { get; set; }
         public Vehicle NewVehicle { get; set; }
 
         [Display(Name = "New Driver")]
-        public int NewDriverId { get; set; }
+        public int? NewDriverId { get; set; }
         public Employee NewDriver { get; set; }
 
-        public IEnumerable<Employee> Drivers { get; set; }
-        public IEnumerable<Vehicle> Vehicles { get; set; }
+        public IEnumerable<Employee> AvailableDrivers { get; set; }
+        public IEnumerable<Vehicle> AvailableVehicles { get; set; }
     }
 }

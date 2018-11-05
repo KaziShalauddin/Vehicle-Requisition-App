@@ -6,7 +6,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     int sl = 1;
 }
-<h2 style="text-align:center">All Assigned Requisitions</h2>
+<h2 style="text-align:center">All Assigned Requisition List</h2>
 <br />
 <br />
 <br />
@@ -24,7 +24,7 @@
             </th>
 
             <th>
-                @Html.Raw("Requsition Place")
+                @Html.Raw("Requisition Place")
 
             </th>
             <th>
@@ -34,9 +34,9 @@
                 @Html.Raw("Journey End")
             </th>
             <th>
-                                @Html.DisplayName("Comments")
-                            </th>
-                            <th></th>
+                @Html.DisplayName("Comments")
+            </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -52,7 +52,7 @@
                 <td>
                     Name: @Html.DisplayFor(modelItem => item.Employee.Name)
 
-                    Contact No.: @Html.DisplayFor(modelItem => item.Employee.ContactNo)
+                    Phone: @Html.DisplayFor(modelItem => item.Employee.ContactNo)
                 </td>
 
                 <td>
@@ -88,11 +88,10 @@
                         @Html.ActionLink("Print", "Print_V2", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
                         @Html.ActionLink("Reassign", "Reassign_V2", new { id = item.Id }, new { @class = "btn btn-success btn-sm", onclick = "return confirm('Are You Sure? You Want To Re-Assign This Requisition ?')" })
                         @Html.ActionLink("Check In", "CheckIn_V2", new { id = item.Id }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are You Sure? You Want To Check In !!')" })
-                        @Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })
+                        @*@Html.ActionLink("Details", "Details", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })*@
                     </div>
                 </td>
             </tr>
-        }
+                        }
     </tbody>
 </table>
-

@@ -71,7 +71,7 @@
 
 
             <h3>Please Select Driver and Vehicle</h3>
-           
+
             <div>
                 @using (Html.BeginForm())
                 {
@@ -79,53 +79,64 @@
 
                     <div class="form-horizontal">
 
-                        @Html.ValidationSummary(true, "", new {@class = "text-danger"})
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                         @Html.HiddenFor(model => model.Id)
                         @Html.HiddenFor(model => model.PresentDriverId)
                         @Html.HiddenFor(model => model.PresentVehicleId)
+                        @Html.HiddenFor(model => model.IsDriverChanged)
+                        @Html.HiddenFor(model => model.IsVehicleChanged)
+                        @Html.HiddenFor(model => model.IsBothChanged)
+                        @Html.HiddenFor(model => model.AvailableDrivers)
+                        @Html.HiddenFor(model => model.AvailableVehicles)
 
                         <div class="form-group">
-                            @Html.HiddenFor(model => model.RequsitionId, htmlAttributes: new {@class = "control-label col-md-2"})
+                            @Html.HiddenFor(model => model.RequsitionId, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @Html.HiddenFor(model => model.RequsitionId, new {htmlAttributes = new {@class = "form-control"}})
-                                @Html.ValidationMessageFor(model => model.RequsitionId, "", new {@class = "text-danger"})
+                                @Html.HiddenFor(model => model.RequsitionId, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.RequsitionId, "", new { @class = "text-danger" })
                             </div>
                         </div>
-
                         <div class="form-group">
-                            @Html.LabelFor(model => model.NewVehicleId, htmlAttributes: new {@class = "control-label col-md-2"})
+                            <fieldset data-role="controlgroup" style="font-size: 25px !important;">
+                                <input type="radio" name="reassign" id="radioChangeBoth" value="ChangeBoth" /><label for="radioChangeBoth"> <h5 style="padding: 10px">Change Both </h5> </label>
+                                <input type="radio" name="reassign" id="radioVehicleReassign" value="VehicleReassign" /> <label for="radioVehicleReassign"><h5 style="padding: 10px">Change Vehicle</h5>  </label>
+                                <input type="radio" name="reassign" id="radioDriverReassign" value="DriverReassign" />  <label for="radioDriverReassign"><h5 style="padding: 10px"> Change  Driver </h5> </label>
+                            </fieldset>
+                        </div>
+                        <div class="form-group" id="newVehicleDiv">
+                            @Html.LabelFor(model => model.NewVehicleId, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
                                 @if (vehicles != null)
                                 {
-                                    @Html.DropDownListFor(model => model.NewVehicleId, (SelectList) vehicles, "Select Car", new {@class = "form-control",required = true})
-                                    
+                                    @Html.DropDownListFor(model => model.NewVehicleId, new SelectList(Model.AvailableVehicles, "Id", "Name"), "Select Car", new { @class = "form-control" })
+
                                 }
                                 else
                                 {
                                     @Html.Raw("No vehicle available now!")
                                 }
-                                @Html.ValidationMessageFor(model => model.NewVehicleId, "", new {@class = "text-danger"})
+                                @Html.ValidationMessageFor(model => model.NewVehicleId, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.NewDriverId, htmlAttributes: new {@class = "control-label col-md-2"})
+                        <div class="form-group" id="newDriverDiv">
+                            @Html.LabelFor(model => model.NewDriverId, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @if (Model.Drivers.Any())
+                                @if (Model.AvailableDrivers.Any())
                                 {
-                                    @Html.DropDownListFor(model => model.NewDriverId, new SelectList(Model.Drivers, "Id", "Name"), "Select Driver", new { @class = "form-control", id = "employeeDD", required = true })
+                                    @Html.DropDownListFor(model => model.NewDriverId, new SelectList(Model.AvailableDrivers, "Id", "Name"), "Select Driver", new { @class = "form-control" })
                                 }
                                 else
                                 {
                                     @Html.Raw("There is no driver available now!")
                                 }
-                               
-                                @Html.ValidationMessageFor(model => model.NewDriverId, "", new {@class = "text-danger"})
+
+                                @Html.ValidationMessageFor(model => model.NewDriverId, "", new { @class = "text-danger" })
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-offset-2 col-md-10">
-                                <input type="submit" value="Save" class="btn btn-default"/>
+                                <input type="submit" value="Save" class="btn btn-default" OnClick="SubmitFunction()" />
                             </div>
                         </div>
                     </div>
@@ -139,15 +150,118 @@
     @Html.ActionLink("Back to List", "New")
 </div>
 
-@*@section Scripts{
-    
+@section Scripts{
+
     <script type="text/javascript">
+        //$(document).ready(function() {
+        //    $("#VehicleId").change(function() {
+        //        var value = $("#VehicleId").val();
+        //        alert(value);
+        //    });
+        //});
+        function SubmitFunction() {
+
+            if ($('#radioVehicleReassign').is(':checked')) {
+                debugger;
+                if ($('#IsVehicleChanged')) {
+                    if ($("#NewVehicleId").val() <=0) {
+                        if ($('#NewVehicleId > option').length > 0) {
+                            alert('Please Select A Vehicle!');
+                            event.preventDefault();
+                        }
+
+                    }
+
+                };
+
+            }
+            if ($('#radioDriverReassign').is(':checked')) {
+                debugger;
+                if ($('#IsDriverChanged')) {
+                    if ($("#NewDriverId").val() <= 0) {
+                        if ($('#NewDriverId > option').length > 0) {
+                            alert('Please Select A Driver!');
+                            event.preventDefault();
+                        }
+                    }
+
+                };
+            }
+            if ($('#radioChangeBoth').is(':checked')) {
+                debugger;
+
+                if ($("#NewVehicleId").val() <= 0) {
+                    if ($('#NewVehicleId > option').length > 0) {
+                        alert('Please Select A Vehicle!');
+                        event.preventDefault();
+                    }
+
+                };
+                if ($("#NewDriverId").val() <= 0) {
+                    if ($('#NewDriverId > option').length > 0) {
+                        alert('Please Select A Driver!');
+                        event.preventDefault();
+                    }
+                };
+            }
+            //event.preventDefault();
+        }
+
         $(document).ready(function() {
-            $("#VehicleId").change(function() {
-                var value = $("#VehicleId").val();
-                alert(value);
-            });
+
+            $('#newVehicleDiv').hide();
+            $('#newDriverDiv').hide();
+
+        });
+        $('#radioVehicleReassign').change(function() {
+           
+            if ($('#radioVehicleReassign').is(':checked')) {
+
+                //$("#NewDriverId")[0].selectedIndex = 0;
+
+                $('#newVehicleDiv').show();
+                $('#newDriverDiv').hide();
+
+                $('#IsVehicleChanged').val('true');
+
+                $('#IsDriverChanged').val('false');
+                $('#IsBothChanged').val('false');
+            }
+        });
+        $('#radioDriverReassign').change(function() {
+            
+            if ($('#radioDriverReassign').is(':checked')) {
+
+               // $("#NewVehicleId")[0].selectedIndex = 0;
+
+                $('#newVehicleDiv').hide();
+                $('#newDriverDiv').show();
+
+                $('#IsDriverChanged').val('true');
+
+                $('#IsVehicleChanged').val('false');
+                $('#IsBothChanged').val('false');
+
+            }
+        });
+        $('#radioChangeBoth').change(function() {
+           
+            if ($('#radioChangeBoth').is(':checked')) {
+
+                //$("#NewVehicleId")[0].selectedIndex = 0;
+                //$("#NewVehicleId").trigger("change");
+                //$("#NewDriverId")[0].selectedIndex = 0;
+
+                $('#newVehicleDiv').show();
+                $('#newDriverDiv').show();
+
+                $('#IsBothChanged').val('true');
+
+                $('#IsVehicleChanged').val('false');
+                $('#IsDriverChanged').val('false');
+
+            }
         });
     </script>
-}*@
+}
 

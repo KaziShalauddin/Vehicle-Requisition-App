@@ -1565,11 +1565,25 @@ namespace VehicleManagementApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Requsition requsition = _requisitionManager.GetById((int)id);
+            var assignVm = GetRessignViewModel(id);
+
+            //ViewBag.Vehicles = new SelectList(availableVehicles, "Id", "Name");
+            return View(assignVm);
+        }
+
+        private RessignViewModel GetRessignViewModel(int? id)
+        {
+            Requsition requsition = _requisitionManager.GetById((int) id);
             var presentDriverId =
-                driverStatusManager.Get(c => c.RequsitionId == id && c.Status=="Assign").Select(c=>c.EmployeeId).FirstOrDefault();
-          
-            var availableDriverList = driverStatusManager.Get(c => c.EndTime < requsition.JourneyStart).Where(c=>c.EmployeeId!= presentDriverId).GroupBy(x => x.EmployeeId).Select(x => x.First());
+                driverStatusManager.Get(c => c.RequsitionId == id && c.Status == "Assign")
+                    .Select(c => c.EmployeeId)
+                    .FirstOrDefault();
+
+            var availableDriverList =
+                driverStatusManager.Get(c => c.EndTime < requsition.JourneyStart)
+                    .Where(c => c.EmployeeId != presentDriverId)
+                    .GroupBy(x => x.EmployeeId)
+                    .Select(x => x.First());
 
             List<Employee> availableDrivers = new List<Employee>();
 
@@ -1581,10 +1595,16 @@ namespace VehicleManagementApp.Controllers
 
             List<Vehicle> availableVehicles = new List<Vehicle>();
             var presentVehicleId =
-               vehicleStatusManager.Get(c => c.RequsitionId == id && c.Status == "Assign").Select(c=>c.VehicleId).FirstOrDefault();
+                vehicleStatusManager.Get(c => c.RequsitionId == id && c.Status == "Assign")
+                    .Select(c => c.VehicleId)
+                    .FirstOrDefault();
 
-         
-            var availableVehicleList = vehicleStatusManager.Get(c => c.EndTime < requsition.JourneyStart).Where(c=>c.VehicleId!= presentVehicleId).GroupBy(x => x.VehicleId).Select(x => x.First());
+
+            var availableVehicleList =
+                vehicleStatusManager.Get(c => c.EndTime < requsition.JourneyStart)
+                    .Where(c => c.VehicleId != presentVehicleId)
+                    .GroupBy(x => x.VehicleId)
+                    .Select(x => x.First());
             foreach (var vehicle in availableVehicleList)
             {
                 var vehicleItem = vehicleManager.GetById(vehicle.VehicleId);
@@ -1599,45 +1619,86 @@ namespace VehicleManagementApp.Controllers
                 PresentDriverId = presentDriverId,
                 PresentVehicle = vehicleManager.GetById(presentVehicleId),
                 PresentVehicleId = presentVehicleId,
-                Drivers = availableDrivers,
-                Vehicles = availableVehicles
+                AvailableDrivers = availableDrivers,
+                AvailableVehicles = availableVehicles
             };
-
-            ViewBag.Vehicles = new SelectList(availableVehicles, "Id", "Name");
-            return View(assignVm);
+            return assignVm;
         }
 
         [HttpPost]
         public ActionResult Reassign_V2(RessignViewModel assignVm)
         {
-
-            bool isRequisitionAssigned = RequisitionAssign(assignVm.Id);
-           
-            bool isPresentDriverStatusChanged = ForReassign_AddDataToDriverStatusTable(assignVm.PresentDriverId, assignVm.Id);
-            bool isPresentVehicleStatusChanged = ForReassign_AddDataToVehicleStatusTable(assignVm.PresentVehicleId, assignVm.Id);
-
-            bool isDriverAssigned = AddDataToDriverStatusTable(assignVm.NewDriverId, assignVm.Id);
-            bool isVehicleAssigned = AddDataToVehicleStatusTable(assignVm.NewVehicleId, assignVm.Id);
-            if (isRequisitionAssigned && isPresentDriverStatusChanged && isPresentVehicleStatusChanged && isDriverAssigned && isVehicleAssigned)
+            
+            if (assignVm.IsBothChanged)
             {
-                TempData["msg"] = "Requisition Ressigned Successfully!";
+                //bool isRequisitionAssigned = RequisitionAssign(assignVm.Id);
 
-                //Email Sending Method start
-                //ForReassignSendEmailToDriver(assignVm.NewDriverId, assignVm.RequsitionId);
-                //var requsition = _requisitionManager.GetById(assignVm.RequsitionId);
-                //ForReassignSendEmailToEmployee(requsition.EmployeeId, assignVm.RequsitionId);
-                //Email Sending Method end
+                bool isPresentDriverStatusChanged = ForReassign_AddDataToDriverStatusTable(assignVm.PresentDriverId, assignVm.Id);
+                bool isPresentVehicleStatusChanged = ForReassign_AddDataToVehicleStatusTable(assignVm.PresentVehicleId, assignVm.Id);
 
-                return RedirectToAction("AssignedList");
+                bool isDriverAssigned = AddDataToDriverStatusTable(assignVm.NewDriverId, assignVm.Id);
+                bool isVehicleAssigned = AddDataToVehicleStatusTable(assignVm.NewVehicleId, assignVm.Id);
+
+                //if (isRequisitionAssigned && isPresentDriverStatusChanged && isPresentVehicleStatusChanged && isDriverAssigned && isVehicleAssigned)
+                if (isPresentDriverStatusChanged && isPresentVehicleStatusChanged && isDriverAssigned && isVehicleAssigned)
+                {
+                    TempData["msg"] = "Requisition Ressigned Successfully!";
+
+                    //Email Sending Method start
+                    //ForReassignSendEmailToDriver(assignVm.NewDriverId, assignVm.RequsitionId);
+                    //var requsition = _requisitionManager.GetById(assignVm.RequsitionId);
+                    //ForReassignSendEmailToEmployee(requsition.EmployeeId, assignVm.RequsitionId);
+                    //Email Sending Method end
+
+                    return RedirectToAction("AssignedList");
+                }
             }
+            if (assignVm.IsDriverChanged)
+            {
+                //bool isRequisitionAssigned = RequisitionAssign(assignVm.Id);
 
-            //if (!isRequisitionAssigned && !isDriverAssigned)
-            //{
-            //    TempData["msg"] = "Requisition Not Assigned";
-            //    return View(assignVm);
-            //}
+                bool isPresentDriverStatusChanged = ForReassign_AddDataToDriverStatusTable(assignVm.PresentDriverId, assignVm.Id);
+              
 
-            TempData["msg"] = "Requisition Not Reassigned";
+                bool isDriverAssigned = AddDataToDriverStatusTable(assignVm.NewDriverId, assignVm.Id);
+                
+
+                if ( isPresentDriverStatusChanged && isDriverAssigned )
+                {
+                    TempData["msg"] = "Driver For Requisition Ressigned Successfully!";
+
+                    //Email Sending Method start
+                    //ForReassignSendEmailToDriver(assignVm.NewDriverId, assignVm.RequsitionId);
+                    //var requsition = _requisitionManager.GetById(assignVm.RequsitionId);
+                    //ForReassignSendEmailToEmployee(requsition.EmployeeId, assignVm.RequsitionId);
+                    //Email Sending Method end
+
+                    return RedirectToAction("AssignedList");
+                }
+            }
+            if (assignVm.IsVehicleChanged)
+            {
+                
+                bool isPresentVehicleStatusChanged = ForReassign_AddDataToVehicleStatusTable(assignVm.PresentVehicleId, assignVm.Id);
+
+               
+                bool isVehicleAssigned = AddDataToVehicleStatusTable(assignVm.NewVehicleId, assignVm.Id);
+
+                if (isPresentVehicleStatusChanged &&  isVehicleAssigned)
+                {
+                    TempData["msg"] = "Vehicle For Requisition Ressigned Successfully!";
+
+                    //Email Sending Method start
+                    //ForReassignSendEmailToDriver(assignVm.NewDriverId, assignVm.RequsitionId);
+                    //var requsition = _requisitionManager.GetById(assignVm.RequsitionId);
+                    //ForReassignSendEmailToEmployee(requsition.EmployeeId, assignVm.RequsitionId);
+                    //Email Sending Method end
+
+                    return RedirectToAction("AssignedList");
+                }
+            }
+            
+            TempData["msg"] = "Requisition Not Reassigned!";
             return View(assignVm);
         }
 
