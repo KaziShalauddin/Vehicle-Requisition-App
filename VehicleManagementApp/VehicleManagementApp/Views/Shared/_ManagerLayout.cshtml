@@ -1,4 +1,22 @@
-﻿
+﻿@using Microsoft.AspNet.Identity
+@using Microsoft.AspNet.Identity.Owin
+@using VehicleManagementApp.BLL
+@using VehicleManagementApp.BLL.Contracts
+@using VehicleManagementApp.Models
+@{
+    ApplicationUser user =
+              System.Web.HttpContext.Current.GetOwinContext()
+                  .GetUserManager<ApplicationUserManager>()
+                  .FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+
+    IEmployeeManager employee = new EmployeeManager();
+    var userEmployee = employee.Get(e => e.UserId == user.Id).FirstOrDefault();
+
+
+
+    ICommentManager commentManager = new CommentManager();
+    var totalNewComments = commentManager.GetAll().Count(c => c.ReceiverEmployeeId == userEmployee.Id && c.IsReceiverSeen == false);
+}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,6 +85,22 @@
 
         body {
             top: 0px !important;
+        }
+        .myNotification {
+            position: relative !important;
+            top: 5px !important;
+            border: 1px solid #FFF !important;
+            right: 10px !important;
+            font-size: 15px !important;
+            background: #f44336 !important;
+            color: #FFFFFF !important;
+            min-width: 20px !important;
+            padding: 0px 5px !important;
+            height: 20px !important;
+            border-radius: 10px !important;
+            text-align: center !important;
+            line-height: 19px !important;
+            vertical-align: middle !important;
         }
     </style>
     @RenderSection("styles", required: false)
@@ -1129,7 +1163,7 @@
             {
                 <nav class="nav">
                     <div class="dropdown">
-                        <a href="" class="nav-link pd-x-7 pos-relative" data-toggle="dropdown">
+                        @*<a href="" class="nav-link pd-x-7 pos-relative" data-toggle="dropdown">
 
                             <i class="icon ion-ios-email-outline tx-24"></i>
                             <!-- start: if statement -->
@@ -1197,10 +1231,10 @@
                                     <a href="" class="tx-12"><i class="fa fa-angle-down mg-r-5"></i> Show All Messages</a>
                                 </div>
                             </div><!-- media-list -->
-                        </div><!-- dropdown-menu -->
+                        </div>*@<!-- dropdown-menu -->
                     </div><!-- dropdown -->
                     <div class="dropdown">
-                        <a href="" class="nav-link pd-x-7 pos-relative" data-toggle="dropdown">
+                        @*<a href="" class="nav-link pd-x-7 pos-relative" data-toggle="dropdown">
                             <i class="icon ion-ios-bell-outline tx-24"></i>
                             <!-- start: if statement -->
                             <span class="square-8 bg-danger pos-absolute t-15 r-5 rounded-circle"></span>
@@ -1255,8 +1289,21 @@
                                     <a href="" class="tx-12"><i class="fa fa-angle-down mg-r-5"></i> Show All Notifications</a>
                                 </div>
                             </div><!-- media-list -->
-                        </div><!-- dropdown-menu -->
+                        </div>*@<!-- dropdown-menu -->
                     </div><!-- dropdown -->
+                    <a href="@Url.Action("AllUnseenComments", "Requsition")" class="nav-link pd-x-7 pos-relative">
+
+                        <!-- start: if statement -->
+                        <span>
+                            <i class="icon ion-ios-bell-outline tx-24">
+                                <span class="myNotification">
+                                    @Html.Raw(totalNewComments)
+                                </span>
+                            </i>
+
+                        </span>
+                        <!-- end: if statement -->
+                    </a>
                     <div class="dropdown">
 
 

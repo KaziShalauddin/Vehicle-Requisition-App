@@ -40,7 +40,7 @@
                    .FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
 
 
-    var userEmployee = employee.Get(e => e.UserId==user.Id).FirstOrDefault();
+    var userEmployee = employee.Get(e => e.UserId == user.Id).FirstOrDefault();
 
 
 
@@ -104,7 +104,7 @@
     <link rel="stylesheet" href="~/thirdPartyCss/css/bootstrap.css">
     <link rel="stylesheet" href="~/DashboardDesign/css/animate.css">
     <link rel="stylesheet" href="~/DashboardDesign/css/bracket.css">
-  
+
 
     @*<link href="~/css/myCustom.css" rel="stylesheet" />*@
 
@@ -121,6 +121,23 @@
 
         body {
             top: 0px !important;
+        }
+
+        .myNotification {
+            position: relative !important;
+            top: 5px !important;
+            border: 1px solid #FFF !important;
+            right: 10px !important;
+            font-size: 15px !important;
+            background: #f44336 !important;
+            color: #FFFFFF !important;
+            min-width: 20px !important;
+            padding: 0px 5px !important;
+            height: 20px !important;
+            border-radius: 10px !important;
+            text-align: center !important;
+            line-height: 19px !important;
+            vertical-align: middle !important;
         }
     </style>
     @RenderSection("styles", required: false)
@@ -446,7 +463,7 @@
             {
                 <nav class="nav">
                     <div class="dropdown">
-                        <a href="" class="nav-link pd-x-7 pos-relative" data-toggle="dropdown">
+                        @*<a href="" class="nav-link pd-x-7 pos-relative" data-toggle="dropdown">
 
                             <i class="icon ion-ios-email-outline tx-24"></i>
                             <!-- start: if statement -->
@@ -514,74 +531,78 @@
                                     <a href="" class="tx-12"><i class="fa fa-angle-down mg-r-5"></i> Show All Messages</a>
                                 </div>
                             </div><!-- media-list -->
-                        </div><!-- dropdown-menu -->
+                        </div>*@<!-- dropdown-menu -->
                     </div><!-- dropdown -->
                     <a href="@Url.Action("AllUnseenComments", "Requsition")" class="nav-link pd-x-7 pos-relative">
-                       
+
                         <!-- start: if statement -->
                         <span>
-                            <i class="icon ion-ios-bell-outline tx-24"><span class="mynotification">@Html.Raw(totalNewComments)</span></i>
-                            
+                            <i class="icon ion-ios-bell-outline tx-24">
+                                <span class="myNotification" >
+                                    @Html.Raw(totalNewComments)
+                                </span>
+                            </i>
+
                         </span>
                         <!-- end: if statement -->
                     </a>
                     <div class="dropdown">
                         @*<a href="" class="nav-link pd-x-7 pos-relative" data-toggle="dropdown">
-                            <i class="icon ion-ios-bell-outline tx-24"></i>
-                            <!-- start: if statement -->
-                            <span class="square-8 bg-danger pos-absolute t-15 r-5 rounded-circle"></span>
-                            <!-- end: if statement -->
-                        </a>*@
+                                <i class="icon ion-ios-bell-outline tx-24"></i>
+                                <!-- start: if statement -->
+                                <span class="square-8 bg-danger pos-absolute t-15 r-5 rounded-circle"></span>
+                                <!-- end: if statement -->
+                            </a>*@
                         @*<div class="dropdown-menu dropdown-menu-header wd-300 pd-0-force">
-                            <div class="d-flex align-items-center justify-content-between pd-y-10 pd-x-20 bd-b bd-gray-200">
-                                <label class="tx-12 tx-info tx-uppercase tx-semibold tx-spacing-2 mg-b-0">Notifications</label>
-                                <a href="" class="tx-11">Mark All as Read</a>
-                            </div><!-- d-flex -->
+                                <div class="d-flex align-items-center justify-content-between pd-y-10 pd-x-20 bd-b bd-gray-200">
+                                    <label class="tx-12 tx-info tx-uppercase tx-semibold tx-spacing-2 mg-b-0">Notifications</label>
+                                    <a href="" class="tx-11">Mark All as Read</a>
+                                </div><!-- d-flex -->
 
-                            <div class="media-list">
-                                <!-- loop starts here -->
-                                <a href="" class="media-list-link read">
-                                    <div class="media pd-x-20 pd-y-15">
-                                        <img src="http://via.placeholder.com/280x280" class="wd-40 rounded-circle" alt="">
-                                        <div class="media-body">
-                                            <p class="tx-13 mg-b-0 tx-gray-700"><strong class="tx-medium tx-gray-800">Suzzeth Bungaos</strong> tagged you and 18 others in a post.</p>
-                                            <span class="tx-12">October 03, 2017 8:45am</span>
-                                        </div>
-                                    </div><!-- media -->
-                                </a>
-                                <!-- loop ends here -->
-                                <a href="" class="media-list-link read">
-                                    <div class="media pd-x-20 pd-y-15">
-                                        <img src="http://via.placeholder.com/280x280" class="wd-40 rounded-circle" alt="">
-                                        <div class="media-body">
-                                            <p class="tx-13 mg-b-0 tx-gray-700"><strong class="tx-medium tx-gray-800">Mellisa Brown</strong> appreciated your work <strong class="tx-medium tx-gray-800">The Social Network</strong></p>
-                                            <span class="tx-12">October 02, 2017 12:44am</span>
-                                        </div>
-                                    </div><!-- media -->
-                                </a>
-                                <a href="" class="media-list-link read">
-                                    <div class="media pd-x-20 pd-y-15">
-                                        <img src="http://via.placeholder.com/280x280" class="wd-40 rounded-circle" alt="">
-                                        <div class="media-body">
-                                            <p class="tx-13 mg-b-0 tx-gray-700">20+ new items added are for sale in your <strong class="tx-medium tx-gray-800">Sale Group</strong></p>
-                                            <span class="tx-12">October 01, 2017 10:20pm</span>
-                                        </div>
-                                    </div><!-- media -->
-                                </a>
-                                <a href="" class="media-list-link read">
-                                    <div class="media pd-x-20 pd-y-15">
-                                        <img src="http://via.placeholder.com/280x280" class="wd-40 rounded-circle" alt="">
-                                        <div class="media-body">
-                                            <p class="tx-13 mg-b-0 tx-gray-700"><strong class="tx-medium tx-gray-800">Julius Erving</strong> wants to connect with you on your conversation with <strong class="tx-medium tx-gray-800">Ronnie Mara</strong></p>
-                                            <span class="tx-12">October 01, 2017 6:08pm</span>
-                                        </div>
-                                    </div><!-- media -->
-                                </a>
-                                <div class="pd-y-10 tx-center bd-t">
-                                    <a href="" class="tx-12"><i class="fa fa-angle-down mg-r-5"></i> Show All Notifications</a>
-                                </div>
-                            </div><!-- media-list -->
-                        </div>*@<!-- dropdown-menu -->
+                                <div class="media-list">
+                                    <!-- loop starts here -->
+                                    <a href="" class="media-list-link read">
+                                        <div class="media pd-x-20 pd-y-15">
+                                            <img src="http://via.placeholder.com/280x280" class="wd-40 rounded-circle" alt="">
+                                            <div class="media-body">
+                                                <p class="tx-13 mg-b-0 tx-gray-700"><strong class="tx-medium tx-gray-800">Suzzeth Bungaos</strong> tagged you and 18 others in a post.</p>
+                                                <span class="tx-12">October 03, 2017 8:45am</span>
+                                            </div>
+                                        </div><!-- media -->
+                                    </a>
+                                    <!-- loop ends here -->
+                                    <a href="" class="media-list-link read">
+                                        <div class="media pd-x-20 pd-y-15">
+                                            <img src="http://via.placeholder.com/280x280" class="wd-40 rounded-circle" alt="">
+                                            <div class="media-body">
+                                                <p class="tx-13 mg-b-0 tx-gray-700"><strong class="tx-medium tx-gray-800">Mellisa Brown</strong> appreciated your work <strong class="tx-medium tx-gray-800">The Social Network</strong></p>
+                                                <span class="tx-12">October 02, 2017 12:44am</span>
+                                            </div>
+                                        </div><!-- media -->
+                                    </a>
+                                    <a href="" class="media-list-link read">
+                                        <div class="media pd-x-20 pd-y-15">
+                                            <img src="http://via.placeholder.com/280x280" class="wd-40 rounded-circle" alt="">
+                                            <div class="media-body">
+                                                <p class="tx-13 mg-b-0 tx-gray-700">20+ new items added are for sale in your <strong class="tx-medium tx-gray-800">Sale Group</strong></p>
+                                                <span class="tx-12">October 01, 2017 10:20pm</span>
+                                            </div>
+                                        </div><!-- media -->
+                                    </a>
+                                    <a href="" class="media-list-link read">
+                                        <div class="media pd-x-20 pd-y-15">
+                                            <img src="http://via.placeholder.com/280x280" class="wd-40 rounded-circle" alt="">
+                                            <div class="media-body">
+                                                <p class="tx-13 mg-b-0 tx-gray-700"><strong class="tx-medium tx-gray-800">Julius Erving</strong> wants to connect with you on your conversation with <strong class="tx-medium tx-gray-800">Ronnie Mara</strong></p>
+                                                <span class="tx-12">October 01, 2017 6:08pm</span>
+                                            </div>
+                                        </div><!-- media -->
+                                    </a>
+                                    <div class="pd-y-10 tx-center bd-t">
+                                        <a href="" class="tx-12"><i class="fa fa-angle-down mg-r-5"></i> Show All Notifications</a>
+                                    </div>
+                                </div><!-- media-list -->
+                            </div>*@<!-- dropdown-menu -->
                     </div><!-- dropdown -->
                     <div class="dropdown">
 
@@ -1074,7 +1095,7 @@
     <script src="~/DashboardDesign/lib/bootstrap/bootstrap.js"></script>
     <script src="~/DashboardDesign/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
     <script src="~/DashboardDesign/lib/moment/moment.js"></script>
-    
+
     <script src="~/DashboardDesign/lib/jquery-switchbutton/jquery.switchButton.js"></script>
     <script src="~/DashboardDesign/lib/peity/jquery.peity.js"></script>
     <script src="~/DashboardDesign/lib/chartist/chartist.js"></script>
@@ -1083,7 +1104,7 @@
     <script src="~/DashboardDesign/lib/rickshaw/rickshaw.min.js"></script>
 
 
-<script src="~/DashboardDesign/js/bracket.js"></script>
+    <script src="~/DashboardDesign/js/bracket.js"></script>
     <script src="~/DashboardDesign/lib/jquery-ui/jquery-ui.js"></script>
     <script src="~/DashboardDesign/js/ResizeSensor.js"></script>
     <script src="~/DashboardDesign/js/dashboard.js"></script>
@@ -1098,41 +1119,41 @@
 
 
 
-<script>
-    
-    $('#myTable').DataTable();
-    $(document).ready(function() {
+    <script>
 
-        $('#chartLine1').hide();
-    });
+        $('#myTable').DataTable();
+        $(document).ready(function () {
 
-    $(function() {
-        'use strict';
-
-        // FOR DEMO ONLY
-        // menu collapsed by default during first page load or refresh with screen
-        // having a size between 992px and 1299px. This is intended on this page only
-        // for better viewing of widgets demo.
-        $(window).resize(function() {
-            minimizeMenu();
+            $('#chartLine1').hide();
         });
 
-        minimizeMenu();
+        $(function () {
+            'use strict';
 
-        function minimizeMenu() {
-            if (window.matchMedia('(min-width: 992px)').matches && window.matchMedia('(max-width: 1299px)').matches) {
-                // show only the icons and hide left menu label by default
-                $('.menu-item-label,.menu-item-arrow').addClass('op-lg-0-force d-lg-none');
-                $('body').addClass('collapsed-menu');
-                $('.show-sub + .br-menu-sub').slideUp();
-            } else if (window.matchMedia('(min-width: 1300px)').matches && !$('body').hasClass('collapsed-menu')) {
-                $('.menu-item-label,.menu-item-arrow').removeClass('op-lg-0-force d-lg-none');
-                $('body').removeClass('collapsed-menu');
-                $('.show-sub + .br-menu-sub').slideDown();
+            // FOR DEMO ONLY
+            // menu collapsed by default during first page load or refresh with screen
+            // having a size between 992px and 1299px. This is intended on this page only
+            // for better viewing of widgets demo.
+            $(window).resize(function () {
+                minimizeMenu();
+            });
+
+            minimizeMenu();
+
+            function minimizeMenu() {
+                if (window.matchMedia('(min-width: 992px)').matches && window.matchMedia('(max-width: 1299px)').matches) {
+                    // show only the icons and hide left menu label by default
+                    $('.menu-item-label,.menu-item-arrow').addClass('op-lg-0-force d-lg-none');
+                    $('body').addClass('collapsed-menu');
+                    $('.show-sub + .br-menu-sub').slideUp();
+                } else if (window.matchMedia('(min-width: 1300px)').matches && !$('body').hasClass('collapsed-menu')) {
+                    $('.menu-item-label,.menu-item-arrow').removeClass('op-lg-0-force d-lg-none');
+                    $('body').removeClass('collapsed-menu');
+                    $('.show-sub + .br-menu-sub').slideDown();
+                }
             }
-        }
-    });
-</script>
+        });
+    </script>
 
     @*<script src="@Url.Content("Scripts/require.js")"></script>*@
     @RenderSection("scripts", required: false)
