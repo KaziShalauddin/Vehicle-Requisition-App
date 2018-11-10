@@ -106,7 +106,7 @@
                         <div class="form-group" id="newVehicleDiv">
                             @Html.LabelFor(model => model.NewVehicleId, htmlAttributes: new { @class = "control-label col-md-2" })
                             <div class="col-md-10">
-                                @if (vehicles != null)
+                                @if (Model.AvailableVehicles.Any())
                                 {
                                     @Html.DropDownListFor(model => model.NewVehicleId, new SelectList(Model.AvailableVehicles, "Id", "Name"), "Select Car", new { @class = "form-control" })
 

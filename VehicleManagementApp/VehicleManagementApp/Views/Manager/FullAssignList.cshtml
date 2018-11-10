@@ -2,14 +2,19 @@
 @using VehicleManagementApp.BLL.Contracts
 @model IEnumerable<VehicleManagementApp.ViewModels.RequsitionViewModel>
 @{
-    ViewBag.Title = "TodayAssignedList";
+    ViewBag.Title = "AllAssignedList";
     Layout = "~/Views/Shared/_Layout.cshtml";
     int sl = 1;
 }
 <h2 style="text-align:center">All Assigned Requisition List</h2>
 <br />
 <br />
-<br />
+@if (TempData["msg"] != null)
+            {
+    <div class="alert alert-info">
+        @TempData["msg"]
+    </div>
+}
 <table class="table table-bordered table-striped" id="myTable">
     <thead>
         <tr>

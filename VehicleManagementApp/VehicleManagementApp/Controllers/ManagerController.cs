@@ -1650,7 +1650,7 @@ namespace VehicleManagementApp.Controllers
                     //ForReassignSendEmailToEmployee(requsition.EmployeeId, assignVm.RequsitionId);
                     //Email Sending Method end
 
-                    return RedirectToAction("AssignedList");
+                    return RedirectToAction("FullAssignList");
                 }
             }
             if (assignVm.IsDriverChanged)
@@ -1673,7 +1673,7 @@ namespace VehicleManagementApp.Controllers
                     //ForReassignSendEmailToEmployee(requsition.EmployeeId, assignVm.RequsitionId);
                     //Email Sending Method end
 
-                    return RedirectToAction("AssignedList");
+                    return RedirectToAction("FullAssignList");
                 }
             }
             if (assignVm.IsVehicleChanged)
@@ -1694,7 +1694,7 @@ namespace VehicleManagementApp.Controllers
                     //ForReassignSendEmailToEmployee(requsition.EmployeeId, assignVm.RequsitionId);
                     //Email Sending Method end
 
-                    return RedirectToAction("AssignedList");
+                    return RedirectToAction("FullAssignList");
                 }
             }
             

@@ -85,7 +85,7 @@
                 </td>
             </tr>
         </table>
-        @if (Model.Requisition.Status == "Assign")
+        @if (Model.Requisition.Status == "Assign" || Model.Requisition.Status == "Complete")
         {
             <table class="table table-hover">
                 <tr class="card">
@@ -111,7 +111,7 @@
                 </tr>
             </table>
         }
-        @if (Model.Requisition.Status == "Complete")
+        @*@if (Model.Requisition.Status == "Complete")
         {
             <table class="table table-hover">
                 <tr class="card">
@@ -135,7 +135,7 @@
                     </td>
                 </tr>
             </table>
-        }
+        }*@
 
     </div>
 </div>

@@ -700,7 +700,32 @@ namespace VehicleManagementApp.Controllers
             Requsition requisition = _requisitionManager.GetById((int)id);
             var userEmployeeId = GetEmployeeId();
             ViewBag.UserEmployeeId = userEmployeeId;
-            var driverId = driverStatusManager.Get(c => c.RequsitionId == id).Select(c => c.EmployeeId).FirstOrDefault();
+            var driverId=0;
+            var vehicleId=0;
+            switch (requisition.Status)
+            {
+                case "Assign":
+                    driverId = driverStatusManager.Get(c => c.RequsitionId == id && c.Status == "Assign").Select(c => c.EmployeeId).FirstOrDefault();
+                    vehicleId = vehicleStatusManager.Get(c => c.RequsitionId == id && c.Status == "Assign").Select(c => c.VehicleId).FirstOrDefault();
+                    break;
+                case "Complete":
+                    driverId = driverStatusManager.Get(c => c.RequsitionId == id && c.Status == "Complete").Select(c => c.EmployeeId).FirstOrDefault();
+                    vehicleId = vehicleStatusManager.Get(c => c.RequsitionId == id && c.Status == "Complete").Select(c => c.VehicleId).FirstOrDefault();
+                    break;
+                    
+            }
+            //if (requisition.Status == "Assign")
+            //{
+            //    driverId = driverStatusManager.Get(c => c.RequsitionId == id && c.Status== "Assign").Select(c => c.EmployeeId).FirstOrDefault();
+            //    vehicleId = vehicleStatusManager.Get(c => c.RequsitionId == id && c.Status == "Assign").Select(c => c.VehicleId).FirstOrDefault();
+            //}
+
+            //if (requisition.Status == "Complete")
+            //{
+            //    driverId = driverStatusManager.Get(c => c.RequsitionId == id && c.Status == "Complete").Select(c => c.EmployeeId).FirstOrDefault();
+            //    vehicleId = vehicleStatusManager.Get(c => c.RequsitionId == id && c.Status == "Complete").Select(c => c.VehicleId).FirstOrDefault();
+            //}
+           
             if (!User.IsInRole("Controller"))
             {
                 if (requisition.EmployeeId != userEmployeeId && requisition.RequestedBy != userEmployeeId && driverId!= userEmployeeId)
@@ -710,9 +735,6 @@ namespace VehicleManagementApp.Controllers
 
                 }
             }
-            //var driverId = driverStatusManager.Get(c => c.RequsitionId == id).Select(c => c.EmployeeId).FirstOrDefault();
-            var vehicleId = vehicleStatusManager.Get(c => c.RequsitionId == id).Select(c => c.VehicleId).FirstOrDefault();
-
             AssignedListViewModel assignVm = new AssignedListViewModel
             {
                 Requisition = requisition,
