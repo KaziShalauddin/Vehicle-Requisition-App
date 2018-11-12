@@ -40,6 +40,21 @@ The project aims at providing an efficient interface to the BCC for managing the
 We also propose to include a feature “Feedback”. This feature keeps track of any objection from vehicle user or any inquiry to the vehicle manager and also from vehicle manager to the vehicle user about any instruction.
 
 # Demo
+
+**Note** <br/>
+
+    Role:Controller
+      User name: Kazi Shalauddin
+      Password: 1234
+      
+    Role:Employee
+      User name: Alim
+      Password: 1234
+
+**Live Website Link**
+   http://vrs2018-001-site1.dtempurl.com/
+
+
 ### Home Page
 ![](ProjectImages/screencapture-localhost-61738-2018-11-11-19_03_17.png)
 
