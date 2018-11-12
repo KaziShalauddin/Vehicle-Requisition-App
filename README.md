@@ -98,7 +98,7 @@ We also propose to include a feature “Feedback”. This feature keeps track of
 ![](ProjectImages/Screenshot_24.png)
 
 **Requisition Calendar**
-![](ProjectImages/Screenshot_24.png)
+![](ProjectImages/Screenshot_25.png)
 
 ### Requisition List Page
 ![](ProjectImages/Screenshot_15.png)
