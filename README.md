@@ -45,11 +45,11 @@ We also propose to include a feature “Feedback”. This feature keeps track of
 
     Role:Controller
       User name: Kazi Shalauddin
-      Password: 1234
+      Password: 123456
       
     Role:Employee
       User name: Alim
-      Password: 1234
+      Password: 123456
 
 **Live Website Link**
    http://vrs2018-001-site1.dtempurl.com/
