@@ -44,6 +44,9 @@ We also propose to include a feature “Feedback”. This feature keeps track of
 **Note** <br/>
 
     Role:Controller
+      User name: ziaultalukder
+      Password: 123456
+      
       User name: Kazi Shalauddin
       Password: 123456
       
