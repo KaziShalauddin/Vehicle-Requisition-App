@@ -21,17 +21,22 @@
         <tr>
             <th>@Html.Raw("SL")</th>
             <th>
-                @Html.DisplayNameFor(model => model.EmployeeId)
+                @Html.DisplayName("Requisition Number")
             </th>
+            @if (User.IsInRole("Controller"))
+            {
+                <th>
+                    @Html.DisplayNameFor(model => model.EmployeeId)
+                </th>
+            }
+           
             <th>
                 @Html.DisplayName("From")
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.To)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.RequsitionNumber)
-            </th>
+            
             <th>New Comments</th>
          
         </tr>
@@ -42,17 +47,22 @@
             <tr>
                 <td>@(sl++)</td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Employee.Name)
+                    @Html.DisplayFor(modelItem => item.RequsitionNumber)
                 </td>
+                @if (User.IsInRole("Controller"))
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Employee.Name)
+                    </td>
+                }
+              
                 <td>
                     @Html.DisplayFor(modelItem => item.Form)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.To)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RequsitionNumber)
-                </td>
+                
                 <td>
                     @{
                         //ViewBag.UserEmployeeId;
@@ -61,7 +71,7 @@
 
                     }
                     <span>
-                        <img src="~/img/f8-01-512.png" alt="new comments" style="height: 10%; ">
+                        <img src="~/img/f8-01-512.png" alt="new comments" style="height: 7%; ">
                         <span class="notification">@Html.Raw(newComments)</span>
                     </span>
 

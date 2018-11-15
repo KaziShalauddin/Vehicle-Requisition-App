@@ -19,9 +19,13 @@
             <th>
                 @Html.Raw("Requisition No.")
             </th>
-            <th>
-                @Html.Raw("Employee Info")
-            </th>
+            @if (User.IsInRole("Controller"))
+            {
+                <th>
+                    @Html.Raw("Employee Info")
+                </th>
+            }
+           
 
             <th>
                 @Html.Raw("Requsition Info")
@@ -49,11 +53,15 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.RequsitionNumber)
                 </td>
-                <td>
-                    Name: @Html.DisplayFor(modelItem => item.Employee.Name)
+                @if (User.IsInRole("Controller"))
+                {
+                    <td>
+                        Name: @Html.DisplayFor(modelItem => item.Employee.Name)
 
-                    Contact No.: @Html.DisplayFor(modelItem => item.Employee.ContactNo)
-                </td>
+                        Contact No.: @Html.DisplayFor(modelItem => item.Employee.ContactNo)
+                    </td>
+                }
+               
 
                 <td>
                     From :   @Html.DisplayFor(modelItem => item.Form)
@@ -73,7 +81,7 @@
 
                     }
                     <span>
-                        <img src="~/img/f8-01-512.png" alt="new comments" style="height: 10%; ">
+                        <img src="~/img/f8-01-512.png" alt="new comments" style="height: 7%; ">
                         <span class="notification">@Html.Raw(newComments)</span>
                     </span>
 

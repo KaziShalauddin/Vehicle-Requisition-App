@@ -72,7 +72,7 @@
                     <br />
                     Requested By:
                    
-                    @if (Model.Requisition.EmployeeId == userEmployee.Id)
+                    @if (Model.Requisition.RequestedBy == userEmployee.Id)
                     {
                         @Html.Raw("Me")
                     }
