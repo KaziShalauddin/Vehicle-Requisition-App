@@ -1204,6 +1204,7 @@
     <Content Include="EmployeeImages\Rofik Islam10122018 110311 AM" />
     <Content Include="EmployeeImages\test10242018 113211 PM" />
     <Content Include="EmployeeImages\Ziaul Talukder10162018 20832 PM" />
+    <None Include="Properties\PublishProfiles\vrs.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
