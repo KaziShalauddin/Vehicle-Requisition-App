@@ -1706,7 +1706,7 @@ namespace VehicleManagementApp.Controllers
         {
             return View();
         }
-
+       
         public JsonResult GetCalendar()
         {
             //var requisitions = _requisitionManager.Get(c => c.Status == "Assign").ToList();

@@ -16,7 +16,7 @@ namespace VehicleManagementApp.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-    
+
         private IRequsitionManager _requisitionManager;
         private IEmployeeManager _employeeManager;
         private ICommentManager commentManager;
@@ -24,7 +24,7 @@ namespace VehicleManagementApp.Controllers
         {
             this._employeeManager = employee;
             this._requisitionManager = requisition;
-          
+
             this.commentManager = comment;
 
         }
@@ -105,7 +105,7 @@ namespace VehicleManagementApp.Controllers
             var employeeId = employee.Select(e => e.Id).FirstOrDefault();
             return employeeId;
         }
-        //[Authorize]
+        [Authorize]
         public ActionResult Dashboard()
         {
             var userEmployeeId = GetEmployeeId();
@@ -113,7 +113,7 @@ namespace VehicleManagementApp.Controllers
 
 
             var requsition = _requisitionManager.GetAll().OrderByDescending(c => c.Id);
-           
+
 
             GetMyRequisitionComments(userEmployeeId);
 
@@ -238,9 +238,9 @@ namespace VehicleManagementApp.Controllers
         private List<MyRequsitionListViewModel> MyRequisitionListView()
         {
             var employeeId = GetEmployeeId();
-           // r.RequestedBy == employeeId ||
-           var allRequisitions = _requisitionManager.Get(r =>r.EmployeeId == employeeId && r.Status == null).OrderByDescending(c => c.Id);
-            
+            // r.RequestedBy == employeeId ||
+            var allRequisitions = _requisitionManager.Get(r => r.EmployeeId == employeeId && r.Status == null).OrderByDescending(c => c.Id);
+
 
             List<MyRequsitionListViewModel> requisitionViewList = new List<MyRequsitionListViewModel>();
             foreach (var requisition in allRequisitions)
@@ -270,14 +270,17 @@ namespace VehicleManagementApp.Controllers
             ViewBag.UserEmployeeId = userEmployeeId;
             //var requsition = _requisitionManager.Get(c => c.Status == null).Where(c => c.EmployeeId == userEmployeeId);
 
-
-            MyRequsitionCreateViewModel allRequsitions = new MyRequsitionCreateViewModel();
-            allRequsitions.RequestTypes = GetRequisitionTypes();
+            var requsitionViewList = MyRequisitionListView();
+            var allRequsitions = new MyRequsitionCreateViewModel
+            {
+                RequestTypes = GetRequisitionTypes(),
+                RequsitionViewModels = requsitionViewList
+            };
             var employees = _employeeManager.Get(c => c.IsDriver == false && c.IsDeleted == false && c.Id != userEmployeeId);
             ViewBag.Employees = employees.ToList();
 
-            var requsitionViewList = MyRequisitionListView();
-            allRequsitions.RequsitionViewModels = requsitionViewList;
+
+
             return View(allRequsitions);
 
             //List<RequsitionViewModel> requsitionViewModels = new List<RequsitionViewModel>();
@@ -391,7 +394,7 @@ namespace VehicleManagementApp.Controllers
             var userEmployeeId = GetEmployeeId();
             ViewBag.UserEmployeeId = userEmployeeId;
             var requsition = _requisitionManager.Get(c => c.Status == "Hold").Where(c => c.EmployeeId == userEmployeeId); ;
-           
+
             List<RequsitionViewModel> requsitionViewModels = new List<RequsitionViewModel>();
             foreach (var data in requsition)
             {
@@ -439,7 +442,7 @@ namespace VehicleManagementApp.Controllers
 
         public ActionResult CompleteRequsition()
         {
-           
+
             var userEmployeeId = GetEmployeeId();
             ViewBag.UserEmployeeId = userEmployeeId;
 
