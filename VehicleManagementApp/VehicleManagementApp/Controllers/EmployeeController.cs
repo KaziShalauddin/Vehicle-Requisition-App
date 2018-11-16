@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
@@ -148,20 +150,27 @@ namespace VehicleManagementApp.Controllers
             }
             Employee employee = _employeeManager.GetById((int)id);
 
-            EditEmployeeViewModel employeeVM = new EditEmployeeViewModel();
-            employeeVM.Id = employee.Id;
-            employeeVM.Name = employee.Name;
-            employeeVM.ContactNo = employee.ContactNo;
-            employeeVM.Email = employee.Email;
-            employeeVM.Address1 = employee.Address1;
-            employeeVM.Address2 = employee.Address2;
-            employeeVM.Status = "employee";
+            var employeeVM = new EditEmployeeViewModel
+            {
+                Id = employee.Id,
+                //UserId = employee.UserId,
+                Name = employee.Name,
+                ContactNo = employee.ContactNo,
+                Email = employee.Email,
+                Address1 = employee.Address1,
+                //Address2 = employee.Address2,
+                //Status = "employee",
+                DepartmentId = (int) employee.DepartmentId,
+                DesignationId = (int) employee.DesignationId,
+                DivisionId = (int) employee.DivisionId,
+                DistrictId = (int) employee.DistrictId,
+                ThanaId = (int) employee.ThanaId,
+                
+                Image = employee.Image,
+                ImagePath = employee.ImagePath
+                //UserRole = employee.UserRole
+            };
             //employeeVM.IsDriver = employee.IsDriver;
-            employeeVM.DepartmentId = (int) employee.DepartmentId;
-            employeeVM.DesignationId = (int) employee.DesignationId;
-            employeeVM.DivisionId = (int) employee.DivisionId;
-            employeeVM.DistrictId = (int) employee.DistrictId;
-            employeeVM.ThanaId = (int) employee.ThanaId;
 
             ViewBag.DepartmentId = new SelectList(_departmentManager.GetAll(), "Id", "Name", employee.DepartmentId);
             ViewBag.DesignationId = new SelectList(_designationManager.GetAll(), "Id", "Name", employee.DesignationId);
@@ -171,28 +180,138 @@ namespace VehicleManagementApp.Controllers
 
             return View(employeeVM);
         }
+        public static string GetFileNameToSave(string s)
+        {
+            return s
+                .Replace("\\", "")
+                .Replace("/", "")
+                .Replace("\"", "")
+                .Replace("*", "")
+                .Replace(":", "")
+                .Replace("?", "")
+                .Replace("<", "")
+                .Replace(">", "")
+                .Replace("|", "");
+        }
 
+        private string _imagePath;
+        private byte[] GetImageData(string imgName)
+        {
+            byte[] imageData = null;
+
+            if (Request.Files.Count > 0)
+            {
+                HttpPostedFileBase imgFile = Request.Files["Image"];
+                if (imgFile != null && imgFile.ContentLength > 0)
+                {
+
+                    var fileName = Regex.Replace(imgName, @"\s+", "");
+                    
+                 
+                    _imagePath = "~/EmployeeImages/" + fileName +
+                                DateTime.Now.ToString("ddMMyyhhmmsstt") + Path.GetExtension(imgFile.FileName);
+                    imgFile.SaveAs(Server.MapPath(_imagePath));
+                   // imgFile.SaveAs(Server.MapPath(Path.Combine()));
+
+                    using (var binary = new BinaryReader(imgFile.InputStream))
+                    {
+                        imageData = binary.ReadBytes(imgFile.ContentLength);
+                    }
+                }
+            }
+            return imageData;
+        }
+        public bool HasFile(byte[] file)
+        {
+
+            return file != null;
+        }
+
+        private ApplicationUserManager _userManager;
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
         // POST: Employee/Edit/5
         [HttpPost]
-        public ActionResult Edit(EditEmployeeViewModel employeeVM)
+        public ActionResult Edit([Bind(Exclude = "Image")]EditEmployeeViewModel employeeVm)
         {
             try
             {
-                Employee employee = new Employee();
-                employee.Id = employeeVM.Id;
-                employee.Name = employeeVM.Name;
-                employee.ContactNo = employeeVM.ContactNo;
-                employee.Email = employeeVM.Email;
-                employee.Address1 = employeeVM.Address1;
-                employee.Address2 = employeeVM.Address2;
-                employee.Status = "employee";
-                employee.DepartmentId = employeeVM.DepartmentId;
-                employee.DesignationId = employeeVM.DesignationId;
-                employee.DivisionId = employeeVM.DivisionId;
-                employee.DistrictId = employeeVM.DistrictId;
-                employee.ThanaId = employeeVM.ThanaId;
+                if (ModelState.IsValid)
+                {
+                    var employee = _employeeManager.GetById((int)employeeVm.Id);
 
-                _employeeManager.Update(employee);
+                    //employee.Id = employeeVm.Id;
+                    employee.Name = employeeVm.Name;
+                    employee.ContactNo = employeeVm.ContactNo;
+                    employee.Email = employeeVm.Email;
+                    employee.Address1 = employeeVm.Address1;
+                    employee.DepartmentId = employeeVm.DepartmentId;
+                    employee.DesignationId = employeeVm.DesignationId;
+                    employee.DivisionId = employeeVm.DivisionId;
+                    employee.DistrictId = employeeVm.DistrictId;
+                    employee.ThanaId = employeeVm.ThanaId;
+                    var imageData = GetImageData(employeeVm.Name);
+                    if (imageData != null)
+                    {
+
+                        var _user =UserManager.FindById(employee.UserId);
+                       
+                        if (HasFile(imageData))
+                        {
+                            if (_user != null)
+                            {
+                                _user.UserPhoto = imageData;
+                                UserManager.Update(_user);
+                            }
+
+                            employee.Image = imageData;
+                            employee.ImagePath = _imagePath;
+                        }
+                    }
+                    
+                   
+                    bool isUpdated = _employeeManager.Update(employee);
+                    if (isUpdated)
+                    {
+                        TempData["msg"] = "Employee Update Successful!";
+                        return RedirectToAction("Index");
+                    }
+
+                }
+                #region 
+                //var employee = new Employee
+                //{
+                //    Id = employeeVM.Id,
+                //    UserId = employeeVM.UserId,
+                //    Name = employeeVM.Name,
+                //    ContactNo = employeeVM.ContactNo,
+                //    Email = employeeVM.Email,
+                //    Address1 = employeeVM.Address1,
+                //    //Address2 = employeeVM.Address2,
+                //    //Status = "employee",
+                //    DepartmentId = employeeVM.DepartmentId,
+                //    DesignationId = employeeVM.DesignationId,
+                //    DivisionId = employeeVM.DivisionId,
+                //    DistrictId = employeeVM.DistrictId,
+                //    ThanaId = employeeVM.ThanaId,
+
+                //    Image = employeeVM.Image,
+                //    ImagePath = employeeVM.ImagePath,
+                //    UserRole = employeeVM.UserRole
+                //};
+
+                // _employeeManager.Update(employee);
+#endregion
+                TempData["msg"] = "Employee Update Failed!";
                 return RedirectToAction("Index");
             }
             catch

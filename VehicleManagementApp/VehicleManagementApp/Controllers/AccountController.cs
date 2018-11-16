@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -505,7 +506,7 @@ namespace VehicleManagementApp.Controllers
                 ContactNo = model.ContactNo,
                 IsDriver = false,
                 Image = imageData,
-                ImagePath = "~/EmployeeImages/" + model.Name + DateTime.Now,
+                ImagePath = _imagePath,
                 IsDeleted = false,
                 UserRole = "Employee"
             };
@@ -533,7 +534,7 @@ namespace VehicleManagementApp.Controllers
                 LicenceNo = model.LicenceNo,
                 IsDriver = true,
                 Image = imageData,
-                ImagePath = "~/EmployeeImages/" + model.Name + DateTime.Now,
+                ImagePath = _imagePath,
                 IsDeleted = false,
                 UserRole = "Driver"
             };
@@ -603,6 +604,7 @@ namespace VehicleManagementApp.Controllers
                 .Replace(">", "")
                 .Replace("|", "");
         }
+        private string _imagePath;
         private byte[] GetImageData(string imgName)
         {
             byte[] imageData = null;
@@ -612,9 +614,17 @@ namespace VehicleManagementApp.Controllers
                 HttpPostedFileBase imgFile = Request.Files["UserPhoto"];
                 if (imgFile != null && imgFile.ContentLength > 0)
                 {
-                    var fileName = GetFileNameToSave(imgName + DateTime.Now);
-                    imgFile.SaveAs(Server.MapPath("~/EmployeeImages/" + fileName));
+
+                    //var  savedFilePath = Server.MapPath("") + "\\images\\" + Path.GetFileNameWithoutExtension(imgFile.FileName) + DateTime.Now.ToString("ddMMyyhhmmsstt") + Path.GetExtension(imgFile.FileName);
+                    //var fileName = GetFileNameToSave(imgName +DateTime.Now.ToString("ddMMyyhhmmsstt"));
+                    //imgFile.SaveAs(Server.MapPath("~/EmployeeImages/" + fileName));/
                     //imgFile.SaveAs(Server.MapPath(Path.Combine()));
+
+                    var fileName = Regex.Replace(imgName, @"\s+", "");
+
+                    _imagePath = "~/EmployeeImages/" + fileName +
+                                DateTime.Now.ToString("ddMMyyhhmmsstt") + Path.GetExtension(imgFile.FileName);
+                    imgFile.SaveAs(Server.MapPath(_imagePath));
 
                     using (var binary = new BinaryReader(imgFile.InputStream))
                     {

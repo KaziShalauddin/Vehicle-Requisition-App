@@ -5,11 +5,18 @@
     ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@section styles{
+    @*<link href="~/Content/bootstrap.css" rel="stylesheet" />*@
+    <style>
+        .required {
+            color: red !important;
+        }
+    </style>
+}
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            @using (Html.BeginForm())
+            @using (Html.BeginForm("Edit", "Employee", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 @Html.AntiForgeryToken()
 
@@ -17,88 +24,125 @@
 
                     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                     @Html.HiddenFor(model => model.Id)
-                    <div class="jumbotron">
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.DepartmentId, htmlAttributes: new { @class = "control-label col-md-2" })<span class="divisioncls">*</span>
-                            <div class="col-md-10">
-                                @Html.DropDownList("DepartmentId", null, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.DepartmentId, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
+                   
+                    <div class="col-md-12">
+                        <div class="jumbotron">
+                            <div class="row">
+                                <div class="col-md-6">
 
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.DesignationId, htmlAttributes: new { @class = "control-label col-md-2" })<span class="divisioncls">*</span>
-                            <div class="col-md-10">
-                                @Html.DropDownList("DesignationId", null, new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.DesignationId, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.DepartmentId, htmlAttributes: new {@class = "control-label col-md-3"})<span class="required">*</span>
+                                        <div class="col-md-10">
+                                            @Html.DropDownList("DepartmentId", null, new {@class = "form-control"})
+                                            @Html.ValidationMessageFor(model => model.DepartmentId, "", new {@class = "text-danger"})
+                                        </div>
+                                    </div>
 
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })<span class="namecls">*</span>
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.DesignationId, htmlAttributes: new {@class = "control-label col-md-3"})<span class="required">*</span>
+                                        <div class="col-md-10">
+                                            @Html.DropDownList("DesignationId", null, new {@class = "form-control"})
+                                            @Html.ValidationMessageFor(model => model.DesignationId, "", new {@class = "text-danger"})
+                                        </div>
+                                    </div>
 
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.ContactNo, htmlAttributes: new { @class = "control-label col-md-2" })<span class="divisioncls">*</span>
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.ContactNo, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.ContactNo, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Name, htmlAttributes: new {@class = "control-label col-md-3"})<span class="required">*</span>
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.Name, new {htmlAttributes = new {@class = "form-control"}})
+                                            @Html.ValidationMessageFor(model => model.Name, "", new {@class = "text-danger"})
+                                        </div>
+                                    </div>
 
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })<span class="namecls">*</span>
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.ContactNo, htmlAttributes: new {@class = "control-label col-md-3"})<span class="required">*</span>
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.ContactNo, new {htmlAttributes = new {@class = "form-control"}})
+                                            @Html.ValidationMessageFor(model => model.ContactNo, "", new {@class = "text-danger"})
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Email, htmlAttributes: new {@class = "control-label col-md-3"})<span class="required">*</span>
+                                        <div class="col-md-10">
+                                            @Html.EditorFor(model => model.Email, new {htmlAttributes = new {@class = "form-control"}})
+                                            @Html.ValidationMessageFor(model => model.Email, "", new {@class = "text-danger"})
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 ">
+
+                                    <div class="form-group" style="padding-right: 20%;">
+                                        @Html.Label("User Photo")
+                                        @*<img src="@Url.Content(Model.ImagePath)" id="presentImg" style="height: 300px; width: 350px" class="thumbnail" />*@
+                                        <div id="imgPreview" class="thumbnail" style="display: block">
+                                            <img class="img-responsive" src="@Url.Content(Model.ImagePath)" id="targetImg" style="height: 200px; width: 250px" />
+
+                                            <div class="caption">
+                                                @*<a href="#" id="clearPreview" onclick="ClearPreview()"><i class="glyphicon glyphicon-trash"></i></a>*@
+                                                <span id="description"></span>
+                                            </div>
+
+                                            @*<a href="#" class="btn btn-default" onclick="Uploadimage()">Upload</a>*@
+                                        </div>
+
+                                        <div class="btn btn-primary ">
+                                            @*onclick="FileUpload()"*@
+
+                                            <input type="file" name="Image" id="fileUpload" accept=".png,.jpg,.jpeg,.gif,.tif" />
+
+                                        </div>
+
+
+                                    </div>
+
+                                </div>
+
                             </div>
                         </div>
                     </div>
-                    
 
-                    <h3><strong>Permanent Address</strong></h3>
-                    <div class="jumbotron">
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.DivisionId, htmlAttributes: new { @class = "control-label col-md-2" })<span class="distrcls">*</span>
-                            <div class="col-md-10">
-                                @Html.DropDownList("DivisionId", null, new { @class = "form-control", id = "DivisionDD1" })
-                                @Html.ValidationMessageFor(model => model.DivisionId, "", new { @class = "text-danger" })
-                            </div>
-                        </div>
 
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.DistrictId, htmlAttributes: new { @class = "control-label col-md-2" })<span class="distrcls">*</span>
-                            <div class="col-md-10">
-                                @Html.DropDownList("DistrictId", null, new { @class = "form-control", id = "DistrictDD1" })
-                                @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
+                    @*<h3><strong>Permanent Address</strong></h3>
+                        <div class="jumbotron">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DivisionId, htmlAttributes: new { @class = "control-label col-md-2" })<span class="distrcls">*</span>
+                                <div class="col-md-10">
+                                    @Html.DropDownList("DivisionId", null, new { @class = "form-control", id = "DivisionDD1" })
+                                    @Html.ValidationMessageFor(model => model.DivisionId, "", new { @class = "text-danger" })
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.ThanaId, htmlAttributes: new { @class = "control-label col-md-2" })<span class="divisioncls">*</span>
-                            <div class="col-md-10">
-                                @Html.DropDownList("ThanaId", null, new { @class = "form-control", id = "thanaDD1" })
-                                @Html.ValidationMessageFor(model => model.ThanaId, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.DistrictId, htmlAttributes: new { @class = "control-label col-md-2" })<span class="distrcls">*</span>
+                                <div class="col-md-10">
+                                    @Html.DropDownList("DistrictId", null, new { @class = "form-control", id = "DistrictDD1" })
+                                    @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label class="control-label col-md-2">Address</label><span class="distrcls">*</span>
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.Address1, new { htmlAttributes = new { @class = "form-control" } })
-                                @Html.ValidationMessageFor(model => model.Address1, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ThanaId, htmlAttributes: new { @class = "control-label col-md-2" })<span class="divisioncls">*</span>
+                                <div class="col-md-10">
+                                    @Html.DropDownList("ThanaId", null, new { @class = "form-control", id = "thanaDD1" })
+                                    @Html.ValidationMessageFor(model => model.ThanaId, "", new { @class = "text-danger" })
+                                </div>
                             </div>
-                        </div>
-                    </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-2">Address</label><span class="distrcls">*</span>
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.Address1, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Address1, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>*@
 
                     <h3><strong>Present Address</strong></h3>
                     <div class="jumbotron">
                         <div class="form-group">
-                            @Html.LabelFor(model => model.DivisionId, htmlAttributes: new { @class = "control-label col-md-2" })<span class="distrcls">*</span>
+                            @Html.LabelFor(model => model.DivisionId, htmlAttributes: new { @class = "control-label col-md-2" })<span class="required">*</span>
                             <div class="col-md-10">
                                 @Html.DropDownList("DivisionId", null, new { @class = "form-control", id = "DivisionDD2" })
                                 @Html.ValidationMessageFor(model => model.DivisionId, "", new { @class = "text-danger" })
@@ -106,7 +150,7 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.DistrictId, htmlAttributes: new { @class = "control-label col-md-2" })<span class="distrcls">*</span>
+                            @Html.LabelFor(model => model.DistrictId, htmlAttributes: new { @class = "control-label col-md-2" })<span class="required">*</span>
                             <div class="col-md-10">
                                 @Html.DropDownList("DistrictId", null, new { @class = "form-control", id = "DistrictDD2" })
                                 @Html.ValidationMessageFor(model => model.DistrictId, "", new { @class = "text-danger" })
@@ -114,7 +158,7 @@
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.ThanaId, htmlAttributes: new { @class = "control-label col-md-2" })<span class="divisioncls">*</span>
+                            @Html.LabelFor(model => model.ThanaId, htmlAttributes: new { @class = "control-label col-md-2" })<span class="required">*</span>
                             <div class="col-md-10">
                                 @Html.DropDownList("ThanaId", null, new { @class = "form-control", id = "thanaDD2" })
                                 @Html.ValidationMessageFor(model => model.ThanaId, "", new { @class = "text-danger" })
@@ -122,13 +166,13 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-2">Address</label> <span class="distrcls">*</span>
+                            <label class="control-label col-md-2">Address</label> <span class="required">*</span>
                             <div class="col-md-10">
                                 @Html.EditorFor(model => model.Address1, new { htmlAttributes = new { @class = "form-control" } })
                                 @Html.ValidationMessageFor(model => model.Address1, "", new { @class = "text-danger" })
                             </div>
                         </div>
-                        
+
                     </div>
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
@@ -146,7 +190,37 @@
 
 @section scripts{
     <script>
-        $(document).ready(function() {
+        $("#DepartmentId").change(function () {
+            debugger;
+            var selectedDepartmentId = $("#DepartmentId").val();
+            var jsonData = { departmentId: selectedDepartmentId };
+
+            $.ajax(
+            {
+                url: "/Designation/GetByDepartments",
+                data: jsonData,
+                type: "POST",
+                success: function (response) {
+                    debugger;
+                    //event.preventDefault();
+                    $("#DesignationId").empty();
+                    var options = "<option >Select...</option>";
+                    $.each(response,
+                        function (key, designation) {
+                            options += "<option value='" + designation.Id + "'>" + designation.Name + "</option>";
+                        });
+                    $("#DesignationId").append(options);
+                },
+                error: function (response) {
+
+                }
+
+            });
+
+        });
+        //$(document).ready(function () {
+           
+            
             // permanent address
             $("#DivisionDD1").change(function () {
                 var permanentDivisionId = $("#DivisionDD1").val();
@@ -171,13 +245,13 @@
 
 
             // thana present
-            $("#DistrictDD2").change(function() {
+            $("#DistrictDD2").change(function () {
                 var selectedthanaId = $("#DistrictDD2").val();
                 var targetid = "#thanaDD2";
                 GetThanaAndBind(selectedthanaId, targetid);
             });
 
-        });
+        //});
 
         //permanent
         function GetPermanentDistrictAndBind(permanentDivisionId, permanentTargetId) {
@@ -232,17 +306,17 @@
                 url: "/district/GetByDivision",
                 data: jsonData,
                 type: "POST",
-                success: function(response) {
+                success: function (response) {
                     $(targetid).empty();
 
                     var options = "<option>Select.....</option>";
                     $.each(response,
-                        function(key, district) {
+                        function (key, district) {
                             options += "<option value='" + district.Id + "'>" + district.Name + "</option>";
                         });
                     $(targetid).append(options);
                 },
-                error: function(response) {
+                error: function (response) {
 
                 }
             });
@@ -271,5 +345,42 @@
             });
         }
 
+        //jQuery(function($) {
+
+        $("#fileUpload").change(function () {
+            debugger;
+            $("#presentImg").hide();
+            var file = this.files;
+
+            if (file && file[0]) {
+                ReadImage(file[0]);
+            }
+
+        });
+
+        var ReadImage = function (file) {
+
+            var reader = new FileReader;
+            var image = new Image;
+
+            reader.readAsDataURL(file);
+            reader.onload = function (_file) {
+
+                image.src = _file.target.result;
+                image.onload = function () {
+
+                    var height = this.height;
+                    var width = this.width;
+                    var type = file.type;
+                    var size = ~~(file.size / 1024) + "KB";
+
+                    $("#targetImg").attr('src', _file.target.result);
+                    $("#description").text("Size:" + size + ", " + height + "X " + width + ", " + type + "");
+                    $("#imgPreview").show();
+
+                };
+            };
+        };
+        //});
     </script>
 }

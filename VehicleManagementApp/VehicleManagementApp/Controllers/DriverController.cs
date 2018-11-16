@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
@@ -149,20 +151,24 @@ namespace VehicleManagementApp.Controllers
             }
             Employee driver = _employeeManager.GetById((int)id);
 
-            EditDriverViewModel driverVm = new EditDriverViewModel();
-            driverVm.Id = driver.Id;
-            driverVm.Name = driver.Name;
-            driverVm.ContactNo = driver.ContactNo;
-            driverVm.Email = driver.Email;
-            driverVm.Address1 = driver.Address1;
-            driverVm.Address2 = driver.Address2;
-            driverVm.LicenceNo = driver.LicenceNo;
-            driverVm.IsDriver = driver.IsDriver;
-            driverVm.DepartmentId = (int)driver.DepartmentId;
-            driverVm.DesignationId = (int)driver.DesignationId;
-            driverVm.DivisionId = (int)driver.DivisionId;
-            driverVm.DistrictId = (int)driver.DistrictId;
-            driverVm.ThanaId = (int)driver.ThanaId;
+            EditDriverViewModel driverVm = new EditDriverViewModel
+            {
+                Id = driver.Id,
+                Name = driver.Name,
+                ContactNo = driver.ContactNo,
+                Email = driver.Email,
+                Address1 = driver.Address1,
+                //Address2 = driver.Address2,
+                LicenceNo = driver.LicenceNo,
+                //IsDriver = driver.IsDriver,
+                DepartmentId = (int) driver.DepartmentId,
+                DesignationId = (int) driver.DesignationId,
+                DivisionId = (int) driver.DivisionId,
+                DistrictId = (int) driver.DistrictId,
+                ThanaId = (int) driver.ThanaId,
+
+                ImagePath = driver.ImagePath
+            };
 
             ViewBag.DepartmentId = new SelectList(_departmentManager.GetAll(), "Id", "Name", driver.DepartmentId);
             ViewBag.DesignationId = new SelectList(_designationManager.GetAll(), "Id", "Name", driver.DesignationId);
@@ -172,33 +178,136 @@ namespace VehicleManagementApp.Controllers
 
             return View(driverVm);
         }
+        private string _imagePath;
+        private byte[] GetImageData(string imgName)
+        {
+            byte[] imageData = null;
+
+            if (Request.Files.Count > 0)
+            {
+                HttpPostedFileBase imgFile = Request.Files["Image"];
+                if (imgFile != null && imgFile.ContentLength > 0)
+                {
+                   var fileName = Regex.Replace(imgName, @"\s+", "");
+
+
+                    _imagePath = "~/EmployeeImages/" + fileName +
+                                DateTime.Now.ToString("ddMMyyhhmmsstt") + Path.GetExtension(imgFile.FileName);
+                    imgFile.SaveAs(Server.MapPath(_imagePath));
+                   
+
+                    using (var binary = new BinaryReader(imgFile.InputStream))
+                    {
+                        imageData = binary.ReadBytes(imgFile.ContentLength);
+                    }
+                }
+            }
+            return imageData;
+        }
+        public bool HasFile(byte[] file)
+        {
+
+            return file != null;
+        }
+        private ApplicationUserManager _userManager;
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
         // POST: Driver/Edit/5
         [HttpPost]
-        public ActionResult Edit(EditDriverViewModel driverVm)
+        public ActionResult Edit([Bind(Exclude = "Image")]EditDriverViewModel employeeVm)
         {
+            #region
+            //try
+            //{
+            //    Employee employee = new Employee();
+            //    employee.Id = driverVm.Id;
+            //    employee.Name = driverVm.Name;
+            //    employee.ContactNo = driverVm.ContactNo;
+            //    employee.Email = driverVm.Email;
+            //    employee.Address1 = driverVm.Address1;
+            //    employee.Address2 = driverVm.Address2;
+            //    employee.LicenceNo = driverVm.LicenceNo;
+            //    employee.IsDriver = driverVm.IsDriver;
+            //    employee.DepartmentId = driverVm.DepartmentId;
+            //    employee.DesignationId = driverVm.DesignationId;
+            //    employee.DivisionId = driverVm.DivisionId;
+            //    employee.DistrictId = driverVm.DistrictId;
+            //    employee.ThanaId = driverVm.ThanaId;
+
+            //    _employeeManager.Update(employee);
+            //    return RedirectToAction("Index");
+
+
+            //}
+            //catch
+            //{
+
+            //    return View();
+            //}
+            #endregion
             try
             {
-                Employee employee = new Employee();
-                employee.Id = driverVm.Id;
-                employee.Name = driverVm.Name;
-                employee.ContactNo = driverVm.ContactNo;
-                employee.Email = driverVm.Email;
-                employee.Address1 = driverVm.Address1;
-                employee.Address2 = driverVm.Address2;
-                employee.LicenceNo = driverVm.LicenceNo;
-                employee.IsDriver = driverVm.IsDriver;
-                employee.DepartmentId = driverVm.DepartmentId;
-                employee.DesignationId = driverVm.DesignationId;
-                employee.DivisionId = driverVm.DivisionId;
-                employee.DistrictId = driverVm.DistrictId;
-                employee.ThanaId = driverVm.ThanaId;
+                if (ModelState.IsValid)
+                {
+                    var employee = _employeeManager.GetById((int)employeeVm.Id);
 
-                _employeeManager.Update(employee);
+                    //employee.Id = employeeVm.Id;
+                    employee.Name = employeeVm.Name;
+                    employee.ContactNo = employeeVm.ContactNo;
+                    employee.LicenceNo = employeeVm.LicenceNo;
+                    employee.Email = employeeVm.Email;
+                    employee.Address1 = employeeVm.Address1;
+                    employee.DepartmentId = employeeVm.DepartmentId;
+                    employee.DesignationId = employeeVm.DesignationId;
+                    employee.DivisionId = employeeVm.DivisionId;
+                    employee.DistrictId = employeeVm.DistrictId;
+                    employee.ThanaId = employeeVm.ThanaId;
+                   
+                    var imageData = GetImageData(employeeVm.Name);
+                    if (imageData != null)
+                    {
+
+                        var _user = UserManager.FindById(employee.UserId);
+
+
+                        if (HasFile(imageData))
+                        {
+                            if (_user != null)
+                            {
+                                _user.UserPhoto = imageData;
+                                UserManager.Update(_user);
+                            }
+                           
+
+                            employee.Image = imageData;
+                            employee.ImagePath = _imagePath;
+                        }
+                    }
+
+
+                    bool isUpdated = _employeeManager.Update(employee);
+                    if (isUpdated)
+                    {
+                        TempData["msg"] = "Driver Update Successful!";
+                        return RedirectToAction("Index");
+                    }
+
+                }
+               
+                TempData["msg"] = "Driver Update Failed!";
                 return RedirectToAction("Index");
             }
             catch
             {
-
                 return View();
             }
         }

@@ -41,12 +41,12 @@
 
 
     var userEmployee = employee.Get(e => e.UserId == user.Id).FirstOrDefault();
+    var totalNewComments = 0;
 
-
-
-    ICommentManager commentManager = new CommentManager();
-    var totalNewComments = commentManager.GetAll().Count(c => c.ReceiverEmployeeId == userEmployee.Id && c.IsReceiverSeen == false);
-
+    if (userEmployee != null) {
+        ICommentManager commentManager = new CommentManager();
+        totalNewComments = commentManager.GetAll().Count(c => c.ReceiverEmployeeId == userEmployee.Id && c.IsReceiverSeen == false);
+    }
 
 }
 

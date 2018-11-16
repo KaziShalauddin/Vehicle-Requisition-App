@@ -235,17 +235,17 @@ body{
 
 /*navbar end*/
 .spancls {
-	color: red;
+	color: red !important;
 	margin-left: -103px;
 	font-size: 20px;
 }
 .deptcls {
-    color: red;
+    color: red !important;
 	margin-left: 43px;
 	font-size: 20px;
 }
 .dessicls {
-    color: red;
+    color: red !important;
 	margin-left: -47px;
 	font-size: 20px;
 }
@@ -255,22 +255,22 @@ body{
 	font-size: 20px;
 }
 .divisioncls {
-    color: red;
+    color: red !important;
 	margin-left: -27px;
 	font-size: 20px;
 }
 .namecls {
-    color: red;
+    color: red !important;
 	margin-left: -94px;
 	font-size: 20px;
 }
 .distrcls {
-    color: red;
+    color: red !important;
 	margin-left: -79px;
 	font-size: 20px;
 }
 .reqst{
-    color: red;
+    color: red !important;
 	font-size: 20px;
 }
 

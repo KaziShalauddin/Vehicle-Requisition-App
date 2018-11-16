@@ -55,6 +55,11 @@ namespace VehicleManagementApp.ViewModels
         public Thana Thana { get; set; }
         public IEnumerable<Thana> Thanas { get; set; }
 
-        
+
+        //public string UserId { get; set; }
+        //public string UserRole { get; set; }
+        public byte[] Image { get; set; }
+        public string ImagePath { get; set; }
+
     }
 }
