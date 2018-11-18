@@ -21,8 +21,7 @@ namespace VehicleManagementApp.ViewModels
         public DateTime JourneyEnd { get; set; }
         public string VehicleModel { get; set; }
         public string To { get; set; }
-
-
+        public string RequisitionNumber { get; set; }
         public string Status { get; set; }
         [Display(Name = "Requsition")]
         public int RequsitionId { get; set; }

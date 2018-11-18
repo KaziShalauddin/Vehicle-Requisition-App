@@ -475,8 +475,10 @@ namespace VehicleManagementApp.Controllers
                 TempData["msg"] = "Requisition Assigned Successfully!";
 
                 //Email Sending Method start
-                //SendingEmailDriver(assignVm.EmployeeId, assignVm.RequsitionId);
-                //SendingEmailEmployee(assignVm.EmployeeId, assignVm.RequsitionId);
+
+                SendingEmailDriver(assignVm.EmployeeId, assignVm.RequsitionId);
+                SendingEmailEmployee(assignVm.EmployeeId, assignVm.RequsitionId);
+
                 //Email Sending Method end
 
                 return RedirectToAction("New");
@@ -551,8 +553,8 @@ namespace VehicleManagementApp.Controllers
             manager.VehicleId = managerViewModel.VehicleId;
 
             //Email Sending Methon start
-            //SendingEmailDriver(managerViewModel.EmployeeId, managerViewModel.RequsitionId);
-            //SendingEmailEmployee(managerViewModel.EmployeeId, managerViewModel.RequsitionId);
+            SendingEmailDriver(managerViewModel.EmployeeId, managerViewModel.RequsitionId);
+            SendingEmailEmployee(managerViewModel.EmployeeId, managerViewModel.RequsitionId);
             //Email Sending Methon end
 
             bool isSaved = managerManager.Add(manager);
@@ -1720,6 +1722,7 @@ namespace VehicleManagementApp.Controllers
             return View(assignVm);
         }
 
+
         public ActionResult Calendar()
         {
             return View();
@@ -1901,10 +1904,6 @@ namespace VehicleManagementApp.Controllers
             }
 
         }
-
-        public ActionResult Test()
-        {
-            return View();
-        }
+        
     }
 }
