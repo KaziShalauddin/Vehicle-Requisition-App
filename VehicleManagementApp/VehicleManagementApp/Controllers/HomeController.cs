@@ -523,5 +523,6 @@ namespace VehicleManagementApp.Controllers
             }
             return PartialView("_CommentsListPartial", model);
         }
+       
     }
 }

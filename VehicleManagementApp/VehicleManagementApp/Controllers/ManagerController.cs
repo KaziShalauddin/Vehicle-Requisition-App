@@ -41,7 +41,7 @@ namespace VehicleManagementApp.Controllers
             IVehicleManager vehicle, IVehicleTypeManager vehicleType, IDriverStatusManager driverStatus, IVehicleStatusManager vehicleStatus,
             IDesignationManager _designation, IOrganaizationManager organaization, ICommentManager comment)
 
-         {
+        {
             this._employeeManager = employee;
             this._requisitionManager = requisition;
             this.managerManager = manager;
@@ -64,25 +64,25 @@ namespace VehicleManagementApp.Controllers
             var userEmployeeId = GetEmployeeId();
             ViewBag.UserEmployeeId = userEmployeeId;
 
-          
+
             var requsition = _requisitionManager.GetAll().OrderByDescending(c => c.Id);
-           
-           
-           
-            var comments = commentManager.Get(c => c.IsReceiverSeen == false).Where(c=>c.ReceiverEmployeeId== userEmployeeId);
+
+
+
+            var comments = commentManager.Get(c => c.IsReceiverSeen == false).Where(c => c.ReceiverEmployeeId == userEmployeeId);
 
             var commentsWithRequisition = from r in requsition
                                           join c in comments on r.Id equals c.RequsitionId
-                                               select new
-                                               {
-                                                   r.Id,
-                                                   r.Status,
-                                                   c.SenderEmployee,
-                                                   c.SenderEmployeeId,
-                                                   c.ReceiverEmployeeId,
-                                                   c.ReceiverSeenTime,
-                                                   c.IsReceiverSeen
-                                               };
+                                          select new
+                                          {
+                                              r.Id,
+                                              r.Status,
+                                              c.SenderEmployee,
+                                              c.SenderEmployeeId,
+                                              c.ReceiverEmployeeId,
+                                              c.ReceiverSeenTime,
+                                              c.IsReceiverSeen
+                                          };
             List<CountCommentViewModel> commentsList = new List<CountCommentViewModel>();
             foreach (var item in commentsWithRequisition)
             {
@@ -92,7 +92,7 @@ namespace VehicleManagementApp.Controllers
                 comment.Status = item.Status;
                 commentsList.Add(comment);
             }
-            if (commentsList.Count(c => c.Status == null)==0)
+            if (commentsList.Count(c => c.Status == null) == 0)
             {
                 ViewBag.NewRequisitionComments = 0;
             }
@@ -116,7 +116,7 @@ namespace VehicleManagementApp.Controllers
             {
                 ViewBag.HoldRequisitionComments = commentsList.Count(c => c.Status == "Hold");
             }
-          
+
             return View();
         }
         private int GetEmployeeId()
@@ -255,7 +255,7 @@ namespace VehicleManagementApp.Controllers
             manager.RequsitionId = managerViewModel.RequsitionId;
             manager.EmployeeId = managerViewModel.EmployeeId;
             manager.VehicleId = managerViewModel.VehicleId;
-            
+
 
             manager.StartDate = startdateTime;
             manager.EndDate = endDateTime;
@@ -343,6 +343,8 @@ namespace VehicleManagementApp.Controllers
             var requisition = _requisitionManager.GetById((int)id);
 
             requisition.Status = "Assign";
+            requisition.IsAssigned = true;
+            requisition.IsEmployeeSeen = false;
             bool assign = _requisitionManager.Update(requisition);
             if (assign)
             {
@@ -477,7 +479,7 @@ namespace VehicleManagementApp.Controllers
                 //SendingEmailEmployee(assignVm.EmployeeId, assignVm.RequsitionId);
                 //Email Sending Method end
 
-                return RedirectToAction("TodayAssignedList");
+                return RedirectToAction("New");
             }
 
             //if (!isRequisitionAssigned && !isDriverAssigned)
@@ -954,7 +956,7 @@ namespace VehicleManagementApp.Controllers
 
             return View();
         }
-      
+
         public ActionResult CheckInUpdate(int? id)
         {
             if (id == null)
@@ -1078,10 +1080,10 @@ namespace VehicleManagementApp.Controllers
             var endTime = filteringSearchViewModels.EndDate;
             int designationId = filteringSearchViewModels.DesignationId;
 
-            
-            var searchingValue = _requisitionManager.Get(c=>c.Status == "Complete" && c.IsDeleted == false);
-            var designationsId = searchingValue.Where(c => c.JourneyStart > startTime && c.JouneyEnd< endTime);
-            
+
+            var searchingValue = _requisitionManager.Get(c => c.Status == "Complete" && c.IsDeleted == false);
+            var designationsId = searchingValue.Where(c => c.JourneyStart > startTime && c.JouneyEnd < endTime);
+
 
             //var selectedValue = searchingValue.Where(c => c.JourneyStart > startTime && c.JouneyEnd < endTime || c.Employee.DesignationId == designationId);
 
@@ -1236,7 +1238,7 @@ namespace VehicleManagementApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-           // var employee = _employeeManager.GetAll();
+            // var employee = _employeeManager.GetAll();
             var requsition = _requisitionManager.GetById((int)id);
 
             //RequsitionViewModel requisitionVm = new RequsitionViewModel()
@@ -1354,7 +1356,7 @@ namespace VehicleManagementApp.Controllers
                 Driver = _employeeManager.GetById(driverId),
                 Vehicle = vehicleManager.GetById(vehicleId)
             };
-          
+
             List<ManagerViewModel> managerViewModels = new List<ManagerViewModel>();
 
             var managersVM = new ManagerViewModel
@@ -1407,7 +1409,7 @@ namespace VehicleManagementApp.Controllers
                 var requsition = _requisitionManager.Get(c => c.Status == "Assign").OrderByDescending(c => c.Id);
 
                 var driverWithRequisition = from r in requsition
-                                                join v in vehicleStatus on r.Id equals v.RequsitionId
+                                            join v in vehicleStatus on r.Id equals v.RequsitionId
                                             join driver in driverStatus on r.Id equals driver.RequsitionId
                                             select new
                                             {
@@ -1422,7 +1424,7 @@ namespace VehicleManagementApp.Controllers
                                                 //Driver = driver.EmployeeId
 
                                             };
-              
+
                 foreach (var allData in driverWithRequisition)
                 {
                     var assignVM = new DriverDutyViewModel();
@@ -1437,7 +1439,7 @@ namespace VehicleManagementApp.Controllers
                 }
 
             }
-            return PartialView("_DriverDutyListPartial",assignedList);
+            return PartialView("_DriverDutyListPartial", assignedList);
         }
 
         public ActionResult DriverDutyCompletedList()
@@ -1493,19 +1495,19 @@ namespace VehicleManagementApp.Controllers
             }
             return PartialView("_DriverDutyListPartial", assignedList);
         }
-       
+
         public ActionResult CheckIn_V2(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-           
-            var vehicleStatus = vehicleStatusManager.Get(c=>c.RequsitionId==id).FirstOrDefault();
+
+            var vehicleStatus = vehicleStatusManager.Get(c => c.RequsitionId == id).FirstOrDefault();
             var driverStatus = driverStatusManager.Get(c => c.RequsitionId == id).FirstOrDefault();
             var requsitionStatus = _requisitionManager.GetById((int)id);
-            
-            if (vehicleStatus != null&& driverStatus != null && requsitionStatus != null)
+
+            if (vehicleStatus != null && driverStatus != null && requsitionStatus != null)
             {
                 vehicleStatus.Status = "Complete";
                 bool isVehicleStatusUpdate = vehicleStatusManager.Update(vehicleStatus);
@@ -1526,7 +1528,7 @@ namespace VehicleManagementApp.Controllers
 
             TempData["msg"] = "Check in operaion failed.";
             return RedirectToAction("AssignedList");
-            
+
         }
 
         private bool ForReassign_AddDataToDriverStatusTable(int? employeeId, int? id)
@@ -1536,10 +1538,10 @@ namespace VehicleManagementApp.Controllers
                 return false;
             }
             var maxId = driverStatusManager.GetAll().Max(c => c.Id) + 1;
-            var dv = driverStatusManager.Get(c=>c.RequsitionId==id && c.Status=="Assign").FirstOrDefault();
+            var dv = driverStatusManager.Get(c => c.RequsitionId == id && c.Status == "Assign").FirstOrDefault();
 
             if (dv == null) return false;
-            dv.Status = "Reassigned - Ref :"+maxId;
+            dv.Status = "Reassigned - Ref :" + maxId;
             bool isUpdated = driverStatusManager.Update(dv);
             return isUpdated;
         }
@@ -1549,7 +1551,7 @@ namespace VehicleManagementApp.Controllers
             {
                 return false;
             }
-            var maxId = vehicleStatusManager.GetAll().Max(c=>c.Id) + 1;
+            var maxId = vehicleStatusManager.GetAll().Max(c => c.Id) + 1;
             var vs = vehicleStatusManager.Get(c => c.RequsitionId == id && c.Status == "Assign").FirstOrDefault();
 
             if (vs == null) return false;
@@ -1573,7 +1575,7 @@ namespace VehicleManagementApp.Controllers
 
         private RessignViewModel GetRessignViewModel(int? id)
         {
-            Requsition requsition = _requisitionManager.GetById((int) id);
+            Requsition requsition = _requisitionManager.GetById((int)id);
             var presentDriverId =
                 driverStatusManager.Get(c => c.RequsitionId == id && c.Status == "Assign")
                     .Select(c => c.EmployeeId)
@@ -1624,23 +1626,39 @@ namespace VehicleManagementApp.Controllers
             };
             return assignVm;
         }
+        public bool RequisitionReAssign(int? id)
+        {
+            if (id == null)
+            {
+                return false;
+            }
 
+            var requisition = _requisitionManager.GetById((int)id);
+
+            requisition.IsReAssigned = true;
+            requisition.IsEmployeeSeen = false;
+            bool assign = _requisitionManager.Update(requisition);
+            if (assign)
+            {
+                return true;
+            }
+
+            return false;
+        }
         [HttpPost]
         public ActionResult Reassign_V2(RessignViewModel assignVm)
         {
-            
+
             if (assignVm.IsBothChanged)
             {
-                //bool isRequisitionAssigned = RequisitionAssign(assignVm.Id);
+                bool isRequisitionReAssigned = RequisitionReAssign(assignVm.Id);
 
                 bool isPresentDriverStatusChanged = ForReassign_AddDataToDriverStatusTable(assignVm.PresentDriverId, assignVm.Id);
                 bool isPresentVehicleStatusChanged = ForReassign_AddDataToVehicleStatusTable(assignVm.PresentVehicleId, assignVm.Id);
 
                 bool isDriverAssigned = AddDataToDriverStatusTable(assignVm.NewDriverId, assignVm.Id);
                 bool isVehicleAssigned = AddDataToVehicleStatusTable(assignVm.NewVehicleId, assignVm.Id);
-
-                //if (isRequisitionAssigned && isPresentDriverStatusChanged && isPresentVehicleStatusChanged && isDriverAssigned && isVehicleAssigned)
-                if (isPresentDriverStatusChanged && isPresentVehicleStatusChanged && isDriverAssigned && isVehicleAssigned)
+                if (isPresentDriverStatusChanged && isPresentVehicleStatusChanged && isDriverAssigned && isVehicleAssigned && isRequisitionReAssigned)
                 {
                     TempData["msg"] = "Requisition Ressigned Successfully!";
 
@@ -1655,15 +1673,15 @@ namespace VehicleManagementApp.Controllers
             }
             if (assignVm.IsDriverChanged)
             {
-                //bool isRequisitionAssigned = RequisitionAssign(assignVm.Id);
+                bool isRequisitionReAssigned = RequisitionReAssign(assignVm.Id);
 
                 bool isPresentDriverStatusChanged = ForReassign_AddDataToDriverStatusTable(assignVm.PresentDriverId, assignVm.Id);
-              
+
 
                 bool isDriverAssigned = AddDataToDriverStatusTable(assignVm.NewDriverId, assignVm.Id);
-                
 
-                if ( isPresentDriverStatusChanged && isDriverAssigned )
+
+                if (isPresentDriverStatusChanged && isDriverAssigned && isRequisitionReAssigned)
                 {
                     TempData["msg"] = "Driver For Requisition Ressigned Successfully!";
 
@@ -1678,13 +1696,13 @@ namespace VehicleManagementApp.Controllers
             }
             if (assignVm.IsVehicleChanged)
             {
-                
+                bool isRequisitionReAssigned = RequisitionReAssign(assignVm.Id);
                 bool isPresentVehicleStatusChanged = ForReassign_AddDataToVehicleStatusTable(assignVm.PresentVehicleId, assignVm.Id);
 
-               
+
                 bool isVehicleAssigned = AddDataToVehicleStatusTable(assignVm.NewVehicleId, assignVm.Id);
 
-                if (isPresentVehicleStatusChanged &&  isVehicleAssigned)
+                if (isPresentVehicleStatusChanged && isVehicleAssigned && isRequisitionReAssigned)
                 {
                     TempData["msg"] = "Vehicle For Requisition Ressigned Successfully!";
 
@@ -1697,7 +1715,7 @@ namespace VehicleManagementApp.Controllers
                     return RedirectToAction("FullAssignList");
                 }
             }
-            
+
             TempData["msg"] = "Requisition Not Reassigned!";
             return View(assignVm);
         }
@@ -1706,7 +1724,7 @@ namespace VehicleManagementApp.Controllers
         {
             return View();
         }
-       
+
         public JsonResult GetCalendar()
         {
             //var requisitions = _requisitionManager.Get(c => c.Status == "Assign").ToList();
@@ -1736,14 +1754,14 @@ namespace VehicleManagementApp.Controllers
                 EndTo = e.To,
                 Type = e.RequestType,
                 Desc = e.Description,
-                EmployeeName =e.Employee.Name,
-                Designation=e.Employee.Designation.Name,
-                Employee=e.Employee.Name,
+                EmployeeName = e.Employee.Name,
+                Designation = e.Employee.Designation.Name,
+                Employee = e.Employee.Name,
                 Start_Date = e.JourneyStart.ToString("s"),
                 End_Date = e.JouneyEnd.ToString("s")
 
             });
-            return Json ( requisitions,  JsonRequestBehavior.AllowGet );
+            return Json(requisitions, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult TodayAssignedList()
@@ -1754,7 +1772,7 @@ namespace VehicleManagementApp.Controllers
             string todays = DateTime.Today.ToShortDateString();
             var todayAssignRequsition = searchingValue.Where(c => c.JouneyEnd.ToShortDateString() == todays);
 
-            
+
 
             List<RequsitionViewModel> requsitionViewModels = new List<RequsitionViewModel>();
             foreach (var item in todayAssignRequsition)
@@ -1855,7 +1873,7 @@ namespace VehicleManagementApp.Controllers
             {
                 return;
             }
-            var dod = "<span>Hello, Mr." + " " + requsition.Employee.Name + ","+"<br/>"+"your requisition with Requisition Number:"+requsition.RequsitionNumber+" has been re-assigned due to unavoidable circumstances. Please contact with :<strong>Driver Name</strong> :" + " " + employee.Name + "</span>" + "<br/>"
+            var dod = "<span>Hello, Mr." + " " + requsition.Employee.Name + "," + "<br/>" + "your requisition with Requisition Number:" + requsition.RequsitionNumber + " has been re-assigned due to unavoidable circumstances. Please contact with :<strong>Driver Name</strong> :" + " " + employee.Name + "</span>" + "<br/>"
                       + "<span> <strong>Phone Number</strong> :" + " " + employee.ContactNo + "</span>" + "<br/>";
 
 
