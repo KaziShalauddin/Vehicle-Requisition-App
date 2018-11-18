@@ -1345,6 +1345,7 @@
     <Content Include="Views\Requsition\Print_V2.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Requsition\AllUnseenComments.cshtml" />
+    <Content Include="Views\Shared\_CommentsListPartial.cshtml" />
     <None Include="Web References\com.onnorokomsms.api2\sendsms.disco" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

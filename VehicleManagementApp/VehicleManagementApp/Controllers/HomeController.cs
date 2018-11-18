@@ -502,5 +502,26 @@ namespace VehicleManagementApp.Controllers
             return PartialView("_CompleteRequsitionPartial", requsitionViewModels);
         }
 
+        [ChildActionOnly]
+        public ActionResult _CommentsListPartial()
+        {
+            
+            List<Comment> commentListViewModel = new List<Comment>();
+            var model = commentManager.Get(c => c.IsReceiverSeen == false).Where(c => c.ReceiverEmployeeId == GetEmployeeId()).OrderByDescending(c => c.Id).Take(3);
+            foreach (var item in model.ToList())
+            {
+                var cmnt = new Comment
+                {
+                    Id = item.Id,
+                    Requsition = item.Requsition,
+                    EmployeeId = item.EmployeeId,
+                    Comments = item.Comments,
+                    CommentTime = item.CommentTime,
+                    SenderEmployee = item.SenderEmployee,
+                };
+                commentListViewModel.Add(cmnt);
+            }
+            return PartialView("_CommentsListPartial", model);
+        }
     }
 }
