@@ -11,67 +11,81 @@
         <div class="col-md-12">
             <h1 style="text-align:center;">Driver Details</h1>
             <div class="jumbotron">
-                <table class="details_view">
-                    <tr>
-                        <td class="title_name">Name :</td>
-                        <td>@Html.DisplayFor(model => model.Name)</td>
-                    </tr>
-                    <tr>
-                        <td class="title_name">Department Name :</td>
-                        <td>@Html.DisplayFor(model => model.Department.Name)</td>
-                    </tr>
+                <div class="row">
+                    <div class="col-md-6">
+                        <table class="details_view">
+                            <tr>
+                                <td class="title_name">Name :</td>
+                                <td>@Html.DisplayFor(model => model.Name)</td>
 
-                    <tr>
-                        <td class="title_name">Designation :</td>
-                        <td>@Html.DisplayFor(model => model.Designation.Name)</td>
-                    </tr>
-                    <tr>
-                        <td class="title_name">Contact No :</td>
-                        <td>@Html.DisplayFor(model => model.ContactNo)</td>
-                    </tr>
 
-                    <tr>
-                        <td class="title_name">Email :</td>
-                        <td>@Html.DisplayFor(model => model.Email)</td>
-                    </tr>
-                    <tr>
-                        <td class="title_name">Driving Licence No :</td>
-                        <td>@Html.DisplayFor(model => model.LicenceNo)</td>
-                    </tr>
-                   
+                            </tr>
+                            <tr>
+                                <td class="title_name">Department Name :</td>
+                                <td>@Html.DisplayFor(model => model.Department.Name)</td>
+                            </tr>
 
-                    @*<tr>
+                            <tr>
+                                <td class="title_name">Designation :</td>
+                                <td>@Html.DisplayFor(model => model.Designation.Name)</td>
+                            </tr>
+                            <tr>
+                                <td class="title_name">Contact No :</td>
+                                <td>@Html.DisplayFor(model => model.ContactNo)</td>
+                            </tr>
+
+                            <tr>
+                                <td class="title_name">Email :</td>
+                                <td>@Html.DisplayFor(model => model.Email)</td>
+                            </tr>
+
+                            <tr>
+                                <td class="title_name">Driving Licence No :</td>
+                                <td>@Html.DisplayFor(model => model.LicenceNo)</td>
+                            </tr>
+                            @*<tr>
                         <td class="title_name">Employee Address-2 :</td>
                         <td>@Html.DisplayFor(model => model.Address2)</td>
                     </tr>*@
 
-                   
+                            @*<tr>
+                        <td class="title_name">Employee Licence No :</td>
+                        <td>@Html.DisplayFor(model => model.LicenceNo)</td>
+                    </tr>*@
 
 
-                    <tr>
-                        <td class="title_name">Division :</td>
-                        <td>@Html.DisplayFor(model => model.Division.Name)</td>
-                    </tr>
 
-                    <tr>
-                        <td class="title_name">District :</td>
-                        <td>@Html.DisplayFor(model => model.District.Name)</td>
-                    </tr>
+                            <tr>
+                                <td class="title_name">Division :</td>
+                                <td>@Html.DisplayFor(model => model.Division.Name)</td>
+                            </tr>
 
-                    <tr>
-                        <td class="title_name">Thana :</td>
-                        <td>@Html.DisplayFor(model => model.Thana.Name)</td>
-                    </tr>
-                    <tr>
-                        <td class="title_name">Address :</td>
-                        <td>@Html.DisplayFor(model => model.Address1)</td>
-                    </tr>
-                </table>
+                            <tr>
+                                <td class="title_name">District :</td>
+                                <td>@Html.DisplayFor(model => model.District.Name)</td>
+                            </tr>
+
+                            <tr>
+                                <td class="title_name">Thana :</td>
+                                <td>@Html.DisplayFor(model => model.Thana.Name)</td>
+                            </tr>
+                            <tr>
+                                <td class="title_name">Address :</td>
+                                <td>@Html.DisplayFor(model => model.Address1)</td>
+                            </tr>
+
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="title_name"> Driver Photo</p>
+                        <img class="img-responsive" src="@Url.Content(Model.ImagePath)" id="targetImg" style="height: 200px; width: 250px" />
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 <p >
     @Html.ActionLink("Edit", "Edit", new { id = Model.Id  }, new { @class = "btn btn-info btn-sm" }) |
-    @Html.ActionLink("Back", "Dashboard", "Home", null, new { @class = "btn btn-success btn-sm" })
+    @Html.ActionLink("Back", "Index",null, new { @class = "btn btn-success btn-sm" })
 </p>

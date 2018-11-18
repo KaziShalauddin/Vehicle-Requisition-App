@@ -373,7 +373,8 @@ namespace VehicleManagementApp.Controllers
                 Designation = designation.Where(x => x.Id == employee.DesignationId).FirstOrDefault(),
                 Division = division.Where(x => x.Id == employee.DivisionId).FirstOrDefault(),
                 District = district.Where(x => x.Id == employee.DistrictId).FirstOrDefault(),
-                Thana = thana.Where(x => x.Id == employee.ThanaId).FirstOrDefault()
+                Thana = thana.Where(x => x.Id == employee.ThanaId).FirstOrDefault(),
+                ImagePath = employee.ImagePath
 
             };
             return View(employeeVM);

@@ -60,6 +60,7 @@ namespace VehicleManagementApp.ViewModels
         public Thana Thana { get; set; }
         public IEnumerable<Thana> Thanas { get; set; }
 
-        
+        public string ImagePath { get; set; }
+
     }
 }

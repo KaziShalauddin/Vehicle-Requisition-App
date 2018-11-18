@@ -250,7 +250,7 @@ namespace VehicleManagementApp.Controllers
 
         private List<RequsitionViewModel> RequisitionListView()
         {
-            GetRequisitionComplete();
+            //GetRequisitionComplete();
 
             var allRequisitions = _requisitionManager.GetAll().OrderByDescending(c=>c.Id);
             
@@ -589,7 +589,7 @@ namespace VehicleManagementApp.Controllers
         }
         private List<MyRequsitionListViewModel> MyRequisitionListView()
         {
-            GetRequisitionComplete();
+            //GetRequisitionComplete();
             var employeeId = GetEmployeeId();
 
             var allRequisitions = _requisitionManager.Get(r => r.RequestedBy == employeeId || r.EmployeeId==employeeId).OrderByDescending(c => c.Id);

@@ -337,7 +337,8 @@ namespace VehicleManagementApp.Controllers
                 Designation = designation.Where(x => x.Id == driver.DesignationId).FirstOrDefault(),
                 Division = division.Where(x => x.Id == driver.DivisionId).FirstOrDefault(),
                 District = district.Where(x => x.Id == driver.DistrictId).FirstOrDefault(),
-                Thana = thana.Where(x => x.Id == driver.ThanaId).FirstOrDefault()
+                Thana = thana.Where(x => x.Id == driver.ThanaId).FirstOrDefault(),
+                ImagePath = driver.ImagePath
             };
             return View(driverVm);
         }
