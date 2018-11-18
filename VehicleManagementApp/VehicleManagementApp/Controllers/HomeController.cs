@@ -505,12 +505,7 @@ namespace VehicleManagementApp.Controllers
         [ChildActionOnly]
         public ActionResult _CommentsListPartial()
         {
-            //var model = new List<StoryWidget>();
-            //if (model != null)
-            //{
-            //    StoryWidget item = new StoryWidget() { SportName = SName, SeriesTitle = "IPL 2013", SportTitle = "ICC Hall" };
-            //    model.Add(item);
-            //}
+            
             List<Comment> commentListViewModel = new List<Comment>();
             var model = commentManager.Get(c => c.IsReceiverSeen == false).Where(c => c.ReceiverEmployeeId == GetEmployeeId()).OrderByDescending(c => c.Id).Take(3);
             foreach (var item in model.ToList())
