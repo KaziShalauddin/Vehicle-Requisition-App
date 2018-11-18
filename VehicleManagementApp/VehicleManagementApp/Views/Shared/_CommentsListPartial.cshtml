@@ -1,0 +1,34 @@
+﻿@model IEnumerable<VehicleManagementApp.Models.Models.Comment>
+
+
+@foreach (var item in Model) {
+
+    <li>
+        @{
+
+            var commentTime = item.CommentTime.ToString("dd - MMM - yyyy hh:mm tt");
+            var comments = item.Comments;
+
+        }
+        <div class="card" style="padding: 2%">
+            <span>
+                Requisition Number: @Html.DisplayFor(modelItem => item.Requsition.RequsitionNumber)
+            </span>
+            <div>
+                <a href="@Url.Action("Details_V2", "Requsition", new {id = item.RequsitionId})" style="color: black !important">
+                    <img class="img-responsive" src="@Url.Content(item.SenderEmployee.ImagePath)" id="targetImg" style="height: 20px; width: 25px"/>
+                    @Html.Raw(comments)
+                </a>
+            </div>
+
+            @*<td>
+                @Html.Raw(commentTime)
+            </td>*@
+            <span>
+               Comment at: @Html.Raw(commentTime)
+            </span>
+           
+        </div>
+    </li>
+}
+

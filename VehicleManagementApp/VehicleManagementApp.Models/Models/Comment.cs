@@ -29,7 +29,7 @@ namespace VehicleManagementApp.Models.Models
 
         [ForeignKey("Requsition")]
         public int RequsitionId { get; set; }
-        public Requsition Requsition { get; set; }
+        public virtual Requsition Requsition { get; set; }
         public bool IsDeleted { get; set; }
 
         public bool withDeleted()
