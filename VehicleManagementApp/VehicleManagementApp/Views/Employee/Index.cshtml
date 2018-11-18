@@ -41,7 +41,7 @@
                         @Html.DisplayNameFor(model => model.Email)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Address1)
+                        @Html.DisplayName("Address")
                     </th>
                     <th></th>
                 </tr>
@@ -49,7 +49,7 @@
                 <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr style="font-size: 18px;">
+                    <tr style="font-size: 15px;">
                         <td>
                             @(sl++)
                         </td>
@@ -65,16 +65,16 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.ContactNo)
                         </td>
-                        <td style="width: 12%;">
+                        <td style="width: 10%;">
                             @Html.DisplayFor(modelItem => item.Email)
                         </td>
-                        <td style="width: 16%;">
+                        <td style="width: 20%;">
                             @Html.DisplayFor(modelItem => item.Address1)
                         </td>
-                        <td style="width: 12%;">
+                        <td style="width: 18%;">
                             @Html.ActionLink("Edit", "Edit", new {id = item.Id}, new {@class = "btn btn-primary btn-sm"})
                             @Html.ActionLink("Details", "Details", new {id = item.Id}, new {@class = "btn btn-info btn-sm"})
-                            @Html.ActionLink("Delete", "Delete", new {id = item.Id,}, new {@class = "btn btn-danger btn-sm", onclick = "return confirm('Are You Sure? You Want To Delete!')"})
+                            @*@Html.ActionLink("Delete", "Delete", new {id = item.Id,}, new {@class = "btn btn-danger btn-sm", onclick = "return confirm('Are You Sure? You Want To Delete!')"})*@
                         </td>
                     </tr>
                 }
