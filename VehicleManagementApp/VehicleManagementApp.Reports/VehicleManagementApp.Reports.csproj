@@ -53,6 +53,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="RequisitionAssignRDLC.rdlc" />
     <EmbeddedResource Include="RequsitionAssignRDLC.rdlc" />
     <EmbeddedResource Include="RequsitionDetailsRDLC.rdlc" />
   </ItemGroup>
