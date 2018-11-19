@@ -17,7 +17,7 @@ namespace VehicleManagementApp.Models.Models
         public int Id { get; set; }
 
         public int EmployeeId { get; set; }
-        public Employee Employee { get; set; }
+        public virtual Employee Employee { get; set; }
 
         [ForeignKey("Requsition")]
         public int? RequsitionId { get; set; }
