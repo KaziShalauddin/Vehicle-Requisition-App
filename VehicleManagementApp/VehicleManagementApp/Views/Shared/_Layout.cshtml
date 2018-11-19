@@ -10,6 +10,7 @@
     IRequsitionManager managers = new RequsitionManager();
     IVehicleManager vehicle = new VehicleManager();
     IEmployeeManager employee = new EmployeeManager();
+
     ICommentManager commentManager = new CommentManager();
     var totalDriver = employee.Get(c => c.IsDriver == true);
     var availableDriver = employee.Get(c => c.Status == "NULL" || c.Status == null && c.IsDriver == true);
@@ -43,11 +44,15 @@
 
     var userEmployee = employee.Get(e => e.UserId == user.Id).FirstOrDefault();
     var totalNewComments = 0;
-   
+    var totalNewNotifications = 0;
     if (userEmployee != null) {
 
         totalNewComments = commentManager.GetAll().Count(c => c.ReceiverEmployeeId == userEmployee.Id && c.IsReceiverSeen == false);
-         }
+        var NewNotifications = managers.Get(c => c.EmployeeId == userEmployee.Id && c.IsEmployeeSeen == false).Where(c=> c.Status == "Assign" || c.Status == "Hold");
+        totalNewNotifications = NewNotifications.Count();
+    }
+
+
 
 }
 
@@ -464,75 +469,85 @@
             {
                 <nav class="nav">
                     <div class="dropdown">
-                        @*<a href="" class="nav-link pd-x-7 pos-relative" data-toggle="dropdown">
+                        <a href="" class="nav-link pd-x-7 pos-relative" data-toggle="dropdown">
 
-                            <i class="icon ion-ios-email-outline tx-24"></i>
+                            
                             <!-- start: if statement -->
-                            <span class="square-8 bg-danger pos-absolute t-15 r-0 rounded-circle"></span>
+                            <span>
+                                <i class="icon ion-ios-email-outline tx-24">
+                                    <span class="myNotification">
+                                        @Html.Raw(totalNewNotifications)
+                                    </span>
+                                </i>
+
+                            </span>
                             <!-- end: if statement -->
                         </a>
                         <div class="dropdown-menu dropdown-menu-header wd-300 pd-0-force">
-                            <div class="d-flex align-items-center justify-content-between pd-y-10 pd-x-20 bd-b bd-gray-200">
+                            @*<div class="d-flex align-items-center justify-content-between pd-y-10 pd-x-20 bd-b bd-gray-200">
                                 <label class="tx-12 tx-info tx-uppercase tx-semibold tx-spacing-2 mg-b-0">Messages</label>
                                 <a href="" class="tx-11">+ Add New Message</a>
-                            </div><!-- d-flex -->
+                            </div>*@<!-- d-flex -->
 
                             <div class="media-list">
-                                <!-- loop starts here -->
-                                <a href="" class="media-list-link">
-                                    <div class="media pd-x-20 pd-y-15">
-                                        <img src="http://via.placeholder.com/280x280" class="wd-40 rounded-circle" alt="">
-                                        <div class="media-body">
-                                            <div class="d-flex align-items-center justify-content-between mg-b-5">
-                                                <p class="mg-b-0 tx-medium tx-gray-800 tx-14">Donna Seay</p>
-                                                <span class="tx-11 tx-gray-500">2 minutes ago</span>
-                                            </div><!-- d-flex -->
-                                            <p class="tx-12 mg-b-0">A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring.</p>
-                                        </div>
-                                    </div><!-- media -->
-                                </a>
-                                <!-- loop ends here -->
-                                <a href="" class="media-list-link read">
-                                    <div class="media pd-x-20 pd-y-15">
-                                        <img src="http://via.placeholder.com/280x280" class="wd-40 rounded-circle" alt="">
-                                        <div class="media-body">
-                                            <div class="d-flex align-items-center justify-content-between mg-b-5">
-                                                <p class="mg-b-0 tx-medium tx-gray-800 tx-14">Samantha Francis</p>
-                                                <span class="tx-11 tx-gray-500">3 hours ago</span>
-                                            </div><!-- d-flex -->
-                                            <p class="tx-12 mg-b-0">My entire soul, like these sweet mornings of spring.</p>
-                                        </div>
-                                    </div><!-- media -->
-                                </a>
-                                <a href="" class="media-list-link read">
-                                    <div class="media pd-x-20 pd-y-15">
-                                        <img src="http://via.placeholder.com/280x280" class="wd-40 rounded-circle" alt="">
-                                        <div class="media-body">
-                                            <div class="d-flex align-items-center justify-content-between mg-b-5">
-                                                <p class="mg-b-0 tx-medium tx-gray-800 tx-14">Robert Walker</p>
-                                                <span class="tx-11 tx-gray-500">5 hours ago</span>
-                                            </div><!-- d-flex -->
-                                            <p class="tx-12 mg-b-0">I should be incapable of drawing a single stroke at the present moment...</p>
-                                        </div>
-                                    </div><!-- media -->
-                                </a>
-                                <a href="" class="media-list-link read">
-                                    <div class="media pd-x-20 pd-y-15">
-                                        <img src="http://via.placeholder.com/280x280" class="wd-40 rounded-circle" alt="">
-                                        <div class="media-body">
-                                            <div class="d-flex align-items-center justify-content-between mg-b-5">
-                                                <p class="mg-b-0 tx-medium tx-gray-800 tx-14">Larry Smith</p>
-                                                <span class="tx-11 tx-gray-500">Yesterday</span>
-                                            </div><!-- d-flex -->
-                                            <p class="tx-12 mg-b-0">When, while the lovely valley teems with vapour around me, and the meridian sun strikes...</p>
-                                        </div>
-                                    </div><!-- media -->
-                                </a>
+                                <div>
+                                    <!-- loop starts here -->
+                                    @*<a href="" class="media-list-link">
+                                        <div class="media pd-x-20 pd-y-15">
+                                            <img src="http://via.placeholder.com/280x280" class="wd-40 rounded-circle" alt="">
+                                            <div class="media-body">
+                                                <div class="d-flex align-items-center justify-content-between mg-b-5">
+                                                    <p class="mg-b-0 tx-medium tx-gray-800 tx-14">Donna Seay</p>
+                                                    <span class="tx-11 tx-gray-500">2 minutes ago</span>
+                                                </div><!-- d-flex -->
+                                                <p class="tx-12 mg-b-0">A wonderful serenity has taken possession of my entire soul, like these sweet mornings of spring.</p>
+                                            </div>
+                                        </div><!-- media -->
+                                    </a>
+                                    <!-- loop ends here -->
+                                    <a href="" class="media-list-link read">
+                                        <div class="media pd-x-20 pd-y-15">
+                                            <img src="http://via.placeholder.com/280x280" class="wd-40 rounded-circle" alt="">
+                                            <div class="media-body">
+                                                <div class="d-flex align-items-center justify-content-between mg-b-5">
+                                                    <p class="mg-b-0 tx-medium tx-gray-800 tx-14">Samantha Francis</p>
+                                                    <span class="tx-11 tx-gray-500">3 hours ago</span>
+                                                </div><!-- d-flex -->
+                                                <p class="tx-12 mg-b-0">My entire soul, like these sweet mornings of spring.</p>
+                                            </div>
+                                        </div><!-- media -->
+                                    </a>
+                                    <a href="" class="media-list-link read">
+                                        <div class="media pd-x-20 pd-y-15">
+                                            <img src="http://via.placeholder.com/280x280" class="wd-40 rounded-circle" alt="">
+                                            <div class="media-body">
+                                                <div class="d-flex align-items-center justify-content-between mg-b-5">
+                                                    <p class="mg-b-0 tx-medium tx-gray-800 tx-14">Robert Walker</p>
+                                                    <span class="tx-11 tx-gray-500">5 hours ago</span>
+                                                </div><!-- d-flex -->
+                                                <p class="tx-12 mg-b-0">I should be incapable of drawing a single stroke at the present moment...</p>
+                                            </div>
+                                        </div><!-- media -->
+                                    </a>
+                                    <a href="" class="media-list-link read">
+                                        <div class="media pd-x-20 pd-y-15">
+                                            <img src="http://via.placeholder.com/280x280" class="wd-40 rounded-circle" alt="">
+                                            <div class="media-body">
+                                                <div class="d-flex align-items-center justify-content-between mg-b-5">
+                                                    <p class="mg-b-0 tx-medium tx-gray-800 tx-14">Larry Smith</p>
+                                                    <span class="tx-11 tx-gray-500">Yesterday</span>
+                                                </div><!-- d-flex -->
+                                                <p class="tx-12 mg-b-0">When, while the lovely valley teems with vapour around me, and the meridian sun strikes...</p>
+                                            </div>
+                                        </div><!-- media -->
+                                    </a>*@
+                                </div>
+                                <ul class="list-unstyled user-profile-nav">@{ Html.RenderAction("_NotificationListPartial", "Requsition"); }</ul>
                                 <div class="pd-y-10 tx-center bd-t">
-                                    <a href="" class="tx-12"><i class="fa fa-angle-down mg-r-5"></i> Show All Messages</a>
+                                    <a href="@Url.Action("AllUnseenNotifications", "Requsition")" class="tx-12"><i class="fa fa-angle-down mg-r-5"></i> Show All Notifications</a>
                                 </div>
                             </div><!-- media-list -->
-                        </div>*@<!-- dropdown-menu -->
+                        </div><!-- dropdown-menu -->
                     </div><!-- dropdown -->
 
                     <div class="dropdown">

@@ -1,0 +1,83 @@
+﻿@model IEnumerable<VehicleManagementApp.ViewModels.NotificationViewModel>
+
+@{
+    ViewBag.Title = "AllUnseenNotifications";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int sl = 1;
+}
+
+<h2 style="padding-bottom: 30px; text-align: center">New Notifications</h2>
+<div>
+    @if (TempData["msg"] != null)
+    {
+        <div class="alert alert-info">
+            @TempData["msg"]
+        </div>
+    }
+</div>
+
+<table class="table table-bordered table-striped" id="myTable">
+    <thead>
+        <tr>
+            <th>@Html.Raw("SL")</th>
+            <th>
+                @Html.DisplayNameFor(model => model.RequisitionNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.From)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.To)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.JourneyStart)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.JourneyEnd)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@(sl++)</td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RequisitionNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.From)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.To)
+                </td>
+                @{
+
+                    var startdate = item.JourneyStart.ToString("dd - MMM - yyyy hh:mm tt");
+                    var enddate = item.JourneyEnd.ToString("dd - MMM - yyyy hh:mm tt");
+                }
+                <td>
+                    @Html.Raw(startdate)
+                </td>
+                <td>
+                    @Html.Raw(enddate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @if (!item.IsEmployeeSeen)
+                    {
+                    @Html.ActionLink("Seen", "NotificationSeen", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })
+                    }
+                    @Html.ActionLink("Details", "Details_V2", new {id = item.Id}, new {@class = "btn btn-info btn-sm"})
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

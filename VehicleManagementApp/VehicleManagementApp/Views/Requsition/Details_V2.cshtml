@@ -11,7 +11,7 @@
     //IDriverStatusManager driverStatusManager = new DriverStatusManager();
     //IVehicleStatusManager vehicleStatusManager = new VehicleStatusManager();
     IEmployeeManager employee = new EmployeeManager();
-   
+
     //IVehicleManager vehicleManager = new VehicleManager();
     ApplicationUser user =
               System.Web.HttpContext.Current.GetOwinContext()
@@ -20,7 +20,7 @@
 
 
     var userEmployee = employee.Get(e => e.UserId == user.Id).FirstOrDefault();
-    
+
 }
 
 
@@ -71,7 +71,7 @@
                     Journey End: @Html.Raw(enddate)
                     <br />
                     Requested By:
-                   
+
                     @if (Model.Requisition.RequestedBy == userEmployee.Id)
                     {
                         @Html.Raw("Me")
@@ -79,7 +79,7 @@
                     else
                     {
                         var requestedBy = employee.Get(e => e.Id == Model.Requisition.RequestedBy).FirstOrDefault();
-                        @Html.Raw(requestedBy.Name+ " Designation: "+ requestedBy.Designation.Name)
+                        @Html.Raw(requestedBy.Name + " Designation: " + requestedBy.Designation.Name)
                     }
 
                 </td>
@@ -112,30 +112,30 @@
             </table>
         }
         @*@if (Model.Requisition.Status == "Complete")
-        {
-            <table class="table table-hover">
-                <tr class="card">
-                    <th>Assigned Driver Info</th>
-                    <td>
-                        Driver Name: @Html.DisplayFor(model => model.Driver.Name)
-                        <br />
-                        Phone No: @Html.DisplayFor(model => model.Driver.ContactNo)
-                    </td>
-                </tr>
-            </table>
-            <table class="table table-hover">
-                <tr class="card">
-                    <th>Assigned Vehicle Info</th>
-                    <td>
-                        Brand : @Html.DisplayFor(model => model.Vehicle.VehicleName)
-                        <br />
-                        Registration No.: @Html.DisplayFor(model => model.Vehicle.VRegistrationNo)
-                        <br />
-                        Detailed Name: @Html.DisplayFor(model => model.Vehicle.Name)
-                    </td>
-                </tr>
-            </table>
-        }*@
+            {
+                <table class="table table-hover">
+                    <tr class="card">
+                        <th>Assigned Driver Info</th>
+                        <td>
+                            Driver Name: @Html.DisplayFor(model => model.Driver.Name)
+                            <br />
+                            Phone No: @Html.DisplayFor(model => model.Driver.ContactNo)
+                        </td>
+                    </tr>
+                </table>
+                <table class="table table-hover">
+                    <tr class="card">
+                        <th>Assigned Vehicle Info</th>
+                        <td>
+                            Brand : @Html.DisplayFor(model => model.Vehicle.VehicleName)
+                            <br />
+                            Registration No.: @Html.DisplayFor(model => model.Vehicle.VRegistrationNo)
+                            <br />
+                            Detailed Name: @Html.DisplayFor(model => model.Vehicle.Name)
+                        </td>
+                    </tr>
+                </table>
+            }*@
 
     </div>
 </div>
@@ -146,7 +146,7 @@
             <p>
                 @if (User.IsInRole(AppEnum.RoleEnum.Employee.ToString()))
                 {
-                    if (Model.Requisition.Status != "Complete" || Model.Requisition.Status != "Assign")
+                    if (Model.Requisition.Status == null)
                     {
                         @Html.ActionLink("Edit", "Edit", new { id = Model.Requisition.Id }, new { @class = "btn btn-primary", onclick = "return confirm('Are You Sure? You Want To Cancel!')" })
                         <span style="width: 20px;"></span>
@@ -154,7 +154,28 @@
                         <span style="width: 20px;"></span>
                         @Html.ActionLink("Print", "Print", "Requsition", new { id = Model.Requisition.Id }, new { @class = "btn btn-success" })
                     }
-                    else
+                    if (Model.Requisition.Status == "Assign")
+                    {
+                        if (!Model.Requisition.IsEmployeeSeen)
+                        {
+                            @Html.ActionLink("Seen", "NotificationSeen", new { id = Model.Requisition.Id }, new { @class = "btn btn-primary" })
+                            <span style="width: 30px;"></span>
+                        }
+
+                        @Html.ActionLink("Print", "Print_V2", "Requsition", new { id = Model.Requisition.Id }, new { @class = "btn btn-success" })
+                    }
+                    if (Model.Requisition.Status == "Hold")
+                    {
+                        if (!Model.Requisition.IsEmployeeSeen)
+                        {
+                            @Html.ActionLink("Seen", "NotificationSeen", new { id = Model.Requisition.Id }, new { @class = "btn btn-primary" })
+                            <span style="width: 30px;"></span>
+                            @Html.ActionLink("Back", "AllUnseenNotifications", "Requsition", new { @class = "btn btn-info" })
+                            <span style="width: 30px;"></span>
+                        }
+                        @Html.ActionLink("Print", "Print", "Requsition", new { id = Model.Requisition.Id }, new { @class = "btn btn-success" })
+                    }
+                    if (Model.Requisition.Status == "Complete")
                     {
                         @Html.ActionLink("Print", "Print_V2", "Requsition", new { id = Model.Requisition.Id }, new { @class = "btn btn-success" })
                     }

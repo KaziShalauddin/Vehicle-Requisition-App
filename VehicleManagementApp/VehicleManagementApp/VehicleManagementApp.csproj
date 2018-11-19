@@ -287,6 +287,7 @@
     <Compile Include="ViewModels\AssignedListViewModel.cs" />
     <Compile Include="ViewModels\CountCommentViewModel.cs" />
     <Compile Include="ViewModels\EditRequisitionViewModel.cs" />
+    <Compile Include="ViewModels\NotificationViewModel.cs" />
     <Compile Include="ViewModels\RessignViewModel.cs" />
     <Compile Include="ViewModels\CommentViewModel.cs" />
     <Compile Include="ViewModels\DriverDutyViewModel.cs" />
@@ -1346,6 +1347,8 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Requsition\AllUnseenComments.cshtml" />
     <Content Include="Views\Shared\_CommentsListPartial.cshtml" />
+    <Content Include="Views\Requsition\AllUnseenNotifications.cshtml" />
+    <Content Include="Views\Shared\_NotificationListPartial.cshtml" />
     <None Include="Web References\com.onnorokomsms.api2\sendsms.disco" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

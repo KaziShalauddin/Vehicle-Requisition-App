@@ -38,5 +38,10 @@ namespace VehicleManagementApp.Models.Models
         {
             return IsDeleted;
         }
+
+        public bool IsEmployeeSeen { get; set; }
+        public bool IsAssigned { get; set; }
+        public bool IsHold { get; set; }
+        public bool IsReAssigned { get; set; }
     }
 }

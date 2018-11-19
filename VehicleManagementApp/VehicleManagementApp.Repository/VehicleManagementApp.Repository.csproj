@@ -57,6 +57,14 @@
     <Compile Include="Migrations\201810201431059_EmployeeTable_Modified_UserRoleAdded.Designer.cs">
       <DependentUpon>201810201431059_EmployeeTable_Modified_UserRoleAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811181650009_Tbl_Requisition_Modified_ForShowNotification.cs" />
+    <Compile Include="Migrations\201811181650009_Tbl_Requisition_Modified_ForShowNotification.Designer.cs">
+      <DependentUpon>201811181650009_Tbl_Requisition_Modified_ForShowNotification.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811181730330_Tbl_Requisition_Modified_IsHoldAdded_ForShowNotification.cs" />
+    <Compile Include="Migrations\201811181730330_Tbl_Requisition_Modified_IsHoldAdded_ForShowNotification.Designer.cs">
+      <DependentUpon>201811181730330_Tbl_Requisition_Modified_IsHoldAdded_ForShowNotification.cs</DependentUpon>
+    </Compile>
     <Compile Include="NewCommentRepository.cs" />
     <Compile Include="CommentRepository.cs" />
     <Compile Include="DatabaseContext\VehicleDatabaseContext.cs" />
@@ -220,6 +228,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201810201431059_EmployeeTable_Modified_UserRoleAdded.resx">
       <DependentUpon>201810201431059_EmployeeTable_Modified_UserRoleAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811181650009_Tbl_Requisition_Modified_ForShowNotification.resx">
+      <DependentUpon>201811181650009_Tbl_Requisition_Modified_ForShowNotification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811181730330_Tbl_Requisition_Modified_IsHoldAdded_ForShowNotification.resx">
+      <DependentUpon>201811181730330_Tbl_Requisition_Modified_IsHoldAdded_ForShowNotification.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

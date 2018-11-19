@@ -1,0 +1,53 @@
+﻿@model IEnumerable<VehicleManagementApp.ViewModels.NotificationViewModel>
+
+
+
+@foreach (var item in Model) {
+    @*<tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.RequisitionNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.From)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.To)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.JourneyStart)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.JourneyEnd)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsEmployeeSeen)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
+            @Html.ActionLink("Details", "Details", new {id = item.Id}) |
+            @Html.ActionLink("Delete", "Delete", new {id = item.Id})
+        </td>
+    </tr>*@
+
+    <li>
+       
+        <div class="card" style="padding: 2%">
+            
+            <div>
+                <a href="@Url.Action("Details_V2", "Requsition", new {id = item.Id})" style="color: black !important">
+                    <span>
+                        Requisition Number: @Html.DisplayFor(modelItem => item.RequisitionNumber)
+                    </span>
+                </a>
+                <span>
+                    Has been @Html.DisplayFor(modelItem => item.Status)
+                </span>
+            </div>
+        </div>
+    </li>
+            }
+
+

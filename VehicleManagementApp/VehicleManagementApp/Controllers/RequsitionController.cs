@@ -1029,5 +1029,92 @@ namespace VehicleManagementApp.Controllers
             //assignVm.CommentViewModels = commentListViewModel;
             return View(commentListViewModel);
         }
+        public RedirectToRouteResult NotificationSeen(int? id)
+        {
+           // var notificationSeen = _requisitionManager.GetById((int)id);
+            var requisition = _requisitionManager.GetById((int)id);
+            requisition.IsEmployeeSeen = true;
+            _requisitionManager.Update(requisition);
+            return RedirectToAction("AllUnseenNotifications");
+        }
+        public ActionResult AllUnseenNotifications()
+        {
+            var userEmployee = UserEmployee();
+            List<NotificationViewModel> notificationList = new List<NotificationViewModel>();
+            var allNotifications = _requisitionManager.Get(c => c.EmployeeId == userEmployee.Id && c.IsEmployeeSeen == false).Where(c => c.Status == "Assign" || c.Status == "Hold").OrderByDescending(c => c.Id);
+            foreach (var item in allNotifications.ToList())
+            {
+                var notification = new NotificationViewModel
+                {
+                    Id = item.Id,
+                    RequisitionNumber = item.RequsitionNumber,
+                    From = item.Form,
+                    To = item.To,
+                    JourneyStart = item.JourneyStart,
+                    JourneyEnd = item.JouneyEnd
+                };
+
+                if (item.IsAssigned)
+                {
+                    notification.Status = item.IsReAssigned ? "Reassigned" : "Assigned";
+                    
+                }
+
+                if (item.IsHold)
+                {
+                    notification.Status ="Hold";
+
+                }
+                notificationList.Add(notification);
+            }
+           
+            return View(notificationList);
+        }
+        [ChildActionOnly]
+        public ActionResult _NotificationListPartial()
+        {
+            var userEmployee = UserEmployee();
+            List<NotificationViewModel> notificationList = new List<NotificationViewModel>();
+            var allNotifications = _requisitionManager.Get(c => c.EmployeeId == userEmployee.Id && c.IsEmployeeSeen == false).Where(c => c.Status == "Assign" || c.Status == "Hold").OrderByDescending(c => c.Id).Take(3);
+            foreach (var item in allNotifications.ToList())
+            {
+                var notification = new NotificationViewModel
+                {
+                    Id = item.Id,
+                    RequisitionNumber = item.RequsitionNumber,
+                    From = item.Form,
+                    To = item.To,
+                    JourneyStart = item.JourneyStart,
+                    JourneyEnd = item.JouneyEnd
+                };
+
+                if (item.IsAssigned)
+                {
+                    notification.Status = item.IsReAssigned ? "Reassigned" : "Assigned";
+
+                }
+
+                if (item.IsHold)
+                {
+                    notification.Status = "Hold";
+
+                }
+                notificationList.Add(notification);
+            }
+
+            return PartialView("_NotificationListPartial", notificationList);
+        }
+
+        private Employee UserEmployee()
+        {
+            ApplicationUser user =
+                System.Web.HttpContext.Current.GetOwinContext()
+                    .GetUserManager<ApplicationUserManager>()
+                    .FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+
+
+            var userEmployee = _employeeManager.Get(e => e.UserId == user.Id).FirstOrDefault();
+            return userEmployee;
+        }
     }
 }
