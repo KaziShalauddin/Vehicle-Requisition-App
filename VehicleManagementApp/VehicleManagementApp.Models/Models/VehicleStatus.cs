@@ -18,7 +18,7 @@ namespace VehicleManagementApp.Models.Models
         public int Id { get; set; }
 
         public int VehicleId { get; set; }
-        public Vehicle Vehicle { get; set; }
+        public virtual Vehicle Vehicle { get; set; }
 
 
         [ForeignKey("Requsition")]
