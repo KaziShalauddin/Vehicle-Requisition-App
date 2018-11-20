@@ -22,9 +22,9 @@
                 <table class="table table-striped table-bordered" style="cellspacing: 0; width: 100%;" id="myTable">
                     <thead>
                         <tr>
-                            <td>
+                            <th>
                                 @Html.Raw("SL")
-                            </td>
+                            </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.RequestType)
                             </th>
@@ -46,21 +46,24 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.JourneyStart)
                             </th>
-                            <th>
+                            <th style="text-align: center;">
                                 @Html.DisplayNameFor(model => model.JouneyEnd)
                             </th>
 
-                            <th>
+                            <th style="text-align: center;">
                                 @Html.DisplayName("Comments")
                             </th>
-                            <th></th>
+                            <th style="text-align: center;">
+                                @Html.DisplayName("Action")
+                            </th>
+                            
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
                             <tr>
-                                <td>
+                                <td style="text-align: center;">
                                     @(sl++)
                                 </td>
                                 <td>
@@ -93,7 +96,7 @@
                                     @Html.Raw(enddate)
                                 </td>
 
-                                <td>
+                                <td style="text-align: center;">
                                     @{
                                         ICommentManager commentManager = new CommentManager();
                                         var newComments = commentManager.Get(c => c.RequsitionId == item.Id).Count(c => c.ReceiverEmployeeId == ViewBag.UserEmployeeId && c.IsReceiverSeen == false);
@@ -106,7 +109,7 @@
 
                                     @Html.ActionLink("Details", "Details_V2", "Requsition", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
                                 </td>
-                                <td>
+                                <td style="text-align: center;">
                                     @Html.ActionLink("Edit", "Edit", "Requsition", new { id = item.Id }, new { @class = "btn btn-primary btn-sm" })
                                     <span style="width: 20px"></span>
                                     @Html.ActionLink("Cancel", "Delete", "Requsition", new { id = item.Id, }, new { @class = "btn btn-danger btn-sm", onclick = "return confirm('Are You Sure? You Want To Cancel!')" })
