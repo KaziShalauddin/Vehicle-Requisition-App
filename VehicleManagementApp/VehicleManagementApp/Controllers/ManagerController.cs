@@ -426,7 +426,7 @@ namespace VehicleManagementApp.Controllers
             var requisitionEnd = requsition.JouneyEnd;
 
             //var getMaxEndTime_With_Driver =driverStatusManager.Get(c =>c.EndTime<requisitionStart && c.Status == "Assign").OrderByDescending(c=>c.EndTime).Select(c=>new {c.EmployeeId,c.Employee.Name,c.EndTime}).ToList();
-            var getMaxEndTime_With_Driver = driverStatusManager.Get(c => c.EndTime < requisitionStart && c.Status == "Assign").OrderByDescending(c => c.EndTime).GroupBy(x => x.EmployeeId).Select(x => x.First());
+           // var getMaxEndTime_With_Driver = driverStatusManager.Get(c => c.EndTime < requisitionEnd && c. && c.Status == "Assign").OrderByDescending(c => c.EndTime).GroupBy(x => x.EmployeeId).Select(x => x.First());
 
             //getAssignedDriver_Between_requisitionStart_And_requisitionEnd
             //var assignedDrivers = driverStatusManager.Get(c => c.EndTime < requisitionStart && c.Status == "Assign");

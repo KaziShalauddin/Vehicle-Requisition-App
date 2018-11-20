@@ -1,6 +1,14 @@
 ﻿@model IEnumerable<VehicleManagementApp.Models.Models.Comment>
 
-
+@section styles{
+    <style>
+        .TextWrapLeft {
+            
+            float: left;
+            margin: 3%;
+        }
+    </style>
+}
 @foreach (var item in Model) {
 
     <li>
@@ -16,19 +24,14 @@
             </span>
             <div>
                 <a href="@Url.Action("Details_V2", "Requsition", new {id = item.RequsitionId})" style="color: black !important">
-                    <img class="img-responsive" src="@Url.Content(item.SenderEmployee.ImagePath)" id="targetImg" style="height: 20px; width: 25px"/>
+                    <img class="TextWrapLeft" src="@Url.Content(item.SenderEmployee.ImagePath)" style="height: 20px; width: 25px" />
                     @Html.Raw(comments)
                 </a>
             </div>
-
-            @*<td>
-                @Html.Raw(commentTime)
-            </td>*@
             <span>
-               Comment at: @Html.Raw(commentTime)
+                Comment at: @Html.Raw(commentTime)
             </span>
-           
+
         </div>
     </li>
-}
-
+            }
