@@ -44,18 +44,15 @@ We also propose to include a feature “Feedback”. This feature keeps track of
 **Note** <br/>
 
     Role:Controller
-      User name: ziaultalukder
-      Password: 123456
-      
-      User name: Kazi Shalauddin
+      User name: vrsController
       Password: 123456
       
     Role:Employee
-      User name: Alim
-      Password: 123456
+      User name: vrsUser
+      Password: 1234
 
 **Live Website Link**
-   http://vrs2018-001-site1.dtempurl.com/
+   http://vms2018-001-site1.htempurl.com/
 
 
 ### Home Page
