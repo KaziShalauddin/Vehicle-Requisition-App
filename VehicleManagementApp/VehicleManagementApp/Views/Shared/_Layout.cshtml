@@ -1145,10 +1145,13 @@
 
     <script>
 
-        $('#myTable').DataTable();
+        $('#myTable').DataTable({
+            responsive:true
+        });
+        
         $(document).ready(function () {
-
             $('#chartLine1').hide();
+           
         });
 
         $(function () {
