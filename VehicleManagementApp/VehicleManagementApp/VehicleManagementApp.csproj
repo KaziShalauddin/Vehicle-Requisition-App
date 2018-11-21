@@ -1193,7 +1193,7 @@
     <Content Include="DashboardDesign\lib\summernote\font\summernote.eot" />
     <Content Include="DashboardDesign\lib\summernote\font\summernote.ttf" />
     <Content Include="DashboardDesign\lib\summernote\font\summernote.woff" />
-    <None Include="Properties\PublishProfiles\VRS.pubxml" />
+    <None Include="Properties\PublishProfiles\VMS.pubxml" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
