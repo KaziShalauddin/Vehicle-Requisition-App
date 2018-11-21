@@ -18,10 +18,10 @@
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.ReceiverEmployeeId, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-6">
+                        @*<div class="col-md-6">
                             Controller: @Html.DropDownListFor(model => model.ReceiverEmployeeId, new SelectList(Model.ReceiverEmployees, "Id", "Name"), "Select Receiver", new {htmlAttributes = new {@class = "form-control", required = "required"}})
                             @Html.ValidationMessageFor(model => model.ReceiverEmployeeId, "", new {@class = "text-danger"})
-                        </div>
+                        </div>*@
                         @{
                             IRequsitionManager requsitionManager = new RequsitionManager();
                             // var userEmployeeId = employee.Get(c => c.UserId == User.Identity.GetUserId()).Select(c => c.Id).FirstOrDefault();
