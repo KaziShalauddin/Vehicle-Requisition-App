@@ -1337,6 +1337,8 @@
     <Content Include="Views\Shared\_CommentsListPartial.cshtml" />
     <Content Include="Views\Requsition\AllUnseenNotifications.cshtml" />
     <Content Include="Views\Shared\_NotificationListPartial.cshtml" />
+    <Content Include="Views\Manager\PrintAll.cshtml" />
+    <Content Include="Views\Shared\_CompleteRequisition.cshtml" />
     <None Include="Web References\com.onnorokomsms.api2\sendsms.disco" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -1536,6 +1538,7 @@
       <DependentUpon>201809290251363_UserTable_userPhotoAdded.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Report\AssignRequsition\RequsitionAssignRDLC.rdlc" />
+    <EmbeddedResource Include="Report\CompleteRequisition\CompleteRequisitoinPrintAllRDLC.rdlc" />
     <EmbeddedResource Include="Report\RequsitionDetails\RequsitionDetailsRDLC.rdlc" />
   </ItemGroup>
   <ItemGroup>

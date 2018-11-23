@@ -53,6 +53,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="CompleteRequisitoinPrintAllRDLC.rdlc" />
     <EmbeddedResource Include="RequsitionAssignRDLC.rdlc" />
   </ItemGroup>
   <ItemGroup>

@@ -1115,6 +1115,42 @@ namespace VehicleManagementApp.Controllers
             return PartialView("_CompleteRequsitionPartial", requsitionViewModels);
         }
 
+
+        public ActionResult PrintAll(FilteringSearchViewModel filteringSearchViewModels)
+        {
+            var startTime = filteringSearchViewModels.Startdate;
+            var endTime = filteringSearchViewModels.EndDate;
+            var searchingValue = _requisitionManager.Get(c => c.Status == "Complete" && c.IsDeleted == false);
+            var PrintingValue = searchingValue.Where(c => c.JourneyStart > startTime && c.JouneyEnd < endTime);
+            List<RequsitionViewModel> requsitionViewModels = new List<RequsitionViewModel>();
+            foreach (var item in PrintingValue)
+            {
+                var requisitionVM = new RequsitionViewModel();
+                requisitionVM.Id = item.Id;
+                requisitionVM.EmployeeName = item.Employee.Name;
+                requisitionVM.Form = item.Form;
+                requisitionVM.To = item.To;
+                requisitionVM.Description = item.Description;
+                requisitionVM.JourneyStart = item.JourneyStart;
+                requisitionVM.JouneyEnd = item.JouneyEnd;
+                requsitionViewModels.Add(requisitionVM);
+            }
+            string reportpath = Request.MapPath(Request.ApplicationPath) + @"Report\CompleteRequisition\CompleteRequisitoinPrintAllRDLC.rdlc";
+            var reportViewer = new ReportViewer()
+            {
+                KeepSessionAlive = true,
+                SizeToReportContent = true,
+                Width = Unit.Percentage(100),
+                ProcessingMode = ProcessingMode.Local
+            };
+            reportViewer.LocalReport.ReportPath = reportpath;
+            ReportDataSource rds = new ReportDataSource("CompleteRequisition", requsitionViewModels);
+            reportViewer.LocalReport.DataSources.Add(rds);
+            ViewBag.ReportViewer = reportViewer;
+            filteringSearchViewModels.RequsitionViewModels = requsitionViewModels;
+            return PartialView("_CompleteRequisition", requsitionViewModels);
+        }
+
         public ActionResult AssignIndexDetails(int? id)
         {
             if (id == null)
@@ -1137,7 +1173,6 @@ namespace VehicleManagementApp.Controllers
             managerViewModel.Employee = emloyee.Where(c => c.Id == manager.EmployeeId).FirstOrDefault();
             return View(managerViewModel);
         }
-
 
         public ActionResult AssignReport(RequsitionAssignViewModel requsitionAssignViewModel)
         {

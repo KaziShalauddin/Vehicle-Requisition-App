@@ -26,7 +26,8 @@
                 </div>*@
 
                 <div class="col-md-3">
-                    <input type="button" value="Search" class="btn btn-default" id="btnSubmit" style="margin-top: 25px;" />
+                    <input type="button" value="Search" class="btn btn-default" id="btnSubmit" style="margin-top: 25px;"/>
+                    <input type="button" value="Print All" class="btn btn-info" id="btnPrint" style="margin-top: 25px; display: none;"/>
                 </div>
             </div>
         </div>
@@ -38,12 +39,11 @@
 </div>
 @section scripts{
     <script type="text/javascript">
-
-
         $('#btnSubmit').click(function (event) {
             event.preventDefault();
             var _Startdate = $('#Startdate').val();
             var _EndDate = $('#EndDate').val();
+            $("#btnPrint").show();
             //var designationId = $("#DesignationId").val();
 
             if (_Startdate > _EndDate) {
@@ -78,7 +78,26 @@
 
             }
 
+            $("#btnPrint").click(function () {
+                $.ajax({
+                    url: '@(Url.Action("PrintAll"))',
+                    data: { Startdate: _Startdate, EndDate: _EndDate },
+                    type: "GET",
+                    success: function (result) {
+
+                        $("#resultDiv").empty();
+                        $("#resultDiv").html(result);
+                        $('#myTable').DataTable();
+                    },
+                    error: function (result) {
+
+                    }
+                });
+            });
+
+
         });
+        
 
 
     </script>
