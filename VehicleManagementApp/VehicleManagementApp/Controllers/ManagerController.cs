@@ -417,28 +417,74 @@ namespace VehicleManagementApp.Controllers
         [HttpGet]
         public ActionResult AdvanceAssign(int? id)
         {
+            //if (id == null)
+            //{
+            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            //}
+            //Requsition requsition = _requisitionManager.GetById((int)id);
+
+            //var availableDriverList = driverStatusManager.Get(c => c.EndTime < requsition.JourneyStart ).GroupBy(x => x.EmployeeId).Select(x => x.First());
+
+            //List<Employee> availableDrivers = new List<Employee>();
+
+            //foreach (var driver in availableDriverList)
+            //{
+            //    var driverItem = _employeeManager.GetById(driver.EmployeeId);
+            //    availableDrivers.Add(driverItem);
+            //}
+
+            //List<Vehicle> availableVehicles = new List<Vehicle>();
+
+            //var availableVehicleList = vehicleStatusManager.Get(c => c.EndTime < requsition.JourneyStart).GroupBy(x => x.VehicleId).Select(x => x.First());
+            //foreach (var vehicle in availableVehicleList)
+            //{
+            //    var vehicleItem = vehicleManager.GetById(vehicle.VehicleId);
+            //    availableVehicles.Add(vehicleItem);
+            //}
+
+            //AssignViewModel assignVm = new AssignViewModel
+            //{
+            //    RequsitionId = requsition.Id,
+            //    Requsition = requsition,
+            //    Employees = availableDrivers,
+            //    Vehicles = availableVehicles
+            //};
+
+
+            ////if (availableVehicles != null)
+            ////{
+            ////    var vehicleDropDownList = SetVehicleDropDown(availableVehicles);
+
+            ////    ViewBag.Vehicles = new SelectList(vehicleDropDownList, "Id", "VehicleDetails");
+            ////}
+
+            //ViewBag.Vehicles = new SelectList(availableVehicles, "Id", "Name");
+            //return View(assignVm);
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Requsition requsition = _requisitionManager.GetById((int)id);
+            var requisitionStart = requsition.JourneyStart;
+            var requisitionEnd = requsition.JouneyEnd;
 
-            var availableDriverList = driverStatusManager.Get(c => c.EndTime < requsition.JourneyStart ).GroupBy(x => x.EmployeeId).Select(x => x.First());
-           
+            var busyDriverList = driverStatusManager.Get(c => c.StartTime < requisitionEnd && requisitionStart < c.EndTime && c.Status == "Assign").GroupBy(c => c.EmployeeId).Select(c => c.First()).Select(c => c.EmployeeId).ToList();
+            var allDrivers = _employeeManager.Get(c => c.IsDriver).Select(c => c.Id).Except(busyDriverList);
             List<Employee> availableDrivers = new List<Employee>();
 
-            foreach (var driver in availableDriverList)
+            foreach (var driverId in allDrivers)
             {
-                var driverItem = _employeeManager.GetById(driver.EmployeeId);
+                var driverItem = _employeeManager.GetById(driverId);
                 availableDrivers.Add(driverItem);
             }
 
-            List<Vehicle> availableVehicles = new List<Vehicle>();
 
-            var availableVehicleList = vehicleStatusManager.Get(c => c.EndTime < requsition.JourneyStart).GroupBy(x => x.VehicleId).Select(x => x.First());
-            foreach (var vehicle in availableVehicleList)
+            var busyVehicleList = vehicleStatusManager.Get(c => c.StartTime < requisitionEnd && requisitionStart < c.EndTime && c.Status == "Assign").GroupBy(c => c.VehicleId).Select(c => c.First()).Select(c => c.VehicleId).ToList();
+            var allVehicles = vehicleManager.GetAll().Select(c => c.Id).Except(busyVehicleList);
+            List<Vehicle> availableVehicles = new List<Vehicle>();
+            foreach (var vehicleId in allVehicles)
             {
-                var vehicleItem = vehicleManager.GetById(vehicle.VehicleId);
+                var vehicleItem = vehicleManager.GetById(vehicleId);
                 availableVehicles.Add(vehicleItem);
             }
 
@@ -450,16 +496,9 @@ namespace VehicleManagementApp.Controllers
                 Vehicles = availableVehicles
             };
 
-
-            //if (availableVehicles != null)
-            //{
-            //    var vehicleDropDownList = SetVehicleDropDown(availableVehicles);
-
-            //    ViewBag.Vehicles = new SelectList(vehicleDropDownList, "Id", "VehicleDetails");
-            //}
-
             ViewBag.Vehicles = new SelectList(availableVehicles, "Id", "Name");
             return View(assignVm);
+
         }
 
         [HttpPost]
