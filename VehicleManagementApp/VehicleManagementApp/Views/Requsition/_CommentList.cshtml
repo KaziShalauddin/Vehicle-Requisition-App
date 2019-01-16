@@ -34,7 +34,7 @@
                             <h6>
                                 @if (commentor != null)
                                 {
-                                    @Html.Raw("Comments by: " + "<b>" +commentor.Name+ "</b>")
+                                    @Html.Raw("Comments by: " + "<b>" + commentor.Name + "</b>")
                                     @Html.Raw(" ( Designation :" + commentor.Designation.Name + " )")
 
                                 }
@@ -61,11 +61,11 @@
 
                             <h6>
                                 @*@if (commentor != null)
-                                    {
-                                        @Html.Raw(commentor.Name)
-                                        @Html.Raw(" Designation: " + commentor.Designation.Name)
+                {
+                    @Html.Raw(commentor.Name)
+                    @Html.Raw(" Designation: " + commentor.Designation.Name)
 
-                                    }*@
+                }*@
                                 @Html.Raw("Comments by: me.")
                                 <span style="float: right">Time: @item.CommentTime.ToString("dd - MMM - yyyy hh:mm tt")</span>
                             </h6>
@@ -73,7 +73,11 @@
                             <div class="alert alert-info">
                                 @Html.Raw(item.Comments)
                             </div>
-                            <h6>Comments To:<b> @item.ReceiverEmployee.Name</b> <span> As : @item.ReceiverEmployee.UserRole</span></h6>
+                            if (item.ReceiverEmployee != null)
+                            {
+                                <h6>Comments To:<b> @item.ReceiverEmployee.Name</b> <span> As : @item.ReceiverEmployee.UserRole</span></h6>
+                            }
+
                             if (item.IsReceiverSeen)
                             {
 
@@ -81,7 +85,7 @@
                             }
                             else
                             {
-                               
+
                                 @*<h6>Not seen yet.</h6>*@
                             }
 
@@ -90,14 +94,14 @@
                         {
 
                             <h6>
-                               @Html.Raw("Comments by: me.")
+                                @Html.Raw("Comments by: me.")
                                 <span style="float: right">Time: @item.CommentTime.ToString("dd - MMM - yyyy hh:mm tt")</span>
                             </h6>
 
-                                <div class="alert alert-info">
-                                    @Html.Raw(item.Comments)
-                                </div>
-                           }
+                            <div class="alert alert-info">
+                                @Html.Raw(item.Comments)
+                            </div>
+                        }
                     </div>
                     <div class="col-md-12" style="height: 20px"></div>
                 </div>
