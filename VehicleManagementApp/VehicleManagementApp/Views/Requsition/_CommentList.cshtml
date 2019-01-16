@@ -44,14 +44,14 @@
                             <div class="alert alert-info" style="color: black">
                                 @Html.Raw(item.Comments)
                             </div>
-                            
+
                             if (!item.IsReceiverSeen)
                             {
-                                @*@Html.ActionLink("Seen", "CommentSeen", new { id = item.Id }, new { @class = "link" })*@
+                                @Html.ActionLink("Seen", "CommentSeen", new { id = item.Id }, new { @class = "link" })
                             }
                             else
                             {
-                                <h6> Seen at: @item.ReceiverSeenTime.ToString("dd - MMM - yyyy hh:mm tt")</h6>
+                                @*<h6> Seen at: @item.ReceiverSeenTime.ToString("dd - MMM - yyyy hh:mm tt")</h6>*@
                             }
 
                         }
@@ -77,12 +77,12 @@
                             if (item.IsReceiverSeen)
                             {
 
-                                <h6> Seen at: @item.ReceiverSeenTime.ToString("dd - MMM - yyyy hh:mm tt")</h6>
+                                @*<h6> Seen at: @item.ReceiverSeenTime.ToString("dd - MMM - yyyy hh:mm tt")</h6>*@
                             }
                             else
                             {
                                
-                                <h6>Not seen yet.</h6>
+                                @*<h6>Not seen yet.</h6>*@
                             }
 
                         }
